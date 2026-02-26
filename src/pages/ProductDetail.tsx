@@ -4,8 +4,7 @@ import { useCartStore } from "@/stores/cartStore";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { ShoppingCart, Loader2, Truck, Shield, RotateCcw, ChevronLeft } from "lucide-react";
+import { ShoppingCart, Loader2, ChevronLeft, Minus, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -17,6 +16,7 @@ const ProductDetail = () => {
   const cartLoading = useCartStore(state => state.isLoading);
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   if (isLoading) {
     return (
@@ -45,7 +45,8 @@ const ProductDetail = () => {
   const images = product.images?.edges || [];
   const variants = product.variants?.edges || [];
   const selectedVariant = variants[selectedVariantIdx]?.node;
-  const price = selectedVariant?.price || product.priceRange?.minVariantPrice;
+  const priceRaw = selectedVariant?.price || product.priceRange?.minVariantPrice;
+  const priceAmount = parseFloat(priceRaw?.amount || "0");
 
   const handleAddToCart = async () => {
     if (!selectedVariant) return;
@@ -69,7 +70,7 @@ const ProductDetail = () => {
       variantId: selectedVariant.id,
       variantTitle: selectedVariant.title,
       price: selectedVariant.price,
-      quantity: 1,
+      quantity,
       selectedOptions: selectedVariant.selectedOptions || [],
     });
     toast.success("Added to cart", { description: product.title, position: "top-center" });
@@ -86,10 +87,26 @@ const ProductDetail = () => {
         <span className="text-foreground">{product.title}</span>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8">
-        {/* Images */}
-        <div>
-          <div className="aspect-square bg-muted rounded-md overflow-hidden mb-3">
+      {/* Top section: Images + Purchase info */}
+      <div className="grid md:grid-cols-2 gap-8 mb-10">
+        {/* Image gallery with side thumbnails */}
+        <div className="flex gap-3">
+          {/* Thumbnails column */}
+          {images.length > 1 && (
+            <div className="flex flex-col gap-2 flex-shrink-0">
+              {images.map((img: { node: { url: string; altText: string | null } }, i: number) => (
+                <button
+                  key={i}
+                  className={`w-16 h-16 rounded border overflow-hidden ${i === selectedImage ? 'border-primary ring-1 ring-primary' : 'border-muted'}`}
+                  onClick={() => setSelectedImage(i)}
+                >
+                  <img src={img.node.url} alt="" className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
+          {/* Main image */}
+          <div className="flex-1 aspect-square bg-muted rounded-md overflow-hidden">
             {images[selectedImage]?.node ? (
               <img
                 src={images[selectedImage].node.url}
@@ -100,44 +117,37 @@ const ProductDetail = () => {
               <div className="w-full h-full flex items-center justify-center text-muted-foreground">No Image</div>
             )}
           </div>
-          {images.length > 1 && (
-            <div className="flex gap-2 overflow-x-auto">
-              {images.map((img: { node: { url: string; altText: string | null } }, i: number) => (
-                <button
-                  key={i}
-                  className={`w-16 h-16 rounded border overflow-hidden flex-shrink-0 ${i === selectedImage ? 'border-primary ring-1 ring-primary' : 'border-muted'}`}
-                  onClick={() => setSelectedImage(i)}
-                >
-                  <img src={img.node.url} alt="" className="w-full h-full object-cover" />
-                </button>
-              ))}
-            </div>
-          )}
         </div>
 
-        {/* Info */}
+        {/* Right side: Title, price, quantity, add to cart */}
         <div>
+          <h1 className="text-2xl font-bold mb-2">{product.title}</h1>
+
           {product.vendor && (
-            <Link to={`/brands#${product.vendor.toLowerCase()}`} className="text-sm text-primary hover:underline mb-1 block">
+            <Link to={`/brands#${product.vendor.toLowerCase()}`} className="text-sm text-primary hover:underline mb-4 block">
               {product.vendor}
             </Link>
           )}
-          <h1 className="text-2xl font-bold mb-2">{product.title}</h1>
 
-          <div className="flex items-center gap-3 mb-4">
-            <span className="text-2xl font-bold text-primary">
-              {price?.currencyCode} {parseFloat(price?.amount || "0").toFixed(2)}
+          <Separator className="my-4" />
+
+          {/* Price */}
+          <div className="flex items-baseline gap-2 mb-2">
+            <span className="text-sm text-muted-foreground">Price:</span>
+            <span className="text-2xl font-bold text-foreground">
+              ${priceAmount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </span>
-            {selectedVariant?.availableForSale ? (
-              <Badge variant="secondary" className="bg-[hsl(var(--robot-green))]/10 text-[hsl(var(--robot-green))]">In Stock</Badge>
-            ) : (
-              <Badge variant="destructive">Out of Stock</Badge>
-            )}
           </div>
+
+          {selectedVariant?.availableForSale ? (
+            <Badge variant="secondary" className="bg-[hsl(var(--robot-green))]/10 text-[hsl(var(--robot-green))] mb-6">In Stock</Badge>
+          ) : (
+            <Badge variant="destructive" className="mb-6">Out of Stock</Badge>
+          )}
 
           {/* Variant selector */}
           {product.options && product.options.length > 0 && product.options[0].name !== "Title" && (
-            <div className="mb-4">
+            <div className="mb-6">
               {product.options.map((option: { name: string; values: string[] }) => (
                 <div key={option.name} className="mb-3">
                   <label className="text-sm font-medium mb-1.5 block">{option.name}</label>
@@ -164,58 +174,149 @@ const ProductDetail = () => {
             </div>
           )}
 
+          {/* Quantity */}
+          <div className="flex items-center gap-3 mb-6">
+            <span className="text-sm font-medium">Quantity:</span>
+            <div className="flex items-center border rounded-md">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-9 w-9 rounded-none"
+                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              >
+                <Minus className="h-4 w-4" />
+              </Button>
+              <span className="w-12 text-center text-sm font-medium">{quantity}</span>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-9 w-9 rounded-none"
+                onClick={() => setQuantity(quantity + 1)}
+              >
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+
           {/* Add to cart */}
           <Button
             onClick={handleAddToCart}
             disabled={cartLoading || !selectedVariant?.availableForSale}
             size="lg"
-            className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold mb-4"
+            className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
           >
             {cartLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <ShoppingCart className="h-4 w-4 mr-2" />}
             Add to Cart
           </Button>
+        </div>
+      </div>
 
-          {/* Trust signals */}
-          <div className="grid grid-cols-3 gap-3 mb-6">
+      {/* Full-width sections below */}
+      <div className="border-t">
+        {/* Description */}
+        <ProductSection title="Description" defaultOpen>
+          <div className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed">
+            {product.descriptionHtml ? (
+              <div dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} className="prose prose-sm max-w-none text-muted-foreground" />
+            ) : (
+              <p>{product.description}</p>
+            )}
+          </div>
+        </ProductSection>
+
+        {/* Specifications */}
+        <ProductSection title="Specifications">
+          <div className="grid sm:grid-cols-2 gap-x-8 gap-y-2 text-sm">
             {[
-              { icon: Truck, label: "Free Shipping 99+" },
-              { icon: RotateCcw, label: "30-Day Returns" },
-              { icon: Shield, label: "Warranty" },
-            ].map(item => (
-              <div key={item.label} className="text-center">
-                <item.icon className="h-4 w-4 mx-auto text-muted-foreground mb-1" />
-                <span className="text-[10px] text-muted-foreground">{item.label}</span>
+              ["Total Degrees of Freedom", "23"],
+              ["Single Leg DoF", "6"],
+              ["Waist DoF", "1"],
+              ["Single Arm DoF", "5"],
+              ["Max Knee Joint Torque", "120 N·m"],
+              ["Arm Max Load", "3 kg"],
+              ["Calf + Thigh Length", "0.6 m"],
+              ["Arm Span", "0.45 m"],
+              ["Joint Encoder", "Dual encoder"],
+              ["Cooling System", "Local air cooling"],
+              ["Computing Power", "100 Tops (8-core CPU)"],
+              ["Sensing", "Depth Camera + 3D LiDAR"],
+              ["Microphone Array", "4-mic array"],
+              ["Speaker", "5W"],
+              ["Connectivity", "WiFi 6, Bluetooth 5.2"],
+              ["Battery", "9000 mAh (Quick Release)"],
+              ["Charger", "54V 5A"],
+              ["Battery Life", "~2 hours"],
+              ["Weight (with battery)", "35 kg"],
+              ["Height (Standing)", "1320 mm"],
+              ["Dimensions (Folded)", "690 × 450 × 300 mm"],
+            ].map(([label, value]) => (
+              <div key={label} className="flex justify-between py-1.5 border-b border-muted">
+                <span className="text-muted-foreground">{label}</span>
+                <span className="font-medium text-foreground">{value}</span>
               </div>
             ))}
           </div>
+        </ProductSection>
 
-          <Separator className="mb-4" />
+        {/* What's Included */}
+        <ProductSection title="What's Included">
+          <ul className="text-sm text-muted-foreground space-y-1.5 list-disc pl-5">
+            <li>1× Unitree G1 EDU Standard (U1) Humanoid Robot</li>
+            <li>1× Remote Control</li>
+            <li>1× Gantry</li>
+            <li className="text-destructive font-medium">Note: Hands are NOT included</li>
+          </ul>
+        </ProductSection>
 
-          {/* Description & specs */}
-          <Accordion type="multiple" defaultValue={["description"]}>
-            <AccordionItem value="description">
-              <AccordionTrigger className="text-sm">Description</AccordionTrigger>
-              <AccordionContent>
-                <p className="text-sm text-muted-foreground whitespace-pre-line">{product.description}</p>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="shipping">
-              <AccordionTrigger className="text-sm">Shipping & Warranty</AccordionTrigger>
-              <AccordionContent>
-                <div className="text-sm text-muted-foreground space-y-2">
-                  <p>• Free shipping on orders over $99</p>
-                  <p>• Standard shipping: 3-7 business days</p>
-                  <p>• Express shipping available at checkout</p>
-                  <p>• Manufacturer warranty included</p>
-                  <p>• 30-day hassle-free returns</p>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </div>
+        {/* Links & Resources */}
+        <ProductSection title="Links & Resources">
+          <ul className="text-sm space-y-1.5">
+            {[
+              ["User Manual", "https://marketing.unitree.com/article/en/G1/User_Manual.html"],
+              ["Remote Control Guide", "https://marketing.unitree.com/article/en/G1/Remote_Control.html"],
+              ["Battery & Charger", "https://marketing.unitree.com/article/en/G1/Battery_Charger.html"],
+              ["GitHub", "https://github.com/unitreerobotics"],
+              ["Developer Docs", "https://support.unitree.com/home/en/G1_developer"],
+            ].map(([label, url]) => (
+              <li key={label}>
+                <a href={url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                  {label} →
+                </a>
+              </li>
+            ))}
+          </ul>
+        </ProductSection>
       </div>
     </div>
   );
 };
+
+/* Collapsible section component matching RobotShop style */
+function ProductSection({ title, defaultOpen, children }: { title: string; defaultOpen?: boolean; children: React.ReactNode }) {
+  const [open, setOpen] = useState(!!defaultOpen);
+
+  return (
+    <div className="border-b">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between py-4 text-left font-semibold text-base hover:text-primary transition-colors"
+      >
+        {title}
+        <span className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`}>
+          <ChevronDown />
+        </span>
+      </button>
+      {open && <div className="pb-6">{children}</div>}
+    </div>
+  );
+}
+
+function ChevronDown() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  );
+}
 
 export default ProductDetail;
