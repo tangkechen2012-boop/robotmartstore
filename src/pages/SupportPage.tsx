@@ -47,9 +47,9 @@ const SupportPage = () => {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="return-process">
-            <AccordionTrigger>How do I return an item?</AccordionTrigger>
+            <AccordionTrigger>What is your refund policy?</AccordionTrigger>
             <AccordionContent>
-              Contact our support team within 30 days of delivery. We'll provide a return label and process your refund once we receive the item.
+              All sales are end-user sales. We do not accept returns or refunds for non-quality issues. If you receive a defective product, contact us within 30 days with documentation and we'll arrange a resolution.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="warranty-claim">
@@ -87,11 +87,11 @@ const SupportPage = () => {
         <h2 className="text-xl font-bold mb-3">Returns & Refunds</h2>
         <Card>
           <CardContent className="p-5 text-sm text-muted-foreground space-y-2">
-            <p>• 30-day return window from delivery date</p>
-            <p>• Items must be unused and in original packaging</p>
-            <p>• Return shipping is covered for defective items</p>
-            <p>• Refunds processed within 5-7 business days</p>
-            <p>• Custom or made-to-order items are non-refundable</p>
+            <p>• All sales are considered end-user sales</p>
+            <p>• Returns and refunds are not accepted for non-quality issues</p>
+            <p>• Quality defects must be reported within 30 days of delivery with documentation</p>
+            <p>• Defective items may be repaired, replaced, or refunded at our discretion</p>
+            <p>• Please verify specifications and compatibility before ordering</p>
           </CardContent>
         </Card>
       </section>

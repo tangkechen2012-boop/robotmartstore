@@ -36,18 +36,12 @@ const TermsOfServicePage = () => {
           You can cancel Product orders that haven't yet entered the shipping process by contacting RoboMart as soon as possible through our Support Center or by phone. We will verify the status of your order and validate if it is cancellable and subject to any fees. Products identified as Special Products may not be cancelled if a purchase has already been processed specifically for you with the manufacturer. Restocking fees up to 20% may apply for large quantity order cancellations. Shipping charges are non-refundable.
         </p>
 
-        <h3 className="text-lg font-semibold text-foreground !mt-6" id="Returns">Returns</h3>
+        <h3 className="text-lg font-semibold text-foreground !mt-6" id="Returns">Returns & Refunds</h3>
         <p>
-          If you are not satisfied for whatever reason with a Product you bought on the Site, it is possible to return it for refund within 30 days from the date you received it unless otherwise indicated in the Product listing. You must first contact the Vendor to obtain a return authorization ("RA") number before returning a Product. RA numbers are valid for 30 days. No returns will be accepted without having previously obtained an RA number. The Product must be returned in its original packaging (in perfect condition for resale) with its receipt and your RA number.
+          All sales on the Site are considered end-user sales. Returns and refunds will not be accepted for non-quality issues. If a Product is found to have a genuine quality defect, the Customer must contact RoboMart within 30 days of delivery with proof of the defect (photos, videos, or other documentation). RoboMart will review the claim and, at its sole discretion, arrange for a repair, replacement, or refund of the defective Product.
         </p>
         <p>
-          Build-it-yourself Robot Parts are not refundable once assembled. Robots & Kits requiring assembly or soldering are also not refundable once assembled, soldered or modified in any way. All sales of robotic software and apps are final. Returns are not accepted on special orders and clearance items except when they are found defective, in which case the Product may be repaired or replaced at the Vendor's discretion.
-        </p>
-        <p>
-          Professional & Specialized Equipment — Products classified for commercial, industrial, or research applications are not eligible for return or refund. In the event of a confirmed manufacturing defect, the product may be repaired, replaced, or supported in accordance with the manufacturer's warranty terms.
-        </p>
-        <p>
-          All items will be reimbursed within 7 to 14 days of receiving the Product (shipping fees excluded). You must also cover the cost of returning the Product. Shipping fees will only be refunded if the return is a result of a shipping error on our part.
+          Customers are responsible for verifying Product specifications, compatibility, and suitability for their intended use before placing an order. Incorrect product selection, change of mind, or buyer's remorse do not constitute grounds for a return or refund.
         </p>
 
         <h3 className="text-lg font-semibold text-foreground !mt-6">Product Listings</h3>

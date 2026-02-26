@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ProductCard } from "@/components/ProductCard";
 import { useShopifyProducts } from "@/hooks/useShopifyProducts";
-import { Truck, RotateCcw, Shield, Headphones, ChevronRight, Cpu, Cog, GraduationCap, Home, Factory, Bot, Wrench, Zap, Camera, Puzzle, Box, Rocket } from "lucide-react";
+import { Truck, Shield, Headphones, ChevronRight, Cpu, Cog, GraduationCap, Home, Factory, Bot, Wrench, Zap, Camera, Puzzle, Box, Rocket } from "lucide-react";
 import { FloatingRobot } from "@/components/FloatingRobot";
 
 const USE_CASES = [
@@ -168,7 +168,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
             { icon: Truck, label: "Free Shipping", desc: "On orders over $99" },
-            { icon: RotateCcw, label: "Easy Returns", desc: "30-day return policy" },
+            { icon: Shield, label: "Quality Guarantee", desc: "Warranty on all products" },
             { icon: Shield, label: "Warranty", desc: "Manufacturer warranty included" },
             { icon: Headphones, label: "Expert Support", desc: "Tech team ready to help" },
           ].map(item => (
