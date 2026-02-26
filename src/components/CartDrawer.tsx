@@ -63,7 +63,7 @@ export const CartDrawer = () => {
                       <div className="flex-1 min-w-0">
                         <h4 className="font-medium text-sm truncate">{item.product.node.title}</h4>
                         <p className="text-xs text-muted-foreground">{item.selectedOptions.map(o => o.value).join(' · ')}</p>
-                        <p className="font-semibold text-sm mt-0.5">{item.price.currencyCode} {parseFloat(item.price.amount).toFixed(2)}</p>
+                        <p className="font-semibold text-sm mt-0.5">${parseFloat(item.price.amount).toFixed(2)}</p>
                       </div>
                       <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
                         <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => removeItem(item.variantId)}>
@@ -86,7 +86,7 @@ export const CartDrawer = () => {
               <div className="flex-shrink-0 space-y-3 pt-4 border-t">
                 <div className="flex justify-between items-center">
                   <span className="font-semibold">Total</span>
-                  <span className="text-lg font-bold">{items[0]?.price.currencyCode || ''} {totalPrice.toFixed(2)}</span>
+                  <span className="text-lg font-bold">${totalPrice.toFixed(2)}</span>
                 </div>
                 <Button onClick={handleCheckout} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground" size="lg" disabled={items.length === 0 || isLoading || isSyncing}>
                   {isLoading || isSyncing ? <Loader2 className="w-4 h-4 animate-spin" /> : <><ExternalLink className="w-4 h-4 mr-2" />Checkout</>}
