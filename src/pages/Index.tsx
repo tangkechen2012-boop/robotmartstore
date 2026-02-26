@@ -172,10 +172,8 @@ const Index = () => {
             { icon: Shield, label: "Warranty", desc: "Manufacturer warranty included" },
             { icon: Headphones, label: "Expert Support", desc: "Tech team ready to help" },
           ].map(item => (
-            <div key={item.label} className="flex items-start gap-3">
-              <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <item.icon className="h-4 w-4 text-primary" />
-              </div>
+            <div key={item.label} className="flex flex-col items-center text-center gap-2">
+              <item.icon className="h-7 w-7 text-primary" />
               <div>
                 <p className="text-sm font-semibold">{item.label}</p>
                 <p className="text-xs text-muted-foreground">{item.desc}</p>
