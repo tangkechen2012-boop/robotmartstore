@@ -38,7 +38,7 @@ const TermsOfServicePage = () => {
 
         <h3 className="text-lg font-semibold text-foreground !mt-6" id="Returns">Returns & Refunds</h3>
         <p>
-          All sales on the Site are considered end-user sales. Returns and refunds will not be accepted for non-quality issues. If a Product is found to have a genuine quality defect, the Customer must contact RoboMart within 30 days of delivery with proof of the defect (photos, videos, or other documentation). RoboMart will review the claim and, at its sole discretion, arrange for a repair, replacement, or refund of the defective Product.
+          All sales on the Site are final. No returns or refunds will be accepted for non-quality issues. If a Product is found to have a genuine quality defect, the Customer must contact RoboMart within 30 days of delivery with proof of the defect (photos, videos, or other documentation). RoboMart will review the claim and, at its sole discretion, arrange for a repair, replacement, or refund of the defective Product.
         </p>
         <p>
           Customers are responsible for verifying Product specifications, compatibility, and suitability for their intended use before placing an order. Incorrect product selection, change of mind, or buyer's remorse do not constitute grounds for a return or refund.
