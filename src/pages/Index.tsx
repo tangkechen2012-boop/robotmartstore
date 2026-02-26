@@ -31,13 +31,13 @@ const Index = () => {
     <div className="min-h-screen">
       {/* Hero */}
       <section className="relative bg-gradient-to-br from-[hsl(var(--robot-navy))] to-[hsl(var(--primary))] text-[hsl(var(--robot-light))] overflow-visible">
-        <div className="max-w-7xl mx-auto px-4 py-24 md:py-40 overflow-visible">
-          <div className="flex items-center gap-16">
-            <div className="max-w-3xl flex-1">
-              <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-8">
+        <div className="max-w-7xl mx-auto px-4 py-16 md:py-24 overflow-visible">
+          <div className="flex items-center gap-8">
+            <div className="max-w-2xl flex-1">
+              <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
                 Robotics, Made Practical.
               </h1>
-              <p className="text-2xl opacity-90 mb-12 leading-relaxed">
+              <p className="text-lg opacity-90 mb-8 leading-relaxed">
                 Your one-stop shop for robot parts, kits, education tools, and professional-grade platforms. Curated from the world's best brands.
               </p>
               <div className="flex flex-wrap gap-3">
@@ -49,7 +49,7 @@ const Index = () => {
                 </Button>
               </div>
             </div>
-            <div className="hidden md:block w-[520px] h-[520px] flex-shrink-0 overflow-visible">
+            <div className="hidden md:block w-[360px] h-[360px] flex-shrink-0 overflow-visible">
               <FloatingRobot />
             </div>
           </div>
