@@ -49,7 +49,7 @@ const Index = () => {
                 </Button>
               </div>
             </div>
-            <div className="hidden md:block w-[440px] h-[440px] flex-shrink-0 overflow-visible border-2 border-dashed border-white/50 rounded-lg">
+            <div className="hidden md:block w-[440px] h-[440px] flex-shrink-0 overflow-visible">
               <FloatingRobot />
             </div>
           </div>
