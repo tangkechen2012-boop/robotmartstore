@@ -4,21 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ProductCard } from "@/components/ProductCard";
 import { useShopifyProducts } from "@/hooks/useShopifyProducts";
 import { Truck, RotateCcw, Shield, Headphones, ChevronRight, Cpu, Cog, GraduationCap, Home, Factory, Bot, Wrench, Zap, Camera, Puzzle, Box, Rocket } from "lucide-react";
-
-const CATEGORIES = [
-  { label: "Microcontrollers", icon: Cpu, link: "/collections/microcontrollers" },
-  { label: "Sensors", icon: Camera, link: "/collections/sensors" },
-  { label: "Motors & Actuators", icon: Cog, link: "/collections/motors" },
-  { label: "Robot Arms", icon: Bot, link: "/collections/robot-arms" },
-  { label: "Wheeled Robots", icon: Rocket, link: "/collections/wheeled-robots" },
-  { label: "Drones", icon: Zap, link: "/collections/drones" },
-  { label: "Education Kits", icon: GraduationCap, link: "/collections/education" },
-  { label: "ROS Platforms", icon: Puzzle, link: "/collections/ros-platforms" },
-  { label: "Home Robots", icon: Home, link: "/collections/home-robots" },
-  { label: "Industrial", icon: Factory, link: "/collections/industrial" },
-  { label: "Tools", icon: Wrench, link: "/collections/tools" },
-  { label: "Power & Batteries", icon: Box, link: "/collections/power" },
-];
+import { FloatingRobot } from "@/components/FloatingRobot";
 
 const USE_CASES = [
   { label: "Education", description: "K-12 to university robotics programs", icon: GraduationCap, link: "/collections/education" },
@@ -37,20 +23,25 @@ const Index = () => {
       {/* Hero */}
       <section className="relative bg-gradient-to-br from-[hsl(var(--robot-navy))] to-[hsl(var(--primary))] text-[hsl(var(--robot-light))]">
         <div className="max-w-7xl mx-auto px-4 py-16 md:py-24">
-          <div className="max-w-2xl">
-            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
-              Robotics, Made Practical.
-            </h1>
-            <p className="text-lg opacity-90 mb-8 leading-relaxed">
-              Your one-stop shop for robot parts, kits, education tools, and professional-grade platforms. Curated from the world's best brands.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold" asChild>
-                <Link to="/collections/all">Shop All Products</Link>
-              </Button>
-              <Button size="lg" variant="outline" className="border-[hsl(var(--robot-light))]/30 text-[hsl(var(--robot-light))] hover:bg-[hsl(var(--robot-light))]/10" asChild>
-                <Link to="/support#b2b">Get a Quote (B2B)</Link>
-              </Button>
+          <div className="flex items-center gap-8">
+            <div className="max-w-2xl flex-1">
+              <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+                Robotics, Made Practical.
+              </h1>
+              <p className="text-lg opacity-90 mb-8 leading-relaxed">
+                Your one-stop shop for robot parts, kits, education tools, and professional-grade platforms. Curated from the world's best brands.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold" asChild>
+                  <Link to="/collections/all">Shop All Products</Link>
+                </Button>
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold" asChild>
+                  <Link to="/support#b2b">Get a Quote (B2B)</Link>
+                </Button>
+              </div>
+            </div>
+            <div className="hidden md:block w-[320px] h-[320px] flex-shrink-0">
+              <FloatingRobot />
             </div>
           </div>
         </div>
@@ -89,29 +80,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Shop by Category */}
-      <section className="max-w-7xl mx-auto px-4 py-12">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">Shop by Category</h2>
-          <Link to="/collections/all" className="text-sm text-primary hover:underline flex items-center gap-1">
-            View all <ChevronRight className="h-3 w-3" />
-          </Link>
-        </div>
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
-          {CATEGORIES.map(cat => (
-            <Link key={cat.label} to={cat.link} className="group">
-              <Card className="hover:shadow-md transition-shadow border-muted">
-                <CardContent className="p-4 flex flex-col items-center text-center gap-2">
-                  <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                    <cat.icon className="h-5 w-5 text-primary" />
-                  </div>
-                  <span className="text-xs font-medium leading-tight">{cat.label}</span>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      </section>
+
 
       {/* Products */}
       <section className="max-w-7xl mx-auto px-4 py-8">
