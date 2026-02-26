@@ -124,7 +124,7 @@ export const Header = () => {
       <div className="bg-[hsl(var(--robot-navy))] text-[hsl(var(--robot-light))]">
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-8 text-xs">
           <div className="flex gap-4">
-            <span>Free shipping on orders over $99</span>
+            <span>Free shipping on orders over $500</span>
             <span className="hidden sm:inline">|</span>
             <span className="hidden sm:inline">Expert support available</span>
           </div>
