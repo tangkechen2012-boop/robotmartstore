@@ -132,12 +132,15 @@ const ProductDetail = () => {
           <Separator className="my-4" />
 
           {/* Price */}
-          <div className="flex items-baseline gap-2 mb-2">
+          <div className="flex items-baseline gap-2 mb-1">
             <span className="text-sm text-muted-foreground">Price:</span>
             <span className="text-2xl font-bold text-foreground">
               ${priceAmount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </span>
           </div>
+          <p className="text-xs text-muted-foreground mb-4">
+            Price excludes Tariffs (in USA). Shipping calculated at checkout.
+          </p>
 
           {selectedVariant?.availableForSale ? (
             <Badge variant="secondary" className="bg-[hsl(var(--robot-green))]/10 text-[hsl(var(--robot-green))] mb-6">In Stock</Badge>
@@ -198,16 +201,40 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          {/* Add to cart */}
-          <Button
-            onClick={handleAddToCart}
-            disabled={cartLoading || !selectedVariant?.availableForSale}
-            size="lg"
-            className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
-          >
-            {cartLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <ShoppingCart className="h-4 w-4 mr-2" />}
-            Add to Cart
-          </Button>
+          {/* On Demand notice */}
+          <div className="mb-4 rounded-md border border-border bg-muted/50 p-4 text-sm">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="font-semibold text-foreground">On Demand</span>
+              <a href="#" className="text-primary hover:underline text-xs">See due date</a>
+            </div>
+            <p className="text-muted-foreground leading-relaxed mb-2">
+              This is an On Demand item and is not normally stocked. We will order it for you along with our next purchase from the supplier.
+            </p>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              * Delays depend on the order frequency from each supplier and the approximate arrival date is indicated in the due date. Returns are not accepted on On Demand and Clearance Items except when they are found defective, in which case the product may be repaired or replaced at RobotShop's discretion.
+            </p>
+          </div>
+
+          {/* Add to cart + Request a Quote */}
+          <div className="flex gap-3">
+            <Button
+              onClick={handleAddToCart}
+              disabled={cartLoading || !selectedVariant?.availableForSale}
+              size="lg"
+              className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+            >
+              {cartLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <ShoppingCart className="h-4 w-4 mr-2" />}
+              Add to Cart
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="flex-1 font-semibold"
+              onClick={() => toast.info("Quote request feature coming soon", { position: "top-center" })}
+            >
+              Request a Quote
+            </Button>
+          </div>
         </div>
       </div>
 
