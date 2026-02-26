@@ -58,7 +58,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           <h3 className="text-sm font-medium leading-tight line-clamp-2 min-h-[2.5rem]">{node.title}</h3>
           <div className="mt-2 flex items-center justify-between">
             <span className="text-base font-bold text-primary">
-              {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
+              ${parseFloat(price.amount).toFixed(2)}
             </span>
             <Button
               size="icon"
