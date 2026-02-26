@@ -30,7 +30,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <section className="relative bg-gradient-to-br from-[hsl(var(--robot-navy))] to-[hsl(var(--primary))] text-[hsl(var(--robot-light))] overflow-visible">
+      <section className="relative bg-gradient-to-br from-[hsl(var(--robot-navy))] to-[hsl(var(--primary))] text-[hsl(var(--robot-light))] overflow-visible border-2 border-dashed border-white/50">
         <div className="max-w-7xl mx-auto px-4 py-20 md:py-32 overflow-visible">
           <div className="flex items-center gap-12">
             <div className="max-w-2xl flex-1">
