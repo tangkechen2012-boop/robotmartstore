@@ -13,7 +13,16 @@ const USE_CASES = [
   { label: "Home", description: "Personal robots & smart devices", icon: Home, link: "/collections/consumer" },
 ];
 
-const BRANDS = ["Arduino", "Raspberry Pi", "NVIDIA", "Boston Dynamics", "DJI", "Universal Robots", "ABB", "KUKA"];
+const BRANDS = [
+  { name: "Arduino", icon: "/images/brands/arduino.webp" },
+  { name: "Raspberry Pi", icon: "/images/brands/raspberry-pi.webp" },
+  { name: "NVIDIA", icon: "/images/brands/nvidia.webp" },
+  { name: "Boston Dynamics", icon: "/images/brands/boston-dynamics.webp" },
+  { name: "DJI", icon: "/images/brands/dji.webp" },
+  { name: "Universal Robots", icon: "/images/brands/universal-robots.webp" },
+  { name: "ABB", icon: "/images/brands/abb.webp" },
+  { name: "KUKA", icon: "/images/brands/kuka.webp" },
+];
 
 const Index = () => {
   const { data: products, isLoading } = useShopifyProducts(8);
@@ -126,15 +135,13 @@ const Index = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             {USE_CASES.map(uc => (
               <Link key={uc.label} to={uc.link}>
-                <Card className="hover:shadow-md transition-shadow h-full">
-                  <CardContent className="p-5">
-                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-                      <uc.icon className="h-5 w-5 text-primary" />
-                    </div>
-                    <h3 className="font-semibold mb-1">{uc.label}</h3>
-                    <p className="text-sm text-muted-foreground">{uc.description}</p>
-                  </CardContent>
-                </Card>
+                <div className="text-center p-6 rounded-lg hover:bg-muted/60 transition-colors h-full">
+                  <div className="h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                    <uc.icon className="h-7 w-7 text-primary" />
+                  </div>
+                  <h3 className="font-semibold mb-1">{uc.label}</h3>
+                  <p className="text-sm text-muted-foreground">{uc.description}</p>
+                </div>
               </Link>
             ))}
           </div>
@@ -146,9 +153,10 @@ const Index = () => {
         <h2 className="text-2xl font-bold mb-6">Top Brands</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-3">
           {BRANDS.map(brand => (
-            <Link key={brand} to={`/brands#${brand.toLowerCase().replace(/\s/g, '-')}`}>
-              <div className="border rounded-md p-4 text-center hover:shadow-sm transition-shadow bg-card">
-                <span className="text-sm font-medium text-muted-foreground">{brand}</span>
+            <Link key={brand.name} to={`/brands#${brand.name.toLowerCase().replace(/\s/g, '-')}`}>
+              <div className="border rounded-md p-4 text-center hover:shadow-sm transition-shadow bg-card flex flex-col items-center gap-2">
+                <img src={brand.icon} alt={brand.name} className="h-10 w-10 object-contain" />
+                <span className="text-xs font-medium text-muted-foreground">{brand.name}</span>
               </div>
             </Link>
           ))}
