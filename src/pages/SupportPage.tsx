@@ -72,7 +72,7 @@ const SupportPage = () => {
         <h2 className="text-xl font-bold mb-3">Shipping Policy</h2>
         <Card>
           <CardContent className="p-5 text-sm text-muted-foreground space-y-2">
-            <p>• <strong>Free standard shipping</strong> on orders over $99 (US domestic)</p>
+            <p>• <strong>Free standard shipping</strong> on orders over $500 (US domestic)</p>
             <p>• Standard shipping: 3-7 business days</p>
             <p>• Express shipping: 1-3 business days (additional charge)</p>
             <p>• International shipping: 7-21 business days depending on destination</p>

@@ -167,7 +167,7 @@ const Index = () => {
       <section className="bg-muted/50 border-t">
         <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { icon: Truck, label: "Free Shipping", desc: "On orders over $99" },
+            { icon: Truck, label: "Free Shipping", desc: "On orders over $500" },
             { icon: Shield, label: "Quality Guarantee", desc: "Warranty on all products" },
             { icon: Shield, label: "Warranty", desc: "Manufacturer warranty included" },
             { icon: Headphones, label: "Expert Support", desc: "Tech team ready to help" },
