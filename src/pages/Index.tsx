@@ -28,9 +28,9 @@ const Index = () => {
   const { data: products, isLoading } = useShopifyProducts(8);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       {/* Hero */}
-       <section className="relative bg-gradient-to-br from-[hsl(var(--robot-navy))] to-[hsl(var(--primary))] text-[hsl(var(--robot-light)]">
+       <section className="relative overflow-hidden bg-gradient-to-br from-[hsl(var(--robot-navy))] to-[hsl(var(--primary))] text-[hsl(var(--robot-light)]">
         <div className="max-w-7xl mx-auto px-4 py-20 md:py-32">
           <div className="flex items-center gap-12">
             <div className="max-w-2xl flex-1">
