@@ -188,12 +188,12 @@ export const FloatingRobot = () => (
     <pointLight position={[3, -1, 3]} intensity={0.3} color="#818cf8" />
     <RobotModel />
     {/* Floating accessories */}
-    <Gear position={[1.4, 1.0, -0.5]} scale={0.7} />
-    <Gear position={[-1.3, -0.4, 0.3]} scale={0.6} />
-    <Bolt position={[1.2, -0.7, 0.5]} scale={0.8} />
-    <Bolt position={[-1.1, 1.2, -0.3]} scale={0.7} />
-    <Chip position={[1.5, 0.2, 0.2]} scale={0.9} />
-    <Chip position={[-1.4, 0.5, -0.4]} scale={0.7} />
-    <Wrench position={[-1.5, -0.7, 0.1]} scale={0.7} />
+    <Gear position={[1.1, 0.8, -0.5]} scale={0.55} />
+    <Gear position={[-1.0, -0.3, 0.3]} scale={0.5} />
+    <Bolt position={[0.95, -0.6, 0.5]} scale={0.6} />
+    <Bolt position={[-0.9, 1.0, -0.3]} scale={0.55} />
+    <Chip position={[1.2, 0.15, 0.2]} scale={0.7} />
+    <Chip position={[-1.1, 0.4, -0.4]} scale={0.55} />
+    <Wrench position={[-1.2, -0.6, 0.1]} scale={0.55} />
   </Canvas>
 );
