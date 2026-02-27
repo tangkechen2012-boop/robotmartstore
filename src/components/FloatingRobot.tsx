@@ -14,7 +14,7 @@ function RobotModel() {
 
   return (
     <Float speed={2} rotationIntensity={0.4} floatIntensity={1.5}>
-      <group ref={groupRef} scale={1.35}>
+      <group ref={groupRef} scale={1.1} position={[0, -0.1, 0]}>
         {/* Head - rounded */}
         <mesh position={[0, 1.2, 0]}>
           <sphereGeometry args={[0.5, 32, 32]} />
@@ -181,7 +181,7 @@ function Wrench({ position, scale = 1 }: { position: [number, number, number]; s
 }
 
 export const FloatingRobot = () => (
-  <Canvas camera={{ position: [0, 0.3, 4.5], fov: 42 }} style={{ width: "100%", height: "100%" }}>
+  <Canvas camera={{ position: [0, 0.3, 5.5], fov: 38 }} style={{ width: "100%", height: "100%" }}>
     <ambientLight intensity={0.5} />
     <directionalLight position={[5, 5, 5]} intensity={1} />
     <pointLight position={[-3, 2, 4]} intensity={0.6} color="#38bdf8" />
