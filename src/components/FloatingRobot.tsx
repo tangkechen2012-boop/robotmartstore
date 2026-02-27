@@ -181,19 +181,22 @@ function Wrench({ position, scale = 1 }: { position: [number, number, number]; s
 }
 
 export const FloatingRobot = () => (
-  <Canvas camera={{ position: [0, 0.3, 5.5], fov: 38 }} style={{ width: "100%", height: "100%" }}>
+  <Canvas camera={{ position: [0, 0.25, 6.1], fov: 40 }} style={{ width: "100%", height: "100%" }}>
     <ambientLight intensity={0.5} />
     <directionalLight position={[5, 5, 5]} intensity={1} />
     <pointLight position={[-3, 2, 4]} intensity={0.6} color="#38bdf8" />
     <pointLight position={[3, -1, 3]} intensity={0.3} color="#818cf8" />
-    <RobotModel />
-    {/* Floating accessories */}
-    <Gear position={[1.1, 0.8, -0.5]} scale={0.55} />
-    <Gear position={[-1.0, -0.3, 0.3]} scale={0.5} />
-    <Bolt position={[0.95, -0.6, 0.5]} scale={0.6} />
-    <Bolt position={[-0.9, 1.0, -0.3]} scale={0.55} />
-    <Chip position={[1.2, 0.15, 0.2]} scale={0.7} />
-    <Chip position={[-1.1, 0.4, -0.4]} scale={0.55} />
-    <Wrench position={[-1.2, -0.6, 0.1]} scale={0.55} />
+
+    <group position={[-0.18, 0, 0]} scale={0.88}>
+      <RobotModel />
+      {/* Floating accessories */}
+      <Gear position={[1.0, 0.75, -0.5]} scale={0.5} />
+      <Gear position={[-0.95, -0.25, 0.3]} scale={0.45} />
+      <Bolt position={[0.85, -0.55, 0.5]} scale={0.5} />
+      <Bolt position={[-0.8, 0.9, -0.3]} scale={0.48} />
+      <Chip position={[1.05, 0.1, 0.2]} scale={0.6} />
+      <Chip position={[-0.95, 0.35, -0.4]} scale={0.48} />
+      <Wrench position={[-1.0, -0.55, 0.1]} scale={0.48} />
+    </group>
   </Canvas>
 );
