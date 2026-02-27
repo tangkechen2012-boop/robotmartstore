@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
-import { Search, User, Menu, X, ChevronDown, ChevronRight } from "lucide-react";
+import { Search, User, Menu, ChevronDown, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CartDrawer } from "@/components/CartDrawer";
@@ -11,72 +11,28 @@ const MEGA_MENU_DATA = [
     label: "Shop",
     sections: [
       {
-        title: "Robot Parts & Components",
-        link: "/collections/parts",
+        title: "Robots",
+        link: "/collections/all",
         items: [
-          { label: "Microcontrollers & SBC", link: "/collections/microcontrollers" },
-          { label: "Sensors", link: "/collections/sensors" },
-          { label: "Motors & Actuators", link: "/collections/motors" },
-          { label: "Motor Controllers", link: "/collections/motor-controllers" },
-          { label: "Power (Batteries/Chargers)", link: "/collections/power" },
+          { label: "Humanoid Robots", link: "/humanoid-robots" },
+          { label: "Quadruped Robots", link: "/quadruped-robots" },
+          { label: "Robotic Arms", link: "/robotic-arms" },
+          { label: "Industrial Robots", link: "/industrial-robots" },
+          { label: "Educational Robotics", link: "/educational-robotics" },
+          { label: "Drones / UGV / UUV", link: "/collections/drones" },
+        ],
+      },
+      {
+        title: "Robot Parts & Components",
+        link: "/robot-parts",
+        items: [
+          { label: "Motors & Actuators", link: "/robot-parts/motors" },
+          { label: "Controllers", link: "/robot-parts/controllers" },
+          { label: "Sensors", link: "/robot-parts/sensors" },
+          { label: "Batteries & Power", link: "/robot-parts/batteries" },
           { label: "Cables & Connectors", link: "/collections/cables" },
           { label: "Mechanical Parts", link: "/collections/mechanical" },
-          { label: "AI Parts / Compute", link: "/collections/ai-compute" },
-        ],
-      },
-      {
-        title: "Robots & Kits",
-        link: "/collections/robots-kits",
-        items: [
-          { label: "Wheeled Robots", link: "/collections/wheeled-robots" },
-          { label: "Robot Arms & Grippers", link: "/collections/robot-arms" },
-          { label: "ROS Platforms", link: "/collections/ros-platforms" },
-          { label: "Drones / UGV / UUV", link: "/collections/drones" },
-          { label: "Competition Kits", link: "/collections/competition-kits" },
-          { label: "AI Robots", link: "/collections/ai-robots" },
-        ],
-      },
-      {
-        title: "Robotics Education",
-        link: "/collections/education",
-        items: [
-          { label: "Preschool / K-12", link: "/collections/k12" },
-          { label: "High School / College", link: "/collections/higher-ed" },
-          { label: "Graduate & Research", link: "/collections/research" },
-          { label: "Books & Learning", link: "/collections/books" },
-        ],
-      },
-      {
-        title: "Consumer Robots",
-        link: "/collections/consumer",
-        items: [
-          { label: "Home Robots", link: "/collections/home-robots" },
-          { label: "Companion / Pet Robots", link: "/collections/companion" },
-          { label: "Smart Home", link: "/collections/smart-home" },
-        ],
-      },
-    ],
-  },
-  {
-    label: "Professional",
-    sections: [
-      {
-        title: "Professional Service Robots",
-        link: "/collections/professional",
-        items: [
-          { label: "Hospitality", link: "/collections/hospitality" },
-          { label: "Logistics", link: "/collections/logistics" },
-          { label: "Inspection & Maintenance", link: "/collections/inspection" },
-          { label: "Security & Rescue", link: "/collections/security" },
-          { label: "Research Platforms", link: "/collections/research-platforms" },
-        ],
-      },
-      {
-        title: "Industrial Robotics",
-        link: "/collections/industrial",
-        items: [
-          { label: "Industrial Robot Arms", link: "/collections/industrial-arms" },
-          { label: "EOAT / End Effectors", link: "/collections/eoat" },
+          { label: "AI Compute Modules", link: "/collections/ai-compute" },
         ],
       },
       {
@@ -84,9 +40,24 @@ const MEGA_MENU_DATA = [
         link: "/collections/tools",
         items: [
           { label: "3D Printing", link: "/collections/3d-printing" },
-          { label: "Lab Power", link: "/collections/lab-power" },
+          { label: "Lab Power Supplies", link: "/collections/lab-power" },
           { label: "Measuring Tools", link: "/collections/measuring" },
           { label: "Soldering", link: "/collections/soldering" },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Applications",
+    sections: [
+      {
+        title: "By Use Case",
+        link: "/applications",
+        items: [
+          { label: "Education", link: "/applications/education" },
+          { label: "Research Labs", link: "/applications/research" },
+          { label: "Industrial Automation", link: "/applications/industrial-automation" },
+          { label: "AI Development", link: "/applications/ai-development" },
         ],
       },
     ],
@@ -94,16 +65,15 @@ const MEGA_MENU_DATA = [
 ];
 
 const NAV_LINKS = [
-  { label: "Deals", link: "/collections/deals" },
-  { label: "New Arrivals", link: "/collections/new-arrivals" },
   { label: "Brands", link: "/brands" },
-  { label: "Support", link: "/support" },
+  { label: "B2B / RFQ", link: "/b2b" },
+  { label: "Resources", link: "/resources" },
   { label: "Blog", link: "/blog" },
+  { label: "Support", link: "/support" },
 ];
 
 export const Header = () => {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
-  const [searchOpen, setSearchOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
@@ -124,13 +94,13 @@ export const Header = () => {
       <div className="bg-[hsl(var(--robot-navy))] text-[hsl(var(--robot-light))]">
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-8 text-xs">
           <div className="flex gap-4">
-            <span>Free shipping on orders over $500</span>
+            <span>Free shipping on US orders over $500</span>
             <span className="hidden sm:inline">|</span>
-            <span className="hidden sm:inline">Expert support available</span>
+            <span className="hidden sm:inline">Authorized robotics distributor</span>
           </div>
           <div className="flex gap-3">
             <Link to="/support" className="hover:underline">Help</Link>
-            <Link to="/support#b2b" className="hover:underline">B2B / RFQ</Link>
+            <Link to="/b2b" className="hover:underline">B2B / RFQ</Link>
           </div>
         </div>
       </div>
@@ -218,8 +188,6 @@ export const Header = () => {
               <Input
                 placeholder="Search robots, parts, kits..."
                 className="pl-8 h-9 text-sm"
-                onFocus={() => setSearchOpen(true)}
-                onBlur={() => setTimeout(() => setSearchOpen(false), 200)}
               />
             </div>
           </div>
