@@ -30,27 +30,22 @@ const Index = () => {
   return (
     <div className="min-h-screen overflow-x-hidden">
       {/* Hero */}
-       <section className="relative overflow-hidden bg-gradient-to-br from-[hsl(var(--robot-navy))] to-[hsl(var(--primary))] text-[hsl(var(--robot-light)]">
+       <section className="relative bg-gradient-to-br from-[hsl(var(--robot-navy))] to-[hsl(var(--primary))] text-[hsl(var(--robot-light)]">
         <div className="max-w-7xl mx-auto px-4 py-20 md:py-32">
-          <div className="flex items-center gap-12">
-            <div className="max-w-2xl flex-1">
-              <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
-                Robotics, Made Practical.
-              </h1>
-              <p className="text-xl opacity-90 mb-10 leading-relaxed">
-                Your one-stop shop for robot parts, kits, education tools, and professional-grade platforms. Curated from the world's best brands.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold" asChild>
-                  <Link to="/collections/all">Shop All Products</Link>
-                </Button>
-                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold" asChild>
-                  <Link to="/support#b2b">Get a Quote (B2B)</Link>
-                </Button>
-              </div>
-            </div>
-            <div className="hidden md:block w-[480px] h-[480px] flex-shrink-0">
-              <FloatingRobot />
+          <div className="max-w-2xl">
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+              Robotics, Made Practical.
+            </h1>
+            <p className="text-xl opacity-90 mb-10 leading-relaxed">
+              Your one-stop shop for robot parts, kits, education tools, and professional-grade platforms. Curated from the world's best brands.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold" asChild>
+                <Link to="/collections/all">Shop All Products</Link>
+              </Button>
+              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold" asChild>
+                <Link to="/support#b2b">Get a Quote (B2B)</Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -85,6 +80,15 @@ const Index = () => {
                 <p className="text-xs opacity-70">Pre-sale selection + post-sale tech support</p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3D Robot Showcase */}
+      <section className="bg-gradient-to-b from-[hsl(var(--robot-navy))] to-background">
+        <div className="max-w-7xl mx-auto px-4 py-8 flex justify-center">
+          <div className="w-full max-w-lg h-[420px]">
+            <FloatingRobot />
           </div>
         </div>
       </section>
