@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float } from "@react-three/drei";
+import { Float, OrbitControls } from "@react-three/drei";
 import { useRef } from "react";
 import * as THREE from "three";
 
@@ -198,5 +198,6 @@ export const FloatingRobot = () => (
       <Chip position={[-0.95, 0.35, -0.4]} scale={0.48} />
       <Wrench position={[-1.0, -0.55, 0.1]} scale={0.48} />
     </group>
+    <OrbitControls enablePan enableZoom enableRotate dampingFactor={0.15} />
   </Canvas>
 );
