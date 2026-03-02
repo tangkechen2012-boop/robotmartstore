@@ -103,7 +103,7 @@ const Index = () => {
                 <Button size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground shadow-soft-lg transition-all duration-300 hover:shadow-card-hover" asChild>
                   <Link to="/products">Browse Products</Link>
                 </Button>
-                <Button size="lg" variant="outline" className="rounded-pill px-8 font-semibold border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 transition-all duration-300" asChild>
+                <Button size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground shadow-soft-lg transition-all duration-300 hover:shadow-card-hover" asChild>
                   <Link to="/contact">Request Consultation</Link>
                 </Button>
               </div>
