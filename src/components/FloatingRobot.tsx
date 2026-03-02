@@ -84,6 +84,21 @@ function Ring({ pos, r = 0.04, mat }: { pos: [number, number, number]; r?: numbe
    Total robot: ~1.9 units. Head: 0.38
    ═══════════════════════════════════════════════ */
 function Head(m: M) {
+  const visorRef = useRef<THREE.MeshPhysicalMaterial>(null);
+  const sensorRef = useRef<THREE.MeshPhysicalMaterial>(null);
+
+  useFrame((state) => {
+    const t = state.clock.elapsedTime;
+    const pulse = Math.sin(t * 2.0) * 0.5 + 0.5; // 0~1
+    if (visorRef.current) {
+      visorRef.current.emissive = new THREE.Color("#4A90A8");
+      visorRef.current.emissiveIntensity = 0.05 + pulse * 0.12;
+    }
+    if (sensorRef.current) {
+      sensorRef.current.emissiveIntensity = 0.08 + pulse * 0.25;
+    }
+  });
+
   return (
     <group position={[0, 1.72, 0]}>
       {/* Helmet shell */}
@@ -98,8 +113,9 @@ function Head(m: M) {
       <mesh material={m.darkSteel} position={[0, 0.2, 0]}>
         <cylinderGeometry args={[0.03, 0.035, 0.025, 16]} />
       </mesh>
-      <mesh material={m.visor} position={[0, 0.215, 0]}>
+      <mesh position={[0, 0.215, 0]}>
         <sphereGeometry args={[0.015, 12, 12]} />
+        <meshPhysicalMaterial ref={visorRef} color="#1A2030" metalness={0.3} roughness={0.08} clearcoat={0.8} clearcoatRoughness={0.05} envMapIntensity={0.8} transparent opacity={0.92} />
       </mesh>
 
       {/* Visor recess */}
@@ -107,8 +123,9 @@ function Head(m: M) {
         <boxGeometry args={[0.28, 0.04, 0.04]} />
       </mesh>
       {/* Visor glass — narrow horizontal band */}
-      <mesh material={m.visor} position={[0, 0.03, 0.155]}>
+      <mesh position={[0, 0.03, 0.155]}>
         <boxGeometry args={[0.26, 0.025, 0.012]} />
+        <meshPhysicalMaterial ref={visorRef} color="#1A2030" metalness={0.3} roughness={0.08} clearcoat={0.8} clearcoatRoughness={0.05} envMapIntensity={0.8} transparent opacity={0.92} />
       </mesh>
       {/* Visor wraps */}
       <mesh material={m.visor} position={[-0.145, 0.03, 0.12]} rotation={[0, 0.5, 0]}>
@@ -117,9 +134,10 @@ function Head(m: M) {
       <mesh material={m.visor} position={[0.145, 0.03, 0.12]} rotation={[0, -0.5, 0]}>
         <boxGeometry args={[0.04, 0.025, 0.012]} />
       </mesh>
-      {/* Sensor dot */}
-      <mesh material={m.sensor} position={[0, 0.03, 0.163]}>
+      {/* Sensor dot — pulsing glow */}
+      <mesh position={[0, 0.03, 0.163]}>
         <sphereGeometry args={[0.004, 8, 8]} />
+        <meshPhysicalMaterial ref={sensorRef} color="#4A90A8" emissive="#4A90A8" emissiveIntensity={0.1} metalness={0.2} roughness={0.3} clearcoat={0.4} />
       </mesh>
 
       {/* Chin plate */}
