@@ -7,6 +7,7 @@ import {
   BrainCircuit, ArrowRight, Wrench, Code2, Search as SearchIcon,
   Shield, Users, Award, Globe, Truck, Headphones
 } from "lucide-react";
+import { FloatingRobot } from "@/components/FloatingRobot";
 import { useEffect } from "react";
 
 const PILLARS = [
@@ -109,26 +110,9 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Floating glass cards */}
-            <div className="hidden lg:flex flex-col gap-4 items-end">
-              <div className="glass rounded-2xl p-5 max-w-xs shadow-soft-lg animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="h-10 w-10 rounded-xl bg-accent/20 flex items-center justify-center">
-                    <Globe className="h-5 w-5 text-accent" />
-                  </div>
-                  <p className="font-bold text-sm">Global Distribution</p>
-                </div>
-                <p className="text-xs text-muted-foreground">Authorized distributor of leading robotics brands worldwide.</p>
-              </div>
-              <div className="glass rounded-2xl p-5 max-w-xs shadow-soft-lg animate-fade-in-up mr-12" style={{ animationDelay: "0.4s" }}>
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="h-10 w-10 rounded-xl bg-accent/20 flex items-center justify-center">
-                    <Shield className="h-5 w-5 text-accent" />
-                  </div>
-                  <p className="font-bold text-sm">Engineering Support</p>
-                </div>
-                <p className="text-xs text-muted-foreground">Pre-sale guidance and post-sale engineering from robotics experts.</p>
-              </div>
+            {/* 3D Interactive Robot */}
+            <div className="hidden lg:block w-[500px] h-[520px] flex-shrink-0">
+              <FloatingRobot />
             </div>
           </div>
         </div>
