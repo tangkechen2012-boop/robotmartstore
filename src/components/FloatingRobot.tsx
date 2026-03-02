@@ -4,275 +4,202 @@ import { useRef, Suspense, useMemo, useState } from "react";
 import * as THREE from "three";
 
 /* ═══════════════════════════════════════════════
-   PBR MATERIALS
+   PBR MATERIALS — white body + dark joints style
    ═══════════════════════════════════════════════ */
 function useMaterials() {
   return useMemo(() => {
-    const aluminum = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#C2C8D0"),
-      metalness: 1.0,
-      roughness: 0.16,
-      envMapIntensity: 1.5,
-      clearcoat: 0.5,
-      clearcoatRoughness: 0.04,
+    // Clean white body panels
+    const white = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#E8ECF0"),
+      metalness: 0.15,
+      roughness: 0.25,
+      envMapIntensity: 1.0,
+      clearcoat: 0.6,
+      clearcoatRoughness: 0.1,
     });
-    const aluminumDark = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#9CA4B0"),
-      metalness: 1.0,
-      roughness: 0.2,
-      envMapIntensity: 1.2,
-      clearcoat: 0.3,
-      clearcoatRoughness: 0.06,
+    // Slightly off-white for panel variation
+    const whiteAlt = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#D5DAE0"),
+      metalness: 0.2,
+      roughness: 0.3,
+      envMapIntensity: 0.9,
+      clearcoat: 0.4,
     });
-    const titanium = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#5A6270"),
-      metalness: 0.95,
-      roughness: 0.14,
-      envMapIntensity: 1.3,
-      clearcoat: 0.3,
-      clearcoatRoughness: 0.08,
-    });
-    const darkSteel = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#2A2E35"),
-      metalness: 0.8,
-      roughness: 0.22,
-      envMapIntensity: 0.8,
+    // Dark charcoal for joints, forearms, shins
+    const dark = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#1E2228"),
+      metalness: 0.6,
+      roughness: 0.35,
+      envMapIntensity: 0.7,
       clearcoat: 0.2,
     });
+    // Medium gray for transitions
+    const gray = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#4A5060"),
+      metalness: 0.5,
+      roughness: 0.3,
+      envMapIntensity: 0.8,
+      clearcoat: 0.3,
+    });
+    // Black helmet
+    const helmet = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#0A0E14"),
+      metalness: 0.3,
+      roughness: 0.2,
+      envMapIntensity: 1.0,
+      clearcoat: 0.8,
+      clearcoatRoughness: 0.05,
+    });
+    // Visor — cyan tinted glass
     const visor = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#1A2030"),
-      metalness: 0.4,
+      color: new THREE.Color("#40B0D0"),
+      emissive: new THREE.Color("#40B0D0"),
+      emissiveIntensity: 0.3,
+      metalness: 0.2,
       roughness: 0.05,
       clearcoat: 1.0,
       clearcoatRoughness: 0.01,
       envMapIntensity: 2.0,
       transparent: true,
-      opacity: 0.92,
+      opacity: 0.85,
     });
-    const sensor = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#4A90A8"),
-      emissive: new THREE.Color("#4A90A8"),
-      emissiveIntensity: 0.12,
-      metalness: 0.3,
-      roughness: 0.1,
-      clearcoat: 0.8,
-    });
+    // Rubber grip
     const grip = new THREE.MeshStandardMaterial({
-      color: new THREE.Color("#1A1D22"),
-      metalness: 0.15,
-      roughness: 0.7,
+      color: new THREE.Color("#0E1015"),
+      metalness: 0.05,
+      roughness: 0.85,
     });
-    return { aluminum, aluminumDark, titanium, darkSteel, visor, sensor, grip };
+    return { white, whiteAlt, dark, gray, helmet, visor, grip };
   }, []);
 }
 
 type M = ReturnType<typeof useMaterials>;
 
-function Ring({ pos, r = 0.04, mat }: { pos: [number, number, number]; r?: number; mat: THREE.Material }) {
-  return <mesh position={pos} material={mat}><torusGeometry args={[r, r * 0.22, 10, 24]} /></mesh>;
-}
-
 /* ═══════════════════════════════════════════════
-   HEAD — ~20% height, helmet, narrow visor, LiDAR
-   Total robot: ~1.9 units. Head: 0.38
+   HEAD — black helmet with cyan visor band
    ═══════════════════════════════════════════════ */
 function Head(m: M) {
   return (
     <group position={[0, 1.72, 0]}>
-      {/* Helmet shell */}
-      <mesh material={m.aluminum} position={[0, 0, -0.01]} scale={[1, 1.15, 1]}>
-        <sphereGeometry args={[0.16, 48, 48]} />
+      {/* Black helmet — smooth dome */}
+      <mesh material={m.helmet} position={[0, 0.02, -0.01]} scale={[1, 1.1, 1]}>
+        <sphereGeometry args={[0.14, 48, 48]} />
       </mesh>
-      {/* Helmet top plate */}
-      <mesh material={m.aluminumDark} position={[0, 0.12, -0.01]}>
-        <cylinderGeometry args={[0.07, 0.11, 0.05, 20]} />
-      </mesh>
-      {/* LiDAR module */}
-      <mesh material={m.darkSteel} position={[0, 0.2, 0]}>
-        <cylinderGeometry args={[0.03, 0.035, 0.025, 16]} />
-      </mesh>
-      <mesh material={m.visor} position={[0, 0.215, 0]}>
-        <sphereGeometry args={[0.015, 12, 12]} />
+      {/* Helmet top cap */}
+      <mesh material={m.dark} position={[0, 0.14, 0]}>
+        <cylinderGeometry args={[0.04, 0.08, 0.04, 20]} />
       </mesh>
 
-      {/* Visor recess */}
-      <mesh material={m.darkSteel} position={[0, 0.03, 0.13]}>
-        <boxGeometry args={[0.28, 0.04, 0.04]} />
-      </mesh>
-      {/* Visor glass — narrow horizontal band */}
-      <mesh material={m.visor} position={[0, 0.03, 0.155]}>
-        <boxGeometry args={[0.26, 0.025, 0.012]} />
-      </mesh>
-      {/* Visor wraps */}
-      <mesh material={m.visor} position={[-0.145, 0.03, 0.12]} rotation={[0, 0.5, 0]}>
-        <boxGeometry args={[0.04, 0.025, 0.012]} />
-      </mesh>
-      <mesh material={m.visor} position={[0.145, 0.03, 0.12]} rotation={[0, -0.5, 0]}>
-        <boxGeometry args={[0.04, 0.025, 0.012]} />
-      </mesh>
-      {/* Sensor dot */}
-      <mesh material={m.sensor} position={[0, 0.03, 0.163]}>
-        <sphereGeometry args={[0.004, 8, 8]} />
+      {/* Visor — wide cyan band wrapping around */}
+      <mesh material={m.visor} position={[0, 0.02, 0.12]} scale={[1.05, 0.35, 0.3]}>
+        <sphereGeometry args={[0.13, 32, 16, -Math.PI * 0.6, Math.PI * 1.2]} />
       </mesh>
 
-      {/* Chin plate */}
-      <mesh material={m.aluminum} position={[0, -0.1, 0.02]}>
-        <boxGeometry args={[0.2, 0.06, 0.13]} />
-      </mesh>
-      <mesh material={m.aluminumDark} position={[0, -0.12, 0.07]}>
-        <boxGeometry args={[0.15, 0.02, 0.05]} />
+      {/* Lower face — white chin area */}
+      <mesh material={m.white} position={[0, -0.08, 0.01]} scale={[1, 0.7, 0.9]}>
+        <sphereGeometry args={[0.1, 24, 24, 0, Math.PI * 2, Math.PI * 0.3, Math.PI * 0.5]} />
       </mesh>
 
-      {/* Seam lines */}
-      <mesh material={m.aluminumDark} position={[0, 0.06, 0.158]}>
-        <boxGeometry args={[0.28, 0.002, 0.002]} />
+      {/* Neck */}
+      <mesh position={[0, -0.16, 0]} material={m.dark}>
+        <cylinderGeometry args={[0.04, 0.05, 0.06, 16]} />
       </mesh>
-      <mesh material={m.aluminumDark} position={[0, 0.0, 0.158]}>
-        <boxGeometry args={[0.28, 0.002, 0.002]} />
-      </mesh>
-
-
-      {/* Neck ring */}
-      <Ring pos={[0, -0.16, 0]} r={0.055} mat={m.titanium} />
     </group>
   );
 }
 
 /* ═══════════════════════════════════════════════
-   TORSO — ~40% height. Structured panels.
-   Height: ~0.76 units
+   TORSO — large white chest plate, slim dark waist
    ═══════════════════════════════════════════════ */
 function Torso(m: M) {
   return (
     <group>
-      {/* Neck */}
-      <mesh position={[0, 1.53, 0]} material={m.titanium}>
-        <cylinderGeometry args={[0.04, 0.055, 0.08, 16]} />
+      {/* Upper chest — large white plate */}
+      <mesh position={[0, 1.38, 0.02]} material={m.white} scale={[1, 1, 0.8]}>
+        <cylinderGeometry args={[0.16, 0.2, 0.24, 24]} />
+      </mesh>
+      {/* Chest front panel — smooth convex */}
+      <mesh position={[0, 1.36, 0.1]} material={m.white} scale={[1.1, 0.9, 0.4]}>
+        <sphereGeometry args={[0.14, 24, 24]} />
+      </mesh>
+      {/* Back panel */}
+      <mesh position={[0, 1.36, -0.08]} material={m.whiteAlt} scale={[1, 0.9, 0.4]}>
+        <sphereGeometry args={[0.13, 20, 20]} />
       </mesh>
 
-      {/* Upper chest — rounded, broader at shoulders */}
-      <mesh position={[0, 1.38, 0]} material={m.aluminum} scale={[1.3, 1, 0.85]}>
-        <sphereGeometry args={[0.18, 32, 32, 0, Math.PI * 2, 0, Math.PI * 0.6]} />
-      </mesh>
-      {/* Chest volume */}
-      <mesh position={[0, 1.32, 0.02]} material={m.aluminum}>
-        <cylinderGeometry args={[0.19, 0.17, 0.2, 24]} />
-      </mesh>
-
-      {/* Pectoral contour — left & right */}
+      {/* Shoulder connectors — dark spheres */}
       {([-1, 1] as const).map(s => (
-        <mesh key={s} position={[s * 0.08, 1.36, 0.08]} material={m.aluminumDark} scale={[1, 0.9, 0.6]}>
-          <sphereGeometry args={[0.07, 20, 20]} />
+        <mesh key={s} position={[s * 0.2, 1.44, 0]} material={m.dark}>
+          <sphereGeometry args={[0.045, 18, 18]} />
         </mesh>
       ))}
 
-      {/* Shoulder caps — rounded transition */}
-      {([-1, 1] as const).map(s => (
-        <mesh key={`sh-${s}`} position={[s * 0.2, 1.42, 0]} material={m.aluminum}>
-          <sphereGeometry args={[0.06, 20, 20]} />
-        </mesh>
-      ))}
-
-      {/* Ribcage taper */}
-      <mesh position={[0, 1.22, 0]} material={m.aluminum}>
-        <cylinderGeometry args={[0.14, 0.18, 0.12, 20]} />
+      {/* Mid torso taper */}
+      <mesh position={[0, 1.22, 0]} material={m.dark}>
+        <cylinderGeometry args={[0.09, 0.15, 0.1, 18]} />
       </mesh>
 
-      {/* Waist — narrow, human-like */}
-      <mesh position={[0, 1.12, 0]} material={m.aluminumDark}>
-        <cylinderGeometry args={[0.1, 0.14, 0.1, 18]} />
+      {/* Waist — narrow dark */}
+      <mesh position={[0, 1.14, 0]} material={m.dark}>
+        <cylinderGeometry args={[0.07, 0.09, 0.08, 16]} />
       </mesh>
 
-      {/* Abdomen contour */}
-      <mesh position={[0, 1.14, 0.06]} material={m.aluminum} scale={[1, 1.2, 0.5]}>
-        <sphereGeometry args={[0.08, 16, 16]} />
-      </mesh>
-
-      {/* Hip block */}
-      <mesh position={[0, 1.03, 0]} material={m.darkSteel}>
-        <cylinderGeometry args={[0.14, 0.12, 0.1, 18]} />
-      </mesh>
-
-      {/* Back musculature hint */}
-      <mesh position={[0, 1.34, -0.1]} material={m.aluminumDark} scale={[1.1, 1, 0.5]}>
-        <sphereGeometry args={[0.12, 20, 20]} />
-      </mesh>
-      {/* Spine line */}
-      <mesh position={[0, 1.25, -0.12]} material={m.darkSteel}>
-        <cylinderGeometry args={[0.012, 0.012, 0.3, 8]} />
+      {/* Hip — dark block */}
+      <mesh position={[0, 1.05, 0]} material={m.dark}>
+        <cylinderGeometry args={[0.12, 0.1, 0.1, 18]} />
       </mesh>
     </group>
   );
 }
 
 /* ═══════════════════════════════════════════════
-   SINGLE ARM — poseable via shoulder/elbow rotation
-   Built relative to shoulder origin at (0,0,0)
+   ARM — white upper arm, dark forearm, dark hand
    ═══════════════════════════════════════════════ */
 function Arm({ side, shoulderAngle = 0, elbowAngle = 0, ...m }: M & { side: 1 | -1; shoulderAngle?: number; elbowAngle?: number }) {
   const s = side;
   return (
-    <group position={[s * 0.25, 1.42, 0]}>
-      {/* Shoulder ball joint */}
-      <mesh material={m.titanium}>
-        <sphereGeometry args={[0.05, 20, 20]} />
+    <group position={[s * 0.24, 1.44, 0]}>
+      {/* Shoulder joint — dark ball */}
+      <mesh material={m.dark}>
+        <sphereGeometry args={[0.04, 18, 18]} />
       </mesh>
 
-      {/* Upper arm group — rotates at shoulder */}
-      <group position={[s * 0.04, -0.02, 0]} rotation={[shoulderAngle, 0, 0]}>
-        {/* Deltoid — organic cap */}
-        <mesh position={[0, 0, 0]} material={m.aluminum} scale={[1, 1.2, 0.9]}>
-          <sphereGeometry args={[0.05, 20, 20]} />
-        </mesh>
-
-        {/* Bicep — tapered cylinder */}
-        <mesh position={[0, -0.12, 0.01]} material={m.aluminum}>
-          <cylinderGeometry args={[0.038, 0.045, 0.16, 18]} />
-        </mesh>
-        {/* Tricep contour */}
-        <mesh position={[0, -0.12, -0.02]} material={m.aluminumDark} scale={[0.8, 1, 0.5]}>
-          <cylinderGeometry args={[0.035, 0.04, 0.14, 14]} />
+      <group position={[s * 0.02, -0.02, 0]} rotation={[shoulderAngle, 0, 0]}>
+        {/* Upper arm — white, smooth */}
+        <mesh position={[0, -0.12, 0]} material={m.white}>
+          <capsuleGeometry args={[0.04, 0.16, 8, 16]} />
         </mesh>
 
         {/* Elbow pivot */}
         <group position={[0, -0.24, 0]} rotation={[elbowAngle, 0, 0]}>
-          {/* Elbow joint — organic */}
-          <mesh material={m.titanium}>
-            <sphereGeometry args={[0.038, 16, 16]} />
+          {/* Elbow joint — dark */}
+          <mesh material={m.dark}>
+            <sphereGeometry args={[0.035, 14, 14]} />
           </mesh>
 
-          {/* Forearm — tapered */}
-          <mesh position={[0, -0.14, 0.005]} material={m.aluminum}>
-            <cylinderGeometry args={[0.028, 0.038, 0.2, 18]} />
-          </mesh>
-          {/* Forearm muscle hint */}
-          <mesh position={[0, -0.1, 0.025]} material={m.aluminumDark} scale={[0.7, 1, 0.4]}>
-            <cylinderGeometry args={[0.03, 0.02, 0.12, 12]} />
+          {/* Forearm — dark, tapered */}
+          <mesh position={[0, -0.13, 0]} material={m.dark}>
+            <capsuleGeometry args={[0.03, 0.16, 8, 16]} />
           </mesh>
 
           {/* Wrist */}
-          <mesh position={[0, -0.26, 0]} material={m.titanium}>
-            <sphereGeometry args={[0.025, 12, 12]} />
+          <mesh position={[0, -0.24, 0]} material={m.gray}>
+            <sphereGeometry args={[0.022, 10, 10]} />
           </mesh>
 
-          {/* Hand — organic palm */}
-          <mesh position={[0, -0.3, 0.005]} material={m.darkSteel} scale={[1, 1.2, 0.8]}>
-            <sphereGeometry args={[0.025, 14, 14]} />
+          {/* Hand — dark */}
+          <mesh position={[0, -0.28, 0.005]} material={m.dark} scale={[1, 1.1, 0.75]}>
+            <sphereGeometry args={[0.022, 12, 12]} />
           </mesh>
-          {/* Fingers — 4 organic digits */}
-          {[-0.015, -0.005, 0.005, 0.015].map((fx, i) => (
-            <group key={i} position={[fx, -0.33, 0.005]}>
-              <mesh material={m.darkSteel}>
-                <capsuleGeometry args={[0.005, 0.03, 4, 8]} />
-              </mesh>
-              <mesh position={[0, -0.022, 0]} material={m.grip}>
-                <sphereGeometry args={[0.005, 6, 6]} />
-              </mesh>
-            </group>
+          {/* Fingers */}
+          {[-0.012, -0.004, 0.004, 0.012].map((fx, i) => (
+            <mesh key={i} position={[fx, -0.32, 0.005]} material={m.dark}>
+              <capsuleGeometry args={[0.004, 0.025, 4, 8]} />
+            </mesh>
           ))}
           {/* Thumb */}
-          <mesh position={[-0.025 * s, -0.3, 0.018]} rotation={[0, 0, s * 0.5]} material={m.darkSteel}>
-            <capsuleGeometry args={[0.005, 0.022, 4, 8]} />
+          <mesh position={[-0.022 * s, -0.29, 0.015]} rotation={[0, 0, s * 0.6]} material={m.dark}>
+            <capsuleGeometry args={[0.004, 0.018, 4, 8]} />
           </mesh>
         </group>
       </group>
@@ -281,74 +208,46 @@ function Arm({ side, shoulderAngle = 0, elbowAngle = 0, ...m }: M & { side: 1 | 
 }
 
 /* ═══════════════════════════════════════════════
-   SINGLE LEG — poseable via hip/knee rotation
-   Built relative to hip origin
+   LEG — white thigh, dark shin, dark foot
    ═══════════════════════════════════════════════ */
 function Leg({ side, hipAngle = 0, kneeAngle = 0, ...m }: M & { side: 1 | -1; hipAngle?: number; kneeAngle?: number }) {
-  const x = side * 0.12;
+  const x = side * 0.08;
   return (
-    <group position={[x, 0.9, 0]}>
-      {/* Hip ball joint */}
-      <mesh material={m.titanium}>
-        <sphereGeometry args={[0.05, 18, 18]} />
+    <group position={[x, 0.98, 0]}>
+      {/* Hip joint — dark */}
+      <mesh material={m.dark}>
+        <sphereGeometry args={[0.04, 16, 16]} />
       </mesh>
 
-      {/* Thigh group — rotates at hip */}
-      <group position={[0, -0.04, 0]} rotation={[hipAngle, 0, 0]}>
-        {/* Glute/upper thigh — organic taper */}
-        <mesh position={[0, -0.04, 0]} material={m.aluminum} scale={[1, 1.1, 0.95]}>
-          <sphereGeometry args={[0.06, 18, 18]} />
-        </mesh>
-
-        {/* Quadricep — front muscle */}
-        <mesh position={[0, -0.16, 0.02]} material={m.aluminum}>
-          <cylinderGeometry args={[0.05, 0.058, 0.22, 20]} />
-        </mesh>
-        {/* Hamstring — back contour */}
-        <mesh position={[0, -0.16, -0.025]} material={m.aluminumDark} scale={[0.85, 1, 0.55]}>
-          <cylinderGeometry args={[0.048, 0.05, 0.2, 16]} />
+      <group position={[0, -0.03, 0]} rotation={[hipAngle, 0, 0]}>
+        {/* Thigh — white, smooth */}
+        <mesh position={[0, -0.15, 0]} material={m.white}>
+          <capsuleGeometry args={[0.05, 0.2, 8, 18]} />
         </mesh>
 
         {/* Knee pivot */}
         <group position={[0, -0.3, 0]} rotation={[kneeAngle, 0, 0]}>
-          {/* Kneecap — organic */}
-          <mesh position={[0, 0, 0.035]} material={m.titanium} scale={[0.8, 1, 0.5]}>
+          {/* Knee joint — dark */}
+          <mesh material={m.dark}>
             <sphereGeometry args={[0.04, 14, 14]} />
           </mesh>
-          <mesh material={m.titanium}>
-            <sphereGeometry args={[0.042, 16, 16]} />
-          </mesh>
 
-          {/* Calf — tapered */}
-          <mesh position={[0, -0.16, 0.005]} material={m.aluminum}>
-            <cylinderGeometry args={[0.035, 0.05, 0.24, 18]} />
-          </mesh>
-          {/* Calf muscle bulge */}
-          <mesh position={[0, -0.1, -0.025]} material={m.aluminumDark} scale={[0.8, 1, 0.55]}>
-            <sphereGeometry args={[0.045, 16, 16]} />
+          {/* Shin — dark, tapered */}
+          <mesh position={[0, -0.16, 0]} material={m.dark}>
+            <capsuleGeometry args={[0.035, 0.22, 8, 18]} />
           </mesh>
 
           {/* Ankle */}
-          <mesh position={[0, -0.3, 0]} material={m.titanium}>
-            <sphereGeometry args={[0.028, 12, 12]} />
+          <mesh position={[0, -0.3, 0]} material={m.gray}>
+            <sphereGeometry args={[0.025, 10, 10]} />
           </mesh>
 
-          {/* Foot — organic, shoe-like */}
-          <mesh position={[0, -0.35, 0.02]} material={m.darkSteel} scale={[0.8, 0.5, 1.3]}>
+          {/* Foot — dark, shoe-like */}
+          <mesh position={[0, -0.34, 0.02]} material={m.dark} scale={[0.75, 0.4, 1.2]}>
             <sphereGeometry args={[0.05, 16, 16]} />
           </mesh>
-          {/* Heel */}
-          <mesh position={[0, -0.36, -0.03]} material={m.darkSteel} scale={[0.7, 0.4, 0.6]}>
-            <sphereGeometry args={[0.04, 12, 12]} />
-          </mesh>
-          {/* Toes — 3 organic digits */}
-          {[-0.015, 0, 0.015].map((tx, i) => (
-            <mesh key={i} position={[tx, -0.37, 0.065]} material={m.grip} rotation={[Math.PI / 2, 0, 0]}>
-              <capsuleGeometry args={[0.006, 0.015, 4, 8]} />
-            </mesh>
-          ))}
           {/* Sole */}
-          <mesh position={[0, -0.375, 0.02]} material={m.grip} scale={[0.75, 0.15, 1.2]}>
+          <mesh position={[0, -0.365, 0.02]} material={m.grip} scale={[0.7, 0.12, 1.1]}>
             <sphereGeometry args={[0.05, 12, 12]} />
           </mesh>
         </group>
@@ -358,9 +257,9 @@ function Leg({ side, hipAngle = 0, kneeAngle = 0, ...m }: M & { side: 1 | -1; hi
 }
 
 /* ═══════════════════════════════════════════════
-   ASSEMBLY — running stride pose
+   ASSEMBLY — animated running cycle
    ═══════════════════════════════════════════════ */
-function IndustrialHumanoid() {
+function HumanoidRobot() {
   const groupRef = useRef<THREE.Group>(null);
   const mats = useMaterials();
 
@@ -375,7 +274,6 @@ function IndustrialHumanoid() {
     }
     const t = state.clock.elapsedTime * 1.0;
     const s = Math.sin(t);
-    const c = Math.cos(t);
 
     setPose({
       leftHip: s * -0.4,
@@ -393,10 +291,8 @@ function IndustrialHumanoid() {
     <group ref={groupRef} rotation={[0, -0.3, 0]} position={[0, 0.05, 0]} scale={0.75}>
       <Head {...mats} />
       <Torso {...mats} />
-
       <Arm side={-1} shoulderAngle={pose.leftShoulder} elbowAngle={pose.leftElbow} {...mats} />
       <Arm side={1} shoulderAngle={pose.rightShoulder} elbowAngle={pose.rightElbow} {...mats} />
-
       <Leg side={-1} hipAngle={pose.leftHip} kneeAngle={pose.leftKnee} {...mats} />
       <Leg side={1} hipAngle={pose.rightHip} kneeAngle={pose.rightKnee} {...mats} />
     </group>
@@ -431,7 +327,7 @@ export const FloatingRobot = () => (
       <directionalLight position={[-2, 4, -4]} intensity={2.0} color="#d5dce8" />
       <ambientLight intensity={0.18} />
 
-      <IndustrialHumanoid />
+      <HumanoidRobot />
 
       <ContactShadows position={[0, 0.05, 0]} opacity={0.18} scale={3} blur={2.5} far={1.5} color="#1a2030" />
 
