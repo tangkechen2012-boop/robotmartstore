@@ -150,6 +150,16 @@ function Head(m: M) {
    Height: ~0.76 units
    ═══════════════════════════════════════════════ */
 function Torso(m: M) {
+  const chestRef = useRef<THREE.Group>(null);
+
+  useFrame((state) => {
+    if (chestRef.current) {
+      const breath = Math.sin(state.clock.elapsedTime * 1.2) * 0.012 + 1;
+      const breathZ = Math.sin(state.clock.elapsedTime * 1.2) * 0.008 + 1;
+      chestRef.current.scale.set(1, breath, breathZ);
+    }
+  });
+
   return (
     <group>
       {/* Neck */}
@@ -157,6 +167,8 @@ function Torso(m: M) {
         <cylinderGeometry args={[0.04, 0.055, 0.08, 16]} />
       </mesh>
 
+      {/* Breathing chest group */}
+      <group ref={chestRef}>
       {/* Upper chest — rounded, broader at shoulders */}
       <mesh position={[0, 1.38, 0]} material={m.aluminum} scale={[1.3, 1, 0.85]}>
         <sphereGeometry args={[0.18, 32, 32, 0, Math.PI * 2, 0, Math.PI * 0.6]} />
@@ -184,6 +196,7 @@ function Torso(m: M) {
       <mesh position={[0, 1.22, 0]} material={m.aluminum}>
         <cylinderGeometry args={[0.14, 0.18, 0.12, 20]} />
       </mesh>
+      </group>
 
       {/* Waist — narrow, human-like */}
       <mesh position={[0, 1.12, 0]} material={m.aluminumDark}>
