@@ -112,7 +112,7 @@ const Index = () => {
             </div>
 
             {/* Right 3D robot — 55% */}
-            <div className="hidden lg:block w-[55%] h-[55vh] p-4">
+            <div className="hidden lg:block w-[55%] h-[55vh] p-6" style={{ overflow: "visible" }}>
               <FloatingRobot />
             </div>
           </div>

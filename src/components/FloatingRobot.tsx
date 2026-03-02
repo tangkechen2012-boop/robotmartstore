@@ -1,200 +1,251 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, OrbitControls, ContactShadows } from "@react-three/drei";
-import { useRef, Suspense } from "react";
+import { OrbitControls, ContactShadows, Environment } from "@react-three/drei";
+import { useRef, Suspense, useMemo } from "react";
 import * as THREE from "three";
 
-/* White aluminum body */
-const WHITE_BODY = { color: "#e8eaed", metalness: 0.35, roughness: 0.55 };
-/* Soft silver joints */
-const SILVER_JOINT = { color: "#b0b5be", metalness: 0.7, roughness: 0.35 };
-/* Light gray connectors */
-const GRAY_CONN = { color: "#c5c9d0", metalness: 0.5, roughness: 0.45 };
-/* Visor */
-const VISOR = { color: "#2a3a5c", metalness: 0.25, roughness: 0.15 };
-/* Cool blue accent — very subtle */
-const ACCENT = { color: "#6499cc", metalness: 0.4, roughness: 0.35 };
+/* ── PBR Materials ── */
+function useBodyMaterial() {
+  return useMemo(
+    () =>
+      new THREE.MeshPhysicalMaterial({
+        color: new THREE.Color("#F2F5F9"),
+        metalness: 1.0,
+        roughness: 0.16,
+        envMapIntensity: 1.35,
+        clearcoat: 0.35,
+        clearcoatRoughness: 0.08,
+      }),
+    []
+  );
+}
 
+function useJointMaterial() {
+  return useMemo(
+    () =>
+      new THREE.MeshPhysicalMaterial({
+        color: new THREE.Color("#9CA3AF"),
+        metalness: 0.95,
+        roughness: 0.14,
+        envMapIntensity: 1.2,
+        clearcoat: 0.25,
+        clearcoatRoughness: 0.12,
+      }),
+    []
+  );
+}
+
+function useVisorMaterial() {
+  return useMemo(
+    () =>
+      new THREE.MeshPhysicalMaterial({
+        color: new THREE.Color("#1e293b"),
+        metalness: 0.6,
+        roughness: 0.1,
+        envMapIntensity: 0.8,
+        clearcoat: 0.6,
+        clearcoatRoughness: 0.05,
+      }),
+    []
+  );
+}
+
+function useAccentMaterial() {
+  return useMemo(
+    () =>
+      new THREE.MeshPhysicalMaterial({
+        color: new THREE.Color("#6EC6FF"),
+        emissive: new THREE.Color("#6EC6FF"),
+        emissiveIntensity: 0.25,
+        metalness: 0.5,
+        roughness: 0.3,
+      }),
+    []
+  );
+}
+
+function useConnectorMaterial() {
+  return useMemo(
+    () =>
+      new THREE.MeshPhysicalMaterial({
+        color: new THREE.Color("#D1D5DB"),
+        metalness: 0.85,
+        roughness: 0.2,
+        envMapIntensity: 1.1,
+        clearcoat: 0.2,
+        clearcoatRoughness: 0.1,
+      }),
+    []
+  );
+}
+
+/* ── Q-Stylized Robot ── */
 function HumanoidRobot() {
   const groupRef = useRef<THREE.Group>(null);
+  const body = useBodyMaterial();
+  const joint = useJointMaterial();
+  const visor = useVisorMaterial();
+  const accent = useAccentMaterial();
+  const conn = useConnectorMaterial();
 
   useFrame((state) => {
     if (groupRef.current) {
-      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.8) * 0.012;
-      groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.3) * 0.015;
+      groupRef.current.position.y =
+        Math.sin(state.clock.elapsedTime * 0.7) * 0.008;
+      groupRef.current.rotation.y =
+        Math.sin(state.clock.elapsedTime * 0.25) * 0.01;
     }
   });
 
   return (
-    <group ref={groupRef} scale={0.95} position={[0, -0.15, 0]}>
-      {/* HEAD */}
-      <mesh position={[0, 1.55, 0]}>
-        <sphereGeometry args={[0.32, 32, 32]} />
-        <meshStandardMaterial {...WHITE_BODY} />
+    <group ref={groupRef} scale={0.88} position={[0, -0.05, 0]}>
+      {/* ── HEAD (proportionally larger ~30%) ── */}
+      <mesh position={[0, 1.62, 0]} material={body}>
+        <sphereGeometry args={[0.36, 40, 40]} />
       </mesh>
-      <mesh position={[0, 1.65, 0.15]}>
-        <boxGeometry args={[0.42, 0.12, 0.25]} />
-        <meshStandardMaterial {...WHITE_BODY} />
-      </mesh>
-      {/* Visor */}
-      <mesh position={[0, 1.52, 0.28]}>
-        <boxGeometry args={[0.48, 0.07, 0.08]} />
-        <meshStandardMaterial {...VISOR} />
-      </mesh>
-      {/* Subtle sensor dots */}
-      <mesh position={[-0.12, 1.52, 0.33]}>
-        <sphereGeometry args={[0.012, 10, 10]} />
-        <meshStandardMaterial color="#7ab0dd" emissive="#7ab0dd" emissiveIntensity={0.4} />
-      </mesh>
-      <mesh position={[0.12, 1.52, 0.33]}>
-        <sphereGeometry args={[0.012, 10, 10]} />
-        <meshStandardMaterial color="#7ab0dd" emissive="#7ab0dd" emissiveIntensity={0.4} />
+      {/* Top crest */}
+      <mesh position={[0, 1.78, 0.08]} material={body}>
+        <boxGeometry args={[0.44, 0.1, 0.28]} />
       </mesh>
       {/* Chin */}
-      <mesh position={[0, 1.4, 0.1]}>
-        <sphereGeometry args={[0.22, 24, 24]} />
-        <meshStandardMaterial {...WHITE_BODY} />
+      <mesh position={[0, 1.44, 0.08]} material={body}>
+        <sphereGeometry args={[0.24, 28, 28]} />
+      </mesh>
+      {/* Visor slot */}
+      <mesh position={[0, 1.58, 0.32]} material={visor}>
+        <boxGeometry args={[0.5, 0.065, 0.06]} />
+      </mesh>
+      {/* Status indicators */}
+      <mesh position={[-0.14, 1.58, 0.36]} material={accent}>
+        <sphereGeometry args={[0.01, 8, 8]} />
+      </mesh>
+      <mesh position={[0.14, 1.58, 0.36]} material={accent}>
+        <sphereGeometry args={[0.01, 8, 8]} />
+      </mesh>
+      {/* Thin accent line on forehead */}
+      <mesh position={[0, 1.72, 0.34]} material={accent}>
+        <boxGeometry args={[0.18, 0.008, 0.008]} />
       </mesh>
 
-      {/* NECK */}
-      <mesh position={[0, 1.2, 0]}>
-        <cylinderGeometry args={[0.08, 0.1, 0.15, 16]} />
-        <meshStandardMaterial {...SILVER_JOINT} />
+      {/* ── NECK ── */}
+      <mesh position={[0, 1.28, 0]} material={joint}>
+        <cylinderGeometry args={[0.07, 0.09, 0.12, 20]} />
       </mesh>
-      <mesh position={[0, 1.12, 0]} rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[0.12, 0.018, 8, 24]} />
-        <meshStandardMaterial {...SILVER_JOINT} />
+      <mesh position={[0, 1.22, 0]} rotation={[Math.PI / 2, 0, 0]} material={joint}>
+        <torusGeometry args={[0.11, 0.015, 10, 28]} />
       </mesh>
 
-      {/* TORSO */}
-      <mesh position={[0, 0.85, 0]}>
-        <capsuleGeometry args={[0.38, 0.3, 16, 32]} />
-        <meshStandardMaterial {...WHITE_BODY} />
+      {/* ── TORSO ── */}
+      <mesh position={[0, 0.92, 0]} material={body}>
+        <capsuleGeometry args={[0.36, 0.28, 20, 36]} />
       </mesh>
       {/* Chest panel */}
-      <mesh position={[0, 0.9, 0.38]}>
-        <boxGeometry args={[0.28, 0.16, 0.03]} />
-        <meshStandardMaterial {...GRAY_CONN} />
+      <mesh position={[0, 0.96, 0.36]} material={conn}>
+        <boxGeometry args={[0.24, 0.14, 0.025]} />
       </mesh>
-      {/* Accent stripe */}
-      <mesh position={[0, 0.82, 0.39]}>
-        <boxGeometry args={[0.2, 0.025, 0.025]} />
-        <meshStandardMaterial {...ACCENT} />
+      {/* Accent stripe on chest */}
+      <mesh position={[0, 0.88, 0.37]} material={accent}>
+        <boxGeometry args={[0.16, 0.012, 0.012]} />
       </mesh>
       {/* Lower torso */}
-      <mesh position={[0, 0.5, 0]}>
-        <capsuleGeometry args={[0.28, 0.25, 12, 24]} />
-        <meshStandardMaterial {...WHITE_BODY} />
+      <mesh position={[0, 0.56, 0]} material={body}>
+        <capsuleGeometry args={[0.26, 0.22, 14, 28]} />
       </mesh>
       {/* Waist ring */}
-      <mesh position={[0, 0.35, 0]} rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[0.18, 0.02, 8, 24]} />
-        <meshStandardMaterial {...SILVER_JOINT} />
+      <mesh position={[0, 0.42, 0]} rotation={[Math.PI / 2, 0, 0]} material={joint}>
+        <torusGeometry args={[0.16, 0.018, 10, 28]} />
       </mesh>
 
-      {/* SHOULDERS */}
-      <mesh position={[-0.5, 0.95, 0]}>
-        <sphereGeometry args={[0.12, 16, 16]} />
-        <meshStandardMaterial {...SILVER_JOINT} />
+      {/* ── SHOULDERS ── */}
+      <mesh position={[-0.48, 1.02, 0]} material={joint}>
+        <sphereGeometry args={[0.11, 20, 20]} />
       </mesh>
-      <mesh position={[0.5, 0.95, 0]}>
-        <sphereGeometry args={[0.12, 16, 16]} />
-        <meshStandardMaterial {...SILVER_JOINT} />
+      <mesh position={[0.48, 1.02, 0]} material={joint}>
+        <sphereGeometry args={[0.11, 20, 20]} />
       </mesh>
-      <mesh position={[-0.55, 1.0, 0]}>
-        <sphereGeometry args={[0.1, 16, 16]} />
-        <meshStandardMaterial {...WHITE_BODY} />
+      <mesh position={[-0.52, 1.06, 0]} material={body}>
+        <sphereGeometry args={[0.09, 16, 16]} />
       </mesh>
-      <mesh position={[0.55, 1.0, 0]}>
-        <sphereGeometry args={[0.1, 16, 16]} />
-        <meshStandardMaterial {...WHITE_BODY} />
+      <mesh position={[0.52, 1.06, 0]} material={body}>
+        <sphereGeometry args={[0.09, 16, 16]} />
       </mesh>
 
-      {/* ARMS */}
-      <mesh position={[-0.58, 0.65, 0]}>
-        <capsuleGeometry args={[0.07, 0.35, 8, 16]} />
-        <meshStandardMaterial {...WHITE_BODY} />
+      {/* ── ARMS (5-10% shorter) ── */}
+      {/* Upper arms */}
+      <mesh position={[-0.54, 0.74, 0]} material={body}>
+        <capsuleGeometry args={[0.065, 0.3, 10, 18]} />
       </mesh>
-      <mesh position={[0.58, 0.65, 0]}>
-        <capsuleGeometry args={[0.07, 0.35, 8, 16]} />
-        <meshStandardMaterial {...WHITE_BODY} />
+      <mesh position={[0.54, 0.74, 0]} material={body}>
+        <capsuleGeometry args={[0.065, 0.3, 10, 18]} />
       </mesh>
       {/* Elbows */}
-      <mesh position={[-0.58, 0.42, 0]}>
-        <sphereGeometry args={[0.06, 12, 12]} />
-        <meshStandardMaterial {...SILVER_JOINT} />
+      <mesh position={[-0.54, 0.52, 0]} material={joint}>
+        <sphereGeometry args={[0.055, 14, 14]} />
       </mesh>
-      <mesh position={[0.58, 0.42, 0]}>
-        <sphereGeometry args={[0.06, 12, 12]} />
-        <meshStandardMaterial {...SILVER_JOINT} />
+      <mesh position={[0.54, 0.52, 0]} material={joint}>
+        <sphereGeometry args={[0.055, 14, 14]} />
       </mesh>
       {/* Forearms */}
-      <mesh position={[-0.58, 0.18, 0]}>
-        <capsuleGeometry args={[0.06, 0.3, 8, 16]} />
-        <meshStandardMaterial {...WHITE_BODY} />
+      <mesh position={[-0.54, 0.3, 0]} material={body}>
+        <capsuleGeometry args={[0.055, 0.26, 10, 18]} />
       </mesh>
-      <mesh position={[0.58, 0.18, 0]}>
-        <capsuleGeometry args={[0.06, 0.3, 8, 16]} />
-        <meshStandardMaterial {...WHITE_BODY} />
+      <mesh position={[0.54, 0.3, 0]} material={body}>
+        <capsuleGeometry args={[0.055, 0.26, 10, 18]} />
       </mesh>
       {/* Hands */}
-      <mesh position={[-0.58, -0.02, 0]}>
-        <sphereGeometry args={[0.055, 12, 12]} />
-        <meshStandardMaterial {...GRAY_CONN} />
+      <mesh position={[-0.54, 0.12, 0]} material={conn}>
+        <sphereGeometry args={[0.048, 14, 14]} />
       </mesh>
-      <mesh position={[0.58, -0.02, 0]}>
-        <sphereGeometry args={[0.055, 12, 12]} />
-        <meshStandardMaterial {...GRAY_CONN} />
+      <mesh position={[0.54, 0.12, 0]} material={conn}>
+        <sphereGeometry args={[0.048, 14, 14]} />
       </mesh>
 
-      {/* HIPS */}
-      <mesh position={[0, 0.22, 0]}>
-        <boxGeometry args={[0.38, 0.1, 0.24]} />
-        <meshStandardMaterial {...GRAY_CONN} />
+      {/* ── HIPS ── */}
+      <mesh position={[0, 0.3, 0]} material={conn}>
+        <boxGeometry args={[0.34, 0.09, 0.22]} />
       </mesh>
 
-      {/* LEGS */}
-      <mesh position={[-0.16, 0.15, 0]}>
-        <sphereGeometry args={[0.075, 12, 12]} />
-        <meshStandardMaterial {...SILVER_JOINT} />
+      {/* ── LEGS (5-10% shorter) ── */}
+      {/* Hip joints */}
+      <mesh position={[-0.14, 0.22, 0]} material={joint}>
+        <sphereGeometry args={[0.07, 14, 14]} />
       </mesh>
-      <mesh position={[0.16, 0.15, 0]}>
-        <sphereGeometry args={[0.075, 12, 12]} />
-        <meshStandardMaterial {...SILVER_JOINT} />
+      <mesh position={[0.14, 0.22, 0]} material={joint}>
+        <sphereGeometry args={[0.07, 14, 14]} />
       </mesh>
-      <mesh position={[-0.16, -0.15, 0]}>
-        <capsuleGeometry args={[0.08, 0.4, 8, 16]} />
-        <meshStandardMaterial {...WHITE_BODY} />
+      {/* Upper legs */}
+      <mesh position={[-0.14, -0.04, 0]} material={body}>
+        <capsuleGeometry args={[0.075, 0.34, 10, 18]} />
       </mesh>
-      <mesh position={[0.16, -0.15, 0]}>
-        <capsuleGeometry args={[0.08, 0.4, 8, 16]} />
-        <meshStandardMaterial {...WHITE_BODY} />
+      <mesh position={[0.14, -0.04, 0]} material={body}>
+        <capsuleGeometry args={[0.075, 0.34, 10, 18]} />
       </mesh>
       {/* Knees */}
-      <mesh position={[-0.16, -0.4, 0]}>
-        <sphereGeometry args={[0.065, 12, 12]} />
-        <meshStandardMaterial {...SILVER_JOINT} />
+      <mesh position={[-0.14, -0.26, 0]} material={joint}>
+        <sphereGeometry args={[0.06, 14, 14]} />
       </mesh>
-      <mesh position={[0.16, -0.4, 0]}>
-        <sphereGeometry args={[0.065, 12, 12]} />
-        <meshStandardMaterial {...SILVER_JOINT} />
+      <mesh position={[0.14, -0.26, 0]} material={joint}>
+        <sphereGeometry args={[0.06, 14, 14]} />
       </mesh>
       {/* Shins */}
-      <mesh position={[-0.16, -0.68, 0]}>
-        <capsuleGeometry args={[0.07, 0.38, 8, 16]} />
-        <meshStandardMaterial {...WHITE_BODY} />
+      <mesh position={[-0.14, -0.52, 0]} material={body}>
+        <capsuleGeometry args={[0.065, 0.32, 10, 18]} />
       </mesh>
-      <mesh position={[0.16, -0.68, 0]}>
-        <capsuleGeometry args={[0.07, 0.38, 8, 16]} />
-        <meshStandardMaterial {...WHITE_BODY} />
+      <mesh position={[0.14, -0.52, 0]} material={body}>
+        <capsuleGeometry args={[0.065, 0.32, 10, 18]} />
+      </mesh>
+      {/* Ankles */}
+      <mesh position={[-0.14, -0.72, 0]} material={joint}>
+        <sphereGeometry args={[0.045, 12, 12]} />
+      </mesh>
+      <mesh position={[0.14, -0.72, 0]} material={joint}>
+        <sphereGeometry args={[0.045, 12, 12]} />
       </mesh>
       {/* Feet */}
-      <mesh position={[-0.16, -0.94, 0.04]}>
-        <boxGeometry args={[0.12, 0.06, 0.2]} />
-        <meshStandardMaterial {...GRAY_CONN} />
+      <mesh position={[-0.14, -0.78, 0.03]} material={conn}>
+        <boxGeometry args={[0.11, 0.05, 0.18]} />
       </mesh>
-      <mesh position={[0.16, -0.94, 0.04]}>
-        <boxGeometry args={[0.12, 0.06, 0.2]} />
-        <meshStandardMaterial {...GRAY_CONN} />
+      <mesh position={[0.14, -0.78, 0.03]} material={conn}>
+        <boxGeometry args={[0.11, 0.05, 0.18]} />
       </mesh>
     </group>
   );
@@ -211,41 +262,80 @@ function LoadingFallback() {
 export const FloatingRobot = () => (
   <Suspense fallback={<LoadingFallback />}>
     <Canvas
-      camera={{ position: [1.5, 0.5, 5.5], fov: 32 }}
+      camera={{
+        position: [1.1, 1.6, 4.4],
+        fov: 32,
+        near: 0.1,
+        far: 100,
+      }}
       style={{ width: "100%", height: "100%" }}
       dpr={[1, 1.5]}
-      gl={{ antialias: true, alpha: true }}
+      gl={{
+        antialias: true,
+        alpha: true,
+        toneMapping: THREE.ACESFilmicToneMapping,
+        toneMappingExposure: 1.05,
+      }}
+      shadows
     >
-      {/* Bright soft key light — upper-left */}
-      <directionalLight position={[-4, 6, 5]} intensity={1.6} color="#f5f5fa" />
-      {/* Generous fill */}
-      <ambientLight intensity={0.6} />
-      {/* Subtle rim light */}
-      <pointLight position={[5, 2, -3]} intensity={0.5} color="#c8d4e8" />
-      {/* Warm bounce from below */}
-      <pointLight position={[-1, -2, 4]} intensity={0.2} color="#ede8e0" />
+      {/* Studio HDRI for polished metal reflections */}
+      <Environment preset="studio" />
+
+      {/* Ambient fill */}
+      <ambientLight intensity={0.25} />
+
+      {/* Key light — upper-right-front */}
+      <directionalLight
+        position={[4, 6, 4]}
+        intensity={2.8}
+        color="#f8f9ff"
+        castShadow
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
+        shadow-bias={-0.0001}
+      />
+
+      {/* Fill from left */}
+      <directionalLight
+        position={[-4, 3, 3]}
+        intensity={1.4}
+        color="#e8edf5"
+      />
+
+      {/* Rim light — behind & above */}
+      <directionalLight
+        position={[-2, 5, -5]}
+        intensity={2.0}
+        color="#dde4f0"
+      />
+
+      {/* Warm bottom bounce */}
+      <pointLight position={[0, -1, 3]} intensity={0.15} color="#f0ebe0" />
 
       <HumanoidRobot />
 
       <ContactShadows
-        position={[0, -0.97, 0]}
-        opacity={0.2}
-        scale={3.5}
-        blur={3}
-        far={2}
-        color="#3a5070"
+        position={[0, -0.82, 0]}
+        opacity={0.18}
+        scale={3}
+        blur={2.5}
+        far={1.5}
+        color="#2a3a5c"
       />
 
       <OrbitControls
         enablePan={false}
         enableZoom={true}
         enableRotate={true}
-        dampingFactor={0.07}
-        minDistance={3}
-        maxDistance={8}
-        minPolarAngle={Math.PI * 0.25}
-        maxPolarAngle={Math.PI * 0.72}
-        autoRotate={false}
+        enableDamping={true}
+        dampingFactor={0.08}
+        rotateSpeed={0.65}
+        zoomSpeed={0.9}
+        minDistance={3.2}
+        maxDistance={6.0}
+        minPolarAngle={0.55}
+        maxPolarAngle={1.45}
+        target={[0, 1.25, 0]}
       />
     </Canvas>
   </Suspense>
