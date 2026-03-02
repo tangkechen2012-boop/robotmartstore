@@ -494,7 +494,7 @@ function FloatingComponents() {
   return (
     <group>
       {/* Gear / cog */}
-      <FloatingPart position={[-1.2, 1.1, 0.3]} speed={0.4} radius={0.08} phase={0}>
+      <FloatingPart position={[-0.55, 1.1, 0.25]} speed={0.4} radius={0.05} phase={0}>
         <mesh material={partMat}>
           <torusGeometry args={[0.06, 0.015, 8, 6]} />
         </mesh>
@@ -504,7 +504,7 @@ function FloatingComponents() {
       </FloatingPart>
 
       {/* Circuit board chip */}
-      <FloatingPart position={[1.1, 1.4, -0.2]} speed={0.35} radius={0.06} phase={1.5}>
+      <FloatingPart position={[0.5, 1.4, -0.15]} speed={0.35} radius={0.04} phase={1.5}>
         <mesh material={darkMat}>
           <boxGeometry args={[0.08, 0.012, 0.06]} />
         </mesh>
@@ -520,7 +520,7 @@ function FloatingComponents() {
       </FloatingPart>
 
       {/* Servo motor */}
-      <FloatingPart position={[-0.9, 0.5, 0.6]} speed={0.3} radius={0.1} phase={3.0}>
+      <FloatingPart position={[-0.45, 0.5, 0.35]} speed={0.3} radius={0.06} phase={3.0}>
         <mesh material={partMat}>
           <cylinderGeometry args={[0.035, 0.035, 0.05, 16]} />
         </mesh>
@@ -533,7 +533,7 @@ function FloatingComponents() {
       </FloatingPart>
 
       {/* Sensor lens */}
-      <FloatingPart position={[1.3, 0.7, 0.4]} speed={0.45} radius={0.07} phase={4.5}>
+      <FloatingPart position={[0.6, 0.7, 0.3]} speed={0.45} radius={0.04} phase={4.5}>
         <mesh material={darkMat}>
           <cylinderGeometry args={[0.03, 0.04, 0.025, 16]} />
         </mesh>
@@ -543,7 +543,7 @@ function FloatingComponents() {
       </FloatingPart>
 
       {/* Bolt / fastener */}
-      <FloatingPart position={[-1.0, 1.6, -0.3]} speed={0.5} radius={0.05} phase={2.2}>
+      <FloatingPart position={[-0.4, 1.5, -0.2]} speed={0.5} radius={0.03} phase={2.2}>
         <mesh material={partMat}>
           <cylinderGeometry args={[0.018, 0.018, 0.03, 6]} />
         </mesh>
@@ -553,7 +553,7 @@ function FloatingComponents() {
       </FloatingPart>
 
       {/* Small ring bearing */}
-      <FloatingPart position={[0.8, 1.8, 0.1]} speed={0.38} radius={0.06} phase={5.0}>
+      <FloatingPart position={[0.35, 1.7, 0.1]} speed={0.38} radius={0.03} phase={5.0}>
         <mesh material={partMat}>
           <torusGeometry args={[0.03, 0.008, 10, 20]} />
         </mesh>
