@@ -237,199 +237,187 @@ function Torso(m: M) {
 }
 
 /* ═══════════════════════════════════════════════
-   ARMS — thicker, more mechanical detail
+   SINGLE ARM — poseable via shoulder/elbow rotation
+   Built relative to shoulder origin at (0,0,0)
    ═══════════════════════════════════════════════ */
-function Arms(m: M) {
+function Arm({ side, shoulderAngle = 0, elbowAngle = 0, ...m }: M & { side: 1 | -1; shoulderAngle?: number; elbowAngle?: number }) {
+  const s = side;
   return (
-    <group>
-      {([-1, 1] as const).map(s => (
-        <group key={s}>
-          {/* Shoulder rotary housing */}
-          <Ring pos={[s * 0.25, 1.42, 0]} r={0.06} mat={m.titanium} />
-          <mesh position={[s * 0.29, 1.42, 0]} material={m.darkSteel} rotation={[0, 0, Math.PI / 2]}>
-            <cylinderGeometry args={[0.05, 0.055, 0.06, 16]} />
-          </mesh>
-          {/* Shoulder cap */}
-          <mesh position={[s * 0.34, 1.43, 0]} material={m.aluminum}>
-            <sphereGeometry args={[0.055, 24, 24]} />
-          </mesh>
-          <Ring pos={[s * 0.36, 1.37, 0]} r={0.045} mat={m.titanium} />
+    <group position={[s * 0.25, 1.42, 0]}>
+      {/* Shoulder rotary housing (stays at torso) */}
+      <Ring pos={[0, 0, 0]} r={0.06} mat={m.titanium} />
+      <mesh position={[s * 0.04, 0, 0]} material={m.darkSteel} rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.05, 0.055, 0.06, 16]} />
+      </mesh>
 
-          {/* Upper arm — thicker */}
-          <mesh position={[s * 0.36, 1.22, 0]} material={m.aluminum}>
-            <cylinderGeometry args={[0.042, 0.048, 0.24, 18]} />
-          </mesh>
-          {/* Upper arm panel */}
-          <mesh position={[s * 0.36, 1.22, 0.046]} material={m.aluminumDark}>
-            <boxGeometry args={[0.03, 0.2, 0.003]} />
-          </mesh>
-          {/* Upper arm actuator block */}
-          <mesh position={[s * 0.36, 1.28, -0.035]} material={m.darkSteel}>
-            <boxGeometry args={[0.04, 0.06, 0.025]} />
-          </mesh>
+      {/* Upper arm group — rotates at shoulder */}
+      <group position={[s * 0.09, 0.01, 0]} rotation={[shoulderAngle, 0, 0]}>
+        {/* Shoulder cap */}
+        <mesh position={[0, 0, 0]} material={m.aluminum}>
+          <sphereGeometry args={[0.055, 24, 24]} />
+        </mesh>
+        <Ring pos={[0, -0.06, 0]} r={0.045} mat={m.titanium} />
 
+        {/* Upper arm */}
+        <mesh position={[0, -0.21, 0]} material={m.aluminum}>
+          <cylinderGeometry args={[0.042, 0.048, 0.24, 18]} />
+        </mesh>
+        <mesh position={[0, -0.21, 0.046]} material={m.aluminumDark}>
+          <boxGeometry args={[0.03, 0.2, 0.003]} />
+        </mesh>
+        <mesh position={[0, -0.15, -0.035]} material={m.darkSteel}>
+          <boxGeometry args={[0.04, 0.06, 0.025]} />
+        </mesh>
+
+        {/* Elbow pivot point */}
+        <group position={[0, -0.35, 0]} rotation={[elbowAngle, 0, 0]}>
           {/* Elbow hinge */}
-          <Ring pos={[s * 0.36, 1.07, 0]} r={0.042} mat={m.titanium} />
-          <mesh position={[s * 0.36, 1.07, 0]} rotation={[0, 0, Math.PI / 2]} material={m.darkSteel}>
+          <Ring pos={[0, 0, 0]} r={0.042} mat={m.titanium} />
+          <mesh rotation={[0, 0, Math.PI / 2]} material={m.darkSteel}>
             <cylinderGeometry args={[0.035, 0.038, 0.055, 14]} />
           </mesh>
-          {/* Elbow hinge pin */}
-          <mesh position={[s * 0.36, 1.07, 0]} rotation={[Math.PI / 2, 0, 0]} material={m.titanium}>
+          <mesh rotation={[Math.PI / 2, 0, 0]} material={m.titanium}>
             <cylinderGeometry args={[0.008, 0.008, 0.09, 8]} />
           </mesh>
-          {/* Elbow guard */}
-          <mesh position={[s * 0.36, 1.07, 0.042]} material={m.aluminum}>
+          <mesh position={[0, 0, 0.042]} material={m.aluminum}>
             <boxGeometry args={[0.05, 0.04, 0.012]} />
           </mesh>
 
-          {/* Forearm — thicker */}
-          <mesh position={[s * 0.36, 0.9, 0]} material={m.aluminum}>
+          {/* Forearm */}
+          <mesh position={[0, -0.17, 0]} material={m.aluminum}>
             <cylinderGeometry args={[0.035, 0.04, 0.24, 18]} />
           </mesh>
-          {/* Forearm cable */}
-          <mesh position={[s * 0.36, 0.9, -0.038]} material={m.darkSteel}>
+          <mesh position={[0, -0.17, -0.038]} material={m.darkSteel}>
             <boxGeometry args={[0.01, 0.2, 0.006]} />
           </mesh>
-          {/* Forearm panel */}
-          <mesh position={[s * 0.36, 0.9, 0.038]} material={m.aluminumDark}>
+          <mesh position={[0, -0.17, 0.038]} material={m.aluminumDark}>
             <boxGeometry args={[0.025, 0.18, 0.003]} />
           </mesh>
 
           {/* Wrist */}
-          <Ring pos={[s * 0.36, 0.76, 0]} r={0.03} mat={m.titanium} />
-          <mesh position={[s * 0.36, 0.76, 0]} material={m.darkSteel}>
+          <Ring pos={[0, -0.31, 0]} r={0.03} mat={m.titanium} />
+          <mesh position={[0, -0.31, 0]} material={m.darkSteel}>
             <cylinderGeometry args={[0.022, 0.028, 0.02, 12]} />
           </mesh>
 
-          {/* Hand — industrial clamp gripper */}
-          <mesh position={[s * 0.36, 0.7, 0.005]} material={m.darkSteel}>
+          {/* Hand */}
+          <mesh position={[0, -0.37, 0.005]} material={m.darkSteel}>
             <boxGeometry args={[0.05, 0.055, 0.04]} />
           </mesh>
-          <mesh position={[s * 0.36, 0.7, 0.027]} material={m.grip}>
+          <mesh position={[0, -0.37, 0.027]} material={m.grip}>
             <boxGeometry args={[0.045, 0.05, 0.005]} />
           </mesh>
-          {/* Thumb clamp */}
-          <mesh position={[s * 0.335, 0.69, 0.025]} material={m.darkSteel}>
+          <mesh position={[-0.025 * s, -0.38, 0.025]} material={m.darkSteel}>
             <boxGeometry args={[0.014, 0.04, 0.022]} />
           </mesh>
-          {/* Two-finger gripper pads */}
-          <mesh position={[s * 0.35, 0.665, 0.005]} material={m.darkSteel}>
+          <mesh position={[-0.01, -0.405, 0.005]} material={m.darkSteel}>
             <boxGeometry args={[0.02, 0.022, 0.035]} />
           </mesh>
-          <mesh position={[s * 0.375, 0.665, 0.005]} material={m.darkSteel}>
+          <mesh position={[0.015, -0.405, 0.005]} material={m.darkSteel}>
             <boxGeometry args={[0.02, 0.022, 0.035]} />
           </mesh>
-          <mesh position={[s * 0.36, 0.652, 0.005]} material={m.grip}>
+          <mesh position={[0, -0.418, 0.005]} material={m.grip}>
             <boxGeometry args={[0.048, 0.005, 0.03]} />
           </mesh>
         </group>
-      ))}
+      </group>
     </group>
   );
 }
 
 /* ═══════════════════════════════════════════════
-   LEGS — ~38-40% height, wider stance, thicker
-   Height: ~0.72 units
+   SINGLE LEG — poseable via hip/knee rotation
+   Built relative to hip origin
    ═══════════════════════════════════════════════ */
-function Legs(m: M) {
-  const legSpread = 0.12;
+function Leg({ side, hipAngle = 0, kneeAngle = 0, ...m }: M & { side: 1 | -1; hipAngle?: number; kneeAngle?: number }) {
+  const x = side * 0.12;
   return (
-    <group>
-      {([-1, 1] as const).map(s => (
-        <group key={s}>
-          {/* Hip structural block */}
-          <mesh position={[s * legSpread, 0.9, 0]} material={m.darkSteel}>
-            <boxGeometry args={[0.08, 0.07, 0.09]} />
-          </mesh>
-          <Ring pos={[s * legSpread, 0.86, 0]} r={0.052} mat={m.titanium} />
-          <mesh position={[s * legSpread, 0.86, 0]} rotation={[0, 0, Math.PI / 2]} material={m.darkSteel}>
-            <cylinderGeometry args={[0.04, 0.045, 0.045, 14]} />
-          </mesh>
+    <group position={[x, 0.9, 0]}>
+      {/* Hip structural block (stays at pelvis) */}
+      <mesh material={m.darkSteel}>
+        <boxGeometry args={[0.08, 0.07, 0.09]} />
+      </mesh>
+      <Ring pos={[0, -0.04, 0]} r={0.052} mat={m.titanium} />
+      <mesh position={[0, -0.04, 0]} rotation={[0, 0, Math.PI / 2]} material={m.darkSteel}>
+        <cylinderGeometry args={[0.04, 0.045, 0.045, 14]} />
+      </mesh>
 
-          {/* Thigh — substantially thicker */}
-          <mesh position={[s * legSpread, 0.66, 0]} material={m.aluminum}>
-            <cylinderGeometry args={[0.055, 0.065, 0.32, 20]} />
-          </mesh>
-          {/* Thigh panel seam */}
-          <mesh position={[s * legSpread, 0.66, 0.06]} material={m.aluminumDark}>
-            <boxGeometry args={[0.003, 0.28, 0.003]} />
-          </mesh>
-          {/* Thigh actuator housing */}
-          <mesh position={[s * legSpread, 0.74, 0.045]} material={m.darkSteel}>
-            <boxGeometry args={[0.04, 0.09, 0.025]} />
-          </mesh>
-          {/* Thigh inner cable */}
-          <mesh position={[s * legSpread, 0.66, -0.06]} material={m.darkSteel}>
-            <boxGeometry args={[0.012, 0.22, 0.008]} />
-          </mesh>
+      {/* Thigh group — rotates at hip */}
+      <group position={[0, -0.06, 0]} rotation={[hipAngle, 0, 0]}>
+        {/* Thigh */}
+        <mesh position={[0, -0.18, 0]} material={m.aluminum}>
+          <cylinderGeometry args={[0.055, 0.065, 0.32, 20]} />
+        </mesh>
+        <mesh position={[0, -0.18, 0.06]} material={m.aluminumDark}>
+          <boxGeometry args={[0.003, 0.28, 0.003]} />
+        </mesh>
+        <mesh position={[0, -0.1, 0.045]} material={m.darkSteel}>
+          <boxGeometry args={[0.04, 0.09, 0.025]} />
+        </mesh>
+        <mesh position={[0, -0.18, -0.06]} material={m.darkSteel}>
+          <boxGeometry args={[0.012, 0.22, 0.008]} />
+        </mesh>
 
-          {/* Knee — visible hinge */}
-          <Ring pos={[s * legSpread, 0.48, 0]} r={0.048} mat={m.titanium} />
-          <mesh position={[s * legSpread, 0.48, 0]} rotation={[0, 0, Math.PI / 2]} material={m.darkSteel}>
+        {/* Knee pivot */}
+        <group position={[0, -0.36, 0]} rotation={[kneeAngle, 0, 0]}>
+          {/* Knee hinge */}
+          <Ring pos={[0, 0, 0]} r={0.048} mat={m.titanium} />
+          <mesh rotation={[0, 0, Math.PI / 2]} material={m.darkSteel}>
             <cylinderGeometry args={[0.038, 0.042, 0.055, 14]} />
           </mesh>
-          {/* Knee hinge pin */}
-          <mesh position={[s * legSpread, 0.48, 0]} rotation={[Math.PI / 2, 0, 0]} material={m.titanium}>
+          <mesh rotation={[Math.PI / 2, 0, 0]} material={m.titanium}>
             <cylinderGeometry args={[0.008, 0.008, 0.1, 8]} />
           </mesh>
-          {/* Knee guard plate */}
-          <mesh position={[s * legSpread, 0.48, 0.048]} material={m.aluminum}>
+          <mesh position={[0, 0, 0.048]} material={m.aluminum}>
             <boxGeometry args={[0.065, 0.055, 0.015]} />
           </mesh>
 
-          {/* Shin — solid */}
-          <mesh position={[s * legSpread, 0.3, 0.005]} material={m.aluminum}>
+          {/* Shin */}
+          <mesh position={[0, -0.2, 0.005]} material={m.aluminum}>
             <cylinderGeometry args={[0.048, 0.055, 0.28, 18]} />
           </mesh>
-          {/* Shin panel seam */}
-          <mesh position={[s * legSpread, 0.3, 0.053]} material={m.aluminumDark}>
+          <mesh position={[0, -0.2, 0.053]} material={m.aluminumDark}>
             <boxGeometry args={[0.003, 0.24, 0.003]} />
           </mesh>
-          {/* Shin cable */}
-          <mesh position={[s * legSpread, 0.3, -0.05]} material={m.darkSteel}>
+          <mesh position={[0, -0.2, -0.05]} material={m.darkSteel}>
             <boxGeometry args={[0.012, 0.2, 0.006]} />
           </mesh>
-          {/* Shin actuator housing */}
-          <mesh position={[s * legSpread, 0.36, 0.04]} material={m.darkSteel}>
+          <mesh position={[0, -0.14, 0.04]} material={m.darkSteel}>
             <boxGeometry args={[0.035, 0.06, 0.02]} />
           </mesh>
 
           {/* Ankle */}
-          <Ring pos={[s * legSpread, 0.14, 0]} r={0.04} mat={m.titanium} />
-          <mesh position={[s * legSpread, 0.14, 0]} material={m.darkSteel}>
+          <Ring pos={[0, -0.36, 0]} r={0.04} mat={m.titanium} />
+          <mesh position={[0, -0.36, 0]} material={m.darkSteel}>
             <cylinderGeometry args={[0.028, 0.035, 0.025, 14]} />
           </mesh>
 
-          {/* Foot — wider, stable base */}
-          <mesh position={[s * legSpread, 0.08, 0.01]} material={m.aluminum}>
+          {/* Foot */}
+          <mesh position={[0, -0.42, 0.01]} material={m.aluminum}>
             <boxGeometry args={[0.09, 0.035, 0.16]} />
           </mesh>
-          <mesh position={[s * legSpread, 0.06, 0.01]} material={m.grip}>
+          <mesh position={[0, -0.44, 0.01]} material={m.grip}>
             <boxGeometry args={[0.088, 0.008, 0.158]} />
           </mesh>
-          {/* Toe guard */}
-          <mesh position={[s * legSpread, 0.08, 0.095]} material={m.aluminumDark}>
+          <mesh position={[0, -0.42, 0.095]} material={m.aluminumDark}>
             <boxGeometry args={[0.08, 0.03, 0.02]} />
           </mesh>
-          {/* Heel block */}
-          <mesh position={[s * legSpread, 0.08, -0.065]} material={m.aluminumDark}>
+          <mesh position={[0, -0.42, -0.065]} material={m.aluminumDark}>
             <boxGeometry args={[0.075, 0.03, 0.02]} />
           </mesh>
-          {/* Foot side rails */}
           {([-1, 1] as const).map(fs => (
-            <mesh key={fs} position={[s * legSpread + fs * 0.042, 0.08, 0.01]} material={m.aluminumDark}>
+            <mesh key={fs} position={[fs * 0.042, -0.42, 0.01]} material={m.aluminumDark}>
               <boxGeometry args={[0.005, 0.025, 0.14]} />
             </mesh>
           ))}
         </group>
-      ))}
+      </group>
     </group>
   );
 }
 
 /* ═══════════════════════════════════════════════
-   ASSEMBLY — slight 3/4 orientation
+   ASSEMBLY — running stride pose
    ═══════════════════════════════════════════════ */
 function IndustrialHumanoid() {
   const groupRef = useRef<THREE.Group>(null);
@@ -441,12 +429,32 @@ function IndustrialHumanoid() {
     }
   });
 
+  // Running stride pose angles (radians)
+  // Left leg forward, right leg back — opposite arms
+  const leftHip = -0.4;     // left leg swings forward
+  const leftKnee = 0.3;     // slight knee bend
+  const rightHip = 0.35;    // right leg pushes back
+  const rightKnee = 0.55;   // more knee bend on trailing leg
+
+  const leftShoulder = 0.35;   // left arm swings back (opposite leg)
+  const leftElbow = -0.3;
+  const rightShoulder = -0.45; // right arm swings forward (raised)
+  const rightElbow = -0.55;    // bent elbow on raised arm
+
   return (
-    <group ref={groupRef} rotation={[0, -0.3, 0]} position={[0, -0.05, 0]}>
+    <group ref={groupRef} rotation={[0, -0.3, 0]} position={[0, 0.05, 0]}>
       <Head {...mats} />
       <Torso {...mats} />
-      <Arms {...mats} />
-      <Legs {...mats} />
+
+      {/* Left arm — swings back */}
+      <Arm side={-1} shoulderAngle={leftShoulder} elbowAngle={leftElbow} {...mats} />
+      {/* Right arm — raised forward */}
+      <Arm side={1} shoulderAngle={rightShoulder} elbowAngle={rightElbow} {...mats} />
+
+      {/* Left leg — forward stride */}
+      <Leg side={-1} hipAngle={leftHip} kneeAngle={leftKnee} {...mats} />
+      {/* Right leg — trailing push */}
+      <Leg side={1} hipAngle={rightHip} kneeAngle={rightKnee} {...mats} />
     </group>
   );
 }
