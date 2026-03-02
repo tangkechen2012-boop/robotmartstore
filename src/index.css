@@ -115,3 +115,14 @@
     border: 1px solid hsl(var(--glass-border) / 0.15);
   }
 }
+
+/* Global button hover/active effects */
+button,
+a[role="button"] {
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+button:active,
+a[role="button"]:active {
+  transform: scale(0.97);
+}

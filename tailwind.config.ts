@@ -79,11 +79,28 @@ export default {
           from: { opacity: "0", transform: "translateY(20px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
+        "hero-gradient": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
+        "float-orb": {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
+          "33%": { transform: "translate(30px, -20px) scale(1.05)" },
+          "66%": { transform: "translate(-20px, 15px) scale(0.95)" },
+        },
+        "float-orb-reverse": {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
+          "33%": { transform: "translate(-25px, 20px) scale(0.95)" },
+          "66%": { transform: "translate(20px, -15px) scale(1.05)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in-up": "fade-in-up 0.6s ease-out forwards",
+        "hero-gradient": "hero-gradient 8s ease infinite",
+        "float-orb": "float-orb 6s ease-in-out infinite",
+        "float-orb-reverse": "float-orb-reverse 7s ease-in-out infinite",
       },
       boxShadow: {
         soft: "0 2px 20px -4px hsl(var(--primary) / 0.08)",
