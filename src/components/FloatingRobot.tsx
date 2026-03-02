@@ -432,7 +432,7 @@ function IndustrialHumanoid() {
     if (groupRef.current) {
       groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.4) * 0.003;
     }
-    const t = state.clock.elapsedTime * 0.6; // slow cycle
+    const t = state.clock.elapsedTime * 1.0;
     const s = Math.sin(t);
     const c = Math.cos(t);
 
@@ -449,7 +449,7 @@ function IndustrialHumanoid() {
   });
 
   return (
-    <group ref={groupRef} rotation={[0, -0.3, 0]} position={[0, 0.05, 0]}>
+    <group ref={groupRef} rotation={[0, -0.3, 0]} position={[0, 0.05, 0]} scale={0.75}>
       <Head {...mats} />
       <Torso {...mats} />
 
