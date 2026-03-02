@@ -37,12 +37,12 @@ const PILLARS = [
 ];
 
 const CATEGORIES = [
-  { label: "Humanoid Robots", icon: Bot, link: "/products/humanoid-robots" },
-  { label: "Quadruped Robots", icon: Cpu, link: "/products/quadruped-robots" },
-  { label: "Robotics Accessories", icon: Wrench, link: "/products/components" },
-  { label: "Research Platforms", icon: Microscope, link: "/products/research-platforms" },
-  { label: "Industrial Robotics", icon: Factory, link: "/products/industrial-robotics" },
-  { label: "Components", icon: Cpu, link: "/products/components" },
+  { label: "Humanoid Robots", desc: "Bipedal platforms for research & enterprise", image: "/images/categories/humanoid.webp", link: "/products/humanoid-robots" },
+  { label: "Quadruped Robots", desc: "Four-legged autonomous systems", image: "/images/categories/quadruped.webp", link: "/products/quadruped-robots" },
+  { label: "Robotics Accessories", desc: "Grippers, sensors & mounting hardware", image: "/images/categories/accessories.webp", link: "/products/components" },
+  { label: "Research Platforms", desc: "Lab-grade development kits", image: "/images/categories/research.webp", link: "/products/research-platforms" },
+  { label: "Industrial Robotics", desc: "Production-grade automation arms", image: "/images/categories/industrial.webp", link: "/products/industrial-robotics" },
+  { label: "Components", desc: "Motors, controllers & actuators", image: "/images/categories/components.webp", link: "/products/components" },
 ];
 
 const APPLICATIONS = [
@@ -152,28 +152,47 @@ const Index = () => {
         </div>
       </ScrollReveal>
 
-      {/* ===== PRODUCT CATEGORIES ===== */}
-      <ScrollReveal className="bg-secondary/50">
-        <div className="max-w-7xl mx-auto px-4 py-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-3">Product Categories</h2>
-            <p className="text-muted-foreground">Browse our complete robotics catalog by category.</p>
+      {/* ===== PRODUCT CATEGORIES — INDUSTRIAL IMAGE BLOCKS ===== */}
+      <section style={{ background: 'linear-gradient(180deg, #14213D 0%, #0B1020 100%)' }}>
+        <ScrollReveal className="max-w-7xl mx-auto px-4 py-24">
+          <div className="mb-14">
+            <p className="text-xs font-mono tracking-[0.3em] uppercase text-accent mb-4 opacity-80">Product Lines</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-white">Product Categories</h2>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
-            {CATEGORIES.map(cat => (
-              <Link key={cat.label} to={cat.link} className="group">
-                <div className="bg-card rounded-2xl p-6 h-full border hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-300 text-center">
-                  <div className="h-16 w-16 rounded-2xl bg-primary/8 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/15 transition-colors duration-300">
-                    <cat.icon className="h-8 w-8 text-primary" />
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {CATEGORIES.map((cat, i) => (
+              <Link
+                key={cat.label}
+                to={cat.link}
+                className={`group relative overflow-hidden rounded-xl block ${i === 0 ? 'md:col-span-2 lg:col-span-2 lg:row-span-2' : ''}`}
+              >
+                <div className={`relative overflow-hidden ${i === 0 ? 'aspect-[16/10]' : 'aspect-[4/3]'}`}>
+                  <img
+                    src={cat.image}
+                    alt={cat.label}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={{ boxShadow: 'inset 0 0 60px 10px hsl(210 100% 55% / 0.15)' }} />
+                  <div className="absolute inset-0 rounded-xl border border-transparent group-hover:border-accent/30 transition-all duration-500 pointer-events-none" />
+                </div>
+
+                <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
+                  <p className="text-[10px] font-mono tracking-[0.2em] uppercase text-accent/70 mb-1">0{i + 1}</p>
+                  <h3 className={`font-bold text-white mb-1 ${i === 0 ? 'text-2xl md:text-3xl' : 'text-lg'}`}>{cat.label}</h3>
+                  <p className="text-white/40 text-sm">{cat.desc}</p>
+                  <div className="mt-3 flex items-center gap-2 text-accent text-xs font-semibold opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400">
+                    Explore <ArrowRight className="h-3 w-3" />
                   </div>
-                  <h3 className="font-semibold text-base">{cat.label}</h3>
-                  <ChevronRight className="h-4 w-4 text-muted-foreground mx-auto mt-2 group-hover:text-primary transition-colors" />
                 </div>
               </Link>
             ))}
           </div>
-        </div>
-      </ScrollReveal>
+        </ScrollReveal>
+      </section>
 
       {/* ===== FEATURED PRODUCTS ===== */}
       <ScrollReveal className="max-w-7xl mx-auto px-4 py-20">
