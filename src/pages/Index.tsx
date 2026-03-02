@@ -3,54 +3,60 @@ import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
 import { useShopifyProducts } from "@/hooks/useShopifyProducts";
 import {
-  Truck, Shield, Headphones, ChevronRight, Cpu, GraduationCap,
-  Home, Factory, Bot, CheckCircle, Globe, CreditCard, Users,
-  Microscope, BrainCircuit
+  ChevronRight, Bot, Cpu, Factory, GraduationCap, Microscope,
+  BrainCircuit, ArrowRight, Wrench, Code2, Search as SearchIcon,
+  Shield, Users, Award, Globe, Truck, Headphones
 } from "lucide-react";
-import { FloatingRobot } from "@/components/FloatingRobot";
 import { useEffect } from "react";
 
+const PILLARS = [
+  {
+    title: "Products",
+    description: "Humanoid robots, quadruped systems, robotic arms, and precision components from the world's leading manufacturers.",
+    icon: Bot,
+    link: "/products",
+  },
+  {
+    title: "Services & Technology",
+    description: "System integration, technical support, AI deployment, and lifecycle maintenance for robotics platforms.",
+    icon: Wrench,
+    link: "/services-technology",
+  },
+  {
+    title: "Custom Development",
+    description: "End-to-end custom robotics engineering — from mechanical design and embedded systems to AI integration.",
+    icon: Code2,
+    link: "/custom-development",
+  },
+];
+
 const CATEGORIES = [
-  { label: "Humanoid Robots", description: "Full-body humanoid platforms for research, education, and industrial applications.", link: "/humanoid-robots", icon: Bot },
-  { label: "Quadruped Robots", description: "Four-legged robotic platforms for inspection, research, and field operations.", link: "/quadruped-robots", icon: Cpu },
-  { label: "Robotic Arms", description: "Collaborative, industrial, and desktop robotic arms for automation and R&D.", link: "/robotic-arms", icon: Factory },
-  { label: "Industrial Robots", description: "Heavy-duty automation solutions for manufacturing and production lines.", link: "/industrial-robots", icon: Factory },
-  { label: "Educational Robotics", description: "STEM robotics kits and platforms from K-12 to university level.", link: "/educational-robotics", icon: GraduationCap },
-  { label: "Robot Parts", description: "Motors, sensors, controllers, batteries, and mechanical components.", link: "/robot-parts", icon: Cpu },
+  { label: "Humanoid Robots", icon: Bot, link: "/products/humanoid-robots" },
+  { label: "Quadruped Robots", icon: Cpu, link: "/products/quadruped-robots" },
+  { label: "Robotics Accessories", icon: Wrench, link: "/products/components" },
+  { label: "Research Platforms", icon: Microscope, link: "/products/research-platforms" },
+  { label: "Industrial Robotics", icon: Factory, link: "/products/industrial-robotics" },
+  { label: "Components", icon: Cpu, link: "/products/components" },
 ];
 
 const APPLICATIONS = [
-  { label: "Education", description: "STEM curriculum-aligned robotics for schools and universities.", link: "/applications/education", icon: GraduationCap },
-  { label: "Research Labs", description: "Advanced platforms for academic and industrial R&D projects.", link: "/applications/research", icon: Microscope },
-  { label: "Industrial Automation", description: "Scalable automation solutions for manufacturing environments.", link: "/applications/industrial-automation", icon: Factory },
-  { label: "AI Development", description: "Hardware and compute platforms for robotics AI and machine learning.", link: "/applications/ai-development", icon: BrainCircuit },
+  { label: "Education", description: "STEM-aligned robotics for K-12 and universities.", icon: GraduationCap },
+  { label: "Industrial Automation", description: "Scalable automation for manufacturing.", icon: Factory },
+  { label: "AI Development", description: "Hardware platforms for robotics AI & ML.", icon: BrainCircuit },
+  { label: "Inspection", description: "Autonomous inspection and monitoring.", icon: SearchIcon },
 ];
 
-const WHY_CHOOSE = [
-  { icon: Globe, title: "Authorized Global Brands", desc: "Official distributor of leading robotics manufacturers worldwide." },
-  { icon: Truck, title: "US Warehouse Fulfillment", desc: "Fast domestic shipping from our warehouses across the United States." },
-  { icon: Headphones, title: "Technical Support", desc: "Pre-sale guidance and post-sale engineering support from robotics experts." },
-  { icon: Users, title: "B2B Bulk Pricing", desc: "Volume discounts, net terms, and dedicated account management for institutions." },
-  { icon: CreditCard, title: "Secure Checkout", desc: "PCI-compliant payment processing with multiple payment options." },
-  { icon: CheckCircle, title: "Quality Guarantee", desc: "Every product backed by manufacturer warranty and our satisfaction guarantee." },
-];
-
-const BRANDS = [
-  { name: "Arduino", icon: "/images/brands/arduino.webp" },
-  { name: "Raspberry Pi", icon: "/images/brands/raspberry-pi.webp" },
-  { name: "NVIDIA", icon: "/images/brands/nvidia.webp" },
-  { name: "Boston Dynamics", icon: "/images/brands/boston-dynamics.webp" },
-  { name: "DJI", icon: "/images/brands/dji.webp" },
-  { name: "Universal Robots", icon: "/images/brands/universal-robots.webp" },
-  { name: "ABB", icon: "/images/brands/abb.webp" },
-  { name: "KUKA", icon: "/images/brands/kuka.webp" },
+const STATS = [
+  { value: "50+", label: "Engineering Team" },
+  { value: "200+", label: "Global Clients" },
+  { value: "120+", label: "R&D Projects" },
+  { value: "12+", label: "Years Experience" },
 ];
 
 const Index = () => {
   const { data: products, isLoading } = useShopifyProducts(8);
 
   useEffect(() => {
-    // FAQ Schema
     const faqSchema = {
       "@context": "https://schema.org",
       "@type": "FAQPage",
@@ -58,17 +64,17 @@ const Index = () => {
         {
           "@type": "Question",
           "name": "What types of robots does RoboMart sell?",
-          "acceptedAnswer": { "@type": "Answer", "text": "RoboMart sells humanoid robots, quadruped robots, robotic arms, industrial robots, educational robotics kits, and robot parts including motors, sensors, controllers, and batteries." }
+          "acceptedAnswer": { "@type": "Answer", "text": "RoboMart provides humanoid robots, quadruped robots, robotic arms, industrial robots, educational robotics kits, and robot parts including motors, sensors, controllers, and batteries." }
         },
         {
           "@type": "Question",
-          "name": "Does RoboMart offer B2B pricing?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. RoboMart provides bulk pricing, net terms, and dedicated account management for universities, research labs, and enterprise buyers. Submit an RFQ for a custom quote." }
+          "name": "Does RoboMart offer custom robotics development?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. RoboMart offers end-to-end custom robotics development including mechanical design, embedded systems, AI integration, and prototyping services." }
         },
         {
           "@type": "Question",
           "name": "Does RoboMart ship internationally?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. RoboMart ships from US warehouses domestically and offers global shipping to most countries. Free shipping is available on US orders over $500." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. RoboMart ships globally from US-based warehouses with fast domestic delivery and international shipping to most countries." }
         }
       ]
     };
@@ -81,96 +87,93 @@ const Index = () => {
 
   return (
     <div className="min-h-screen overflow-x-hidden">
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[hsl(var(--robot-navy))] to-[hsl(var(--primary))] text-white">
-        <div className="max-w-7xl mx-auto px-4 py-20 md:py-28">
-          <div className="flex items-center gap-12">
-            <div className="max-w-2xl flex-1">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
-                Industrial &amp; Educational Robotics Store in the USA
+      {/* ===== HERO ===== */}
+      <section className="relative min-h-[90vh] flex items-center bg-gradient-to-br from-primary via-primary to-accent/30 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_80%_50%,hsl(var(--accent)/0.15),transparent)]" />
+        <div className="max-w-7xl mx-auto px-4 py-20 md:py-28 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="animate-fade-in-up">
+              <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold leading-[1.1] text-primary-foreground mb-6">
+                Professional Robotics Solutions & Advanced Robot Platforms
               </h1>
-              <p className="text-lg md:text-xl opacity-90 mb-8 leading-relaxed">
-                Buy humanoid robots, quadruped robots, robotic arms, AI kits and robot parts from trusted global brands. Serving engineers, universities, research labs, and industrial buyers nationwide.
+              <p className="text-lg md:text-xl text-primary-foreground/80 mb-8 leading-relaxed max-w-xl">
+                Delivering humanoid robots, quadruped systems, and intelligent robotics solutions for industry and research.
               </p>
               <div className="flex flex-wrap gap-3">
-                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8" asChild>
-                  <Link to="/collections/all">Shop Robotics</Link>
+                <Button size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground shadow-soft-lg transition-all duration-300 hover:shadow-card-hover" asChild>
+                  <Link to="/products">Browse Products</Link>
                 </Button>
-                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8" asChild>
-                  <Link to="#categories">Browse by Category</Link>
-                </Button>
-                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8" asChild>
-                  <Link to="/b2b">Request B2B Quote</Link>
+                <Button size="lg" variant="outline" className="rounded-pill px-8 font-semibold border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 transition-all duration-300" asChild>
+                  <Link to="/contact">Request Consultation</Link>
                 </Button>
               </div>
             </div>
-            <div className="hidden md:block w-[520px] h-[520px] flex-shrink-0">
-              <FloatingRobot />
-            </div>
-          </div>
-        </div>
 
-        {/* Trust bar */}
-        <div className="bg-[hsl(var(--robot-navy))]/50 backdrop-blur-sm border-t border-white/10">
-          <div className="max-w-7xl mx-auto px-4 py-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
-                <Cpu className="h-5 w-5" />
+            {/* Floating glass cards */}
+            <div className="hidden lg:flex flex-col gap-4 items-end">
+              <div className="glass rounded-2xl p-5 max-w-xs shadow-soft-lg animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="h-10 w-10 rounded-xl bg-accent/20 flex items-center justify-center">
+                    <Globe className="h-5 w-5 text-accent" />
+                  </div>
+                  <p className="font-bold text-sm">Global Distribution</p>
+                </div>
+                <p className="text-xs text-muted-foreground">Authorized distributor of leading robotics brands worldwide.</p>
               </div>
-              <div>
-                <p className="text-sm font-semibold">Curated Robotics</p>
-                <p className="text-xs opacity-70">Reliable brands for education, R&amp;D &amp; industry</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
-                <Truck className="h-5 w-5" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold">US Warehouse Fulfillment</p>
-                <p className="text-xs opacity-70">Fast domestic &amp; international shipping</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
-                <Headphones className="h-5 w-5" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold">Expert Support</p>
-                <p className="text-xs opacity-70">Pre-sale selection + post-sale tech support</p>
+              <div className="glass rounded-2xl p-5 max-w-xs shadow-soft-lg animate-fade-in-up mr-12" style={{ animationDelay: "0.4s" }}>
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="h-10 w-10 rounded-xl bg-accent/20 flex items-center justify-center">
+                    <Shield className="h-5 w-5 text-accent" />
+                  </div>
+                  <p className="font-bold text-sm">Engineering Support</p>
+                </div>
+                <p className="text-xs text-muted-foreground">Pre-sale guidance and post-sale engineering from robotics experts.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SEO Intro Paragraph */}
-      <section className="max-w-7xl mx-auto px-4 py-12">
-        <div className="max-w-4xl">
-          <h2 className="text-2xl font-bold mb-4">Welcome to RoboMart — Your Specialized Robotics Supplier</h2>
-          <p className="text-muted-foreground leading-relaxed">
-            RoboMart is a dedicated robotics store serving engineers, educators, researchers, and industrial buyers across the United States and worldwide. We carry a comprehensive selection of humanoid robots, quadruped robots, collaborative and industrial robotic arms, educational robotics kits, and essential robot parts — including motors, sensors, microcontrollers, batteries, and mechanical components. Unlike general electronics retailers, RoboMart focuses exclusively on robotics, ensuring deep product expertise and curated inventory from the world's most trusted robotics brands. Whether you're outfitting a university robotics lab, sourcing components for a research project, deploying automation in a manufacturing facility, or building your first STEM robot, RoboMart provides the products, technical support, and competitive pricing you need. We offer institutional purchasing programs, bulk pricing for B2B buyers, and dedicated account management for government and enterprise procurement.
-          </p>
+      {/* ===== CORE BUSINESS PILLARS ===== */}
+      <section className="max-w-7xl mx-auto px-4 py-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold mb-3">What We Do</h2>
+          <p className="text-muted-foreground max-w-lg mx-auto">Three core pillars powering robotics innovation across industries.</p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {PILLARS.map((pillar, i) => (
+            <Link key={pillar.title} to={pillar.link} className="group">
+              <div className="bg-card rounded-2xl p-8 h-full border hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300">
+                <div className="h-14 w-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-5 group-hover:bg-accent/20 transition-colors duration-300">
+                  <pillar.icon className="h-7 w-7 text-accent" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">{pillar.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{pillar.description}</p>
+                <span className="text-sm text-accent font-semibold inline-flex items-center gap-1 group-hover:gap-2 transition-all duration-300">
+                  Learn more <ArrowRight className="h-4 w-4" />
+                </span>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 
-      {/* Shop by Category */}
-      <section id="categories" className="bg-muted/50 border-y">
-        <div className="max-w-7xl mx-auto px-4 py-12">
-          <h2 className="text-2xl font-bold mb-2">Shop by Category</h2>
-          <p className="text-muted-foreground mb-8">Browse our robotics catalog organized by product type.</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {/* ===== PRODUCT CATEGORIES ===== */}
+      <section className="bg-secondary/50">
+        <div className="max-w-7xl mx-auto px-4 py-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-3">Product Categories</h2>
+            <p className="text-muted-foreground">Browse our complete robotics catalog by category.</p>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
             {CATEGORIES.map(cat => (
               <Link key={cat.label} to={cat.link} className="group">
-                <div className="bg-card border rounded-lg p-6 h-full hover:border-primary/50 hover:shadow-md transition-all">
-                  <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                    <cat.icon className="h-6 w-6 text-primary" />
+                <div className="bg-card rounded-2xl p-6 h-full border hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-300 text-center">
+                  <div className="h-16 w-16 rounded-2xl bg-primary/8 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/15 transition-colors duration-300">
+                    <cat.icon className="h-8 w-8 text-primary" />
                   </div>
-                  <h3 className="font-semibold text-lg mb-1">{cat.label}</h3>
-                  <p className="text-sm text-muted-foreground">{cat.description}</p>
-                  <span className="text-sm text-primary font-medium mt-3 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                    Browse <ChevronRight className="h-3 w-3" />
-                  </span>
+                  <h3 className="font-semibold text-base">{cat.label}</h3>
+                  <ChevronRight className="h-4 w-4 text-muted-foreground mx-auto mt-2 group-hover:text-primary transition-colors" />
                 </div>
               </Link>
             ))}
@@ -178,133 +181,144 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section className="max-w-7xl mx-auto px-4 py-12">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">Featured Products</h2>
-          <Link to="/collections/all" className="text-sm text-primary hover:underline flex items-center gap-1">
-            Shop all <ChevronRight className="h-3 w-3" />
+      {/* ===== FEATURED PRODUCTS ===== */}
+      <section className="max-w-7xl mx-auto px-4 py-20">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-3xl font-bold">Featured Products</h2>
+          <Link to="/products" className="text-sm text-accent hover:underline font-semibold flex items-center gap-1">
+            View all <ChevronRight className="h-4 w-4" />
           </Link>
         </div>
         {isLoading ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
             {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="border rounded-md overflow-hidden animate-pulse">
-                <div className="aspect-square bg-muted" />
-                <div className="p-3 space-y-2">
-                  <div className="h-4 bg-muted rounded w-3/4" />
-                  <div className="h-4 bg-muted rounded w-1/2" />
+              <div key={i} className="rounded-2xl overflow-hidden animate-pulse border">
+                <div className="aspect-square bg-secondary" />
+                <div className="p-4 space-y-2">
+                  <div className="h-4 bg-secondary rounded-pill w-3/4" />
+                  <div className="h-4 bg-secondary rounded-pill w-1/2" />
                 </div>
               </div>
             ))}
           </div>
         ) : products && products.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
             {products.map(product => (
               <ProductCard key={product.node.id} product={product} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 border rounded-md bg-muted/30">
+          <div className="text-center py-16 border rounded-2xl bg-secondary/30">
             <Bot className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-            <h3 className="font-semibold text-lg mb-2">No products yet</h3>
-            <p className="text-muted-foreground text-sm">
-              Tell us what products you'd like to add — describe the product name and price in the chat!
-            </p>
+            <h3 className="font-semibold text-lg mb-2">Products coming soon</h3>
+            <p className="text-muted-foreground text-sm">Our product catalog is being curated. Check back soon.</p>
           </div>
         )}
       </section>
 
-      {/* Applications */}
-      <section className="bg-muted/50 border-y">
-        <div className="max-w-7xl mx-auto px-4 py-12">
-          <h2 className="text-2xl font-bold mb-2">Robotics by Application</h2>
-          <p className="text-muted-foreground mb-8">Find the right robotic platform for your use case.</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {APPLICATIONS.map(app => (
-              <Link key={app.label} to={app.link} className="group">
-                <div className="bg-card border rounded-lg p-6 h-full hover:border-primary/50 hover:shadow-md transition-all text-center">
-                  <div className="h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
-                    <app.icon className="h-7 w-7 text-primary" />
+      {/* ===== SERVICES PREVIEW ===== */}
+      <section className="bg-secondary/50">
+        <div className="max-w-7xl mx-auto px-4 py-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold mb-4">Services & Technology</h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Beyond products, RoboMart provides comprehensive robotics engineering services — from initial system integration and SDK support to AI deployment and lifecycle maintenance. Our engineering team works alongside your organization to ensure seamless adoption of advanced robotics platforms.
+              </p>
+              <ul className="space-y-3 mb-6">
+                {["System Integration", "Technical Support & Training", "AI Model Deployment", "Lifecycle Maintenance"].map(s => (
+                  <li key={s} className="flex items-center gap-3 text-sm">
+                    <div className="h-6 w-6 rounded-full bg-accent/15 flex items-center justify-center flex-shrink-0">
+                      <ChevronRight className="h-3 w-3 text-accent" />
+                    </div>
+                    {s}
+                  </li>
+                ))}
+              </ul>
+              <Button className="rounded-pill px-6 font-semibold" asChild>
+                <Link to="/services-technology">Explore Services <ArrowRight className="h-4 w-4 ml-1" /></Link>
+              </Button>
+            </div>
+            <div className="bg-card rounded-2xl border p-8 shadow-soft">
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { icon: Wrench, label: "Integration" },
+                  { icon: Headphones, label: "Support" },
+                  { icon: BrainCircuit, label: "AI Deploy" },
+                  { icon: Shield, label: "Maintenance" },
+                ].map(item => (
+                  <div key={item.label} className="bg-secondary/60 rounded-xl p-5 text-center">
+                    <item.icon className="h-8 w-8 text-primary mx-auto mb-2" />
+                    <p className="text-sm font-medium">{item.label}</p>
                   </div>
-                  <h3 className="font-semibold mb-1">{app.label}</h3>
-                  <p className="text-sm text-muted-foreground">{app.description}</p>
-                </div>
-              </Link>
-            ))}
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Why Choose RoboMart */}
-      <section className="max-w-7xl mx-auto px-4 py-12">
-        <h2 className="text-2xl font-bold mb-2">Why Choose RoboMart</h2>
-        <p className="text-muted-foreground mb-8">The advantages of buying from a specialized robotics supplier.</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {WHY_CHOOSE.map(item => (
-            <div key={item.title} className="flex gap-4">
-              <div className="h-11 w-11 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
-                <item.icon className="h-5 w-5 text-accent" />
+      {/* ===== APPLICATIONS ===== */}
+      <section className="max-w-7xl mx-auto px-4 py-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold mb-3">Applications</h2>
+          <p className="text-muted-foreground">Robotics solutions tailored to your industry.</p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {APPLICATIONS.map(app => (
+            <div key={app.label} className="bg-secondary/40 rounded-2xl p-6 text-center hover:shadow-soft transition-all duration-300 hover:-translate-y-0.5">
+              <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <app.icon className="h-7 w-7 text-primary" />
               </div>
-              <div>
-                <h3 className="font-semibold mb-1">{item.title}</h3>
-                <p className="text-sm text-muted-foreground">{item.desc}</p>
-              </div>
+              <h3 className="font-semibold mb-1">{app.label}</h3>
+              <p className="text-sm text-muted-foreground">{app.description}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Brands */}
-      <section className="bg-muted/50 border-y">
-        <div className="max-w-7xl mx-auto px-4 py-12">
-          <h2 className="text-2xl font-bold mb-6">Trusted Robotics Brands</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-3">
-            {BRANDS.map(brand => (
-              <Link key={brand.name} to={`/brands/${brand.name.toLowerCase().replace(/\s/g, '-')}`}>
-                <div className="bg-card border rounded-md p-4 text-center hover:shadow-sm transition-shadow flex flex-col items-center gap-2">
-                  <img src={brand.icon} alt={`${brand.name} robotics products`} className="h-10 w-10 object-contain" loading="lazy" />
-                  <span className="text-xs font-medium text-muted-foreground">{brand.name}</span>
-                </div>
-              </Link>
+      {/* ===== TRUST STRIP ===== */}
+      <section className="bg-primary text-primary-foreground">
+        <div className="max-w-7xl mx-auto px-4 py-14">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+            {STATS.map(stat => (
+              <div key={stat.label}>
+                <p className="text-4xl font-extrabold mb-1">{stat.value}</p>
+                <p className="text-sm opacity-70">{stat.label}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* SEO Footer Content */}
-      <section className="max-w-7xl mx-auto px-4 py-12">
-        <h2 className="text-xl font-bold mb-4">Your Trusted Robotics Supplier in the USA</h2>
+      {/* ===== FINAL CTA ===== */}
+      <section className="relative py-20 bg-gradient-to-br from-primary/5 to-accent/5">
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <div className="glass rounded-2xl p-10 shadow-soft-lg">
+            <h2 className="text-3xl font-bold mb-4">Ready to Integrate Advanced Robotics Into Your Project?</h2>
+            <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
+              Whether you need a single robot or a fleet deployment, our team is ready to help you find the right solution.
+            </p>
+            <Button size="lg" className="rounded-pill px-10 font-semibold bg-primary hover:bg-primary/90 shadow-soft-lg transition-all duration-300 hover:shadow-card-hover" asChild>
+              <Link to="/contact">Start a Consultation</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== SEO CONTENT ===== */}
+      <section className="max-w-7xl mx-auto px-4 py-16">
+        <h2 className="text-2xl font-bold mb-4">Your Trusted Robotics Solutions Partner</h2>
         <div className="max-w-4xl text-sm text-muted-foreground leading-relaxed space-y-3">
           <p>
-            RoboMart is a specialized robotics supplier and robot parts distributor headquartered in the United States. We operate as an industrial robotics marketplace, connecting engineers, researchers, educators, and enterprise buyers with the world's leading robotics manufacturers. Our curated catalog includes humanoid robots, quadruped robots, collaborative and industrial robotic arms, educational STEM robotics kits, AI development platforms, and thousands of essential robot components.
+            RoboMart is a professional robotics solutions provider and authorized distributor headquartered in the United States. We specialize in delivering advanced robot platforms — including humanoid robots, quadruped robot systems, collaborative and industrial robotic arms, and precision robotics components — to engineers, researchers, educators, and enterprise buyers worldwide.
           </p>
           <p>
-            Whether you want to buy a robot online for a university research lab, source robotic arms for a production line, or equip a classroom with age-appropriate robotics kits, RoboMart delivers the product selection, competitive pricing, and technical expertise you need. As an authorized distributor for brands like Unitree, UFACTORY, Universal Robots, DJI, NVIDIA, Arduino, and Raspberry Pi, we ensure that every product is genuine, fully supported, and backed by manufacturer warranty.
+            Our three-pillar approach encompasses product distribution, engineering services, and custom development, enabling organizations to go from concept to deployment with a single trusted partner. We work with leading robotics manufacturers to ensure every product is genuine, fully supported, and backed by manufacturer warranty. Our engineering team provides hands-on system integration, AI model deployment, technical training, and lifecycle maintenance.
           </p>
           <p>
-            Our B2B program supports institutional purchasing with volume discounts, net payment terms, government procurement compliance, and dedicated account management. We ship from US-based warehouses for fast domestic delivery and offer international shipping to research institutions and businesses worldwide. From a single servo motor to a fleet of inspection robots, RoboMart is your end-to-end robotics supplier — providing not just products, but the guidance and support to deploy them successfully.
+            For organizations requiring bespoke solutions, our custom development division offers end-to-end robotics engineering — from mechanical design and embedded systems to AI integration and rapid prototyping. Whether you're a university research lab, an industrial automation facility, or a startup building next-generation robots, RoboMart delivers the products, expertise, and support to accelerate your robotics initiatives.
           </p>
-        </div>
-      </section>
-
-      {/* Support strip */}
-      <section className="bg-muted/50 border-t">
-        <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { icon: Truck, label: "Free Shipping", desc: "On US orders over $500" },
-            { icon: Shield, label: "Quality Guarantee", desc: "Manufacturer warranty included" },
-            { icon: CreditCard, label: "Secure Payment", desc: "PCI-compliant checkout" },
-            { icon: Headphones, label: "Expert Support", desc: "Robotics engineers ready to help" },
-          ].map(item => (
-            <div key={item.label} className="flex flex-col items-center text-center gap-2">
-              <item.icon className="h-7 w-7 text-primary" />
-              <div>
-                <p className="text-sm font-semibold">{item.label}</p>
-                <p className="text-xs text-muted-foreground">{item.desc}</p>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
     </div>

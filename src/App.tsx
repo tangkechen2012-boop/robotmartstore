@@ -14,6 +14,11 @@ import BrandsPage from "./pages/BrandsPage";
 import BlogPage from "./pages/BlogPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
+import ServicesPage from "./pages/ServicesPage";
+import CustomDevelopmentPage from "./pages/CustomDevelopmentPage";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
+import ApplicationsPage from "./pages/ApplicationsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,7 +44,14 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/product/:handle" element={<ProductDetail />} />
+            <Route path="/products" element={<CollectionPage />} />
+            <Route path="/products/:slug" element={<CollectionPage />} />
             <Route path="/collections/:slug" element={<CollectionPage />} />
+            <Route path="/services-technology" element={<ServicesPage />} />
+            <Route path="/custom-development" element={<CustomDevelopmentPage />} />
+            <Route path="/applications" element={<ApplicationsPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="/support" element={<SupportPage />} />
             <Route path="/brands" element={<BrandsPage />} />
             <Route path="/blog" element={<BlogPage />} />

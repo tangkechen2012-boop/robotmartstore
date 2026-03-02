@@ -34,13 +34,13 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <Link to={`/product/${node.handle}`} className="group block">
-      <div className="border rounded-md overflow-hidden bg-card hover:shadow-md transition-shadow">
-        <div className="aspect-square bg-muted relative overflow-hidden">
+      <div className="rounded-2xl overflow-hidden bg-card border hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-300">
+        <div className="aspect-square bg-secondary relative overflow-hidden">
           {image ? (
             <img
               src={image.url}
               alt={image.altText || node.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-300"
               loading="lazy"
             />
           ) : (
@@ -49,25 +49,25 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             </div>
           )}
           {node.vendor && (
-            <span className="absolute top-2 left-2 bg-background/90 text-foreground text-[10px] font-medium px-1.5 py-0.5 rounded">
+            <span className="absolute top-3 left-3 bg-card/90 backdrop-blur-sm text-foreground text-[10px] font-medium px-2 py-0.5 rounded-pill">
               {node.vendor}
             </span>
           )}
         </div>
-        <div className="p-3">
+        <div className="p-4">
           <h3 className="text-sm font-medium leading-tight line-clamp-2 min-h-[2.5rem]">{node.title}</h3>
-          <div className="mt-2 flex items-center justify-between">
+          <div className="mt-3 flex items-center justify-between">
             <span className="text-base font-bold text-primary">
               ${parseFloat(price.amount).toFixed(2)}
             </span>
             <Button
               size="icon"
               variant="outline"
-              className="h-8 w-8"
+              className="h-9 w-9 rounded-xl"
               onClick={handleAddToCart}
               disabled={isLoading || !variant?.availableForSale}
             >
-              {isLoading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <ShoppingCart className="h-3.5 w-3.5" />}
+              {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShoppingCart className="h-4 w-4" />}
             </Button>
           </div>
           {variant && !variant.availableForSale && (
