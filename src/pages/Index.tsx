@@ -92,7 +92,8 @@ const Index = () => {
       <section className="relative min-h-[65vh] max-h-[70vh] flex items-center bg-gradient-to-br from-primary via-primary to-accent/30">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_65%_50%,hsl(var(--accent)/0.12),transparent)]" />
         <div className="max-w-7xl mx-auto px-4 py-14 md:py-16 relative z-10 w-full">
-          <div className="max-w-2xl animate-fade-in-up">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div className="animate-fade-in-up">
               <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold leading-[1.1] text-primary-foreground mb-5">
                 Professional Robotics Solutions & Advanced Robot Platforms
               </h1>
@@ -107,6 +108,15 @@ const Index = () => {
                   <Link to="/contact">Request Consultation</Link>
                 </Button>
               </div>
+            </div>
+            <div className="hidden lg:flex justify-center">
+              <img
+                src="/images/unitree-g1-1.webp"
+                alt="Unitree G1 Humanoid Robot - Advanced robotics platform"
+                className="max-h-[55vh] w-auto object-contain drop-shadow-2xl"
+                loading="eager"
+              />
+            </div>
           </div>
         </div>
       </section>
