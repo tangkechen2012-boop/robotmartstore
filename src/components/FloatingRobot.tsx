@@ -441,15 +441,15 @@ export const FloatingRobot = () => (
         antialias: true,
         alpha: true,
         toneMapping: THREE.ACESFilmicToneMapping,
-        toneMappingExposure: 1.1,
+        toneMappingExposure: 0.85,
       }}
       shadows
     >
-      <Environment preset="studio" />
-      <directionalLight position={[4, 5, 3]} intensity={2.6} color="#f5f3ef" castShadow shadow-mapSize-width={2048} shadow-mapSize-height={2048} />
-      <directionalLight position={[-3, 3, 2]} intensity={1.4} color="#e0e6f0" />
-      <directionalLight position={[-2, 4, -4]} intensity={2.0} color="#d5dce8" />
-      <ambientLight intensity={0.18} />
+      <Environment preset="studio" environmentIntensity={0.35} />
+      <directionalLight position={[4, 5, 3]} intensity={1.8} color="#f5f3ef" castShadow shadow-mapSize-width={2048} shadow-mapSize-height={2048} />
+      <directionalLight position={[-3, 3, 2]} intensity={0.6} color="#e0e6f0" />
+      <directionalLight position={[-2, 4, -4]} intensity={0.9} color="#d5dce8" />
+      <ambientLight intensity={0.08} />
 
       <IndustrialHumanoid />
 
