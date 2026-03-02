@@ -5,235 +5,214 @@ import * as THREE from "three";
 
 function useG1Materials() {
   return useMemo(() => {
-    // Polished silver body
     const body = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#D0D4DA"),
+      color: new THREE.Color("#C8CDD6"),
       metalness: 1.0,
-      roughness: 0.14,
-      envMapIntensity: 1.4,
-      clearcoat: 0.4,
-      clearcoatRoughness: 0.06,
+      roughness: 0.12,
+      envMapIntensity: 1.5,
+      clearcoat: 0.45,
+      clearcoatRoughness: 0.05,
     });
-    // Dark panels / structural
     const dark = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#1a1d24"),
-      metalness: 0.7,
-      roughness: 0.2,
-      envMapIntensity: 0.8,
-      clearcoat: 0.3,
-      clearcoatRoughness: 0.1,
+      color: new THREE.Color("#1C1F26"),
+      metalness: 0.65,
+      roughness: 0.25,
+      envMapIntensity: 0.7,
+      clearcoat: 0.35,
+      clearcoatRoughness: 0.08,
     });
-    // Joint gray
     const joint = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#6B7280"),
+      color: new THREE.Color("#555B66"),
       metalness: 0.9,
-      roughness: 0.15,
-      envMapIntensity: 1.1,
-      clearcoat: 0.2,
+      roughness: 0.13,
+      envMapIntensity: 1.2,
+      clearcoat: 0.25,
       clearcoatRoughness: 0.1,
     });
-    // Glowing blue visor
     const visor = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#40C4FF"),
-      emissive: new THREE.Color("#40C4FF"),
-      emissiveIntensity: 0.6,
-      metalness: 0.3,
-      roughness: 0.05,
-      clearcoat: 0.8,
-      clearcoatRoughness: 0.02,
+      color: new THREE.Color("#38BDF8"),
+      emissive: new THREE.Color("#38BDF8"),
+      emissiveIntensity: 0.7,
+      metalness: 0.2,
+      roughness: 0.03,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.01,
       transparent: true,
-      opacity: 0.85,
+      opacity: 0.9,
     });
-    // Black hands/feet
     const blackPart = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#15171c"),
-      metalness: 0.5,
-      roughness: 0.35,
-      envMapIntensity: 0.6,
-    });
-    // Blue LED dots
-    const led = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#4FC3F7"),
-      emissive: new THREE.Color("#4FC3F7"),
-      emissiveIntensity: 0.35,
-      metalness: 0.3,
+      color: new THREE.Color("#111318"),
+      metalness: 0.45,
       roughness: 0.4,
+      envMapIntensity: 0.5,
     });
-    // Light connector
-    const conn = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#B8BCC4"),
-      metalness: 0.85,
-      roughness: 0.18,
-      envMapIntensity: 1.0,
-      clearcoat: 0.15,
-      clearcoatRoughness: 0.1,
+    const led = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#38BDF8"),
+      emissive: new THREE.Color("#38BDF8"),
+      emissiveIntensity: 0.4,
+      metalness: 0.2,
+      roughness: 0.3,
     });
-    return { body, dark, joint, visor, blackPart, led, conn };
+    return { body, dark, joint, visor, blackPart, led };
   }, []);
 }
 
-/* ── G1 Head — motorcycle helmet with blue visor ── */
-function G1Head(m: Record<string, THREE.Material>) {
+/* ── Unitree G1 Head ── */
+function Head(m: ReturnType<typeof useG1Materials>) {
   return (
-    <group position={[0, 1.72, 0]}>
-      {/* Main helmet */}
-      <mesh material={m.body}>
-        <sphereGeometry args={[0.22, 48, 48]} />
+    <group position={[0, 1.68, 0]}>
+      {/* Helmet — smooth egg shape */}
+      <mesh material={m.body} position={[0, 0.02, -0.02]}>
+        <sphereGeometry args={[0.19, 48, 48]} />
       </mesh>
-      {/* Helmet top extension */}
-      <mesh position={[0, 0.08, -0.02]} material={m.body}>
-        <capsuleGeometry args={[0.14, 0.12, 14, 24]} />
+      {/* Helmet top cap */}
+      <mesh material={m.body} position={[0, 0.12, -0.02]}>
+        <sphereGeometry args={[0.15, 36, 36]} />
       </mesh>
-      {/* Helmet back */}
-      <mesh position={[0, 0.04, -0.1]} material={m.body}>
-        <sphereGeometry args={[0.18, 32, 32]} />
-      </mesh>
-
-      {/* Visor band — wrapping blue glow */}
-      <mesh position={[0, 0.06, 0.16]} material={m.visor}>
-        <boxGeometry args={[0.34, 0.04, 0.06]} />
-      </mesh>
-      {/* Visor curved sides */}
-      <mesh position={[-0.17, 0.06, 0.12]} material={m.visor} rotation={[0, 0.6, 0]}>
-        <boxGeometry args={[0.08, 0.04, 0.04]} />
-      </mesh>
-      <mesh position={[0.17, 0.06, 0.12]} material={m.visor} rotation={[0, -0.6, 0]}>
-        <boxGeometry args={[0.08, 0.04, 0.04]} />
-      </mesh>
-      {/* Visor top arc */}
-      <mesh position={[0, 0.12, 0.12]} material={m.visor}>
-        <boxGeometry args={[0.2, 0.02, 0.04]} />
+      {/* Forehead plate */}
+      <mesh material={m.body} position={[0, 0.08, 0.12]}>
+        <boxGeometry args={[0.26, 0.06, 0.08]} />
       </mesh>
 
-      {/* Face plate — dark */}
-      <mesh position={[0, -0.04, 0.18]} material={m.dark}>
-        <boxGeometry args={[0.3, 0.12, 0.05]} />
+      {/* === Visor — signature glowing blue arc === */}
+      {/* Center strip */}
+      <mesh material={m.visor} position={[0, 0.08, 0.18]}>
+        <boxGeometry args={[0.28, 0.025, 0.02]} />
+      </mesh>
+      {/* Upper arc */}
+      <mesh material={m.visor} position={[0, 0.14, 0.15]} rotation={[0.4, 0, 0]}>
+        <boxGeometry args={[0.2, 0.015, 0.02]} />
+      </mesh>
+      {/* Left wrap */}
+      <mesh material={m.visor} position={[-0.15, 0.08, 0.14]} rotation={[0, 0.5, 0]}>
+        <boxGeometry args={[0.06, 0.025, 0.02]} />
+      </mesh>
+      {/* Right wrap */}
+      <mesh material={m.visor} position={[0.15, 0.08, 0.14]} rotation={[0, -0.5, 0]}>
+        <boxGeometry args={[0.06, 0.025, 0.02]} />
       </mesh>
 
-      {/* Chin */}
-      <mesh position={[0, -0.12, 0.06]} material={m.body}>
-        <sphereGeometry args={[0.14, 24, 24]} />
+      {/* Face — dark recessed area */}
+      <mesh material={m.dark} position={[0, -0.02, 0.16]}>
+        <boxGeometry args={[0.22, 0.1, 0.04]} />
       </mesh>
 
-      {/* Side cameras / sensors */}
-      <mesh position={[-0.22, 0.0, 0.02]} material={m.dark}>
-        <cylinderGeometry args={[0.025, 0.025, 0.03, 12]} />
+      {/* Chin — smooth */}
+      <mesh material={m.body} position={[0, -0.1, 0.04]}>
+        <sphereGeometry args={[0.12, 28, 28]} />
       </mesh>
-      <mesh position={[0.22, 0.0, 0.02]} material={m.dark}>
-        <cylinderGeometry args={[0.025, 0.025, 0.03, 12]} />
+
+      {/* Side sensors */}
+      <mesh material={m.dark} position={[-0.19, 0.02, 0]}>
+        <sphereGeometry args={[0.02, 12, 12]} />
+      </mesh>
+      <mesh material={m.dark} position={[0.19, 0.02, 0]}>
+        <sphereGeometry args={[0.02, 12, 12]} />
       </mesh>
     </group>
   );
 }
 
-/* ── G1 Neck + Torso ── */
-function G1Torso(m: Record<string, THREE.Material>) {
+/* ── Torso ── */
+function Torso(m: ReturnType<typeof useG1Materials>) {
   return (
     <group>
       {/* Neck */}
-      <mesh position={[0, 1.5, 0]} material={m.joint}>
-        <cylinderGeometry args={[0.055, 0.07, 0.08, 20]} />
+      <mesh position={[0, 1.52, 0]} material={m.joint}>
+        <cylinderGeometry args={[0.045, 0.06, 0.06, 18]} />
       </mesh>
 
-      {/* Upper torso — broad chest */}
-      <mesh position={[0, 1.26, 0]} material={m.body}>
-        <capsuleGeometry args={[0.3, 0.2, 20, 36]} />
+      {/* Upper chest — broad, athletic */}
+      <mesh position={[0, 1.3, 0]} material={m.body}>
+        <cylinderGeometry args={[0.22, 0.28, 0.32, 24]} />
       </mesh>
-      {/* Chest front plate */}
-      <mesh position={[0, 1.3, 0.3]} material={m.body}>
-        <boxGeometry args={[0.32, 0.22, 0.02]} />
+      {/* Chest front armor */}
+      <mesh position={[0, 1.34, 0.24]} material={m.body}>
+        <boxGeometry args={[0.24, 0.14, 0.06]} />
       </mesh>
-      {/* Chest logo area */}
-      <mesh position={[0, 1.32, 0.32]} material={m.dark}>
-        <boxGeometry args={[0.12, 0.03, 0.01]} />
+      {/* Chest label area */}
+      <mesh position={[0, 1.36, 0.28]} material={m.dark}>
+        <boxGeometry args={[0.1, 0.022, 0.008]} />
       </mesh>
-      {/* Chest LED indicators (green dots like in image) */}
-      <mesh position={[-0.02, 1.24, 0.32]} material={m.led}>
+      {/* Status LEDs */}
+      <mesh position={[-0.015, 1.28, 0.28]} material={m.led}>
+        <boxGeometry args={[0.006, 0.006, 0.006]} />
+      </mesh>
+      <mesh position={[0.015, 1.28, 0.28]} material={m.led}>
+        <boxGeometry args={[0.006, 0.006, 0.006]} />
+      </mesh>
+
+      {/* Mid section — tapered */}
+      <mesh position={[0, 1.04, 0]} material={m.body}>
+        <cylinderGeometry args={[0.15, 0.2, 0.2, 20]} />
+      </mesh>
+      {/* Exposed waist mechanism */}
+      <mesh position={[0, 0.92, 0]} material={m.joint}>
+        <cylinderGeometry args={[0.12, 0.14, 0.06, 18]} />
+      </mesh>
+
+      {/* Hip block */}
+      <mesh position={[0, 0.84, 0]} material={m.body}>
+        <boxGeometry args={[0.3, 0.1, 0.18]} />
+      </mesh>
+      {/* Hip LED */}
+      <mesh position={[0, 0.84, 0.1]} material={m.led}>
         <sphereGeometry args={[0.006, 8, 8]} />
       </mesh>
-      <mesh position={[0.02, 1.24, 0.32]} material={m.led}>
-        <sphereGeometry args={[0.006, 8, 8]} />
-      </mesh>
 
-      {/* Back plate */}
-      <mesh position={[0, 1.28, -0.3]} material={m.body}>
-        <boxGeometry args={[0.28, 0.2, 0.02]} />
-      </mesh>
-      {/* Battery pack hint on back */}
-      <mesh position={[0, 1.2, -0.32]} material={m.dark}>
-        <boxGeometry args={[0.16, 0.1, 0.03]} />
-      </mesh>
-
-      {/* Mid torso — narrowing */}
-      <mesh position={[0, 0.98, 0]} material={m.body}>
-        <capsuleGeometry args={[0.22, 0.14, 14, 28]} />
-      </mesh>
-
-      {/* Waist — narrow */}
-      <mesh position={[0, 0.82, 0]} material={m.joint}>
-        <cylinderGeometry args={[0.14, 0.18, 0.08, 20]} />
-      </mesh>
-
-      {/* Hip frame */}
-      <mesh position={[0, 0.74, 0]} material={m.body}>
-        <boxGeometry args={[0.34, 0.1, 0.2]} />
-      </mesh>
-
-      {/* LED dot on hip */}
-      <mesh position={[0, 0.74, 0.11]} material={m.led}>
-        <sphereGeometry args={[0.008, 8, 8]} />
+      {/* Back battery pack */}
+      <mesh position={[0, 1.24, -0.26]} material={m.dark}>
+        <boxGeometry args={[0.18, 0.14, 0.06]} />
       </mesh>
     </group>
   );
 }
 
-/* ── G1 Arms ── */
-function G1Arms(m: Record<string, THREE.Material>) {
-  const sides = [-1, 1] as const;
+/* ── Arms ── */
+function Arms(m: ReturnType<typeof useG1Materials>) {
   return (
     <group>
-      {sides.map((s) => (
+      {([-1, 1] as const).map((s) => (
         <group key={s}>
-          {/* Shoulder joint — round */}
-          <mesh position={[s * 0.38, 1.36, 0]} material={m.joint}>
-            <sphereGeometry args={[0.08, 20, 20]} />
+          {/* Shoulder ball */}
+          <mesh position={[s * 0.32, 1.4, 0]} material={m.joint}>
+            <sphereGeometry args={[0.065, 20, 20]} />
           </mesh>
-          {/* Shoulder cap */}
-          <mesh position={[s * 0.42, 1.38, 0]} material={m.body}>
-            <sphereGeometry args={[0.065, 18, 18]} />
-          </mesh>
-
-          {/* Upper arm — silver */}
-          <mesh position={[s * 0.44, 1.12, 0]} material={m.body}>
-            <capsuleGeometry args={[0.055, 0.28, 10, 18]} />
+          {/* Shoulder armor — rounded */}
+          <mesh position={[s * 0.36, 1.42, 0]} material={m.body}>
+            <capsuleGeometry args={[0.05, 0.04, 10, 16]} />
           </mesh>
 
-          {/* Elbow joint — exposed */}
-          <mesh position={[s * 0.44, 0.92, 0]} material={m.joint}>
-            <sphereGeometry args={[0.045, 14, 14]} />
-          </mesh>
-          {/* Elbow mechanism detail */}
-          <mesh position={[s * 0.44, 0.92, 0]} rotation={[0, 0, Math.PI / 2]} material={m.dark}>
-            <cylinderGeometry args={[0.035, 0.035, 0.04, 12]} />
+          {/* Upper arm */}
+          <mesh position={[s * 0.38, 1.18, 0]} material={m.body}>
+            <capsuleGeometry args={[0.045, 0.26, 10, 18]} />
           </mesh>
 
-          {/* Forearm — silver */}
-          <mesh position={[s * 0.44, 0.72, 0]} material={m.body}>
-            <capsuleGeometry args={[0.045, 0.22, 10, 18]} />
+          {/* Elbow — exposed actuator */}
+          <mesh position={[s * 0.38, 1.0, 0]} material={m.joint}>
+            <sphereGeometry args={[0.038, 16, 16]} />
+          </mesh>
+          <mesh position={[s * 0.38, 1.0, 0]} rotation={[0, 0, Math.PI / 2]} material={m.dark}>
+            <cylinderGeometry args={[0.028, 0.028, 0.035, 12]} />
           </mesh>
 
-          {/* Wrist joint */}
-          <mesh position={[s * 0.44, 0.56, 0]} material={m.joint}>
-            <cylinderGeometry args={[0.03, 0.035, 0.03, 14]} />
+          {/* Forearm */}
+          <mesh position={[s * 0.38, 0.8, 0]} material={m.body}>
+            <capsuleGeometry args={[0.038, 0.2, 10, 18]} />
           </mesh>
 
-          {/* Hand — black */}
-          <mesh position={[s * 0.44, 0.5, 0]} material={m.blackPart}>
-            <boxGeometry args={[0.06, 0.06, 0.04]} />
+          {/* Wrist */}
+          <mesh position={[s * 0.38, 0.66, 0]} material={m.joint}>
+            <cylinderGeometry args={[0.025, 0.03, 0.025, 14]} />
+          </mesh>
+
+          {/* Hand — black, blocky */}
+          <mesh position={[s * 0.38, 0.6, 0.005]} material={m.blackPart}>
+            <boxGeometry args={[0.05, 0.055, 0.035]} />
           </mesh>
           {/* Fingers */}
-          <mesh position={[s * 0.44, 0.45, 0.01]} material={m.blackPart}>
-            <boxGeometry args={[0.055, 0.04, 0.03]} />
+          <mesh position={[s * 0.38, 0.56, 0.01]} material={m.blackPart}>
+            <boxGeometry args={[0.045, 0.03, 0.025]} />
           </mesh>
         </group>
       ))}
@@ -241,62 +220,51 @@ function G1Arms(m: Record<string, THREE.Material>) {
   );
 }
 
-/* ── G1 Legs ── */
-function G1Legs(m: Record<string, THREE.Material>) {
-  const sides = [-1, 1] as const;
+/* ── Legs ── */
+function Legs(m: ReturnType<typeof useG1Materials>) {
   return (
     <group>
-      {sides.map((s) => (
+      {([-1, 1] as const).map((s) => (
         <group key={s}>
           {/* Hip joint */}
-          <mesh position={[s * 0.13, 0.66, 0]} material={m.joint}>
-            <sphereGeometry args={[0.06, 16, 16]} />
+          <mesh position={[s * 0.12, 0.76, 0]} material={m.joint}>
+            <sphereGeometry args={[0.05, 16, 16]} />
           </mesh>
 
-          {/* Upper leg — silver, thick */}
-          <mesh position={[s * 0.13, 0.42, 0]} material={m.body}>
-            <capsuleGeometry args={[0.07, 0.3, 12, 20]} />
-          </mesh>
-          {/* Thigh LED */}
-          <mesh position={[s * 0.13, 0.4, 0.07]} material={m.led}>
-            <sphereGeometry args={[0.007, 8, 8]} />
+          {/* Thigh — silver, strong */}
+          <mesh position={[s * 0.12, 0.54, 0]} material={m.body}>
+            <capsuleGeometry args={[0.06, 0.26, 12, 20]} />
           </mesh>
 
-          {/* Knee — exposed mechanism */}
-          <mesh position={[s * 0.13, 0.22, 0]} material={m.joint}>
-            <sphereGeometry args={[0.055, 16, 16]} />
+          {/* Knee — visible actuator */}
+          <mesh position={[s * 0.12, 0.36, 0]} material={m.joint}>
+            <sphereGeometry args={[0.045, 16, 16]} />
           </mesh>
-          {/* Knee actuator */}
-          <mesh position={[s * 0.13, 0.22, 0]} rotation={[0, 0, Math.PI / 2]} material={m.dark}>
-            <cylinderGeometry args={[0.04, 0.04, 0.04, 12]} />
-          </mesh>
-
-          {/* Shin — silver upper part */}
-          <mesh position={[s * 0.13, 0.02, 0.01]} material={m.body}>
-            <capsuleGeometry args={[0.06, 0.2, 10, 18]} />
+          <mesh position={[s * 0.12, 0.36, 0]} rotation={[0, 0, Math.PI / 2]} material={m.dark}>
+            <cylinderGeometry args={[0.032, 0.032, 0.035, 12]} />
           </mesh>
 
-          {/* Lower shin — dark section */}
-          <mesh position={[s * 0.13, -0.18, 0.01]} material={m.dark}>
-            <capsuleGeometry args={[0.055, 0.16, 10, 18]} />
+          {/* Upper shin — silver */}
+          <mesh position={[s * 0.12, 0.18, 0.005]} material={m.body}>
+            <capsuleGeometry args={[0.05, 0.16, 10, 18]} />
           </mesh>
 
-          {/* Ankle mechanism */}
-          <mesh position={[s * 0.13, -0.32, 0]} material={m.joint}>
-            <sphereGeometry args={[0.035, 12, 12]} />
+          {/* Lower shin — dark blade */}
+          <mesh position={[s * 0.12, 0.0, 0.005]} material={m.dark}>
+            <capsuleGeometry args={[0.045, 0.18, 10, 18]} />
           </mesh>
 
-          {/* Foot — dark flat */}
-          <mesh position={[s * 0.13, -0.37, 0.02]} material={m.blackPart}>
-            <boxGeometry args={[0.08, 0.03, 0.14]} />
+          {/* Ankle */}
+          <mesh position={[s * 0.12, -0.14, 0]} material={m.joint}>
+            <sphereGeometry args={[0.03, 12, 12]} />
           </mesh>
-          {/* Toe grip */}
-          <mesh position={[s * 0.13, -0.37, 0.1]} material={m.blackPart}>
-            <boxGeometry args={[0.07, 0.025, 0.03]} />
+
+          {/* Foot */}
+          <mesh position={[s * 0.12, -0.18, 0.02]} material={m.blackPart}>
+            <boxGeometry args={[0.07, 0.025, 0.13]} />
           </mesh>
-          {/* Heel */}
-          <mesh position={[s * 0.13, -0.37, -0.05]} material={m.blackPart}>
-            <boxGeometry args={[0.06, 0.025, 0.02]} />
+          <mesh position={[s * 0.12, -0.18, 0.09]} material={m.blackPart}>
+            <boxGeometry args={[0.06, 0.02, 0.025]} />
           </mesh>
         </group>
       ))}
@@ -304,26 +272,24 @@ function G1Legs(m: Record<string, THREE.Material>) {
   );
 }
 
-/* ── Full G1 Assembly ── */
+/* ── Assembly ── */
 function UnitreeG1() {
   const groupRef = useRef<THREE.Group>(null);
   const mats = useG1Materials();
 
   useFrame((state) => {
     if (groupRef.current) {
-      groupRef.current.position.y =
-        Math.sin(state.clock.elapsedTime * 0.7) * 0.006;
-      groupRef.current.rotation.y =
-        Math.sin(state.clock.elapsedTime * 0.25) * 0.008;
+      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.6) * 0.005;
+      groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.2) * 0.006;
     }
   });
 
   return (
-    <group ref={groupRef} scale={0.95} position={[0, 0.05, 0]}>
-      <G1Head {...mats} />
-      <G1Torso {...mats} />
-      <G1Arms {...mats} />
-      <G1Legs {...mats} />
+    <group ref={groupRef} scale={1.05} position={[0, -0.1, 0]}>
+      <Head {...mats} />
+      <Torso {...mats} />
+      <Arms {...mats} />
+      <Legs {...mats} />
     </group>
   );
 }
@@ -339,49 +305,27 @@ function LoadingFallback() {
 export const FloatingRobot = () => (
   <Suspense fallback={<LoadingFallback />}>
     <Canvas
-      camera={{
-        position: [1.2, 1.4, 4.0],
-        fov: 32,
-        near: 0.1,
-        far: 100,
-      }}
+      camera={{ position: [1.0, 1.2, 3.8], fov: 32, near: 0.1, far: 100 }}
       style={{ width: "100%", height: "100%" }}
       dpr={[1, 1.5]}
       gl={{
         antialias: true,
         alpha: true,
         toneMapping: THREE.ACESFilmicToneMapping,
-        toneMappingExposure: 1.05,
+        toneMappingExposure: 1.1,
       }}
       shadows
     >
       <Environment preset="studio" />
-
-      <ambientLight intensity={0.25} />
-
-      <directionalLight
-        position={[4, 6, 4]}
-        intensity={2.8}
-        color="#f8f9ff"
-        castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
-        shadow-bias={-0.0001}
-      />
-      <directionalLight position={[-4, 3, 3]} intensity={1.4} color="#e8edf5" />
-      <directionalLight position={[-2, 5, -5]} intensity={2.0} color="#dde4f0" />
-      <pointLight position={[0, -1, 3]} intensity={0.15} color="#f0ebe0" />
+      <ambientLight intensity={0.3} />
+      <directionalLight position={[3, 5, 4]} intensity={3.0} color="#f0f2ff" castShadow shadow-mapSize-width={2048} shadow-mapSize-height={2048} />
+      <directionalLight position={[-3, 3, 2]} intensity={1.6} color="#e6ecf5" />
+      <directionalLight position={[-1, 4, -4]} intensity={1.8} color="#d8e0ef" />
+      <pointLight position={[0, -1, 2.5]} intensity={0.2} color="#f5efe5" />
 
       <UnitreeG1 />
 
-      <ContactShadows
-        position={[0, -0.36, 0]}
-        opacity={0.16}
-        scale={2.5}
-        blur={2.5}
-        far={1.5}
-        color="#2a3a5c"
-      />
+      <ContactShadows position={[0, -0.22, 0]} opacity={0.14} scale={2.2} blur={2.2} far={1.2} color="#1e2a42" />
 
       <OrbitControls
         enablePan={false}
@@ -391,11 +335,11 @@ export const FloatingRobot = () => (
         dampingFactor={0.08}
         rotateSpeed={0.65}
         zoomSpeed={0.9}
-        minDistance={3.2}
+        minDistance={3.0}
         maxDistance={6.0}
         minPolarAngle={0.55}
         maxPolarAngle={1.45}
-        target={[0, 1.0, 0]}
+        target={[0, 0.9, 0]}
       />
     </Canvas>
   </Suspense>
