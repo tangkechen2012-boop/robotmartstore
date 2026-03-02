@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 
 import { useEffect } from "react";
+import { ScrollReveal } from "@/components/ScrollReveal";
 
 const PILLARS = [
   {
@@ -117,7 +118,7 @@ const Index = () => {
       </section>
 
       {/* ===== CORE BUSINESS PILLARS ===== */}
-      <section className="max-w-7xl mx-auto px-4 py-20">
+      <ScrollReveal as="section" className="max-w-7xl mx-auto px-4 py-20">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-3">What We Do</h2>
           <p className="text-muted-foreground max-w-lg mx-auto">Three core pillars powering robotics innovation across industries.</p>
@@ -138,10 +139,10 @@ const Index = () => {
             </Link>
           ))}
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* ===== PRODUCT CATEGORIES ===== */}
-      <section className="bg-secondary/50">
+      <ScrollReveal as="section" className="bg-secondary/50">
         <div className="max-w-7xl mx-auto px-4 py-20">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-3">Product Categories</h2>
@@ -161,10 +162,10 @@ const Index = () => {
             ))}
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* ===== FEATURED PRODUCTS ===== */}
-      <section className="max-w-7xl mx-auto px-4 py-20">
+      <ScrollReveal as="section" className="max-w-7xl mx-auto px-4 py-20">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-3xl font-bold">Featured Products</h2>
           <Link to="/products" className="text-sm text-accent hover:underline font-semibold flex items-center gap-1">
@@ -196,10 +197,10 @@ const Index = () => {
             <p className="text-muted-foreground text-sm">Our product catalog is being curated. Check back soon.</p>
           </div>
         )}
-      </section>
+      </ScrollReveal>
 
       {/* ===== SERVICES PREVIEW ===== */}
-      <section className="bg-secondary/50">
+      <ScrollReveal as="section" className="bg-secondary/50">
         <div className="max-w-7xl mx-auto px-4 py-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -238,10 +239,10 @@ const Index = () => {
             </div>
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* ===== APPLICATIONS ===== */}
-      <section className="max-w-7xl mx-auto px-4 py-20">
+      <ScrollReveal as="section" className="max-w-7xl mx-auto px-4 py-20">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-3">Applications</h2>
           <p className="text-muted-foreground">Robotics solutions tailored to your industry.</p>
@@ -257,10 +258,10 @@ const Index = () => {
             </div>
           ))}
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* ===== TRUST STRIP ===== */}
-      <section className="bg-primary text-primary-foreground">
+      <ScrollReveal as="section" className="bg-primary text-primary-foreground">
         <div className="max-w-7xl mx-auto px-4 py-14">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             {STATS.map(stat => (
@@ -271,10 +272,10 @@ const Index = () => {
             ))}
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* ===== FINAL CTA ===== */}
-      <section className="relative py-20 bg-gradient-to-br from-primary/5 to-accent/5">
+      <ScrollReveal as="section" className="relative py-20 bg-gradient-to-br from-primary/5 to-accent/5">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <div className="glass rounded-2xl p-10 shadow-soft-lg">
             <h2 className="text-3xl font-bold mb-4">Ready to Integrate Advanced Robotics Into Your Project?</h2>
@@ -286,10 +287,10 @@ const Index = () => {
             </Button>
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* ===== SEO CONTENT ===== */}
-      <section className="max-w-7xl mx-auto px-4 py-16">
+      <ScrollReveal as="section" className="max-w-7xl mx-auto px-4 py-16">
         <h2 className="text-2xl font-bold mb-4">Your Trusted Robotics Solutions Partner</h2>
         <div className="max-w-4xl text-sm text-muted-foreground leading-relaxed space-y-3">
           <p>
@@ -302,7 +303,7 @@ const Index = () => {
             For organizations requiring bespoke solutions, our custom development division offers end-to-end robotics engineering — from mechanical design and embedded systems to AI integration and rapid prototyping. Whether you're a university research lab, an industrial automation facility, or a startup building next-generation robots, RoboMart delivers the products, expertise, and support to accelerate your robotics initiatives.
           </p>
         </div>
-      </section>
+      </ScrollReveal>
     </div>
   );
 };
