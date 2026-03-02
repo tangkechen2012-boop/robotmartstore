@@ -147,53 +147,59 @@ function Torso(m: M) {
     <group>
       {/* Neck */}
       <mesh position={[0, 1.53, 0]} material={m.titanium}>
-        <cylinderGeometry args={[0.045, 0.06, 0.08, 16]} />
+        <cylinderGeometry args={[0.04, 0.055, 0.08, 16]} />
       </mesh>
 
-      {/* Upper chest — broad */}
-      <mesh position={[0, 1.34, 0]} material={m.aluminum}>
-        <boxGeometry args={[0.38, 0.26, 0.22]} />
+      {/* Upper chest — rounded, broader at shoulders */}
+      <mesh position={[0, 1.38, 0]} material={m.aluminum} scale={[1.3, 1, 0.85]}>
+        <sphereGeometry args={[0.18, 32, 32, 0, Math.PI * 2, 0, Math.PI * 0.6]} />
       </mesh>
-      {/* Chest armor bevel */}
-      <mesh position={[0, 1.42, 0.09]} material={m.aluminum} rotation={[0.15, 0, 0]}>
-        <boxGeometry args={[0.34, 0.06, 0.06]} />
+      {/* Chest volume */}
+      <mesh position={[0, 1.32, 0.02]} material={m.aluminum}>
+        <cylinderGeometry args={[0.19, 0.17, 0.2, 24]} />
       </mesh>
 
-      {/* Shoulder mount blocks */}
+      {/* Pectoral contour — left & right */}
       {([-1, 1] as const).map(s => (
-        <mesh key={s} position={[s * 0.21, 1.42, 0]} material={m.aluminumDark}>
-          <boxGeometry args={[0.06, 0.07, 0.18]} />
+        <mesh key={s} position={[s * 0.08, 1.36, 0.08]} material={m.aluminumDark} scale={[1, 0.9, 0.6]}>
+          <sphereGeometry args={[0.07, 20, 20]} />
         </mesh>
       ))}
 
-      {/* Side vents */}
+      {/* Shoulder caps — rounded transition */}
       {([-1, 1] as const).map(s => (
-        <group key={`vent-${s}`}>
-          {[0, 1, 2, 3].map(i => (
-            <mesh key={i} position={[s * 0.192, 1.32 + i * 0.022, 0]} material={m.darkSteel}>
-              <boxGeometry args={[0.004, 0.012, 0.12]} />
-            </mesh>
-          ))}
-        </group>
+        <mesh key={`sh-${s}`} position={[s * 0.2, 1.42, 0]} material={m.aluminum}>
+          <sphereGeometry args={[0.06, 20, 20]} />
+        </mesh>
       ))}
 
-      {/* Waist block */}
-      <mesh position={[0, 1.05, 0]} material={m.darkSteel}>
-        <boxGeometry args={[0.26, 0.14, 0.16]} />
+      {/* Ribcage taper */}
+      <mesh position={[0, 1.22, 0]} material={m.aluminum}>
+        <cylinderGeometry args={[0.14, 0.18, 0.12, 20]} />
       </mesh>
 
-      {/* Battery — rear */}
-      <mesh position={[0, 1.32, -0.15]} material={m.darkSteel}>
-        <boxGeometry args={[0.24, 0.2, 0.08]} />
+      {/* Waist — narrow, human-like */}
+      <mesh position={[0, 1.12, 0]} material={m.aluminumDark}>
+        <cylinderGeometry args={[0.1, 0.14, 0.1, 18]} />
       </mesh>
-      <mesh position={[0, 1.32, -0.192]} material={m.titanium}>
-        <boxGeometry args={[0.22, 0.002, 0.002]} />
+
+      {/* Abdomen contour */}
+      <mesh position={[0, 1.14, 0.06]} material={m.aluminum} scale={[1, 1.2, 0.5]}>
+        <sphereGeometry args={[0.08, 16, 16]} />
       </mesh>
-      <mesh position={[0, 1.26, -0.192]} material={m.titanium}>
-        <boxGeometry args={[0.22, 0.002, 0.002]} />
+
+      {/* Hip block */}
+      <mesh position={[0, 1.03, 0]} material={m.darkSteel}>
+        <cylinderGeometry args={[0.14, 0.12, 0.1, 18]} />
       </mesh>
-      <mesh position={[0.07, 1.36, -0.192]} material={m.sensor}>
-        <boxGeometry args={[0.022, 0.005, 0.004]} />
+
+      {/* Back musculature hint */}
+      <mesh position={[0, 1.34, -0.1]} material={m.aluminumDark} scale={[1.1, 1, 0.5]}>
+        <sphereGeometry args={[0.12, 20, 20]} />
+      </mesh>
+      {/* Spine line */}
+      <mesh position={[0, 1.25, -0.12]} material={m.darkSteel}>
+        <cylinderGeometry args={[0.012, 0.012, 0.3, 8]} />
       </mesh>
     </group>
   );
@@ -207,80 +213,54 @@ function Arm({ side, shoulderAngle = 0, elbowAngle = 0, ...m }: M & { side: 1 | 
   const s = side;
   return (
     <group position={[s * 0.25, 1.42, 0]}>
-      {/* Shoulder rotary housing (stays at torso) */}
-      <Ring pos={[0, 0, 0]} r={0.06} mat={m.titanium} />
-      <mesh position={[s * 0.04, 0, 0]} material={m.darkSteel} rotation={[0, 0, Math.PI / 2]}>
-        <cylinderGeometry args={[0.05, 0.055, 0.06, 16]} />
+      {/* Shoulder ball joint */}
+      <mesh material={m.titanium}>
+        <sphereGeometry args={[0.05, 20, 20]} />
       </mesh>
 
       {/* Upper arm group — rotates at shoulder */}
-      <group position={[s * 0.09, 0.01, 0]} rotation={[shoulderAngle, 0, 0]}>
-        {/* Shoulder cap */}
-        <mesh position={[0, 0, 0]} material={m.aluminum}>
-          <sphereGeometry args={[0.055, 24, 24]} />
-        </mesh>
-        <Ring pos={[0, -0.06, 0]} r={0.045} mat={m.titanium} />
-
-        {/* Upper arm */}
-        <mesh position={[0, -0.21, 0]} material={m.aluminum}>
-          <cylinderGeometry args={[0.042, 0.048, 0.24, 18]} />
-        </mesh>
-        <mesh position={[0, -0.21, 0.046]} material={m.aluminumDark}>
-          <boxGeometry args={[0.03, 0.2, 0.003]} />
-        </mesh>
-        <mesh position={[0, -0.15, -0.035]} material={m.darkSteel}>
-          <boxGeometry args={[0.04, 0.06, 0.025]} />
+      <group position={[s * 0.04, -0.02, 0]} rotation={[shoulderAngle, 0, 0]}>
+        {/* Deltoid — organic cap */}
+        <mesh position={[0, 0, 0]} material={m.aluminum} scale={[1, 1.2, 0.9]}>
+          <sphereGeometry args={[0.05, 20, 20]} />
         </mesh>
 
-        {/* Elbow pivot point */}
-        <group position={[0, -0.35, 0]} rotation={[elbowAngle, 0, 0]}>
-          {/* Elbow hinge */}
-          <Ring pos={[0, 0, 0]} r={0.042} mat={m.titanium} />
-          <mesh rotation={[0, 0, Math.PI / 2]} material={m.darkSteel}>
-            <cylinderGeometry args={[0.035, 0.038, 0.055, 14]} />
-          </mesh>
-          <mesh rotation={[Math.PI / 2, 0, 0]} material={m.titanium}>
-            <cylinderGeometry args={[0.008, 0.008, 0.09, 8]} />
-          </mesh>
-          <mesh position={[0, 0, 0.042]} material={m.aluminum}>
-            <boxGeometry args={[0.05, 0.04, 0.012]} />
+        {/* Bicep — tapered cylinder */}
+        <mesh position={[0, -0.12, 0.01]} material={m.aluminum}>
+          <cylinderGeometry args={[0.038, 0.045, 0.16, 18]} />
+        </mesh>
+        {/* Tricep contour */}
+        <mesh position={[0, -0.12, -0.02]} material={m.aluminumDark} scale={[0.8, 1, 0.5]}>
+          <cylinderGeometry args={[0.035, 0.04, 0.14, 14]} />
+        </mesh>
+
+        {/* Elbow pivot */}
+        <group position={[0, -0.24, 0]} rotation={[elbowAngle, 0, 0]}>
+          {/* Elbow joint — organic */}
+          <mesh material={m.titanium}>
+            <sphereGeometry args={[0.038, 16, 16]} />
           </mesh>
 
-          {/* Forearm */}
-          <mesh position={[0, -0.17, 0]} material={m.aluminum}>
-            <cylinderGeometry args={[0.035, 0.04, 0.24, 18]} />
+          {/* Forearm — tapered */}
+          <mesh position={[0, -0.14, 0.005]} material={m.aluminum}>
+            <cylinderGeometry args={[0.028, 0.038, 0.2, 18]} />
           </mesh>
-          <mesh position={[0, -0.17, -0.038]} material={m.darkSteel}>
-            <boxGeometry args={[0.01, 0.2, 0.006]} />
-          </mesh>
-          <mesh position={[0, -0.17, 0.038]} material={m.aluminumDark}>
-            <boxGeometry args={[0.025, 0.18, 0.003]} />
+          {/* Forearm muscle hint */}
+          <mesh position={[0, -0.1, 0.025]} material={m.aluminumDark} scale={[0.7, 1, 0.4]}>
+            <cylinderGeometry args={[0.03, 0.02, 0.12, 12]} />
           </mesh>
 
           {/* Wrist */}
-          <Ring pos={[0, -0.31, 0]} r={0.03} mat={m.titanium} />
-          <mesh position={[0, -0.31, 0]} material={m.darkSteel}>
-            <cylinderGeometry args={[0.022, 0.028, 0.02, 12]} />
+          <mesh position={[0, -0.26, 0]} material={m.titanium}>
+            <sphereGeometry args={[0.025, 12, 12]} />
           </mesh>
 
           {/* Hand */}
-          <mesh position={[0, -0.37, 0.005]} material={m.darkSteel}>
-            <boxGeometry args={[0.05, 0.055, 0.04]} />
+          <mesh position={[0, -0.31, 0.005]} material={m.darkSteel}>
+            <boxGeometry args={[0.045, 0.05, 0.035]} />
           </mesh>
-          <mesh position={[0, -0.37, 0.027]} material={m.grip}>
-            <boxGeometry args={[0.045, 0.05, 0.005]} />
-          </mesh>
-          <mesh position={[-0.025 * s, -0.38, 0.025]} material={m.darkSteel}>
-            <boxGeometry args={[0.014, 0.04, 0.022]} />
-          </mesh>
-          <mesh position={[-0.01, -0.405, 0.005]} material={m.darkSteel}>
-            <boxGeometry args={[0.02, 0.022, 0.035]} />
-          </mesh>
-          <mesh position={[0.015, -0.405, 0.005]} material={m.darkSteel}>
-            <boxGeometry args={[0.02, 0.022, 0.035]} />
-          </mesh>
-          <mesh position={[0, -0.418, 0.005]} material={m.grip}>
-            <boxGeometry args={[0.048, 0.005, 0.03]} />
+          <mesh position={[0, -0.34, 0.005]} material={m.grip}>
+            <boxGeometry args={[0.042, 0.015, 0.03]} />
           </mesh>
         </group>
       </group>
