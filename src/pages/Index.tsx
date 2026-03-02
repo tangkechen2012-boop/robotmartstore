@@ -8,8 +8,12 @@ import {
   Shield, Users, Award, Globe, Truck, Headphones
 } from "lucide-react";
 
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { ScrollReveal } from "@/components/ScrollReveal";
+
+const FloatingRobot = lazy(() =>
+  import("@/components/FloatingRobot").then(m => ({ default: m.FloatingRobot }))
+);
 
 const PILLARS = [
   {
@@ -98,20 +102,27 @@ const Index = () => {
         {/* Grid pattern overlay */}
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle, hsl(var(--primary-foreground)) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
         <div className="max-w-7xl mx-auto px-4 py-14 md:py-16 relative z-10 w-full">
-          <div className="max-w-2xl animate-fade-in-up">
-            <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold leading-[1.1] text-primary-foreground mb-5">
-              Professional Robotics Solutions & Advanced Robot Platforms
-            </h1>
-            <p className="text-lg md:text-xl text-primary-foreground/80 mb-7 leading-relaxed">
-              Delivering humanoid robots, quadruped systems, and intelligent robotics solutions for industry and research.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Button size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground shadow-soft-lg transition-all duration-300 hover:shadow-card-hover hover:scale-105 active:scale-95" asChild>
-                <Link to="/products">Browse Products</Link>
-              </Button>
-              <Button size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground shadow-soft-lg transition-all duration-300 hover:shadow-card-hover hover:scale-105 active:scale-95" asChild>
-                <Link to="/contact">Request Consultation</Link>
-              </Button>
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <div className="animate-fade-in-up">
+              <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold leading-[1.1] text-primary-foreground mb-5">
+                Professional Robotics Solutions & Advanced Robot Platforms
+              </h1>
+              <p className="text-lg md:text-xl text-primary-foreground/80 mb-7 leading-relaxed">
+                Delivering humanoid robots, quadruped systems, and intelligent robotics solutions for industry and research.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Button size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground shadow-soft-lg transition-all duration-300 hover:shadow-card-hover hover:scale-105 active:scale-95" asChild>
+                  <Link to="/products">Browse Products</Link>
+                </Button>
+                <Button size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground shadow-soft-lg transition-all duration-300 hover:shadow-card-hover hover:scale-105 active:scale-95" asChild>
+                  <Link to="/contact">Request Consultation</Link>
+                </Button>
+              </div>
+            </div>
+            <div className="hidden lg:block h-[55vh] min-h-[400px]">
+              <Suspense fallback={<div className="w-full h-full flex items-center justify-center"><div className="w-10 h-10 border-2 border-primary-foreground/20 border-t-primary-foreground rounded-full animate-spin" /></div>}>
+                <FloatingRobot />
+              </Suspense>
             </div>
           </div>
         </div>
