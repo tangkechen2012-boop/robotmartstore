@@ -89,15 +89,16 @@ const Index = () => {
   return (
     <div className="min-h-screen overflow-x-hidden">
       {/* ===== HERO ===== */}
-      <section className="relative min-h-[90vh] flex items-center bg-gradient-to-br from-primary via-primary to-accent/30 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_80%_50%,hsl(var(--accent)/0.15),transparent)]" />
-        <div className="max-w-7xl mx-auto px-4 py-20 md:py-28 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-fade-in-up">
-              <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold leading-[1.1] text-primary-foreground mb-6">
+      <section className="relative min-h-[65vh] max-h-[70vh] flex items-center bg-gradient-to-br from-primary via-primary to-accent/30">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_65%_50%,hsl(var(--accent)/0.12),transparent)]" />
+        <div className="max-w-7xl mx-auto px-4 py-14 md:py-16 relative z-10 w-full">
+          <div className="flex items-center gap-8">
+            {/* Left text — 45% */}
+            <div className="animate-fade-in-up w-full lg:w-[45%] flex-shrink-0">
+              <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold leading-[1.1] text-primary-foreground mb-5">
                 Professional Robotics Solutions & Advanced Robot Platforms
               </h1>
-              <p className="text-lg md:text-xl text-primary-foreground/80 mb-8 leading-relaxed max-w-xl">
+              <p className="text-lg md:text-xl text-primary-foreground/80 mb-7 leading-relaxed max-w-xl">
                 Delivering humanoid robots, quadruped systems, and intelligent robotics solutions for industry and research.
               </p>
               <div className="flex flex-wrap gap-3">
@@ -110,8 +111,8 @@ const Index = () => {
               </div>
             </div>
 
-            {/* 3D Interactive Robot */}
-            <div className="hidden lg:block w-[500px] h-[520px] flex-shrink-0">
+            {/* Right 3D robot — 55% */}
+            <div className="hidden lg:block w-[55%] h-[55vh] p-4">
               <FloatingRobot />
             </div>
           </div>
