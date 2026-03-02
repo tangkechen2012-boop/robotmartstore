@@ -114,97 +114,145 @@ function Head(m: M) {
 function Torso(m: M) {
   return (
     <group>
-      {/* === CHEST === */}
-      {/* Main chest body — white, wide */}
-      <mesh position={[0, 1.32, 0]} material={m.white}>
-        <cylinderGeometry args={[0.15, 0.19, 0.28, 28]} />
+      {/* === CHEST — organic, broad shoulders tapering === */}
+      {/* Upper chest — wide, rounded pecs */}
+      <mesh position={[0, 1.36, 0.02]} material={m.white} scale={[1.25, 0.9, 0.85]}>
+        <sphereGeometry args={[0.17, 32, 32]} />
       </mesh>
-      {/* Front chest plate — convex white */}
-      <mesh position={[0, 1.33, 0.1]} material={m.white} scale={[1.15, 1, 0.45]}>
-        <sphereGeometry args={[0.14, 28, 28]} />
+      {/* Pectoral left */}
+      <mesh position={[-0.07, 1.36, 0.1]} material={m.whiteAlt} scale={[0.9, 0.7, 0.4]}>
+        <sphereGeometry args={[0.08, 20, 20]} />
       </mesh>
-      {/* Back plate */}
-      <mesh position={[0, 1.33, -0.09]} material={m.whiteAlt} scale={[1.05, 0.95, 0.4]}>
-        <sphereGeometry args={[0.13, 24, 24]} />
-      </mesh>
-      {/* Collar — top edge */}
-      <mesh position={[0, 1.46, 0]} material={m.whiteAlt}>
-        <cylinderGeometry args={[0.1, 0.14, 0.02, 24]} />
+      {/* Pectoral right */}
+      <mesh position={[0.07, 1.36, 0.1]} material={m.whiteAlt} scale={[0.9, 0.7, 0.4]}>
+        <sphereGeometry args={[0.08, 20, 20]} />
       </mesh>
 
-      {/* Shoulder mounts — dark balls at top corners */}
+      {/* Shoulder caps — rounded deltoid mounts */}
       {([-1, 1] as const).map(s => (
-        <mesh key={s} position={[s * 0.19, 1.44, 0]} material={m.dark}>
-          <sphereGeometry args={[0.038, 18, 18]} />
+        <mesh key={s} position={[s * 0.2, 1.42, 0]} material={m.white} scale={[1, 1.1, 0.9]}>
+          <sphereGeometry args={[0.05, 20, 20]} />
         </mesh>
       ))}
 
-      {/* === MIDSECTION === */}
-      {/* Ribcage taper — dark */}
-      <mesh position={[0, 1.15, 0]} material={m.dark}>
-        <cylinderGeometry args={[0.07, 0.14, 0.08, 20]} />
+      {/* Back — upper back volume */}
+      <mesh position={[0, 1.35, -0.08]} material={m.whiteAlt} scale={[1.15, 0.85, 0.45]}>
+        <sphereGeometry args={[0.14, 24, 24]} />
       </mesh>
 
-      {/* Waist — very narrow, dark */}
-      <mesh position={[0, 1.08, 0]} material={m.dark}>
-        <cylinderGeometry args={[0.055, 0.07, 0.06, 16]} />
+      {/* Ribcage taper — organic curve */}
+      <mesh position={[0, 1.2, 0]} material={m.white}>
+        <cylinderGeometry args={[0.1, 0.17, 0.14, 24]} />
       </mesh>
 
-      {/* === PELVIS === */}
+      {/* Waist — narrow, human-like */}
+      <mesh position={[0, 1.1, 0]} material={m.dark}>
+        <cylinderGeometry args={[0.06, 0.1, 0.08, 18]} />
+      </mesh>
+      {/* Oblique hints */}
+      {([-1, 1] as const).map(s => (
+        <mesh key={`ob-${s}`} position={[s * 0.06, 1.13, 0.02]} material={m.darkAlt} scale={[0.4, 0.8, 0.5]}>
+          <sphereGeometry args={[0.06, 12, 12]} />
+        </mesh>
+      ))}
+
+      {/* Abdomen — subtle abs contour */}
+      <mesh position={[0, 1.15, 0.07]} material={m.white} scale={[0.7, 0.9, 0.3]}>
+        <sphereGeometry args={[0.08, 16, 16]} />
+      </mesh>
+
+      {/* Pelvis — hip structure */}
       <mesh position={[0, 1.0, 0]} material={m.dark}>
-        <cylinderGeometry args={[0.1, 0.08, 0.1, 18]} />
+        <cylinderGeometry args={[0.11, 0.09, 0.1, 18]} />
+      </mesh>
+
+      {/* Spine ridge — back */}
+      <mesh position={[0, 1.25, -0.11]} material={m.dark}>
+        <capsuleGeometry args={[0.008, 0.25, 4, 8]} />
       </mesh>
     </group>
   );
 }
 
 /* ═══════════════════════════════════════════════
-   ARM — white upper, dark lower
+   ARM — organic muscle contours
    ═══════════════════════════════════════════════ */
 function Arm({ side, shoulderAngle = 0, elbowAngle = 0, ...m }: M & { side: 1 | -1; shoulderAngle?: number; elbowAngle?: number }) {
   const s = side;
   return (
-    <group position={[s * 0.22, 1.44, 0]}>
+    <group position={[s * 0.24, 1.44, 0]}>
       {/* Shoulder joint */}
       <mesh material={m.dark}>
-        <sphereGeometry args={[0.035, 16, 16]} />
+        <sphereGeometry args={[0.032, 16, 16]} />
       </mesh>
 
       <group position={[s * 0.02, -0.01, 0]} rotation={[shoulderAngle, 0, 0]}>
-        {/* Upper arm — white */}
-        <mesh position={[0, -0.1, 0]} material={m.white}>
-          <capsuleGeometry args={[0.035, 0.13, 8, 16]} />
+        {/* Deltoid — rounded cap */}
+        <mesh position={[0, -0.02, 0]} material={m.white} scale={[1.1, 1.3, 0.95]}>
+          <sphereGeometry args={[0.04, 20, 20]} />
+        </mesh>
+
+        {/* Bicep — front bulge */}
+        <mesh position={[0, -0.1, 0.015]} material={m.white} scale={[1, 1, 0.9]}>
+          <capsuleGeometry args={[0.035, 0.1, 8, 16]} />
+        </mesh>
+        {/* Tricep — back contour */}
+        <mesh position={[0, -0.1, -0.015]} material={m.whiteAlt} scale={[0.85, 0.95, 0.7]}>
+          <capsuleGeometry args={[0.032, 0.09, 6, 14]} />
         </mesh>
 
         {/* Elbow */}
         <group position={[0, -0.2, 0]} rotation={[elbowAngle, 0, 0]}>
           <mesh material={m.dark}>
-            <sphereGeometry args={[0.028, 14, 14]} />
+            <sphereGeometry args={[0.026, 14, 14]} />
           </mesh>
 
-          {/* Forearm — dark */}
-          <mesh position={[0, -0.11, 0]} material={m.dark}>
-            <capsuleGeometry args={[0.025, 0.14, 8, 16]} />
+          {/* Forearm — tapered with muscle */}
+          <mesh position={[0, -0.09, 0.008]} material={m.dark}>
+            <capsuleGeometry args={[0.028, 0.1, 8, 16]} />
+          </mesh>
+          {/* Forearm extensor */}
+          <mesh position={[0, -0.07, -0.015]} material={m.darkAlt} scale={[0.75, 0.85, 0.5]}>
+            <capsuleGeometry args={[0.025, 0.07, 6, 12]} />
+          </mesh>
+          {/* Forearm taper to wrist */}
+          <mesh position={[0, -0.16, 0]} material={m.dark}>
+            <capsuleGeometry args={[0.018, 0.06, 6, 12]} />
           </mesh>
 
           {/* Wrist */}
           <mesh position={[0, -0.2, 0]} material={m.gray}>
-            <sphereGeometry args={[0.018, 10, 10]} />
+            <sphereGeometry args={[0.016, 10, 10]} />
           </mesh>
 
-          {/* Hand */}
-          <mesh position={[0, -0.235, 0.003]} material={m.dark} scale={[0.9, 1.1, 0.7]}>
-            <sphereGeometry args={[0.02, 12, 12]} />
+          {/* Hand — organic palm */}
+          <mesh position={[0, -0.23, 0.004]} material={m.dark} scale={[0.85, 1.0, 0.6]}>
+            <sphereGeometry args={[0.02, 14, 14]} />
           </mesh>
-          {/* 5 Fingers */}
-          {[-0.013, -0.006, 0.0, 0.006, 0.013].map((fx, i) => (
-            <mesh key={i} position={[fx, -0.27, 0.003]} material={m.dark}>
-              <capsuleGeometry args={[0.003, 0.02 - i * 0.001, 4, 6]} />
-            </mesh>
+          {/* 5 Fingers — varied lengths */}
+          {[
+            { x: -0.012, len: 0.018 },
+            { x: -0.005, len: 0.024 },
+            { x: 0.002, len: 0.026 },
+            { x: 0.009, len: 0.022 },
+            { x: 0.015, len: 0.016 },
+          ].map((f, i) => (
+            <group key={i} position={[f.x, -0.26, 0.004]}>
+              <mesh material={m.dark}>
+                <capsuleGeometry args={[0.003, f.len, 4, 6]} />
+              </mesh>
+              {/* Fingertip */}
+              <mesh position={[0, -(f.len / 2 + 0.005), 0]} material={m.grip}>
+                <sphereGeometry args={[0.0035, 6, 6]} />
+              </mesh>
+            </group>
           ))}
           {/* Thumb */}
-          <mesh position={[-0.02 * s, -0.24, 0.012]} rotation={[0.2, 0, s * 0.7]} material={m.dark}>
-            <capsuleGeometry args={[0.004, 0.016, 4, 6]} />
+          <mesh position={[-0.02 * s, -0.235, 0.014]} rotation={[0.3, 0, s * 0.65]} material={m.dark}>
+            <capsuleGeometry args={[0.004, 0.018, 4, 6]} />
+          </mesh>
+          <mesh position={[-0.025 * s, -0.25, 0.018]} material={m.grip}>
+            <sphereGeometry args={[0.004, 6, 6]} />
           </mesh>
         </group>
       </group>
@@ -213,7 +261,7 @@ function Arm({ side, shoulderAngle = 0, elbowAngle = 0, ...m }: M & { side: 1 | 
 }
 
 /* ═══════════════════════════════════════════════
-   LEG — white thigh, dark shin
+   LEG — organic muscle contours
    ═══════════════════════════════════════════════ */
 function Leg({ side, hipAngle = 0, kneeAngle = 0, ...m }: M & { side: 1 | -1; hipAngle?: number; kneeAngle?: number }) {
   const x = side * 0.07;
@@ -225,39 +273,80 @@ function Leg({ side, hipAngle = 0, kneeAngle = 0, ...m }: M & { side: 1 | -1; hi
       </mesh>
 
       <group position={[0, -0.02, 0]} rotation={[hipAngle, 0, 0]}>
-        {/* Thigh — white */}
-        <mesh position={[0, -0.14, 0]} material={m.white}>
-          <capsuleGeometry args={[0.045, 0.18, 8, 18]} />
+        {/* Glute / upper thigh transition */}
+        <mesh position={[0, -0.03, -0.01]} material={m.white} scale={[1, 1.1, 0.95]}>
+          <sphereGeometry args={[0.05, 18, 18]} />
+        </mesh>
+
+        {/* Quadricep — front thigh */}
+        <mesh position={[0, -0.14, 0.015]} material={m.white}>
+          <capsuleGeometry args={[0.046, 0.16, 8, 18]} />
+        </mesh>
+        {/* Hamstring — back thigh */}
+        <mesh position={[0, -0.14, -0.018]} material={m.whiteAlt} scale={[0.88, 0.95, 0.6]}>
+          <capsuleGeometry args={[0.042, 0.14, 6, 16]} />
+        </mesh>
+        {/* Inner thigh */}
+        <mesh position={[-side * 0.015, -0.14, 0]} material={m.whiteAlt} scale={[0.5, 0.9, 0.75]}>
+          <capsuleGeometry args={[0.04, 0.12, 6, 14]} />
         </mesh>
 
         {/* Knee */}
         <group position={[0, -0.28, 0]} rotation={[kneeAngle, 0, 0]}>
-          <mesh material={m.dark}>
+          {/* Kneecap */}
+          <mesh position={[0, 0, 0.025]} material={m.dark} scale={[0.7, 0.85, 0.4]}>
             <sphereGeometry args={[0.035, 14, 14]} />
           </mesh>
+          <mesh material={m.dark}>
+            <sphereGeometry args={[0.034, 14, 14]} />
+          </mesh>
 
-          {/* Shin — dark */}
-          <mesh position={[0, -0.15, 0]} material={m.dark}>
-            <capsuleGeometry args={[0.032, 0.2, 8, 18]} />
+          {/* Calf — tapered with gastrocnemius bulge */}
+          <mesh position={[0, -0.12, 0.005]} material={m.dark}>
+            <capsuleGeometry args={[0.034, 0.15, 8, 18]} />
+          </mesh>
+          {/* Calf muscle bulge — back */}
+          <mesh position={[0, -0.08, -0.025]} material={m.darkAlt} scale={[0.8, 0.9, 0.55]}>
+            <sphereGeometry args={[0.04, 16, 16]} />
+          </mesh>
+          {/* Shin taper */}
+          <mesh position={[0, -0.22, 0]} material={m.dark}>
+            <capsuleGeometry args={[0.022, 0.08, 6, 14]} />
           </mesh>
 
           {/* Ankle */}
           <mesh position={[0, -0.28, 0]} material={m.gray}>
-            <sphereGeometry args={[0.022, 10, 10]} />
+            <sphereGeometry args={[0.02, 10, 10]} />
           </mesh>
+          {/* Ankle bones — medial/lateral */}
+          {([-1, 1] as const).map(bs => (
+            <mesh key={bs} position={[bs * 0.018, -0.28, 0]} material={m.gray}>
+              <sphereGeometry args={[0.008, 8, 8]} />
+            </mesh>
+          ))}
 
-          {/* Foot */}
-          <mesh position={[0, -0.32, 0.015]} material={m.dark} scale={[0.7, 0.35, 1.15]}>
+          {/* Foot — organic arch */}
+          <mesh position={[0, -0.31, 0.02]} material={m.dark} scale={[0.7, 0.35, 1.2]}>
             <sphereGeometry args={[0.045, 16, 16]} />
           </mesh>
-          {/* Toes */}
-          {[-0.01, 0, 0.01].map((tx, i) => (
-            <mesh key={i} position={[tx, -0.34, 0.05]} material={m.dark} rotation={[Math.PI / 2, 0, 0]}>
-              <capsuleGeometry args={[0.005, 0.012, 4, 6]} />
+          {/* Heel */}
+          <mesh position={[0, -0.32, -0.025]} material={m.dark} scale={[0.6, 0.3, 0.55]}>
+            <sphereGeometry args={[0.04, 12, 12]} />
+          </mesh>
+          {/* 5 Toes */}
+          {[
+            { x: -0.014, len: 0.008 },
+            { x: -0.007, len: 0.012 },
+            { x: 0.0, len: 0.014 },
+            { x: 0.007, len: 0.011 },
+            { x: 0.013, len: 0.007 },
+          ].map((toe, i) => (
+            <mesh key={i} position={[toe.x, -0.335, 0.055 + toe.len * 0.3]} material={m.dark} rotation={[Math.PI / 2.2, 0, 0]}>
+              <capsuleGeometry args={[0.004, toe.len, 4, 6]} />
             </mesh>
           ))}
           {/* Sole */}
-          <mesh position={[0, -0.345, 0.015]} material={m.grip} scale={[0.65, 0.1, 1.05]}>
+          <mesh position={[0, -0.34, 0.015]} material={m.grip} scale={[0.65, 0.08, 1.1]}>
             <sphereGeometry args={[0.045, 12, 12]} />
           </mesh>
         </group>
