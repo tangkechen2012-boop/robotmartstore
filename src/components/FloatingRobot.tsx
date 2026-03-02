@@ -255,12 +255,24 @@ function Arm({ side, shoulderAngle = 0, elbowAngle = 0, ...m }: M & { side: 1 | 
             <sphereGeometry args={[0.025, 12, 12]} />
           </mesh>
 
-          {/* Hand */}
-          <mesh position={[0, -0.31, 0.005]} material={m.darkSteel}>
-            <boxGeometry args={[0.045, 0.05, 0.035]} />
+          {/* Hand — organic palm */}
+          <mesh position={[0, -0.3, 0.005]} material={m.darkSteel} scale={[1, 1.2, 0.8]}>
+            <sphereGeometry args={[0.025, 14, 14]} />
           </mesh>
-          <mesh position={[0, -0.34, 0.005]} material={m.grip}>
-            <boxGeometry args={[0.042, 0.015, 0.03]} />
+          {/* Fingers — 4 organic digits */}
+          {[-0.015, -0.005, 0.005, 0.015].map((fx, i) => (
+            <group key={i} position={[fx, -0.33, 0.005]}>
+              <mesh material={m.darkSteel}>
+                <capsuleGeometry args={[0.005, 0.03, 4, 8]} />
+              </mesh>
+              <mesh position={[0, -0.022, 0]} material={m.grip}>
+                <sphereGeometry args={[0.005, 6, 6]} />
+              </mesh>
+            </group>
+          ))}
+          {/* Thumb */}
+          <mesh position={[-0.025 * s, -0.3, 0.018]} rotation={[0, 0, s * 0.5]} material={m.darkSteel}>
+            <capsuleGeometry args={[0.005, 0.022, 4, 8]} />
           </mesh>
         </group>
       </group>
@@ -276,83 +288,69 @@ function Leg({ side, hipAngle = 0, kneeAngle = 0, ...m }: M & { side: 1 | -1; hi
   const x = side * 0.12;
   return (
     <group position={[x, 0.9, 0]}>
-      {/* Hip structural block (stays at pelvis) */}
-      <mesh material={m.darkSteel}>
-        <boxGeometry args={[0.08, 0.07, 0.09]} />
-      </mesh>
-      <Ring pos={[0, -0.04, 0]} r={0.052} mat={m.titanium} />
-      <mesh position={[0, -0.04, 0]} rotation={[0, 0, Math.PI / 2]} material={m.darkSteel}>
-        <cylinderGeometry args={[0.04, 0.045, 0.045, 14]} />
+      {/* Hip ball joint */}
+      <mesh material={m.titanium}>
+        <sphereGeometry args={[0.05, 18, 18]} />
       </mesh>
 
       {/* Thigh group — rotates at hip */}
-      <group position={[0, -0.06, 0]} rotation={[hipAngle, 0, 0]}>
-        {/* Thigh */}
-        <mesh position={[0, -0.18, 0]} material={m.aluminum}>
-          <cylinderGeometry args={[0.055, 0.065, 0.32, 20]} />
+      <group position={[0, -0.04, 0]} rotation={[hipAngle, 0, 0]}>
+        {/* Glute/upper thigh — organic taper */}
+        <mesh position={[0, -0.04, 0]} material={m.aluminum} scale={[1, 1.1, 0.95]}>
+          <sphereGeometry args={[0.06, 18, 18]} />
         </mesh>
-        <mesh position={[0, -0.18, 0.06]} material={m.aluminumDark}>
-          <boxGeometry args={[0.003, 0.28, 0.003]} />
+
+        {/* Quadricep — front muscle */}
+        <mesh position={[0, -0.16, 0.02]} material={m.aluminum}>
+          <cylinderGeometry args={[0.05, 0.058, 0.22, 20]} />
         </mesh>
-        <mesh position={[0, -0.1, 0.045]} material={m.darkSteel}>
-          <boxGeometry args={[0.04, 0.09, 0.025]} />
-        </mesh>
-        <mesh position={[0, -0.18, -0.06]} material={m.darkSteel}>
-          <boxGeometry args={[0.012, 0.22, 0.008]} />
+        {/* Hamstring — back contour */}
+        <mesh position={[0, -0.16, -0.025]} material={m.aluminumDark} scale={[0.85, 1, 0.55]}>
+          <cylinderGeometry args={[0.048, 0.05, 0.2, 16]} />
         </mesh>
 
         {/* Knee pivot */}
-        <group position={[0, -0.36, 0]} rotation={[kneeAngle, 0, 0]}>
-          {/* Knee hinge */}
-          <Ring pos={[0, 0, 0]} r={0.048} mat={m.titanium} />
-          <mesh rotation={[0, 0, Math.PI / 2]} material={m.darkSteel}>
-            <cylinderGeometry args={[0.038, 0.042, 0.055, 14]} />
+        <group position={[0, -0.3, 0]} rotation={[kneeAngle, 0, 0]}>
+          {/* Kneecap — organic */}
+          <mesh position={[0, 0, 0.035]} material={m.titanium} scale={[0.8, 1, 0.5]}>
+            <sphereGeometry args={[0.04, 14, 14]} />
           </mesh>
-          <mesh rotation={[Math.PI / 2, 0, 0]} material={m.titanium}>
-            <cylinderGeometry args={[0.008, 0.008, 0.1, 8]} />
-          </mesh>
-          <mesh position={[0, 0, 0.048]} material={m.aluminum}>
-            <boxGeometry args={[0.065, 0.055, 0.015]} />
+          <mesh material={m.titanium}>
+            <sphereGeometry args={[0.042, 16, 16]} />
           </mesh>
 
-          {/* Shin */}
-          <mesh position={[0, -0.2, 0.005]} material={m.aluminum}>
-            <cylinderGeometry args={[0.048, 0.055, 0.28, 18]} />
+          {/* Calf — tapered */}
+          <mesh position={[0, -0.16, 0.005]} material={m.aluminum}>
+            <cylinderGeometry args={[0.035, 0.05, 0.24, 18]} />
           </mesh>
-          <mesh position={[0, -0.2, 0.053]} material={m.aluminumDark}>
-            <boxGeometry args={[0.003, 0.24, 0.003]} />
-          </mesh>
-          <mesh position={[0, -0.2, -0.05]} material={m.darkSteel}>
-            <boxGeometry args={[0.012, 0.2, 0.006]} />
-          </mesh>
-          <mesh position={[0, -0.14, 0.04]} material={m.darkSteel}>
-            <boxGeometry args={[0.035, 0.06, 0.02]} />
+          {/* Calf muscle bulge */}
+          <mesh position={[0, -0.1, -0.025]} material={m.aluminumDark} scale={[0.8, 1, 0.55]}>
+            <sphereGeometry args={[0.045, 16, 16]} />
           </mesh>
 
           {/* Ankle */}
-          <Ring pos={[0, -0.36, 0]} r={0.04} mat={m.titanium} />
-          <mesh position={[0, -0.36, 0]} material={m.darkSteel}>
-            <cylinderGeometry args={[0.028, 0.035, 0.025, 14]} />
+          <mesh position={[0, -0.3, 0]} material={m.titanium}>
+            <sphereGeometry args={[0.028, 12, 12]} />
           </mesh>
 
-          {/* Foot */}
-          <mesh position={[0, -0.42, 0.01]} material={m.aluminum}>
-            <boxGeometry args={[0.09, 0.035, 0.16]} />
+          {/* Foot — organic, shoe-like */}
+          <mesh position={[0, -0.35, 0.02]} material={m.darkSteel} scale={[0.8, 0.5, 1.3]}>
+            <sphereGeometry args={[0.05, 16, 16]} />
           </mesh>
-          <mesh position={[0, -0.44, 0.01]} material={m.grip}>
-            <boxGeometry args={[0.088, 0.008, 0.158]} />
+          {/* Heel */}
+          <mesh position={[0, -0.36, -0.03]} material={m.darkSteel} scale={[0.7, 0.4, 0.6]}>
+            <sphereGeometry args={[0.04, 12, 12]} />
           </mesh>
-          <mesh position={[0, -0.42, 0.095]} material={m.aluminumDark}>
-            <boxGeometry args={[0.08, 0.03, 0.02]} />
-          </mesh>
-          <mesh position={[0, -0.42, -0.065]} material={m.aluminumDark}>
-            <boxGeometry args={[0.075, 0.03, 0.02]} />
-          </mesh>
-          {([-1, 1] as const).map(fs => (
-            <mesh key={fs} position={[fs * 0.042, -0.42, 0.01]} material={m.aluminumDark}>
-              <boxGeometry args={[0.005, 0.025, 0.14]} />
+          {/* Toes — 3 organic digits */}
+          {[-0.015, 0, 0.015].map((tx, i) => (
+            <mesh key={i} position={[tx, -0.37, 0.065]} material={m.grip} rotation={[Math.PI / 2, 0, 0]}>
+              <capsuleGeometry args={[0.006, 0.015, 4, 8]} />
             </mesh>
           ))}
+          {/* Sole */}
+          <mesh position={[0, -0.375, 0.02]} material={m.grip} scale={[0.75, 0.15, 1.2]}>
+            <sphereGeometry args={[0.05, 12, 12]} />
+          </mesh>
         </group>
       </group>
     </group>
