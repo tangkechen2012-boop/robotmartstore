@@ -8,59 +8,66 @@ import * as THREE from "three";
    ═══════════════════════════════════════════════ */
 function useMaterials() {
   return useMemo(() => {
+    // Body panels — smooth, matte ceramic feel, low reflections
     const aluminum = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#C2C8D0"),
-      metalness: 1.0,
-      roughness: 0.16,
-      envMapIntensity: 1.5,
-      clearcoat: 0.5,
-      clearcoatRoughness: 0.04,
+      color: new THREE.Color("#D0D4DA"),
+      metalness: 0.15,
+      roughness: 0.55,
+      envMapIntensity: 0.3,
+      clearcoat: 0.08,
+      clearcoatRoughness: 0.4,
     });
+    // Secondary body — slightly darker, same smooth feel
     const aluminumDark = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#9CA4B0"),
-      metalness: 1.0,
-      roughness: 0.2,
-      envMapIntensity: 1.2,
-      clearcoat: 0.3,
-      clearcoatRoughness: 0.06,
+      color: new THREE.Color("#A8AEB8"),
+      metalness: 0.2,
+      roughness: 0.5,
+      envMapIntensity: 0.25,
+      clearcoat: 0.06,
+      clearcoatRoughness: 0.5,
     });
+    // Joints — retain metallic contrast
     const titanium = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color("#5A6270"),
-      metalness: 0.95,
-      roughness: 0.14,
-      envMapIntensity: 1.3,
-      clearcoat: 0.3,
-      clearcoatRoughness: 0.08,
+      metalness: 0.85,
+      roughness: 0.28,
+      envMapIntensity: 0.6,
+      clearcoat: 0.15,
+      clearcoatRoughness: 0.2,
     });
+    // Structural dark parts — subtle metal
     const darkSteel = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color("#2A2E35"),
-      metalness: 0.8,
-      roughness: 0.22,
-      envMapIntensity: 0.8,
-      clearcoat: 0.2,
+      metalness: 0.6,
+      roughness: 0.4,
+      envMapIntensity: 0.35,
+      clearcoat: 0.1,
     });
+    // Visor — glossy but toned down
     const visor = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color("#1A2030"),
-      metalness: 0.4,
-      roughness: 0.05,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.01,
-      envMapIntensity: 2.0,
+      metalness: 0.3,
+      roughness: 0.08,
+      clearcoat: 0.8,
+      clearcoatRoughness: 0.05,
+      envMapIntensity: 0.8,
       transparent: true,
       opacity: 0.92,
     });
+    // Sensor accent
     const sensor = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color("#4A90A8"),
       emissive: new THREE.Color("#4A90A8"),
-      emissiveIntensity: 0.12,
-      metalness: 0.3,
-      roughness: 0.1,
-      clearcoat: 0.8,
+      emissiveIntensity: 0.1,
+      metalness: 0.2,
+      roughness: 0.3,
+      clearcoat: 0.4,
     });
+    // Grip — rubber-like
     const grip = new THREE.MeshStandardMaterial({
       color: new THREE.Color("#1A1D22"),
-      metalness: 0.15,
-      roughness: 0.7,
+      metalness: 0.08,
+      roughness: 0.85,
     });
     return { aluminum, aluminumDark, titanium, darkSteel, visor, sensor, grip };
   }, []);
