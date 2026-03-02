@@ -92,30 +92,20 @@ const Index = () => {
       <section className="relative min-h-[65vh] max-h-[70vh] flex items-center bg-gradient-to-br from-primary via-primary to-accent/30">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_65%_50%,hsl(var(--accent)/0.12),transparent)]" />
         <div className="max-w-7xl mx-auto px-4 py-14 md:py-16 relative z-10 w-full">
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
-            <div className="animate-fade-in-up">
-              <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold leading-[1.1] text-primary-foreground mb-5">
-                Professional Robotics Solutions & Advanced Robot Platforms
-              </h1>
-              <p className="text-lg md:text-xl text-primary-foreground/80 mb-7 leading-relaxed">
-                Delivering humanoid robots, quadruped systems, and intelligent robotics solutions for industry and research.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <Button size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground shadow-soft-lg transition-all duration-300 hover:shadow-card-hover" asChild>
-                  <Link to="/products">Browse Products</Link>
-                </Button>
-                <Button size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground shadow-soft-lg transition-all duration-300 hover:shadow-card-hover" asChild>
-                  <Link to="/contact">Request Consultation</Link>
-                </Button>
-              </div>
-            </div>
-            <div className="hidden lg:flex justify-center">
-              <img
-                src="/images/unitree-g1-1.webp"
-                alt="Unitree G1 Humanoid Robot - Advanced robotics platform"
-                className="max-h-[55vh] w-auto object-contain drop-shadow-2xl"
-                loading="eager"
-              />
+          <div className="max-w-2xl animate-fade-in-up">
+            <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold leading-[1.1] text-primary-foreground mb-5">
+              Professional Robotics Solutions & Advanced Robot Platforms
+            </h1>
+            <p className="text-lg md:text-xl text-primary-foreground/80 mb-7 leading-relaxed">
+              Delivering humanoid robots, quadruped systems, and intelligent robotics solutions for industry and research.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Button size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground shadow-soft-lg transition-all duration-300 hover:shadow-card-hover" asChild>
+                <Link to="/products">Browse Products</Link>
+              </Button>
+              <Button size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground shadow-soft-lg transition-all duration-300 hover:shadow-card-hover" asChild>
+                <Link to="/contact">Request Consultation</Link>
+              </Button>
             </div>
           </div>
         </div>
