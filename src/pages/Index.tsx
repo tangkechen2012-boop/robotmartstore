@@ -89,8 +89,13 @@ const Index = () => {
   return (
     <div className="min-h-screen overflow-x-hidden">
       {/* ===== HERO ===== */}
-      <section className="relative min-h-[65vh] max-h-[70vh] flex items-center bg-gradient-to-br from-primary via-primary to-accent/30">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_65%_50%,hsl(var(--accent)/0.12),transparent)]" />
+      <section className="relative min-h-[65vh] max-h-[70vh] flex items-center overflow-hidden bg-[length:200%_200%] animate-hero-gradient" style={{ backgroundImage: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(220 75% 25%) 25%, hsl(var(--primary)) 50%, hsl(var(--accent) / 0.4) 75%, hsl(var(--primary)) 100%)' }}>
+        {/* Floating orbs */}
+        <div className="absolute top-[15%] left-[10%] w-[300px] h-[300px] rounded-full bg-accent/10 blur-[80px] animate-float-orb" />
+        <div className="absolute bottom-[10%] right-[15%] w-[250px] h-[250px] rounded-full bg-primary-foreground/5 blur-[60px] animate-float-orb-reverse" />
+        <div className="absolute top-[50%] right-[30%] w-[200px] h-[200px] rounded-full bg-accent/[0.08] blur-[70px] animate-float-orb [animation-delay:2s]" />
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle, hsl(var(--primary-foreground)) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
         <div className="max-w-7xl mx-auto px-4 py-14 md:py-16 relative z-10 w-full">
           <div className="max-w-2xl animate-fade-in-up">
             <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold leading-[1.1] text-primary-foreground mb-5">
@@ -100,10 +105,10 @@ const Index = () => {
               Delivering humanoid robots, quadruped systems, and intelligent robotics solutions for industry and research.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Button size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground shadow-soft-lg transition-all duration-300 hover:shadow-card-hover" asChild>
+              <Button size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground shadow-soft-lg transition-all duration-300 hover:shadow-card-hover hover:scale-105 active:scale-95" asChild>
                 <Link to="/products">Browse Products</Link>
               </Button>
-              <Button size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground shadow-soft-lg transition-all duration-300 hover:shadow-card-hover" asChild>
+              <Button size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground shadow-soft-lg transition-all duration-300 hover:shadow-card-hover hover:scale-105 active:scale-95" asChild>
                 <Link to="/contact">Request Consultation</Link>
               </Button>
             </div>
