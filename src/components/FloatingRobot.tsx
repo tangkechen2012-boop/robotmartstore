@@ -3,228 +3,237 @@ import { OrbitControls, ContactShadows, Environment } from "@react-three/drei";
 import { useRef, Suspense, useMemo } from "react";
 import * as THREE from "three";
 
-/* ── PBR Materials (Unitree-style white/dark) ── */
-function useUnitreeMaterials() {
+function useG1Materials() {
   return useMemo(() => {
-    // Main body — clean white
+    // Polished silver body
     const body = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#F0F2F5"),
-      metalness: 0.6,
-      roughness: 0.22,
-      envMapIntensity: 1.2,
-      clearcoat: 0.3,
-      clearcoatRoughness: 0.1,
-    });
-    // Dark panels (torso front, head sides)
-    const dark = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#2A2D35"),
-      metalness: 0.7,
-      roughness: 0.18,
-      envMapIntensity: 1.0,
+      color: new THREE.Color("#D0D4DA"),
+      metalness: 1.0,
+      roughness: 0.14,
+      envMapIntensity: 1.4,
       clearcoat: 0.4,
       clearcoatRoughness: 0.06,
     });
-    // Joint / structural gray
+    // Dark panels / structural
+    const dark = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#1a1d24"),
+      metalness: 0.7,
+      roughness: 0.2,
+      envMapIntensity: 0.8,
+      clearcoat: 0.3,
+      clearcoatRoughness: 0.1,
+    });
+    // Joint gray
     const joint = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#7A7F88"),
-      metalness: 0.85,
-      roughness: 0.16,
+      color: new THREE.Color("#6B7280"),
+      metalness: 0.9,
+      roughness: 0.15,
       envMapIntensity: 1.1,
       clearcoat: 0.2,
-      clearcoatRoughness: 0.12,
+      clearcoatRoughness: 0.1,
     });
-    // Visor — glossy dark
+    // Glowing blue visor
     const visor = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#0a0e18"),
-      metalness: 0.5,
+      color: new THREE.Color("#40C4FF"),
+      emissive: new THREE.Color("#40C4FF"),
+      emissiveIntensity: 0.6,
+      metalness: 0.3,
       roughness: 0.05,
-      envMapIntensity: 1.4,
-      clearcoat: 0.9,
+      clearcoat: 0.8,
       clearcoatRoughness: 0.02,
+      transparent: true,
+      opacity: 0.85,
     });
-    // Blue LED accent
+    // Black hands/feet
+    const blackPart = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color("#15171c"),
+      metalness: 0.5,
+      roughness: 0.35,
+      envMapIntensity: 0.6,
+    });
+    // Blue LED dots
     const led = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color("#4FC3F7"),
       emissive: new THREE.Color("#4FC3F7"),
-      emissiveIntensity: 0.3,
+      emissiveIntensity: 0.35,
       metalness: 0.3,
       roughness: 0.4,
     });
-    // Light gray connectors
+    // Light connector
     const conn = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#C8CCD2"),
-      metalness: 0.75,
-      roughness: 0.2,
+      color: new THREE.Color("#B8BCC4"),
+      metalness: 0.85,
+      roughness: 0.18,
       envMapIntensity: 1.0,
       clearcoat: 0.15,
       clearcoatRoughness: 0.1,
     });
-    return { body, dark, joint, visor, led, conn };
+    return { body, dark, joint, visor, blackPart, led, conn };
   }, []);
 }
 
-/* ── Q-version Unitree Head ── */
-function UnitreeHead({ body, dark, visor, led }: Record<string, THREE.Material>) {
+/* ── G1 Head — motorcycle helmet with blue visor ── */
+function G1Head(m: Record<string, THREE.Material>) {
   return (
-    <group position={[0, 1.65, 0]}>
-      {/* Main head shell — large rounded for Q style */}
-      <mesh material={body}>
-        <sphereGeometry args={[0.38, 48, 48]} />
+    <group position={[0, 1.72, 0]}>
+      {/* Main helmet */}
+      <mesh material={m.body}>
+        <sphereGeometry args={[0.22, 48, 48]} />
+      </mesh>
+      {/* Helmet top extension */}
+      <mesh position={[0, 0.08, -0.02]} material={m.body}>
+        <capsuleGeometry args={[0.14, 0.12, 14, 24]} />
+      </mesh>
+      {/* Helmet back */}
+      <mesh position={[0, 0.04, -0.1]} material={m.body}>
+        <sphereGeometry args={[0.18, 32, 32]} />
       </mesh>
 
-      {/* Top helmet ridge */}
-      <mesh position={[0, 0.2, 0]} material={body}>
-        <capsuleGeometry args={[0.18, 0.2, 12, 24]} />
+      {/* Visor band — wrapping blue glow */}
+      <mesh position={[0, 0.06, 0.16]} material={m.visor}>
+        <boxGeometry args={[0.34, 0.04, 0.06]} />
+      </mesh>
+      {/* Visor curved sides */}
+      <mesh position={[-0.17, 0.06, 0.12]} material={m.visor} rotation={[0, 0.6, 0]}>
+        <boxGeometry args={[0.08, 0.04, 0.04]} />
+      </mesh>
+      <mesh position={[0.17, 0.06, 0.12]} material={m.visor} rotation={[0, -0.6, 0]}>
+        <boxGeometry args={[0.08, 0.04, 0.04]} />
+      </mesh>
+      {/* Visor top arc */}
+      <mesh position={[0, 0.12, 0.12]} material={m.visor}>
+        <boxGeometry args={[0.2, 0.02, 0.04]} />
       </mesh>
 
-      {/* Face plate — Unitree style flat front */}
-      <mesh position={[0, -0.04, 0.3]} material={dark}>
-        <boxGeometry args={[0.52, 0.28, 0.1]} />
+      {/* Face plate — dark */}
+      <mesh position={[0, -0.04, 0.18]} material={m.dark}>
+        <boxGeometry args={[0.3, 0.12, 0.05]} />
       </mesh>
 
-      {/* Signature wide visor band — Unitree G1 style */}
-      <mesh position={[0, 0.0, 0.36]} material={visor}>
-        <boxGeometry args={[0.48, 0.06, 0.03]} />
-      </mesh>
-      {/* Visor rounded caps */}
-      <mesh position={[-0.24, 0.0, 0.36]} material={visor} rotation={[0, 0, Math.PI / 2]}>
-        <cylinderGeometry args={[0.03, 0.03, 0.03, 14]} />
-      </mesh>
-      <mesh position={[0.24, 0.0, 0.36]} material={visor} rotation={[0, 0, Math.PI / 2]}>
-        <cylinderGeometry args={[0.03, 0.03, 0.03, 14]} />
+      {/* Chin */}
+      <mesh position={[0, -0.12, 0.06]} material={m.body}>
+        <sphereGeometry args={[0.14, 24, 24]} />
       </mesh>
 
-      {/* LED status dots in visor */}
-      <mesh position={[-0.1, 0.0, 0.38]} material={led}>
-        <sphereGeometry args={[0.008, 8, 8]} />
+      {/* Side cameras / sensors */}
+      <mesh position={[-0.22, 0.0, 0.02]} material={m.dark}>
+        <cylinderGeometry args={[0.025, 0.025, 0.03, 12]} />
       </mesh>
-      <mesh position={[0.1, 0.0, 0.38]} material={led}>
-        <sphereGeometry args={[0.008, 8, 8]} />
+      <mesh position={[0.22, 0.0, 0.02]} material={m.dark}>
+        <cylinderGeometry args={[0.025, 0.025, 0.03, 12]} />
       </mesh>
-      <mesh position={[0, 0.0, 0.38]} material={led}>
+    </group>
+  );
+}
+
+/* ── G1 Neck + Torso ── */
+function G1Torso(m: Record<string, THREE.Material>) {
+  return (
+    <group>
+      {/* Neck */}
+      <mesh position={[0, 1.5, 0]} material={m.joint}>
+        <cylinderGeometry args={[0.055, 0.07, 0.08, 20]} />
+      </mesh>
+
+      {/* Upper torso — broad chest */}
+      <mesh position={[0, 1.26, 0]} material={m.body}>
+        <capsuleGeometry args={[0.3, 0.2, 20, 36]} />
+      </mesh>
+      {/* Chest front plate */}
+      <mesh position={[0, 1.3, 0.3]} material={m.body}>
+        <boxGeometry args={[0.32, 0.22, 0.02]} />
+      </mesh>
+      {/* Chest logo area */}
+      <mesh position={[0, 1.32, 0.32]} material={m.dark}>
+        <boxGeometry args={[0.12, 0.03, 0.01]} />
+      </mesh>
+      {/* Chest LED indicators (green dots like in image) */}
+      <mesh position={[-0.02, 1.24, 0.32]} material={m.led}>
+        <sphereGeometry args={[0.006, 8, 8]} />
+      </mesh>
+      <mesh position={[0.02, 1.24, 0.32]} material={m.led}>
         <sphereGeometry args={[0.006, 8, 8]} />
       </mesh>
 
-      {/* Chin — rounded */}
-      <mesh position={[0, -0.2, 0.08]} material={body}>
-        <sphereGeometry args={[0.22, 24, 24]} />
+      {/* Back plate */}
+      <mesh position={[0, 1.28, -0.3]} material={m.body}>
+        <boxGeometry args={[0.28, 0.2, 0.02]} />
+      </mesh>
+      {/* Battery pack hint on back */}
+      <mesh position={[0, 1.2, -0.32]} material={m.dark}>
+        <boxGeometry args={[0.16, 0.1, 0.03]} />
       </mesh>
 
-      {/* Side vents — Unitree characteristic */}
-      <mesh position={[-0.36, -0.04, 0]} material={dark}>
-        <boxGeometry args={[0.04, 0.12, 0.14]} />
-      </mesh>
-      <mesh position={[0.36, -0.04, 0]} material={dark}>
-        <boxGeometry args={[0.04, 0.12, 0.14]} />
+      {/* Mid torso — narrowing */}
+      <mesh position={[0, 0.98, 0]} material={m.body}>
+        <capsuleGeometry args={[0.22, 0.14, 14, 28]} />
       </mesh>
 
-      {/* Top LED line */}
-      <mesh position={[0, 0.14, 0.36]} material={led}>
-        <boxGeometry args={[0.12, 0.005, 0.005]} />
+      {/* Waist — narrow */}
+      <mesh position={[0, 0.82, 0]} material={m.joint}>
+        <cylinderGeometry args={[0.14, 0.18, 0.08, 20]} />
+      </mesh>
+
+      {/* Hip frame */}
+      <mesh position={[0, 0.74, 0]} material={m.body}>
+        <boxGeometry args={[0.34, 0.1, 0.2]} />
+      </mesh>
+
+      {/* LED dot on hip */}
+      <mesh position={[0, 0.74, 0.11]} material={m.led}>
+        <sphereGeometry args={[0.008, 8, 8]} />
       </mesh>
     </group>
   );
 }
 
-/* ── Q-version Unitree Torso ── */
-function UnitreeTorso({ body, dark, joint, led, conn }: Record<string, THREE.Material>) {
-  return (
-    <group>
-      {/* Neck — shorter for Q style */}
-      <mesh position={[0, 1.28, 0]} material={joint}>
-        <cylinderGeometry args={[0.06, 0.08, 0.1, 20]} />
-      </mesh>
-
-      {/* Upper torso */}
-      <mesh position={[0, 1.0, 0]} material={body}>
-        <capsuleGeometry args={[0.32, 0.22, 20, 36]} />
-      </mesh>
-
-      {/* Front chest panel — Unitree dark plate */}
-      <mesh position={[0, 1.02, 0.32]} material={dark}>
-        <boxGeometry args={[0.28, 0.18, 0.02]} />
-      </mesh>
-      {/* Chest logo area (small rectangle) */}
-      <mesh position={[0, 1.04, 0.34]} material={conn}>
-        <boxGeometry args={[0.08, 0.03, 0.01]} />
-      </mesh>
-      {/* Chest LED strip */}
-      <mesh position={[0, 0.94, 0.33]} material={led}>
-        <boxGeometry args={[0.16, 0.006, 0.006]} />
-      </mesh>
-
-      {/* Back panel */}
-      <mesh position={[0, 1.0, -0.32]} material={dark}>
-        <boxGeometry args={[0.24, 0.16, 0.02]} />
-      </mesh>
-
-      {/* Abdomen — narrower */}
-      <mesh position={[0, 0.66, 0]} material={body}>
-        <capsuleGeometry args={[0.22, 0.18, 14, 28]} />
-      </mesh>
-
-      {/* Abdomen segments */}
-      {[0.72, 0.66, 0.6].map((y, i) => (
-        <mesh key={i} position={[0, y, 0]} rotation={[Math.PI / 2, 0, 0]} material={joint}>
-          <torusGeometry args={[0.14 - i * 0.012, 0.006, 8, 24]} />
-        </mesh>
-      ))}
-
-      {/* Waist */}
-      <mesh position={[0, 0.52, 0]} rotation={[Math.PI / 2, 0, 0]} material={joint}>
-        <torusGeometry args={[0.13, 0.012, 10, 28]} />
-      </mesh>
-    </group>
-  );
-}
-
-/* ── Q-version Unitree Arms ── */
-function UnitreeArms({ body, dark, joint, conn }: Record<string, THREE.Material>) {
+/* ── G1 Arms ── */
+function G1Arms(m: Record<string, THREE.Material>) {
   const sides = [-1, 1] as const;
   return (
     <group>
       {sides.map((s) => (
         <group key={s}>
-          {/* Shoulder joint */}
-          <mesh position={[s * 0.42, 1.08, 0]} material={joint}>
-            <sphereGeometry args={[0.09, 20, 20]} />
+          {/* Shoulder joint — round */}
+          <mesh position={[s * 0.38, 1.36, 0]} material={m.joint}>
+            <sphereGeometry args={[0.08, 20, 20]} />
           </mesh>
-          {/* Shoulder armor — Unitree style rounded cap */}
-          <mesh position={[s * 0.46, 1.12, 0]} material={body}>
-            <capsuleGeometry args={[0.07, 0.04, 10, 16]} />
-          </mesh>
-
-          {/* Upper arm */}
-          <mesh position={[s * 0.48, 0.82, 0]} material={body}>
-            <capsuleGeometry args={[0.055, 0.26, 10, 18]} />
-          </mesh>
-          {/* Upper arm dark panel */}
-          <mesh position={[s * 0.48, 0.82, s * 0.05]} material={dark}>
-            <boxGeometry args={[0.03, 0.16, 0.03]} />
+          {/* Shoulder cap */}
+          <mesh position={[s * 0.42, 1.38, 0]} material={m.body}>
+            <sphereGeometry args={[0.065, 18, 18]} />
           </mesh>
 
-          {/* Elbow */}
-          <mesh position={[s * 0.48, 0.62, 0]} material={joint}>
+          {/* Upper arm — silver */}
+          <mesh position={[s * 0.44, 1.12, 0]} material={m.body}>
+            <capsuleGeometry args={[0.055, 0.28, 10, 18]} />
+          </mesh>
+
+          {/* Elbow joint — exposed */}
+          <mesh position={[s * 0.44, 0.92, 0]} material={m.joint}>
             <sphereGeometry args={[0.045, 14, 14]} />
           </mesh>
-
-          {/* Forearm */}
-          <mesh position={[s * 0.48, 0.42, 0]} material={body}>
-            <capsuleGeometry args={[0.045, 0.2, 10, 18]} />
+          {/* Elbow mechanism detail */}
+          <mesh position={[s * 0.44, 0.92, 0]} rotation={[0, 0, Math.PI / 2]} material={m.dark}>
+            <cylinderGeometry args={[0.035, 0.035, 0.04, 12]} />
           </mesh>
 
-          {/* Wrist */}
-          <mesh position={[s * 0.48, 0.28, 0]} rotation={[Math.PI / 2, 0, 0]} material={joint}>
-            <torusGeometry args={[0.035, 0.006, 8, 16]} />
+          {/* Forearm — silver */}
+          <mesh position={[s * 0.44, 0.72, 0]} material={m.body}>
+            <capsuleGeometry args={[0.045, 0.22, 10, 18]} />
           </mesh>
 
-          {/* Hand — Unitree 3-finger */}
-          <mesh position={[s * 0.48, 0.24, 0]} material={conn}>
-            <sphereGeometry args={[0.035, 14, 14]} />
+          {/* Wrist joint */}
+          <mesh position={[s * 0.44, 0.56, 0]} material={m.joint}>
+            <cylinderGeometry args={[0.03, 0.035, 0.03, 14]} />
+          </mesh>
+
+          {/* Hand — black */}
+          <mesh position={[s * 0.44, 0.5, 0]} material={m.blackPart}>
+            <boxGeometry args={[0.06, 0.06, 0.04]} />
           </mesh>
           {/* Fingers */}
-          <mesh position={[s * 0.48, 0.2, 0.015]} material={conn}>
-            <boxGeometry args={[0.035, 0.035, 0.012]} />
+          <mesh position={[s * 0.44, 0.45, 0.01]} material={m.blackPart}>
+            <boxGeometry args={[0.055, 0.04, 0.03]} />
           </mesh>
         </group>
       ))}
@@ -232,62 +241,62 @@ function UnitreeArms({ body, dark, joint, conn }: Record<string, THREE.Material>
   );
 }
 
-/* ── Q-version Unitree Legs ── */
-function UnitreeLegs({ body, dark, joint, conn }: Record<string, THREE.Material>) {
+/* ── G1 Legs ── */
+function G1Legs(m: Record<string, THREE.Material>) {
   const sides = [-1, 1] as const;
   return (
     <group>
-      {/* Hip block */}
-      <mesh position={[0, 0.42, 0]} material={conn}>
-        <boxGeometry args={[0.3, 0.06, 0.18]} />
-      </mesh>
-
       {sides.map((s) => (
         <group key={s}>
           {/* Hip joint */}
-          <mesh position={[s * 0.12, 0.34, 0]} material={joint}>
-            <sphereGeometry args={[0.06, 14, 14]} />
+          <mesh position={[s * 0.13, 0.66, 0]} material={m.joint}>
+            <sphereGeometry args={[0.06, 16, 16]} />
           </mesh>
 
-          {/* Upper leg */}
-          <mesh position={[s * 0.12, 0.1, 0]} material={body}>
-            <capsuleGeometry args={[0.065, 0.28, 10, 18]} />
+          {/* Upper leg — silver, thick */}
+          <mesh position={[s * 0.13, 0.42, 0]} material={m.body}>
+            <capsuleGeometry args={[0.07, 0.3, 12, 20]} />
           </mesh>
-          {/* Thigh dark panel — Unitree style */}
-          <mesh position={[s * 0.12, 0.1, 0.06]} material={dark}>
-            <boxGeometry args={[0.04, 0.14, 0.02]} />
-          </mesh>
-
-          {/* Knee */}
-          <mesh position={[s * 0.12, -0.1, 0]} material={joint}>
-            <sphereGeometry args={[0.05, 14, 14]} />
-          </mesh>
-          {/* Knee cap */}
-          <mesh position={[s * 0.12, -0.1, 0.05]} material={dark}>
-            <boxGeometry args={[0.045, 0.035, 0.018]} />
+          {/* Thigh LED */}
+          <mesh position={[s * 0.13, 0.4, 0.07]} material={m.led}>
+            <sphereGeometry args={[0.007, 8, 8]} />
           </mesh>
 
-          {/* Shin */}
-          <mesh position={[s * 0.12, -0.34, 0]} material={body}>
-            <capsuleGeometry args={[0.055, 0.26, 10, 18]} />
+          {/* Knee — exposed mechanism */}
+          <mesh position={[s * 0.13, 0.22, 0]} material={m.joint}>
+            <sphereGeometry args={[0.055, 16, 16]} />
           </mesh>
-          {/* Shin guard — Unitree blade style */}
-          <mesh position={[s * 0.12, -0.32, 0.055]} material={body}>
-            <boxGeometry args={[0.04, 0.14, 0.015]} />
+          {/* Knee actuator */}
+          <mesh position={[s * 0.13, 0.22, 0]} rotation={[0, 0, Math.PI / 2]} material={m.dark}>
+            <cylinderGeometry args={[0.04, 0.04, 0.04, 12]} />
           </mesh>
 
-          {/* Ankle */}
-          <mesh position={[s * 0.12, -0.52, 0]} material={joint}>
+          {/* Shin — silver upper part */}
+          <mesh position={[s * 0.13, 0.02, 0.01]} material={m.body}>
+            <capsuleGeometry args={[0.06, 0.2, 10, 18]} />
+          </mesh>
+
+          {/* Lower shin — dark section */}
+          <mesh position={[s * 0.13, -0.18, 0.01]} material={m.dark}>
+            <capsuleGeometry args={[0.055, 0.16, 10, 18]} />
+          </mesh>
+
+          {/* Ankle mechanism */}
+          <mesh position={[s * 0.13, -0.32, 0]} material={m.joint}>
             <sphereGeometry args={[0.035, 12, 12]} />
           </mesh>
 
-          {/* Foot — Unitree flat style */}
-          <mesh position={[s * 0.12, -0.57, 0.02]} material={dark}>
-            <boxGeometry args={[0.09, 0.035, 0.15]} />
+          {/* Foot — dark flat */}
+          <mesh position={[s * 0.13, -0.37, 0.02]} material={m.blackPart}>
+            <boxGeometry args={[0.08, 0.03, 0.14]} />
           </mesh>
-          {/* Toe pad */}
-          <mesh position={[s * 0.12, -0.57, 0.1]} material={conn}>
+          {/* Toe grip */}
+          <mesh position={[s * 0.13, -0.37, 0.1]} material={m.blackPart}>
             <boxGeometry args={[0.07, 0.025, 0.03]} />
+          </mesh>
+          {/* Heel */}
+          <mesh position={[s * 0.13, -0.37, -0.05]} material={m.blackPart}>
+            <boxGeometry args={[0.06, 0.025, 0.02]} />
           </mesh>
         </group>
       ))}
@@ -295,26 +304,26 @@ function UnitreeLegs({ body, dark, joint, conn }: Record<string, THREE.Material>
   );
 }
 
-/* ── Full Unitree Q-Robot ── */
-function UnitreeRobot() {
+/* ── Full G1 Assembly ── */
+function UnitreeG1() {
   const groupRef = useRef<THREE.Group>(null);
-  const mats = useUnitreeMaterials();
+  const mats = useG1Materials();
 
   useFrame((state) => {
     if (groupRef.current) {
       groupRef.current.position.y =
-        Math.sin(state.clock.elapsedTime * 0.7) * 0.008;
+        Math.sin(state.clock.elapsedTime * 0.7) * 0.006;
       groupRef.current.rotation.y =
-        Math.sin(state.clock.elapsedTime * 0.25) * 0.01;
+        Math.sin(state.clock.elapsedTime * 0.25) * 0.008;
     }
   });
 
   return (
-    <group ref={groupRef} scale={0.9} position={[0, 0.0, 0]}>
-      <UnitreeHead {...mats} />
-      <UnitreeTorso {...mats} />
-      <UnitreeArms {...mats} />
-      <UnitreeLegs {...mats} />
+    <group ref={groupRef} scale={0.95} position={[0, 0.05, 0]}>
+      <G1Head {...mats} />
+      <G1Torso {...mats} />
+      <G1Arms {...mats} />
+      <G1Legs {...mats} />
     </group>
   );
 }
@@ -331,7 +340,7 @@ export const FloatingRobot = () => (
   <Suspense fallback={<LoadingFallback />}>
     <Canvas
       camera={{
-        position: [1.0, 1.5, 4.2],
+        position: [1.2, 1.4, 4.0],
         fov: 32,
         near: 0.1,
         far: 100,
@@ -342,36 +351,33 @@ export const FloatingRobot = () => (
         antialias: true,
         alpha: true,
         toneMapping: THREE.ACESFilmicToneMapping,
-        toneMappingExposure: 1.1,
+        toneMappingExposure: 1.05,
       }}
       shadows
     >
       <Environment preset="studio" />
 
-      <ambientLight intensity={0.3} />
+      <ambientLight intensity={0.25} />
 
       <directionalLight
         position={[4, 6, 4]}
-        intensity={2.6}
+        intensity={2.8}
         color="#f8f9ff"
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
         shadow-bias={-0.0001}
       />
+      <directionalLight position={[-4, 3, 3]} intensity={1.4} color="#e8edf5" />
+      <directionalLight position={[-2, 5, -5]} intensity={2.0} color="#dde4f0" />
+      <pointLight position={[0, -1, 3]} intensity={0.15} color="#f0ebe0" />
 
-      <directionalLight position={[-4, 3, 3]} intensity={1.5} color="#e8edf5" />
-
-      <directionalLight position={[-2, 5, -5]} intensity={1.8} color="#dde4f0" />
-
-      <pointLight position={[0, -1, 3]} intensity={0.2} color="#f0ebe0" />
-
-      <UnitreeRobot />
+      <UnitreeG1 />
 
       <ContactShadows
-        position={[0, -0.58, 0]}
+        position={[0, -0.36, 0]}
         opacity={0.16}
-        scale={2.8}
+        scale={2.5}
         blur={2.5}
         far={1.5}
         color="#2a3a5c"
@@ -389,7 +395,7 @@ export const FloatingRobot = () => (
         maxDistance={6.0}
         minPolarAngle={0.55}
         maxPolarAngle={1.45}
-        target={[0, 1.1, 0]}
+        target={[0, 1.0, 0]}
       />
     </Canvas>
   </Suspense>
