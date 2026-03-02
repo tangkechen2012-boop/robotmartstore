@@ -118,7 +118,7 @@ const Index = () => {
       </section>
 
       {/* ===== CORE BUSINESS PILLARS ===== */}
-      <ScrollReveal as="section" className="max-w-7xl mx-auto px-4 py-20">
+      <ScrollReveal className="max-w-7xl mx-auto px-4 py-20">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-3">What We Do</h2>
           <p className="text-muted-foreground max-w-lg mx-auto">Three core pillars powering robotics innovation across industries.</p>
@@ -142,7 +142,7 @@ const Index = () => {
       </ScrollReveal>
 
       {/* ===== PRODUCT CATEGORIES ===== */}
-      <ScrollReveal as="section" className="bg-secondary/50">
+      <ScrollReveal className="bg-secondary/50">
         <div className="max-w-7xl mx-auto px-4 py-20">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-3">Product Categories</h2>
@@ -165,7 +165,7 @@ const Index = () => {
       </ScrollReveal>
 
       {/* ===== FEATURED PRODUCTS ===== */}
-      <ScrollReveal as="section" className="max-w-7xl mx-auto px-4 py-20">
+      <ScrollReveal className="max-w-7xl mx-auto px-4 py-20">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-3xl font-bold">Featured Products</h2>
           <Link to="/products" className="text-sm text-accent hover:underline font-semibold flex items-center gap-1">
@@ -200,7 +200,7 @@ const Index = () => {
       </ScrollReveal>
 
       {/* ===== SERVICES PREVIEW ===== */}
-      <ScrollReveal as="section" className="bg-secondary/50">
+      <ScrollReveal className="bg-secondary/50">
         <div className="max-w-7xl mx-auto px-4 py-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -242,7 +242,7 @@ const Index = () => {
       </ScrollReveal>
 
       {/* ===== APPLICATIONS ===== */}
-      <ScrollReveal as="section" className="max-w-7xl mx-auto px-4 py-20">
+      <ScrollReveal className="max-w-7xl mx-auto px-4 py-20">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-3">Applications</h2>
           <p className="text-muted-foreground">Robotics solutions tailored to your industry.</p>
@@ -261,7 +261,7 @@ const Index = () => {
       </ScrollReveal>
 
       {/* ===== TRUST STRIP ===== */}
-      <ScrollReveal as="section" className="bg-primary text-primary-foreground">
+      <ScrollReveal className="bg-primary text-primary-foreground">
         <div className="max-w-7xl mx-auto px-4 py-14">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             {STATS.map(stat => (
@@ -275,7 +275,7 @@ const Index = () => {
       </ScrollReveal>
 
       {/* ===== FINAL CTA ===== */}
-      <ScrollReveal as="section" className="relative py-20 bg-gradient-to-br from-primary/5 to-accent/5">
+      <ScrollReveal className="relative py-20 bg-gradient-to-br from-primary/5 to-accent/5">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <div className="glass rounded-2xl p-10 shadow-soft-lg">
             <h2 className="text-3xl font-bold mb-4">Ready to Integrate Advanced Robotics Into Your Project?</h2>
@@ -290,7 +290,7 @@ const Index = () => {
       </ScrollReveal>
 
       {/* ===== SEO CONTENT ===== */}
-      <ScrollReveal as="section" className="max-w-7xl mx-auto px-4 py-16">
+      <ScrollReveal className="max-w-7xl mx-auto px-4 py-16">
         <h2 className="text-2xl font-bold mb-4">Your Trusted Robotics Solutions Partner</h2>
         <div className="max-w-4xl text-sm text-muted-foreground leading-relaxed space-y-3">
           <p>

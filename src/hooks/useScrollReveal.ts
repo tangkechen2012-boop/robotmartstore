@@ -1,33 +1,42 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
-export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
-  threshold = 0.15
+export function useScrollReveal<T extends HTMLElement = HTMLElement>(
+  threshold = 0.1
 ) {
   const ref = useRef<T>(null);
+  const hasAnimated = useRef(false);
 
-  useEffect(() => {
+  const setupObserver = useCallback(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || hasAnimated.current) return;
 
-    // Start hidden
     el.style.opacity = "0";
-    el.style.transform = "translateY(32px)";
+    el.style.transform = "translateY(40px)";
     el.style.transition = "opacity 0.7s ease-out, transform 0.7s ease-out";
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          hasAnimated.current = true;
           el.style.opacity = "1";
           el.style.transform = "translateY(0)";
-          observer.unobserve(el);
+          observer.disconnect();
         }
       },
-      { threshold }
+      { threshold, rootMargin: "0px 0px -50px 0px" }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
   }, [threshold]);
+
+  useEffect(() => {
+    // Small delay to ensure layout is computed
+    const timer = requestAnimationFrame(() => {
+      setupObserver();
+    });
+    return () => cancelAnimationFrame(timer);
+  }, [setupObserver]);
 
   return ref;
 }
