@@ -1,6 +1,6 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, ContactShadows, Environment } from "@react-three/drei";
-import { useRef, Suspense, useMemo } from "react";
+import { useRef, Suspense, useMemo, useState } from "react";
 import * as THREE from "three";
 
 /* ═══════════════════════════════════════════════
@@ -423,38 +423,41 @@ function IndustrialHumanoid() {
   const groupRef = useRef<THREE.Group>(null);
   const mats = useMaterials();
 
+  const [pose, setPose] = useState({
+    leftHip: 0, leftKnee: 0, rightHip: 0, rightKnee: 0,
+    leftShoulder: 0, leftElbow: 0, rightShoulder: 0, rightElbow: 0,
+  });
+
   useFrame((state) => {
     if (groupRef.current) {
       groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.4) * 0.003;
     }
+    const t = state.clock.elapsedTime * 0.6; // slow cycle
+    const s = Math.sin(t);
+    const c = Math.cos(t);
+
+    setPose({
+      leftHip: s * -0.4,
+      leftKnee: (Math.sin(t - 0.8) * 0.5 + 0.5) * 0.55,
+      rightHip: s * 0.4,
+      rightKnee: (Math.sin(t + Math.PI - 0.8) * 0.5 + 0.5) * 0.55,
+      leftShoulder: s * 0.35,
+      leftElbow: -(Math.sin(t + 0.5) * 0.5 + 0.5) * 0.5,
+      rightShoulder: s * -0.35,
+      rightElbow: -(Math.sin(t + Math.PI + 0.5) * 0.5 + 0.5) * 0.5,
+    });
   });
-
-  // Running stride pose angles (radians)
-  // Left leg forward, right leg back — opposite arms
-  const leftHip = -0.4;     // left leg swings forward
-  const leftKnee = 0.3;     // slight knee bend
-  const rightHip = 0.35;    // right leg pushes back
-  const rightKnee = 0.55;   // more knee bend on trailing leg
-
-  const leftShoulder = 0.35;   // left arm swings back (opposite leg)
-  const leftElbow = -0.3;
-  const rightShoulder = -0.45; // right arm swings forward (raised)
-  const rightElbow = -0.55;    // bent elbow on raised arm
 
   return (
     <group ref={groupRef} rotation={[0, -0.3, 0]} position={[0, 0.05, 0]}>
       <Head {...mats} />
       <Torso {...mats} />
 
-      {/* Left arm — swings back */}
-      <Arm side={-1} shoulderAngle={leftShoulder} elbowAngle={leftElbow} {...mats} />
-      {/* Right arm — raised forward */}
-      <Arm side={1} shoulderAngle={rightShoulder} elbowAngle={rightElbow} {...mats} />
+      <Arm side={-1} shoulderAngle={pose.leftShoulder} elbowAngle={pose.leftElbow} {...mats} />
+      <Arm side={1} shoulderAngle={pose.rightShoulder} elbowAngle={pose.rightElbow} {...mats} />
 
-      {/* Left leg — forward stride */}
-      <Leg side={-1} hipAngle={leftHip} kneeAngle={leftKnee} {...mats} />
-      {/* Right leg — trailing push */}
-      <Leg side={1} hipAngle={rightHip} kneeAngle={rightKnee} {...mats} />
+      <Leg side={-1} hipAngle={pose.leftHip} kneeAngle={pose.leftKnee} {...mats} />
+      <Leg side={1} hipAngle={pose.rightHip} kneeAngle={pose.rightKnee} {...mats} />
     </group>
   );
 }
