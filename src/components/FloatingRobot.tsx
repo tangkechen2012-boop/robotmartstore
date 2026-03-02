@@ -454,13 +454,51 @@ interface FloatingPartProps {
 
 function FloatingPart({ position, speed, radius, phase, children }: FloatingPartProps) {
   const ref = useRef<THREE.Group>(null);
+  const mouse3D = useRef(new THREE.Vector3());
+  const smoothPos = useRef(new THREE.Vector3(...position));
 
   useFrame((state) => {
     if (!ref.current) return;
     const t = state.clock.elapsedTime * speed + phase;
-    ref.current.position.x = position[0] + Math.sin(t) * radius;
-    ref.current.position.y = position[1] + Math.sin(t * 1.3) * radius * 0.6;
-    ref.current.position.z = position[2] + Math.cos(t) * radius * 0.4;
+
+    // Base orbit position
+    const baseX = position[0] + Math.sin(t) * radius;
+    const baseY = position[1] + Math.sin(t * 1.3) * radius * 0.6;
+    const baseZ = position[2] + Math.cos(t) * radius * 0.4;
+
+    // Project mouse into 3D space at part's depth
+    const { pointer, camera } = state;
+    const mouseNDC = new THREE.Vector3(pointer.x, pointer.y, 0.5);
+    mouseNDC.unproject(camera);
+    const dir = mouseNDC.sub(camera.position).normalize();
+    const dist = (baseY - camera.position.y) / dir.y;
+    mouse3D.current.copy(camera.position).add(dir.multiplyScalar(dist));
+
+    // Repulsion force
+    const dx = baseX - mouse3D.current.x;
+    const dy = baseY - mouse3D.current.y;
+    const dz = baseZ - mouse3D.current.z;
+    const distToMouse = Math.sqrt(dx * dx + dy * dy + dz * dz);
+    const repulseRadius = 0.6;
+    const repulseStrength = 0.15;
+
+    let offsetX = 0, offsetY = 0, offsetZ = 0;
+    if (distToMouse < repulseRadius && distToMouse > 0.01) {
+      const force = (1 - distToMouse / repulseRadius) * repulseStrength;
+      offsetX = (dx / distToMouse) * force;
+      offsetY = (dy / distToMouse) * force;
+      offsetZ = (dz / distToMouse) * force;
+    }
+
+    // Smooth interpolation
+    const targetX = baseX + offsetX;
+    const targetY = baseY + offsetY;
+    const targetZ = baseZ + offsetZ;
+    smoothPos.current.x += (targetX - smoothPos.current.x) * 0.08;
+    smoothPos.current.y += (targetY - smoothPos.current.y) * 0.08;
+    smoothPos.current.z += (targetZ - smoothPos.current.z) * 0.08;
+
+    ref.current.position.copy(smoothPos.current);
     ref.current.rotation.x = t * 0.3;
     ref.current.rotation.y = t * 0.5;
   });
