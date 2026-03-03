@@ -18,18 +18,20 @@ const FOOTER_LINKS = [
     title: "Services",
     links: [
       { label: "System Integration", to: "/services-technology" },
-      { label: "Technical Support", to: "/services-technology" },
-      { label: "AI Deployment", to: "/services-technology" },
       { label: "Custom Development", to: "/custom-development" },
+      { label: "AI Deployment", to: "/services-technology" },
+      { label: "OEM / ODM", to: "/contact" },
+      { label: "Certifications", to: "/support" },
     ],
   },
   {
-    title: "Applications",
+    title: "Industries",
     links: [
       { label: "Education", to: "/applications" },
       { label: "Industrial Automation", to: "/applications" },
-      { label: "AI Development", to: "/applications" },
-      { label: "Inspection", to: "/applications" },
+      { label: "AI Research", to: "/applications" },
+      { label: "Inspection & Patrol", to: "/applications" },
+      { label: "Case Studies", to: "/blog" },
     ],
   },
   {
@@ -38,7 +40,7 @@ const FOOTER_LINKS = [
       { label: "About Us", to: "/about" },
       { label: "Blog", to: "/blog" },
       { label: "Contact", to: "/contact" },
-      { label: "Careers", to: "/careers" },
+      { label: "Compliance", to: "/support" },
     ],
   },
   {
@@ -46,8 +48,8 @@ const FOOTER_LINKS = [
     links: [
       { label: "Privacy Policy", to: "/privacy" },
       { label: "Terms of Service", to: "/terms" },
+      { label: "Warranty Policy", to: "/support" },
       { label: "Shipping Policy", to: "/support" },
-      { label: "Returns", to: "/support" },
     ],
   },
 ];
@@ -112,7 +114,7 @@ export const Footer = () => {
       <div className="border-t border-primary-foreground/10">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs opacity-50">
           <p>© 2026 RobotMart. All rights reserved.</p>
-          <p>Professional Robotics Solutions & Advanced Robot Platforms</p>
+          <p>Professional robotics sourcing and system integration platform.</p>
         </div>
       </div>
     </footer>
