@@ -45,7 +45,7 @@ const AboutPage = () => {
       <section className="max-w-3xl mx-auto px-4 py-20 text-center">
         <div className="glass rounded-2xl p-10 shadow-soft-lg">
           <h2 className="text-2xl font-bold mb-4">Partner With Us</h2>
-          <p className="text-muted-foreground mb-6">Interested in working with RoboMart? We'd love to hear from you.</p>
+          <p className="text-muted-foreground mb-6">Interested in working with RobotMart? We'd love to hear from you.</p>
           <Button size="lg" className="rounded-pill px-8 font-semibold" asChild>
             <Link to="/contact">Get in Touch <ArrowRight className="h-4 w-4 ml-1" /></Link>
           </Button>
