@@ -93,7 +93,7 @@ export const Header = () => {
           <nav
             className={`glass-subtle rounded-2xl px-5 flex-1 transition-all duration-300 ${scrolled ? "shadow-soft-lg" : "shadow-soft"}`}
           >
-            <div className="flex items-center h-16 gap-4">
+            <div className="flex items-center h-10 gap-4">
               {/* Mobile menu */}
               <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
                 <SheetTrigger asChild>
