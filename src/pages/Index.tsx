@@ -106,7 +106,7 @@ const Index = () => {
               <Button asChild size="lg" className="rounded-pill px-8 font-semibold">
                 <Link to="/products">Shop Products</Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="rounded-pill px-8 font-semibold">
+              <Button asChild size="lg" className="rounded-pill px-8 font-semibold">
                 <Link to="/contact">Contact Us</Link>
               </Button>
             </div>
