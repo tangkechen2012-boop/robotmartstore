@@ -141,7 +141,7 @@ const SupportPage = () => {
                 <Mail className="h-5 w-5 text-primary" />
                 <div>
                   <p className="font-medium text-sm">Email Support</p>
-                  <p className="text-sm text-muted-foreground">support@robomart.com</p>
+                  <p className="text-sm text-muted-foreground">support@robotmart.store</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">

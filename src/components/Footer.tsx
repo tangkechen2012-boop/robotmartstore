@@ -94,14 +94,14 @@ export const Footer = () => {
             <div className="flex-1">
               <h4 className="font-bold text-sm mb-3">Contact</h4>
               <ul className="space-y-2 text-sm opacity-70">
-                <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> support@robomart.com</li>
+                <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> support@robotmart.store</li>
                 <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> +1 (555) 123-4567</li>
                 <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> San Francisco, CA</li>
               </ul>
             </div>
             <div className="flex-[2]">
               <p className="text-sm opacity-60 leading-relaxed">
-                RoboMart is a professional robotics solutions provider headquartered in the United States. We specialize in humanoid robots, quadruped robot systems, robotic arms, and intelligent automation platforms for education, research, and industry. As an authorized distributor of leading robotics brands, we deliver products, engineering services, and custom development solutions to clients across the USA and globally.
+                RobotMart is a professional robotics solutions provider headquartered in the United States. We specialize in humanoid robots, quadruped robot systems, robotic arms, and intelligent automation platforms for education, research, and industry. As an authorized distributor of leading robotics brands, we deliver products, engineering services, and custom development solutions to clients across the USA and globally.
               </p>
             </div>
           </div>
@@ -111,7 +111,7 @@ export const Footer = () => {
       {/* Bottom bar */}
       <div className="border-t border-primary-foreground/10">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs opacity-50">
-          <p>© 2026 RoboMart. All rights reserved.</p>
+          <p>© 2026 RobotMart. All rights reserved.</p>
           <p>Professional Robotics Solutions & Advanced Robot Platforms</p>
         </div>
       </div>

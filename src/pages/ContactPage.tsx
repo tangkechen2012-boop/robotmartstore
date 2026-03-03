@@ -8,7 +8,7 @@ const ContactPage = () => {
     <div className="min-h-screen">
       <section className="bg-gradient-to-br from-primary to-accent/20 text-primary-foreground py-20">
         <div className="max-w-7xl mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6">Contact RoboMart</h1>
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-6">Contact RobotMart</h1>
           <p className="text-lg text-primary-foreground/80 max-w-2xl leading-relaxed">
             Get in touch with our team for product inquiries, service consultations, or custom development projects.
           </p>
@@ -41,7 +41,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <p className="font-semibold">Email</p>
-                    <p className="text-sm text-muted-foreground">support@robomart.com</p>
+                    <p className="text-sm text-muted-foreground">support@robotmart.store</p>
                   </div>
                 </div>
               </div>
