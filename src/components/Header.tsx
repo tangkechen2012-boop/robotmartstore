@@ -79,13 +79,13 @@ export const Header = () => {
       </div>
 
       {/* Navigation */}
-      <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${scrolled ? "py-1" : "py-2"}`}>
-        <div className="max-w-7xl mx-auto px-4 flex items-center gap-4">
+      <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${scrolled ? "py-0" : "py-0.5"}`}>
+        <div className="max-w-7xl mx-auto px-4 flex items-center gap-3">
           {/* Logo - outside nav pill, aligned with page content */}
           <Link to="/" className="flex-shrink-0 flex items-center">
             <img
               alt="RobotMart"
-              className="h-48 w-auto object-contain"
+              className="h-10 w-auto object-contain"
               src="/lovable-uploads/f038be6c-9698-4016-9a23-89001cae8e9f.png"
             />
           </Link>
@@ -93,7 +93,7 @@ export const Header = () => {
           <nav
             className={`glass-subtle rounded-2xl px-5 flex-1 transition-all duration-300 ${scrolled ? "shadow-soft-lg" : "shadow-soft"}`}
           >
-            <div className="flex items-center h-10 gap-4">
+            <div className="flex items-center h-16 gap-4 whitespace-nowrap">
               {/* Mobile menu */}
               <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
                 <SheetTrigger asChild>
