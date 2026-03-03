@@ -6,7 +6,7 @@ const PrivacyPolicyPage = () => {
       <div className="prose prose-sm max-w-none text-muted-foreground space-y-6">
         <p>
           The privacy of our users is very important therefore all personal information that you provide us will be processed in accordance with this Security & Privacy Policy which establishes how we use and protect all personal information that you provide when you use our website (hereinafter the "Site"). If you have any questions about this policy or if you do not agree with it, please contact our Data Protection Officer via email at:{" "}
-          <a href="mailto:privacy@robomart.com" className="text-primary hover:underline">privacy@robomart.com</a>
+          <a href="mailto:privacy@robotmart.store" className="text-primary hover:underline">privacy@robotmart.store</a>
         </p>
         <p>
           We reserve the right to modify this Security & Privacy Policy at any time by updating this page. We recommend that you revisit this page occasionally in order to review this information to ensure that you agree with the modifications made. This revision of the Security & Privacy Policy is effective as of May 25th, 2018.
@@ -20,7 +20,7 @@ const PrivacyPolicyPage = () => {
           <li>Your email address, when you report a problem with the Site.</li>
           <li>Records of all product orders and/or services that you place through the Site. In accordance with our financial information retention obligations, we keep your ordering information for seven (7) years.</li>
           <li>Records of all correspondences when you contact us.</li>
-          <li>Records of all RoboMart contests or promotions in which you participate.</li>
+          <li>Records of all RobotMart contests or promotions in which you participate.</li>
           <li>Details of your visits to the Site including, but not limited to, data transmission, location and communication data and the resources you access.</li>
         </ul>
         <p>Unless otherwise noted above, we retain your data for a period of five (5) years after their release or last contact with you.</p>
@@ -45,22 +45,22 @@ const PrivacyPolicyPage = () => {
 
         <h2 className="text-xl font-bold text-foreground !mt-8">Who do we share this information with?</h2>
         <p>
-          Your personal information will be used for the purposes indicated above by the competent service of RoboMart and by those who assist them in their duties. They will also be made available to our service providers collaborating with us and performing certain services on our behalf, including the provision of computer support, computer maintenance, customer services, hosting services, marketing services and online payment services. These service providers may have access to this information for the purpose of performing their duties. They are not allowed to share or use this information for any other purpose.
+          Your personal information will be used for the purposes indicated above by the competent service of RobotMart and by those who assist them in their duties. They will also be made available to our service providers collaborating with us and performing certain services on our behalf, including the provision of computer support, computer maintenance, customer services, hosting services, marketing services and online payment services. These service providers may have access to this information for the purpose of performing their duties. They are not allowed to share or use this information for any other purpose.
         </p>
-        <p>RoboMart may also disclose your personal data:</p>
+        <p>RobotMart may also disclose your personal data:</p>
         <ul className="list-disc pl-6 space-y-2">
           <li>In response to a court order, a request for cooperation from a police authority or a government agency, to establish or exercise legal rights, to defend legal claims, or in case of requisition or authorization in accordance with the laws and/or regulations in force;</li>
-          <li>If RoboMart believes that the disclosure is appropriate in the context of an investigation, preventive measures or actions concerning illegal activities, suspicions of fraud or other wrongdoing;</li>
-          <li>In the context of a potential or actual sale of RoboMart or of its activities or assets.</li>
+          <li>If RobotMart believes that the disclosure is appropriate in the context of an investigation, preventive measures or actions concerning illegal activities, suspicions of fraud or other wrongdoing;</li>
+          <li>In the context of a potential or actual sale of RobotMart or of its activities or assets.</li>
         </ul>
         <p>Except as noted above, we will not transfer, disclose, sell, distribute, rent or lease your personal information to third parties without your prior authorization or without a legal or judicial obligation or authorization.</p>
 
         <h2 className="text-xl font-bold text-foreground !mt-8">Direct Prospecting and Your Preferences</h2>
         <p>
-          RoboMart may wish to provide you with information on new products, promotions, special offers or other transactions that may be of interest to you and invite you to participate in market research. This communication can be done by mail, telephone, email or SMS.
+          RobotMart may wish to provide you with information on new products, promotions, special offers or other transactions that may be of interest to you and invite you to participate in market research. This communication can be done by mail, telephone, email or SMS.
         </p>
         <p>
-          RoboMart will ensure that any direct surveys or market research that you receive or for which you will be contacted electronically will provide a simple way for you to opt out of subsequent prospecting. You may change your mind about these prospecting transactions at any time by informing RoboMart through the contact information at the beginning of this Security and Privacy Policy.
+          RobotMart will ensure that any direct surveys or market research that you receive or for which you will be contacted electronically will provide a simple way for you to opt out of subsequent prospecting. You may change your mind about these prospecting transactions at any time by informing RobotMart through the contact information at the beginning of this Security and Privacy Policy.
         </p>
 
         <h2 className="text-xl font-bold text-foreground !mt-8">Cookies</h2>
@@ -95,7 +95,7 @@ const PrivacyPolicyPage = () => {
         </p>
         <p>
           Any request to exercise the aforementioned rights must be addressed to our Data Protection Officer at{" "}
-          <a href="mailto:privacy@robomart.com" className="text-primary hover:underline">privacy@robomart.com</a>, accompanied by a signed copy of your identity document.
+          <a href="mailto:privacy@robotmart.store" className="text-primary hover:underline">privacy@robotmart.store</a>, accompanied by a signed copy of your identity document.
         </p>
         <p>You also have the right to lodge any complaints concerning the processing of your personal information with the competent supervisory authority.</p>
       </div>
