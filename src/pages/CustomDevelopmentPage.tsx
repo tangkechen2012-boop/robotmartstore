@@ -44,7 +44,7 @@ const CustomDevelopmentPage = () => {
         <div className="max-w-7xl mx-auto px-4">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6">Custom Robotics Development & Engineering</h1>
           <p className="text-lg text-primary-foreground/80 max-w-2xl leading-relaxed mb-8">
-            End-to-end custom robotics engineering — from concept and mechanical design through embedded systems, AI integration, and production-ready prototyping. RoboMart's development team turns your vision into a working robotic system.
+            End-to-end custom robotics engineering — from concept and mechanical design through embedded systems, AI integration, and production-ready prototyping. RobotMart's development team turns your vision into a working robotic system.
           </p>
           <Button size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground" asChild>
             <Link to="/contact">Start Your Project <ArrowRight className="h-4 w-4 ml-1" /></Link>

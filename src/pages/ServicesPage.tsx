@@ -64,7 +64,7 @@ const ServicesPage = () => {
         <div className="max-w-7xl mx-auto px-4">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6">Robotics Engineering Services & Technology Solutions</h1>
           <p className="text-lg text-primary-foreground/80 max-w-2xl leading-relaxed mb-8">
-            From system integration and AI deployment to lifecycle maintenance, RoboMart's engineering team provides comprehensive services to help organizations adopt, operate, and scale advanced robotics platforms.
+            From system integration and AI deployment to lifecycle maintenance, RobotMart's engineering team provides comprehensive services to help organizations adopt, operate, and scale advanced robotics platforms.
           </p>
           <Button size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground" asChild>
             <Link to="/contact">Request a Consultation <ArrowRight className="h-4 w-4 ml-1" /></Link>
