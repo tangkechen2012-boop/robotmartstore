@@ -78,7 +78,7 @@ export const Header = () => {
         <div className="max-w-7xl mx-auto px-4 flex items-center gap-4">
           {/* Logo - outside nav pill, aligned with page content */}
           <Link to="/" className="flex-shrink-0">
-            <img src={logoImg} alt="RobotMart" className="h-[48px] w-auto" />
+            <img alt="RobotMart" className="h-[48px] w-auto" src="/lovable-uploads/f038be6c-9698-4016-9a23-89001cae8e9f.png" />
           </Link>
 
           <nav className={`glass-subtle rounded-2xl px-5 flex-1 transition-all duration-300 ${scrolled ? "shadow-soft-lg" : "shadow-soft"}`}>
