@@ -1,7 +1,4 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
 const FOOTER_LINKS = [
   {
@@ -18,18 +15,19 @@ const FOOTER_LINKS = [
     title: "Services",
     links: [
       { label: "System Integration", to: "/services-technology" },
-      { label: "Technical Support", to: "/services-technology" },
       { label: "AI Deployment", to: "/services-technology" },
       { label: "Custom Development", to: "/custom-development" },
+      { label: "Technical Support", to: "/support" },
     ],
   },
   {
-    title: "Applications",
+    title: "Industries",
     links: [
       { label: "Education", to: "/applications" },
-      { label: "Industrial Automation", to: "/applications" },
-      { label: "AI Development", to: "/applications" },
-      { label: "Inspection", to: "/applications" },
+      { label: "Manufacturing", to: "/applications" },
+      { label: "Logistics", to: "/applications" },
+      { label: "Research & Labs", to: "/applications" },
+      { label: "Healthcare", to: "/applications" },
     ],
   },
   {
@@ -38,7 +36,8 @@ const FOOTER_LINKS = [
       { label: "About Us", to: "/about" },
       { label: "Blog", to: "/blog" },
       { label: "Contact", to: "/contact" },
-      { label: "Careers", to: "/careers" },
+      { label: "Case Studies", to: "/blog" },
+      { label: "Certifications", to: "/about" },
     ],
   },
   {
@@ -46,8 +45,9 @@ const FOOTER_LINKS = [
     links: [
       { label: "Privacy Policy", to: "/privacy" },
       { label: "Terms of Service", to: "/terms" },
-      { label: "Shipping Policy", to: "/support" },
-      { label: "Returns", to: "/support" },
+      { label: "Warranty Policy", to: "/support" },
+      { label: "Compliance", to: "/support" },
+      { label: "OEM / ODM", to: "/contact" },
     ],
   },
 ];
@@ -55,29 +55,20 @@ const FOOTER_LINKS = [
 export const Footer = () => {
   return (
     <footer className="bg-primary text-primary-foreground">
-      {/* Newsletter */}
-      <div className="border-b border-primary-foreground/10">
-        <div className="max-w-7xl mx-auto px-4 py-10 flex flex-col sm:flex-row items-center gap-6">
-          <div className="flex-1">
-            <h3 className="font-bold text-lg">Stay Updated</h3>
-            <p className="text-sm opacity-70">Robotics news, product launches, and engineering insights.</p>
-          </div>
-          <div className="flex gap-2 w-full sm:w-auto">
-            <Input placeholder="Your email" className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/40 h-10 rounded-pill" />
-            <Button className="bg-accent hover:bg-accent/90 text-accent-foreground h-10 px-6 rounded-pill font-semibold">Subscribe</Button>
-          </div>
-        </div>
-      </div>
-
       {/* Links */}
-      <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-2 md:grid-cols-5 gap-8">
-        {FOOTER_LINKS.map(col => (
+      <div className="max-w-7xl mx-auto px-4 py-16 grid grid-cols-2 md:grid-cols-5 gap-8">
+        {FOOTER_LINKS.map((col) => (
           <div key={col.title}>
-            <h4 className="font-bold text-sm mb-4">{col.title}</h4>
+            <h4 className="font-semibold text-xs uppercase tracking-wider mb-4 text-primary-foreground/70">
+              {col.title}
+            </h4>
             <ul className="space-y-2 text-sm">
-              {col.links.map(link => (
+              {col.links.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.to} className="opacity-60 hover:opacity-100 transition-opacity duration-250">
+                  <Link
+                    to={link.to}
+                    className="text-primary-foreground/40 hover:text-primary-foreground transition-colors"
+                  >
                     {link.label}
                   </Link>
                 </li>
@@ -87,32 +78,11 @@ export const Footer = () => {
         ))}
       </div>
 
-      {/* Contact + SEO */}
-      <div className="border-t border-primary-foreground/10">
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="flex flex-col md:flex-row gap-8">
-            <div className="flex-1">
-              <h4 className="font-bold text-sm mb-3">Contact</h4>
-              <ul className="space-y-2 text-sm opacity-70">
-                <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> support@robotmart.store</li>
-                <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> +1 (555) 123-4567</li>
-                <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> San Francisco, CA</li>
-              </ul>
-            </div>
-            <div className="flex-[2]">
-              <p className="text-sm opacity-60 leading-relaxed">
-                RobotMart is a professional robotics solutions provider headquartered in the United States. We specialize in humanoid robots, quadruped robot systems, robotic arms, and intelligent automation platforms for education, research, and industry. As an authorized distributor of leading robotics brands, we deliver products, engineering services, and custom development solutions to clients across the USA and globally.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Bottom bar */}
       <div className="border-t border-primary-foreground/10">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs opacity-50">
+        <div className="max-w-7xl mx-auto px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-primary-foreground/40">
           <p>© 2026 RobotMart. All rights reserved.</p>
-          <p>Professional Robotics Solutions & Advanced Robot Platforms</p>
+          <p>Professional robotics sourcing and system integration platform.</p>
         </div>
       </div>
     </footer>
