@@ -99,7 +99,7 @@ export const Header = () => {
               </Sheet>
 
               {/* Logo */}
-              <Link to="/" className="mr-6 flex-shrink-0">
+              <Link to="/" className="-ml-2 mr-6 flex-shrink-0">
                 <img src={logoImg} alt="RobotMart" className="h-48 w-auto" />
               </Link>
 
