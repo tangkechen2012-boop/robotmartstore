@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
+import logoImg from "@/assets/logo.png";
 import { Search, Menu, ChevronDown, ChevronRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -98,8 +99,8 @@ export const Header = () => {
               </Sheet>
 
               {/* Logo */}
-              <Link to="/" className="text-xl font-extrabold tracking-tight text-primary mr-6 flex-shrink-0">
-                RobotMart
+              <Link to="/" className="mr-6 flex-shrink-0">
+                <img src={logoImg} alt="RobotMart" className="h-8 w-auto" />
               </Link>
 
               {/* Desktop nav */}
