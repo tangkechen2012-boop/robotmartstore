@@ -100,7 +100,7 @@ export const Header = () => {
 
               {/* Logo */}
               <Link to="/" className="mr-6 flex-shrink-0">
-                <img src={logoImg} alt="RobotMart" className="h-10 w-auto" />
+                <img src={logoImg} alt="RobotMart" className="h-48 w-auto" />
               </Link>
 
               {/* Desktop nav */}
