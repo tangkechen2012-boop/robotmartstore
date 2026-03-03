@@ -86,7 +86,7 @@ export const Header = () => {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="w-80 overflow-y-auto rounded-r-2xl">
-                  <SheetTitle className="text-xl font-bold text-primary mb-6">RobotMart</SheetTitle>
+                  <SheetTitle className="mb-6"><img src={logoImg} alt="RobotMart" className="h-7 w-auto" /></SheetTitle>
                   <nav className="space-y-1">
                     {NAV_ITEMS.map(item => (
                       <MobileNavItem key={item.label} item={item} onClose={() => setMobileOpen(false)} />
