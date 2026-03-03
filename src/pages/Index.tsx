@@ -146,7 +146,7 @@ const Index = () => {
               <ScrollReveal key={title} className="group relative rounded-2xl overflow-hidden shadow-lg cursor-pointer">
                 <Link to={link} className="block">
                   <img src={image} alt={title} className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105" />
-                  <div className="p-6 bg-white dark:bg-gray-900">
+                  <div className="p-6 bg-card">
                     <h3 className="text-xl font-semibold mb-2">{title}</h3>
                     <p className="text-muted-foreground text-sm">{description}</p>
                   </div>
