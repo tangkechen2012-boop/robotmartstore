@@ -97,7 +97,7 @@ export const Footer = () => {
               <h4 className="font-bold text-sm mb-3">Contact</h4>
               <ul className="space-y-2 text-sm opacity-70">
                 <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> support@robotmart.store</li>
-                <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> +1 (555) 123-4567</li>
+                <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> +1 (917) 293-4778</li></li>
                 <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> San Francisco, CA</li>
               </ul>
             </div>
