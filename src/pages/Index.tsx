@@ -119,7 +119,7 @@ const Index = () => {
               <Button asChild size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground hover:scale-105 transition-all duration-200 hover:shadow-lg hover:shadow-accent/25">
                 <Link to="/products">Explore Products</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="rounded-pill px-8 font-semibold border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:scale-105 transition-all duration-200">
+              <Button asChild size="lg" variant="outline" className="rounded-pill px-8 font-semibold border-accent text-accent-foreground bg-transparent hover:bg-accent/10 hover:scale-105 transition-all duration-200">
                 <Link to="/contact">Talk to an Engineer</Link>
               </Button>
             </div>
