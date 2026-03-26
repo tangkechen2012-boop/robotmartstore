@@ -252,74 +252,11 @@ const ProductDetail = () => {
         <ProductSection title="Description" defaultOpen>
           <div className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed">
             {product.descriptionHtml ? (
-              <div dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} className="prose prose-sm max-w-none text-muted-foreground" />
+              <div dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} className="prose prose-sm max-w-none text-muted-foreground [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:border-muted [&_td]:px-3 [&_td]:py-2 [&_th]:border [&_th]:border-muted [&_th]:px-3 [&_th]:py-2 [&_h2]:text-foreground [&_h3]:text-foreground [&_strong]:text-foreground" />
             ) : (
               <p>{product.description}</p>
             )}
           </div>
-        </ProductSection>
-
-        {/* Specifications */}
-        <ProductSection title="Specifications">
-          <div className="grid sm:grid-cols-2 gap-x-8 gap-y-2 text-sm">
-            {[
-              ["Total Degrees of Freedom", "23"],
-              ["Single Leg DoF", "6"],
-              ["Waist DoF", "1"],
-              ["Single Arm DoF", "5"],
-              ["Max Knee Joint Torque", "120 N·m"],
-              ["Arm Max Load", "3 kg"],
-              ["Calf + Thigh Length", "0.6 m"],
-              ["Arm Span", "0.45 m"],
-              ["Joint Encoder", "Dual encoder"],
-              ["Cooling System", "Local air cooling"],
-              ["Computing Power", "100 Tops (8-core CPU)"],
-              ["Sensing", "Depth Camera + 3D LiDAR"],
-              ["Microphone Array", "4-mic array"],
-              ["Speaker", "5W"],
-              ["Connectivity", "WiFi 6, Bluetooth 5.2"],
-              ["Battery", "9000 mAh (Quick Release)"],
-              ["Charger", "54V 5A"],
-              ["Battery Life", "~2 hours"],
-              ["Weight (with battery)", "35 kg"],
-              ["Height (Standing)", "1320 mm"],
-              ["Dimensions (Folded)", "690 × 450 × 300 mm"],
-            ].map(([label, value]) => (
-              <div key={label} className="flex justify-between py-1.5 border-b border-muted">
-                <span className="text-muted-foreground">{label}</span>
-                <span className="font-medium text-foreground">{value}</span>
-              </div>
-            ))}
-          </div>
-        </ProductSection>
-
-        {/* What's Included */}
-        <ProductSection title="What's Included">
-          <ul className="text-sm text-muted-foreground space-y-1.5 list-disc pl-5">
-            <li>1× Unitree G1 EDU Standard (U1) Humanoid Robot</li>
-            <li>1× Remote Control</li>
-            <li>1× Gantry</li>
-            <li className="text-destructive font-medium">Note: Hands are NOT included</li>
-          </ul>
-        </ProductSection>
-
-        {/* Links & Resources */}
-        <ProductSection title="Links & Resources">
-          <ul className="text-sm space-y-1.5">
-            {[
-              ["User Manual", "https://marketing.unitree.com/article/en/G1/User_Manual.html"],
-              ["Remote Control Guide", "https://marketing.unitree.com/article/en/G1/Remote_Control.html"],
-              ["Battery & Charger", "https://marketing.unitree.com/article/en/G1/Battery_Charger.html"],
-              ["GitHub", "https://github.com/unitreerobotics"],
-              ["Developer Docs", "https://support.unitree.com/home/en/G1_developer"],
-            ].map(([label, url]) => (
-              <li key={label}>
-                <a href={url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                  {label} →
-                </a>
-              </li>
-            ))}
-          </ul>
         </ProductSection>
       </div>
     </div>
