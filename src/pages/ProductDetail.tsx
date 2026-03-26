@@ -132,15 +132,23 @@ const ProductDetail = () => {
           <Separator className="my-4" />
 
           {/* Price */}
-          <div className="flex items-baseline gap-2 mb-1">
-            <span className="text-sm text-muted-foreground">Price:</span>
-            <span className="text-2xl font-bold text-foreground">
-              ${priceAmount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-            </span>
-          </div>
-          <p className="text-xs text-muted-foreground mb-4">
-            Price excludes Tariffs (in USA). Shipping calculated at checkout.
-          </p>
+          {priceAmount === 0 ? (
+            <div className="flex items-baseline gap-2 mb-4">
+              <span className="text-2xl font-bold text-foreground">Best Offer</span>
+            </div>
+          ) : (
+            <>
+              <div className="flex items-baseline gap-2 mb-1">
+                <span className="text-sm text-muted-foreground">Price:</span>
+                <span className="text-2xl font-bold text-foreground">
+                  ${priceAmount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </span>
+              </div>
+              <p className="text-xs text-muted-foreground mb-4">
+                Price excludes Tariffs (in USA). Shipping calculated at checkout.
+              </p>
+            </>
+          )}
 
           {selectedVariant?.availableForSale ? (
             <Badge variant="secondary" className="bg-[hsl(var(--robot-green))]/10 text-[hsl(var(--robot-green))] mb-6">In Stock</Badge>
