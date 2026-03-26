@@ -58,7 +58,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           <h3 className="text-sm font-medium leading-tight line-clamp-2 min-h-[2.5rem]">{node.title}</h3>
           <div className="mt-3 flex items-center justify-between">
             <span className="text-base font-bold text-primary">
-              ${parseFloat(price.amount).toFixed(2)}
+              {parseFloat(price.amount) === 0 ? "Best Offer" : `$${parseFloat(price.amount).toFixed(2)}`}
             </span>
             <Button
               size="icon"
