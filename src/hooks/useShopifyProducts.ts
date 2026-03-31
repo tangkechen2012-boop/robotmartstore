@@ -8,6 +8,9 @@ export function useShopifyProducts(first = 20, searchQuery?: string) {
       const data = await storefrontApiRequest(STOREFRONT_PRODUCTS_QUERY, { first, query: searchQuery || null });
       return (data?.data?.products?.edges || []) as ShopifyProduct[];
     },
+    staleTime: 30 * 1000,
+    refetchInterval: 60 * 1000,
+    refetchOnWindowFocus: true,
   });
 }
 
@@ -19,5 +22,8 @@ export function useShopifyProductByHandle(handle: string) {
       return data?.data?.productByHandle || null;
     },
     enabled: !!handle,
+    staleTime: 30 * 1000,
+    refetchInterval: 60 * 1000,
+    refetchOnWindowFocus: true,
   });
 }
