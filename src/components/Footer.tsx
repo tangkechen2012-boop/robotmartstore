@@ -9,9 +9,8 @@ const FOOTER_LINKS = [
     links: [
       { label: "Humanoid Robots", to: "/products/humanoid-robots" },
       { label: "Quadruped Robots", to: "/products/quadruped-robots" },
-      { label: "Robotic Arms", to: "/products/robotic-arms" },
-      { label: "Industrial Robotics", to: "/products/industrial-robotics" },
-      { label: "Components", to: "/products/components" },
+      { label: "Robot Accessories", to: "/products/robot-accessories" },
+      { label: "Toy Robots", to: "/products/toy-robots" },
     ],
   },
   {
