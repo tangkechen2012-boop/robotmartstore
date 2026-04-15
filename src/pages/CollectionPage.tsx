@@ -6,6 +6,7 @@ import { Bot, ChevronRight } from "lucide-react";
 const COLLECTION_HANDLES = [
   "humanoid-robots",
   "quadruped-robots",
+  "robot-accessories",
   "toy-robots",
 ];
 
