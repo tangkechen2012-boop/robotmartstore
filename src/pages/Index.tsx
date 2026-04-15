@@ -46,12 +46,10 @@ const PILLARS = [
 ];
 
 const CATEGORIES = [
-  { title: "Humanoid Robots", link: "/products/humanoid-robots", description: "Advanced bipedal platforms for research and industry", image: "/images/categories/humanoid.webp" },
-  { title: "Quadruped Robots", link: "/products/quadruped-robots", description: "All-terrain legged systems for inspection and patrol", image: "/images/categories/quadruped.webp" },
-  { title: "Robotic Arms", link: "/products/robotic-arms", description: "Precision manipulation for automation and research", image: "/images/categories/accessories.webp" },
-  { title: "Research Platforms", link: "/products/research-platforms", description: "Open-architecture systems for R&D and education", image: "/images/categories/research.webp" },
-  { title: "Industrial Robotics", link: "/products/industrial-robotics", description: "Production-grade automation systems", image: "/images/categories/industrial.webp" },
-  { title: "Components", link: "/products/components", description: "Motors, sensors, controllers, and compute modules", image: "/images/categories/components.webp" },
+  { title: "Humanoid Robots", link: "/products/humanoid-robots", description: "Humanoid robot platforms for research, education, embodied AI, and advanced deployment.", image: "/images/categories/humanoid.webp" },
+  { title: "Quadruped Robots", link: "/products/quadruped-robots", description: "Quadruped robot dogs and agile legged platforms for mobility, interaction, and robotics research.", image: "/images/categories/quadruped.webp" },
+  { title: "Robot Accessories", link: "/products/robot-accessories", description: "Robot accessories and components including dexterous hands, tactile sensors, and related robotics add-ons.", image: "/images/categories/accessories.webp" },
+  { title: "Toy Robots", link: "/products/toy-robots", description: "Consumer-friendly robots for companionship, home interaction, family entertainment, and playful automation.", image: "/images/categories/research.webp" },
 ];
 
 const STATS = [

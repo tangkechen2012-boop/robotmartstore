@@ -17,18 +17,8 @@ const NAV_ITEMS = [
     items: [
     { label: "Humanoid Robots", link: "/products/humanoid-robots" },
     { label: "Quadruped Robots", link: "/products/quadruped-robots" },
-    { label: "Robotic Arms", link: "/products/robotic-arms" },
-    { label: "Research Platforms", link: "/products/research-platforms" },
-    { label: "Industrial Robotics", link: "/products/industrial-robotics" }]
-
-  },
-  {
-    title: "Accessories",
-    items: [
-    { label: "Components", link: "/products/components" },
-    { label: "Sensors & Vision", link: "/products/sensors" },
-    { label: "AI Compute Modules", link: "/products/ai-compute" },
-    { label: "Power Systems", link: "/products/power-systems" }]
+    { label: "Robot Accessories", link: "/products/robot-accessories" },
+    { label: "Toy Robots", link: "/products/toy-robots" }]
 
   }]
 
