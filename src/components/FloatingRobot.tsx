@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, ContactShadows, Environment } from "@react-three/drei";
+import { OrbitControls, ContactShadows, Environment, Lightformer } from "@react-three/drei";
 import { useRef, Suspense, useMemo, useState } from "react";
 import * as THREE from "three";
 
@@ -622,7 +622,13 @@ export const FloatingRobot = () => (
       }}
       shadows
     >
-      <Environment preset="studio" environmentIntensity={0.35} />
+      {/* Procedural environment — no external HDR fetch, avoids CDN failures */}
+      <Environment environmentIntensity={0.35} resolution={256}>
+        <Lightformer intensity={1.2} color="#f5f3ef" position={[0, 5, 2]} scale={[8, 4, 1]} />
+        <Lightformer intensity={0.6} color="#d5dce8" position={[-4, 2, -3]} scale={[4, 4, 1]} />
+        <Lightformer intensity={0.5} color="#e0e6f0" position={[4, 1, -2]} scale={[3, 3, 1]} />
+        <Lightformer intensity={0.3} color="#1a2030" position={[0, -3, 0]} scale={[6, 2, 1]} />
+      </Environment>
       <directionalLight position={[4, 5, 3]} intensity={1.8} color="#f5f3ef" castShadow shadow-mapSize-width={2048} shadow-mapSize-height={2048} />
       <directionalLight position={[-3, 3, 2]} intensity={0.6} color="#e0e6f0" />
       <directionalLight position={[-2, 4, -4]} intensity={0.9} color="#d5dce8" />
