@@ -1,7 +1,8 @@
 import { useShopifyCollection } from "@/hooks/useShopifyProducts";
 import { ProductCard } from "@/components/ProductCard";
 import { useParams, Link } from "react-router-dom";
-import { Bot, ChevronRight } from "lucide-react";
+import { BadgeCheck, Bot, ChevronRight, ClipboardCheck, Code2, GraduationCap, Truck } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const COLLECTION_HANDLES = [
   "humanoid-robots",
@@ -10,10 +11,143 @@ const COLLECTION_HANDLES = [
   "toy-robots",
 ];
 
+const COLLECTION_GUIDES: Record<string, {
+  eyebrow: string;
+  title: string;
+  description: string;
+  ctaLabel: string;
+  highlights: string[];
+  buyerCards: { title: string; text: string; icon: typeof GraduationCap }[];
+  faqs: { q: string; a: string }[];
+}> = {
+  "humanoid-robots": {
+    eyebrow: "Humanoid robot sourcing",
+    title: "Humanoid robots for education, research, and enterprise pilots",
+    description:
+      "Compare quote-ready humanoid platforms for embodied AI, manipulation, locomotion, HRI, and robotics lab programs. For high-ticket robots, RobotMart confirms configuration, supplier availability, freight, warranty, and purchase terms before payment.",
+    ctaLabel: "Request a humanoid robot quote",
+    highlights: [
+      "G1, EDU, fixed-base, and enterprise configurations require different procurement checks",
+      "PO, wire transfer, deposit, freight, and warranty terms can be reviewed before purchase",
+      "Supplier confirmation is required before fixed delivery dates or support terms are promised",
+    ],
+    buyerCards: [
+      {
+        icon: GraduationCap,
+        title: "Education and research",
+        text: "Platforms for robotics courses, embodied AI labs, locomotion, perception, and manipulation experiments.",
+      },
+      {
+        icon: Code2,
+        title: "Development stack",
+        text: "Prioritize SDK, ROS/ROS2, Python/C++, simulation, sensors, compute, and documentation fit.",
+      },
+      {
+        icon: Truck,
+        title: "Procurement reality",
+        text: "Freight, duties, batteries, lead time, warranty, and after-sales responsibility are confirmed during quote review.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Why are many humanoid robots quote-only?",
+        a: "Humanoid robots often require supplier confirmation for configuration, lead time, freight, warranty, and purchase terms. Quote-first prevents unrealistic checkout promises.",
+      },
+      {
+        q: "Can schools or labs use purchase orders?",
+        a: "RobotMart can prepare quote details for internal procurement review, including model, configuration, delivery notes, warranty assumptions, and payment terms.",
+      },
+      {
+        q: "What should buyers compare before choosing a humanoid robot?",
+        a: "Compare development access, SDK/ROS support, compute module, sensors, included accessories, application fit, training needs, and supplier support.",
+      },
+    ],
+  },
+  "quadruped-robots": {
+    eyebrow: "Quadruped robot sourcing",
+    title: "Quadruped robots for research, inspection, and field development",
+    description:
+      "Source quadruped platforms for education, mobility research, inspection pilots, sensor integration, and autonomous navigation projects.",
+    ctaLabel: "Request a quadruped robot quote",
+    highlights: [
+      "Confirm payload, sensors, battery, controller, and SDK needs before quoting",
+      "Inspection and field deployments may require accessories, training, and spare parts",
+      "Shipping terms depend on battery configuration, package size, and destination",
+    ],
+    buyerCards: [
+      {
+        icon: GraduationCap,
+        title: "Research and teaching",
+        text: "Use quadrupeds for locomotion, navigation, reinforcement learning, and robotics demonstrations.",
+      },
+      {
+        icon: Code2,
+        title: "Integration projects",
+        text: "Evaluate compute, sensors, ROS support, payloads, and API access before choosing a model.",
+      },
+      {
+        icon: Truck,
+        title: "Delivery planning",
+        text: "Confirm battery shipping, lead time, spare parts, and warranty terms before payment.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Can quadruped robots be used for inspection?",
+        a: "Yes, but payload, sensors, connectivity, battery runtime, terrain, and safety requirements should be confirmed before purchase.",
+      },
+      {
+        q: "Do all quadruped robots support development?",
+        a: "No. Development access varies by model and edition, so SDK, ROS, API, and compute options should be checked during quote review.",
+      },
+    ],
+  },
+  "robot-accessories": {
+    eyebrow: "Robotics components and accessories",
+    title: "Robot accessories, dexterous hands, sensors, and development hardware",
+    description:
+      "Find manipulation hardware, sensors, end effectors, batteries, chargers, and development accessories for robotics labs and integration teams.",
+    ctaLabel: "Request accessory sourcing",
+    highlights: [
+      "Dexterous hands should be compared by DOF, drive type, interface, SDK, and robot compatibility",
+      "Sensors and end effectors may require integration support and documentation review",
+      "Standard accessories can move to direct sale after stock, UPC/GTIN, warranty, and fulfillment are confirmed",
+    ],
+    buyerCards: [
+      {
+        icon: ClipboardCheck,
+        title: "Compatibility check",
+        text: "Confirm mechanical, electrical, software, and control interface fit before purchase.",
+      },
+      {
+        icon: Code2,
+        title: "Developer readiness",
+        text: "Review SDK, API, ROS, sample code, and documentation for lab or integration use.",
+      },
+      {
+        icon: BadgeCheck,
+        title: "Fulfillment readiness",
+        text: "Move accessories to direct checkout only after supplier stock and warranty are confirmed.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Can RobotMart source dexterous robot hands?",
+        a: "Yes. We request supplier confirmation for pricing, interfaces, SDK, documentation, compatibility, and lead time before quoting.",
+      },
+      {
+        q: "Which accessories can be direct-sale?",
+        a: "Standard items with confirmed stock, shipping, warranty, and return terms can become direct-sale products.",
+      },
+    ],
+  },
+};
+
 const CollectionPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const handle = slug || "";
   const isKnownCollection = COLLECTION_HANDLES.includes(handle);
+  const guide = COLLECTION_GUIDES[handle];
   const { data: collection, isLoading } = useShopifyCollection(
     isKnownCollection ? handle : undefined
   );
@@ -48,14 +182,63 @@ const CollectionPage = () => {
       </nav>
 
       {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold">
-          {collection?.title || handle.replace(/-/g, " ")}
-        </h1>
-        {collection?.description && (
-          <p className="text-sm text-muted-foreground mt-1">{collection.description}</p>
-        )}
-      </div>
+      {guide ? (
+        <section className="mb-8 rounded-lg border bg-secondary/30 p-5 md:p-7">
+          <div className="grid lg:grid-cols-[1fr_360px] gap-8">
+            <div>
+              <p className="text-sm font-semibold text-primary">{guide.eyebrow}</p>
+              <h1 className="mt-2 text-2xl md:text-4xl font-extrabold tracking-tight">{guide.title}</h1>
+              <p className="mt-4 text-sm md:text-base text-muted-foreground leading-relaxed max-w-3xl">
+                {guide.description}
+              </p>
+              <div className="mt-5 flex flex-col sm:flex-row gap-3">
+                <Button asChild>
+                  <Link to={`/request-quote?product=${encodeURIComponent(collection?.title || guide.title)}`}>
+                    {guide.ctaLabel}
+                  </Link>
+                </Button>
+                <Button variant="outline" asChild>
+                  <Link to="/procurement">View procurement process</Link>
+                </Button>
+              </div>
+            </div>
+            <div className="rounded-lg border bg-background p-4">
+              <h2 className="font-bold">Buying notes</h2>
+              <ul className="mt-3 space-y-3 text-sm text-muted-foreground">
+                {guide.highlights.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <BadgeCheck className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+      ) : (
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold">
+            {collection?.title || handle.replace(/-/g, " ")}
+          </h1>
+          {collection?.description && (
+            <p className="text-sm text-muted-foreground mt-1">{collection.description}</p>
+          )}
+        </div>
+      )}
+
+      {guide && (
+        <section className="mb-8 grid md:grid-cols-3 gap-4">
+          {guide.buyerCards.map((card) => (
+            <article key={card.title} className="rounded-lg border bg-card p-5">
+              <div className="h-10 w-10 rounded-md bg-primary/10 text-primary flex items-center justify-center mb-4">
+                <card.icon className="h-5 w-5" />
+              </div>
+              <h2 className="font-bold">{card.title}</h2>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{card.text}</p>
+            </article>
+          ))}
+        </section>
+      )}
 
       {/* Products grid */}
       {isLoading ? (
@@ -86,6 +269,20 @@ const CollectionPage = () => {
               : "This collection was not found in Shopify."}
           </p>
         </div>
+      )}
+
+      {guide && (
+        <section className="mt-10 border-t pt-8">
+          <h2 className="text-xl font-bold">Common buying questions</h2>
+          <div className="mt-4 grid md:grid-cols-2 gap-4">
+            {guide.faqs.map((faq) => (
+              <article key={faq.q} className="rounded-lg border bg-card p-5">
+                <h3 className="font-semibold">{faq.q}</h3>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{faq.a}</p>
+              </article>
+            ))}
+          </div>
+        </section>
       )}
     </div>
   );
