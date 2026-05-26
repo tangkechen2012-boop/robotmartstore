@@ -24,6 +24,7 @@ const NAV_ITEMS = [
 
 },
 { label: "Services & Technology", link: "/services-technology" },
+{ label: "Procurement", link: "/procurement" },
 { label: "Custom Development", link: "/custom-development" },
 { label: "Applications", link: "/applications" },
 { label: "About", link: "/about" }];
@@ -156,7 +157,7 @@ export const Header = () => {
               </div>
 
               {/* Search */}
-              <div className="flex-1 lg:flex-initial lg:w-56 relative">
+              <div className="hidden 2xl:block flex-1 lg:flex-initial lg:w-56 relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   placeholder="Search..."

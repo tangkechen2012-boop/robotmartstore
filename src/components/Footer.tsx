@@ -16,11 +16,10 @@ const FOOTER_LINKS = [
   {
     title: "Services",
     links: [
+      { label: "B2B Procurement", to: "/procurement" },
       { label: "System Integration", to: "/services-technology" },
       { label: "Custom Development", to: "/custom-development" },
       { label: "AI Deployment", to: "/services-technology" },
-      { label: "OEM / ODM", to: "/request-quote" },
-      { label: "Certifications", to: "/support" },
     ],
   },
   {
@@ -103,7 +102,7 @@ export const Footer = () => {
             </div>
             <div className="flex-[2]">
               <p className="text-sm opacity-60 leading-relaxed">
-                RobotMart is a professional robotics solutions provider headquartered in the United States. We specialize in humanoid robots, quadruped robot systems, robotic arms, and intelligent automation platforms for education, research, and industry. As an authorized distributor of leading robotics brands, we deliver products, engineering services, and custom development solutions to clients across the USA and globally.
+                RobotMart is a professional robotics sourcing and B2B procurement platform for education, research, and enterprise buyers. We specialize in humanoid robots, quadruped robot systems, dexterous hands, robotic arms, and intelligent automation platforms. Product availability, warranty, freight, and purchase terms for high-ticket robotics platforms are confirmed during quotation.
               </p>
             </div>
           </div>

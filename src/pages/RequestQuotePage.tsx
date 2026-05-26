@@ -219,6 +219,9 @@ const RequestQuotePage = () => {
                 We can prepare quote details for internal purchasing teams, including model, configuration, lead time,
                 freight notes, warranty, and payment terms.
               </p>
+              <Button variant="link" className="mt-2 h-auto p-0 font-semibold" asChild>
+                <Link to="/procurement">View B2B procurement process</Link>
+              </Button>
             </div>
           </aside>
         </div>
