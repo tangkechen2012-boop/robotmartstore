@@ -100,11 +100,11 @@ export const Header = () => {
                     <MobileNavItem key={item.label} item={item} onClose={() => setMobileOpen(false)} />
                     )}
                     <Link
-                      to="/contact"
+                      to="/request-quote"
                       className="block py-3 px-4 rounded-xl text-sm font-semibold bg-primary text-primary-foreground text-center mt-4"
                       onClick={() => setMobileOpen(false)}>
                       
-                      Contact Us
+                      Request a Quote
                     </Link>
                   </nav>
                 </SheetContent>
@@ -168,7 +168,7 @@ export const Header = () => {
               <div className="flex items-center gap-2">
                 <CartDrawer />
                 <Button className="hidden lg:inline-flex rounded-pill px-5 h-9 text-sm font-semibold" asChild>
-                  <Link to="/contact">Contact</Link>
+                  <Link to="/request-quote">Request Quote</Link>
                 </Button>
               </div>
             </div>

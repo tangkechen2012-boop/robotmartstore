@@ -19,7 +19,7 @@ const FOOTER_LINKS = [
       { label: "System Integration", to: "/services-technology" },
       { label: "Custom Development", to: "/custom-development" },
       { label: "AI Deployment", to: "/services-technology" },
-      { label: "OEM / ODM", to: "/contact" },
+      { label: "OEM / ODM", to: "/request-quote" },
       { label: "Certifications", to: "/support" },
     ],
   },
@@ -39,6 +39,7 @@ const FOOTER_LINKS = [
       { label: "About Us", to: "/about" },
       { label: "Blog", to: "/blog" },
       { label: "Contact", to: "/contact" },
+      { label: "Request Quote", to: "/request-quote" },
       { label: "Compliance", to: "/support" },
     ],
   },
@@ -96,7 +97,7 @@ export const Footer = () => {
               <h4 className="font-bold text-sm mb-3">Contact</h4>
               <ul className="space-y-2 text-sm opacity-70">
                 <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> support@robotmart.store</li>
-                <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> +1 (917) 293-4778</li></li>
+                <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> +1 (917) 293-4778</li>
                 <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> San Francisco, CA</li>
               </ul>
             </div>

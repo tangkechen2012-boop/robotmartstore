@@ -2,8 +2,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 
 const ContactPage = () => {
+  const [searchParams] = useSearchParams();
+  const product = searchParams.get("product") || "";
+  const requestType = searchParams.get("type") || "inquiry";
+  const subject = product
+    ? `${requestType === "preorder" ? "Pre-order terms" : "Quote request"}: ${product}`
+    : "";
+  const message = product
+    ? `I am interested in ${product}. Please share pricing, availability, lead time, shipping options, warranty, and purchase terms.`
+    : "";
+
   return (
     <div className="min-h-screen">
       <section className="bg-gradient-to-br from-primary to-accent/20 text-primary-foreground py-20">
@@ -26,8 +37,8 @@ const ContactPage = () => {
               </div>
               <Input placeholder="Email Address" type="email" className="rounded-xl h-11" />
               <Input placeholder="Company (optional)" className="rounded-xl h-11" />
-              <Input placeholder="Subject" className="rounded-xl h-11" />
-              <Textarea placeholder="Tell us about your project or inquiry..." className="rounded-xl min-h-[120px]" />
+              <Input placeholder="Subject" defaultValue={subject} className="rounded-xl h-11" />
+              <Textarea placeholder="Tell us about your project or inquiry..." defaultValue={message} className="rounded-xl min-h-[120px]" />
               <Button size="lg" className="rounded-pill px-8 font-semibold w-full sm:w-auto">Send Message</Button>
             </form>
           </div>

@@ -4,10 +4,11 @@ import { useCartStore } from "@/stores/cartStore";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { ShoppingCart, Loader2, ChevronLeft, Minus, Plus } from "lucide-react";
+import { CalendarClock, MessageSquare, ShoppingCart, Loader2, ChevronLeft, Minus, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "sonner";
+import { buildQuotePath, getSalesStrategy } from "@/lib/salesStrategy";
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
@@ -47,6 +48,8 @@ const ProductDetail = () => {
   const selectedVariant = variants[selectedVariantIdx]?.node;
   const priceRaw = selectedVariant?.price || product.priceRange?.minVariantPrice;
   const priceAmount = parseFloat(priceRaw?.amount || "0");
+  const strategy = getSalesStrategy(product);
+  const isDirectSale = strategy.mode === "direct-sale";
 
   const handleAddToCart = async () => {
     if (!selectedVariant) return;
@@ -132,9 +135,9 @@ const ProductDetail = () => {
           <Separator className="my-4" />
 
           {/* Price */}
-          {priceAmount === 0 ? (
+          {!isDirectSale ? (
             <div className="flex items-baseline gap-2 mb-4">
-              <span className="text-2xl font-bold text-foreground">Best Offer</span>
+              <span className="text-2xl font-bold text-foreground">{strategy.priceLabel}</span>
             </div>
           ) : (
             <>
@@ -150,7 +153,9 @@ const ProductDetail = () => {
             </>
           )}
 
-          {selectedVariant?.availableForSale ? (
+          {!isDirectSale ? (
+            <Badge variant="secondary" className="bg-primary/10 text-primary mb-6">{strategy.badge}</Badge>
+          ) : selectedVariant?.availableForSale ? (
             <Badge variant="secondary" className="bg-[hsl(var(--robot-green))]/10 text-[hsl(var(--robot-green))] mb-6">In Stock</Badge>
           ) : (
             <Badge variant="destructive" className="mb-6">Out of Stock</Badge>
@@ -186,61 +191,69 @@ const ProductDetail = () => {
           )}
 
           {/* Quantity */}
-          <div className="flex items-center gap-3 mb-6">
-            <span className="text-sm font-medium">Quantity:</span>
-            <div className="flex items-center border rounded-md">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-9 w-9 rounded-none"
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-              >
-                <Minus className="h-4 w-4" />
-              </Button>
-              <span className="w-12 text-center text-sm font-medium">{quantity}</span>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-9 w-9 rounded-none"
-                onClick={() => setQuantity(quantity + 1)}
-              >
-                <Plus className="h-4 w-4" />
-              </Button>
+          {isDirectSale && (
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-sm font-medium">Quantity:</span>
+              <div className="flex items-center border rounded-md">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-9 w-9 rounded-none"
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                >
+                  <Minus className="h-4 w-4" />
+                </Button>
+                <span className="w-12 text-center text-sm font-medium">{quantity}</span>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-9 w-9 rounded-none"
+                  onClick={() => setQuantity(quantity + 1)}
+                >
+                  <Plus className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* On Demand notice */}
           <div className="mb-4 rounded-md border border-border bg-muted/50 p-4 text-sm">
             <div className="flex items-center gap-2 mb-1">
-              <span className="font-semibold text-foreground">On Demand</span>
-              <a href="#" className="text-primary hover:underline text-xs">See due date</a>
+              <span className="font-semibold text-foreground">{strategy.noticeTitle}</span>
             </div>
             <p className="text-muted-foreground leading-relaxed mb-2">
-              This is an On Demand item and is not normally stocked. We will order it for you along with our next purchase from the supplier.
+              {strategy.noticeBody}
             </p>
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              * Delays depend on the order frequency from each supplier and the approximate arrival date is indicated in the due date. Returns are not accepted on On Demand and Clearance Items except when they are found defective, in which case the product may be repaired or replaced at RobotShop's discretion.
-            </p>
+            {!isDirectSale && (
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Purchase orders, wire transfer, education pricing, deposits, and delivery timelines can be reviewed with our team before an order is placed.
+              </p>
+            )}
           </div>
 
           {/* Add to cart + Request a Quote */}
           <div className="flex gap-3">
+            {isDirectSale && (
+              <Button
+                onClick={handleAddToCart}
+                disabled={cartLoading || !selectedVariant?.availableForSale}
+                size="lg"
+                className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+              >
+                {cartLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <ShoppingCart className="h-4 w-4 mr-2" />}
+                Add to Cart
+              </Button>
+            )}
             <Button
-              onClick={handleAddToCart}
-              disabled={cartLoading || !selectedVariant?.availableForSale}
-              size="lg"
-              className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
-            >
-              {cartLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <ShoppingCart className="h-4 w-4 mr-2" />}
-              Add to Cart
-            </Button>
-            <Button
-              variant="outline"
+              variant={isDirectSale ? "outline" : "default"}
               size="lg"
               className="flex-1 font-semibold"
-              onClick={() => toast.info("Quote request feature coming soon", { position: "top-center" })}
+              asChild
             >
-              Request a Quote
+              <Link to={buildQuotePath(product, strategy.mode === "pre-order" ? "preorder" : "quote")}>
+                {strategy.mode === "pre-order" ? <CalendarClock className="h-4 w-4 mr-2" /> : <MessageSquare className="h-4 w-4 mr-2" />}
+                {isDirectSale ? strategy.secondaryCta : strategy.primaryCta}
+              </Link>
             </Button>
           </div>
         </div>
