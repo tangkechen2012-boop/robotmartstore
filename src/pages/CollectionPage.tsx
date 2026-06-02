@@ -1,8 +1,9 @@
-import { useShopifyCollection } from "@/hooks/useShopifyProducts";
+import { useShopifyCollection, useShopifyProducts } from "@/hooks/useShopifyProducts";
 import { ProductCard } from "@/components/ProductCard";
 import { useParams, Link } from "react-router-dom";
 import { BadgeCheck, Bot, ChevronRight, ClipboardCheck, Code2, GraduationCap, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
 
 const COLLECTION_HANDLES = [
   "humanoid-robots",
