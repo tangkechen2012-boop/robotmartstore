@@ -9,14 +9,10 @@ import {
   CheckCircle2
 } from "lucide-react";
 
-import { useEffect, lazy, Suspense } from "react";
+import { useEffect } from "react";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { HeroBackground } from "@/components/HeroBackground";
 import { FAQSection } from "@/components/FAQSection";
-
-const FloatingRobot = lazy(() =>
-  import("@/components/FloatingRobot").then(m => ({ default: m.FloatingRobot }))
-);
 
 const PILLARS = [
   {
