@@ -1,8 +1,9 @@
-import { useShopifyCollection } from "@/hooks/useShopifyProducts";
+import { useShopifyCollection, useShopifyProducts } from "@/hooks/useShopifyProducts";
 import { ProductCard } from "@/components/ProductCard";
 import { useParams, Link } from "react-router-dom";
 import { BadgeCheck, Bot, ChevronRight, ClipboardCheck, Code2, GraduationCap, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
 
 const COLLECTION_HANDLES = [
   "humanoid-robots",
@@ -143,6 +144,77 @@ const COLLECTION_GUIDES: Record<string, {
   },
 };
 
+const COLLECTION_LABELS: Record<string, string> = {
+  "humanoid-robots": "Humanoid Robots",
+  "quadruped-robots": "Quadruped Robots",
+  "robot-accessories": "Robot Accessories",
+  "toy-robots": "Toy Robots",
+};
+
+const AllProductsView = () => {
+  const { data: products, isLoading } = useShopifyProducts(48);
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-8">
+      <nav className="flex items-center gap-1 text-sm text-muted-foreground mb-4">
+        <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
+        <ChevronRight className="h-3.5 w-3.5" />
+        <span className="text-foreground font-medium">All Products</span>
+      </nav>
+      <section className="mb-8 rounded-lg border bg-secondary/30 p-5 md:p-7">
+        <p className="text-sm font-semibold text-primary">Robotics catalog</p>
+        <h1 className="mt-2 text-2xl md:text-4xl font-extrabold tracking-tight">
+          All robotics products
+        </h1>
+        <p className="mt-3 text-sm md:text-base text-muted-foreground leading-relaxed max-w-3xl">
+          Browse humanoid robots, quadruped robots, robot accessories, and developer hardware. High-ticket platforms move through a quote-first review covering configuration, supplier confirmation, freight, warranty, and purchase terms.
+        </p>
+      </section>
+
+      <section className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-3">
+        {COLLECTION_HANDLES.map((h) => (
+          <Link
+            key={h}
+            to={`/products/${h}`}
+            className="rounded-lg border bg-card p-4 hover:border-primary hover:bg-secondary/40 transition-colors"
+          >
+            <div className="h-9 w-9 rounded-md bg-primary/10 text-primary flex items-center justify-center mb-3">
+              <Bot className="h-4 w-4" />
+            </div>
+            <p className="font-semibold text-sm">{COLLECTION_LABELS[h]}</p>
+            <p className="text-xs text-muted-foreground mt-1">Browse collection →</p>
+          </Link>
+        ))}
+      </section>
+
+      {isLoading ? (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="border rounded-md overflow-hidden animate-pulse">
+              <div className="aspect-square bg-muted" />
+              <div className="p-3 space-y-2">
+                <div className="h-4 bg-muted rounded w-3/4" />
+                <div className="h-4 bg-muted rounded w-1/2" />
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : products && products.length > 0 ? (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {products.map((product) => (
+            <ProductCard key={product.node.id} product={product} />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-16 border rounded-md bg-muted/30">
+          <Bot className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+          <h3 className="font-semibold text-lg mb-2">No products found</h3>
+          <p className="text-muted-foreground text-sm">Add products in Shopify Admin to see them here.</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const CollectionPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const handle = slug || "";
@@ -151,6 +223,11 @@ const CollectionPage = () => {
   const { data: collection, isLoading } = useShopifyCollection(
     isKnownCollection ? handle : undefined
   );
+
+  // No slug → show all products
+  if (!slug) {
+    return <AllProductsView />;
+  }
 
   // Unknown slug → 404-like state
   if (!isKnownCollection) {
@@ -167,6 +244,7 @@ const CollectionPage = () => {
       </div>
     );
   }
+
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
