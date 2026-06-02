@@ -120,7 +120,7 @@ const Index = () => {
           </div>
           <div className="flex-1 relative w-full max-w-lg h-[400px] flex items-center justify-center">
             <img
-              src="/images/hero-robot.png"
+              src="/images/hero-robot-transparent.png"
               alt="Humanoid Robot"
               width={1024}
               height={1024}
