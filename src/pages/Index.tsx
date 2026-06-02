@@ -118,13 +118,13 @@ const Index = () => {
               </Button>
             </div>
           </div>
-          <div className="flex-1 relative w-full max-w-lg h-[400px] flex items-center justify-center">
+          <div className="flex-1 relative w-full max-w-xl h-[520px] flex items-center justify-center">
             <img
               src="/images/hero-robot-transparent.png"
               alt="Humanoid Robot"
               width={1024}
               height={1024}
-              className="w-full h-full object-contain drop-shadow-2xl"
+              className="w-full h-full object-contain drop-shadow-2xl scale-110"
             />
           </div>
         </div>
