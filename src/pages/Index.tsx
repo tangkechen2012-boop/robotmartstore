@@ -6,7 +6,7 @@ import {
   ChevronRight, Bot, Cpu, Factory, GraduationCap, Microscope,
   BrainCircuit, ArrowRight, Wrench, Code2, Search as SearchIcon,
   Shield, Users, Award, Globe, Truck, Headphones,
-  CheckCircle2
+  CheckCircle2, Recycle
 } from "lucide-react";
 
 import { useEffect } from "react";
