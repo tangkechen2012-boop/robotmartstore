@@ -1,7 +1,7 @@
 import { useShopifyCollection, useShopifyProducts } from "@/hooks/useShopifyProducts";
 import { ProductCard } from "@/components/ProductCard";
 import { useParams, Link } from "react-router-dom";
-import { BadgeCheck, Bot, ChevronRight, ClipboardCheck, Code2, GraduationCap, Truck } from "lucide-react";
+import { BadgeCheck, Bot, ChevronRight, ClipboardCheck, Code2, GraduationCap, Recycle, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 
@@ -10,7 +10,13 @@ const COLLECTION_HANDLES = [
   "quadruped-robots",
   "robot-accessories",
   "toy-robots",
+  "pre-owned",
 ];
+
+// Handles backed by a Shopify search query (tag-based) instead of a Shopify Collection
+const TAG_COLLECTION_QUERIES: Record<string, string> = {
+  "pre-owned": "tag:Pre-Owned",
+};
 
 const COLLECTION_GUIDES: Record<string, {
   eyebrow: string;
