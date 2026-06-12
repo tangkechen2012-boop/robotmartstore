@@ -270,10 +270,29 @@ const CollectionPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const handle = slug || "";
   const isKnownCollection = COLLECTION_HANDLES.includes(handle);
+  const tagQuery = TAG_COLLECTION_QUERIES[handle];
+  const isTagCollection = !!tagQuery;
   const guide = COLLECTION_GUIDES[handle];
-  const { data: collection, isLoading } = useShopifyCollection(
-    isKnownCollection ? handle : undefined
+
+  const { data: shopifyCollection, isLoading: collectionLoading } = useShopifyCollection(
+    isKnownCollection && !isTagCollection ? handle : undefined
   );
+  const { data: tagProducts, isLoading: tagLoading } = useShopifyProducts(
+    50,
+    isTagCollection ? tagQuery : undefined
+  );
+
+  const isLoading = isTagCollection ? tagLoading : collectionLoading;
+  const collection = isTagCollection
+    ? (tagProducts
+        ? {
+            title: COLLECTION_LABELS[handle],
+            description: "Tested pre-owned robotics inventory. Each unit is unique — quote-first procurement applies.",
+            handle,
+            products: tagProducts,
+          }
+        : null)
+    : shopifyCollection;
 
   // No slug → show all products
   if (!slug) {
