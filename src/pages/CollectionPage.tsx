@@ -216,20 +216,25 @@ const AllProductsView = () => {
         </p>
       </section>
 
-      <section className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-3">
-        {COLLECTION_HANDLES.map((h) => (
-          <Link
-            key={h}
-            to={`/products/${h}`}
-            className="rounded-lg border bg-card p-4 hover:border-primary hover:bg-secondary/40 transition-colors"
-          >
-            <div className="h-9 w-9 rounded-md bg-primary/10 text-primary flex items-center justify-center mb-3">
-              <Bot className="h-4 w-4" />
-            </div>
-            <p className="font-semibold text-sm">{COLLECTION_LABELS[h]}</p>
-            <p className="text-xs text-muted-foreground mt-1">Browse collection →</p>
-          </Link>
-        ))}
+      <section className="mb-8 grid grid-cols-2 md:grid-cols-5 gap-3">
+        {COLLECTION_HANDLES.map((h) => {
+          const isPreOwned = h === "pre-owned";
+          return (
+            <Link
+              key={h}
+              to={`/products/${h}`}
+              className={`rounded-lg border bg-card p-4 hover:border-primary hover:bg-secondary/40 transition-colors ${isPreOwned ? "border-accent/40" : ""}`}
+            >
+              <div className={`h-9 w-9 rounded-md flex items-center justify-center mb-3 ${isPreOwned ? "bg-accent/10 text-accent" : "bg-primary/10 text-primary"}`}>
+                {isPreOwned ? <Recycle className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
+              </div>
+              <p className="font-semibold text-sm">{COLLECTION_LABELS[h]}</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                {isPreOwned ? "Tested used units →" : "Browse collection →"}
+              </p>
+            </Link>
+          );
+        })}
       </section>
 
       {isLoading ? (
