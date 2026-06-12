@@ -148,6 +148,45 @@ const COLLECTION_GUIDES: Record<string, {
       },
     ],
   },
+  "pre-owned": {
+    eyebrow: "Pre-Owned robotics inventory",
+    title: "Pre-Owned & tested robots — inspected, quote-first procurement",
+    description:
+      "Source tested pre-owned humanoid and quadruped robots for education, research, and pilot deployments. Each used unit is unique, so pricing and terms are confirmed through RobotMart's quote-first process after we verify configuration, battery and joint health, accessories, freight method, duties, and supported warranty assumptions.",
+    ctaLabel: "Request a pre-owned unit quote",
+    highlights: [
+      "Each used unit is sold based on actual condition, configuration, and supplier availability",
+      "Quote covers exact model edition, accessories, battery and joint status, photos, and test video",
+      "China-direct, DDP US delivery, and US-local stock options are evaluated per request",
+    ],
+    buyerCards: [
+      {
+        icon: ClipboardCheck,
+        title: "Condition verification",
+        text: "Battery health, joint condition, sensor status, controller, charger, and original accessories are confirmed before quoting.",
+      },
+      {
+        icon: Truck,
+        title: "Freight and duties",
+        text: "China-direct, DDP US, or US-local stock options are reviewed against freight cost, lead time, and tariff exposure.",
+      },
+      {
+        icon: BadgeCheck,
+        title: "Support boundaries",
+        text: "DOA inspection window, used-unit support limits, and warranty assumptions are documented in writing before payment.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Why is pre-owned inventory quote-only?",
+        a: "Used robotics units differ in condition, accessories, and supplier location. Final pricing and terms are only confirmed after inspection, freight quoting, and warranty review.",
+      },
+      {
+        q: "Can pre-owned units ship DDP to the United States?",
+        a: "Yes. RobotMart can prepare DDP US delivery quotes that include freight, customs clearance, and duties on top of the unit price.",
+      },
+    ],
+  },
 };
 
 const COLLECTION_LABELS: Record<string, string> = {
@@ -155,6 +194,7 @@ const COLLECTION_LABELS: Record<string, string> = {
   "quadruped-robots": "Quadruped Robots",
   "robot-accessories": "Robot Accessories",
   "toy-robots": "Toy Robots",
+  "pre-owned": "Pre-Owned Inventory",
 };
 
 const AllProductsView = () => {
