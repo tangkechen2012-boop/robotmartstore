@@ -143,6 +143,61 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Featured Products */}
+      <section className="max-w-7xl mx-auto px-4 py-20">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-3xl font-extrabold">Featured Products</h2>
+          <Button asChild variant="link" className="px-0 font-semibold">
+            <Link to="/products" className="flex items-center gap-1">
+              View All <ChevronRight className="h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+        {isLoading ? (
+          <p>Loading products...</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            {products?.map(product => (
+              <ProductCard key={product.node.id} product={product} />
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* Pre-Owned Inventory */}
+      {preOwnedProducts && preOwnedProducts.length > 0 && (
+        <section className="border-y border-border bg-secondary/30">
+          <div className="max-w-7xl mx-auto px-4 py-20">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+              <div className="max-w-2xl">
+                <div className="inline-flex items-center gap-2 rounded-pill bg-accent/10 text-accent px-3 py-1 mb-3">
+                  <Recycle className="h-3.5 w-3.5" />
+                  <span className="text-xs font-semibold tracking-wide uppercase">Pre-Owned Inventory</span>
+                </div>
+                <h2 className="text-3xl font-extrabold">Tested Pre-Owned Robotics</h2>
+                <p className="mt-2 text-sm md:text-base text-muted-foreground leading-relaxed">
+                  Inspected humanoid and quadruped units sourced for education, research, and pilot deployments. Each unit is unique — pricing, accessories, freight, and warranty assumptions are confirmed through a quote-first review.
+                </p>
+              </div>
+              <Button asChild variant="outline" className="rounded-pill font-semibold">
+                <Link to="/products/pre-owned" className="flex items-center gap-1">
+                  View pre-owned inventory <ChevronRight className="h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+            {preOwnedLoading ? (
+              <p>Loading pre-owned inventory...</p>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                {preOwnedProducts.map(product => (
+                  <ProductCard key={product.node.id} product={product} />
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* ===== WHAT WE DO ===== */}
       <section className="relative py-24 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0B1020 0%, #14213D 100%)' }}>
         {/* Subtle grid pattern */}
@@ -201,7 +256,7 @@ const Index = () => {
                 className={`group relative rounded-2xl overflow-hidden cursor-pointer ${i === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}
               >
                 <Link to={link} className="block relative" style={{ aspectRatio: i === 0 ? '16/10' : '4/3' }}>
-                  <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+                  <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transforms-transform duration-700 ease-out group-hover:scale-105" />
                   <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                     style={{ boxShadow: 'inset 0 0 30px 4px hsl(var(--accent) / 0.25), 0 0 20px 2px hsl(var(--accent) / 0.15)' }}
                   />
