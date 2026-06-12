@@ -100,21 +100,21 @@ const ProductDetail = () => {
               {images.map((img: { node: { url: string; altText: string | null } }, i: number) => (
                 <button
                   key={i}
-                  className={`w-16 h-16 rounded border overflow-hidden ${i === selectedImage ? 'border-primary ring-1 ring-primary' : 'border-muted'}`}
+                  className={`w-16 h-16 rounded border overflow-hidden bg-slate-100 ${i === selectedImage ? 'border-primary ring-1 ring-primary' : 'border-muted'}`}
                   onClick={() => setSelectedImage(i)}
                 >
-                  <img src={img.node.url} alt="" className="w-full h-full object-cover" />
+                  <img src={img.node.url} alt="" className="w-full h-full object-contain p-1" />
                 </button>
               ))}
             </div>
           )}
           {/* Main image */}
-          <div className="flex-1 aspect-square bg-muted rounded-md overflow-hidden">
+          <div className="flex-1 aspect-square bg-slate-100 rounded-md overflow-hidden">
             {images[selectedImage]?.node ? (
               <img
                 src={images[selectedImage].node.url}
                 alt={images[selectedImage].node.altText || product.title}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain p-6"
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-muted-foreground">No Image</div>
