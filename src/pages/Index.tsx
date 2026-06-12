@@ -272,60 +272,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section className="max-w-7xl mx-auto px-4 py-20">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-extrabold">Featured Products</h2>
-          <Button asChild variant="link" className="px-0 font-semibold">
-            <Link to="/products" className="flex items-center gap-1">
-              View All <ChevronRight className="h-4 w-4" />
-            </Link>
-          </Button>
-        </div>
-        {isLoading ? (
-          <p>Loading products...</p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            {products?.map(product => (
-              <ProductCard key={product.node.id} product={product} />
-            ))}
-          </div>
-        )}
-      </section>
-
-      {/* Pre-Owned Inventory */}
-      {preOwnedProducts && preOwnedProducts.length > 0 && (
-        <section className="border-y border-border bg-secondary/30">
-          <div className="max-w-7xl mx-auto px-4 py-20">
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
-              <div className="max-w-2xl">
-                <div className="inline-flex items-center gap-2 rounded-pill bg-accent/10 text-accent px-3 py-1 mb-3">
-                  <Recycle className="h-3.5 w-3.5" />
-                  <span className="text-xs font-semibold tracking-wide uppercase">Pre-Owned Inventory</span>
-                </div>
-                <h2 className="text-3xl font-extrabold">Tested Pre-Owned Robotics</h2>
-                <p className="mt-2 text-sm md:text-base text-muted-foreground leading-relaxed">
-                  Inspected humanoid and quadruped units sourced for education, research, and pilot deployments. Each unit is unique — pricing, accessories, freight, and warranty assumptions are confirmed through a quote-first review.
-                </p>
-              </div>
-              <Button asChild variant="outline" className="rounded-pill font-semibold">
-                <Link to="/products/pre-owned" className="flex items-center gap-1">
-                  View pre-owned inventory <ChevronRight className="h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
-            {preOwnedLoading ? (
-              <p>Loading pre-owned inventory...</p>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-                {preOwnedProducts.map(product => (
-                  <ProductCard key={product.node.id} product={product} />
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
-      )}
 
       {/* Stats */}
       <section className="bg-primary text-primary-foreground py-20">
