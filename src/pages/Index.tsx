@@ -256,7 +256,7 @@ const Index = () => {
                 className={`group relative rounded-2xl overflow-hidden cursor-pointer ${i === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}
               >
                 <Link to={link} className="block relative" style={{ aspectRatio: i === 0 ? '16/10' : '4/3' }}>
-                  <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transforms-transform duration-700 ease-out group-hover:scale-105" />
+                  <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
                   <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                     style={{ boxShadow: 'inset 0 0 30px 4px hsl(var(--accent) / 0.25), 0 0 20px 2px hsl(var(--accent) / 0.15)' }}
                   />
