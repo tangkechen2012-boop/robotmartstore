@@ -64,6 +64,7 @@ const TRUST_ITEMS = [
 
 const Index = () => {
   const { data: products, isLoading } = useShopifyProducts(8);
+  const { data: preOwnedProducts, isLoading: preOwnedLoading } = useShopifyProducts(4, "tag:Pre-Owned");
 
   useEffect(() => {
     const faqSchema = {
