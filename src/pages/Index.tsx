@@ -63,8 +63,11 @@ const TRUST_ITEMS = [
 ];
 
 const Index = () => {
-  const { data: products, isLoading } = useShopifyProducts(8);
-  const { data: preOwnedProducts, isLoading: preOwnedLoading } = useShopifyProducts(4, "tag:Pre-Owned");
+  const EXCLUDED_PRODUCT = "DM-Tac W - Multi-modal Tactile Perception Terminal";
+  const { data: rawProducts, isLoading } = useShopifyProducts(8);
+  const products = rawProducts?.filter(p => p.node.title !== EXCLUDED_PRODUCT);
+  const { data: rawPreOwned, isLoading: preOwnedLoading } = useShopifyProducts(4, "tag:Pre-Owned");
+  const preOwnedProducts = rawPreOwned?.filter(p => p.node.title !== EXCLUDED_PRODUCT);
 
   useEffect(() => {
     const faqSchema = {
