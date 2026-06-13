@@ -89,7 +89,7 @@ export const Header = () => {
               {/* Mobile menu */}
               <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="md:hidden rounded-xl">
+                  <Button variant="ghost" size="icon" className="md:hidden rounded-xl" aria-label="Open menu">
                     <Menu className="h-5 w-5" />
                   </Button>
                 </SheetTrigger>

@@ -103,6 +103,7 @@ const ProductDetail = () => {
                   key={i}
                   className={`w-16 h-16 rounded border overflow-hidden bg-slate-100 ${i === selectedImage ? 'border-primary ring-1 ring-primary' : 'border-muted'}`}
                   onClick={() => setSelectedImage(i)}
+                  aria-label={`View product image ${i + 1}`}
                 >
                   <img src={img.node.url} alt="" className="w-full h-full object-contain p-1" />
                 </button>
@@ -200,6 +201,7 @@ const ProductDetail = () => {
                   variant="ghost"
                   size="icon"
                   className="h-9 w-9 rounded-none"
+                  aria-label="Decrease quantity"
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                 >
                   <Minus className="h-4 w-4" />
@@ -209,6 +211,7 @@ const ProductDetail = () => {
                   variant="ghost"
                   size="icon"
                   className="h-9 w-9 rounded-none"
+                  aria-label="Increase quantity"
                   onClick={() => setQuantity(quantity + 1)}
                 >
                   <Plus className="h-4 w-4" />

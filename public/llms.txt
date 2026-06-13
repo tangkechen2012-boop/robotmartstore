@@ -1,0 +1,30 @@
+# RobotMart
+
+> Professional B2B robotics solutions provider — humanoid robots, quadruped systems, robotic arms, accessories, and custom engineering services for enterprise, research, and education.
+
+RobotMart sources industry-grade robotics platforms from leading manufacturers and provides system integration, AI deployment, OEM/ODM development, and lifecycle support. Most high-ticket items are quote-driven; smaller accessories and consumer items are available for direct purchase.
+
+## Pages
+
+- [Home](/): Featured products, pre-owned inventory, and core capabilities overview.
+- [All Products](/products): Full catalog of robots, accessories, and components.
+- [Humanoid Robots](/products/humanoid-robots): Humanoid platforms for research, education, and embodied AI.
+- [Quadruped Robots](/products/quadruped-robots): Legged robot dogs and agile mobile platforms.
+- [Robot Accessories](/products/robot-accessories): Dexterous hands, tactile sensors, and components.
+- [Toy Robots](/products/toy-robots): Consumer-friendly robots for home and entertainment.
+- [Pre-Owned Inventory](/products/pre-owned): Inspected pre-owned humanoid and quadruped units.
+- [Services & Technology](/services-technology): Integration, support, AI deployment, lifecycle maintenance.
+- [Custom Development](/custom-development): End-to-end robotics engineering, prototyping, OEM/ODM.
+- [Applications](/applications): Robotics for education, industrial automation, AI research, inspection.
+- [Procurement](/procurement): B2B procurement workflows and purchase order terms.
+- [Brands](/brands): Partner manufacturers and brand directory.
+- [Blog](/blog): Robotics insights, guides, and industry news.
+- [About](/about): Company background, team, and capabilities.
+- [Contact](/contact): Get in touch with the engineering team.
+- [Request a Quote](/request-quote): Submit an RFQ for any product or custom build.
+- [Support](/support): Technical support, documentation, and after-sales service.
+
+## Optional
+
+- [Privacy Policy](/privacy)
+- [Terms of Service](/terms)
