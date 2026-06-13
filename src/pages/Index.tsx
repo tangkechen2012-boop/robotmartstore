@@ -64,10 +64,12 @@ const TRUST_ITEMS = [
 
 const Index = () => {
   const EXCLUDED_PRODUCT = "DM-Tac W - Multi-modal Tactile Perception Terminal";
-  const { data: rawProducts, isLoading } = useShopifyProducts(9);
-  const products = rawProducts?.filter(p => p.node.title !== EXCLUDED_PRODUCT);
-  const { data: rawPreOwned, isLoading: preOwnedLoading } = useShopifyProducts(5, "tag:Pre-Owned");
-  const preOwnedProducts = rawPreOwned?.filter(p => p.node.title !== EXCLUDED_PRODUCT);
+  const isExcluded = (title: string) =>
+    title === EXCLUDED_PRODUCT || title.toLowerCase().includes("wondernex ainex");
+  const { data: rawProducts, isLoading } = useShopifyProducts(10);
+  const products = rawProducts?.filter(p => !isExcluded(p.node.title));
+  const { data: rawPreOwned, isLoading: preOwnedLoading } = useShopifyProducts(6, "tag:Pre-Owned");
+  const preOwnedProducts = rawPreOwned?.filter(p => !isExcluded(p.node.title));
 
   useEffect(() => {
     const faqSchema = {
