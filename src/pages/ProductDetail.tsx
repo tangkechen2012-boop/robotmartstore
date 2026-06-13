@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import DOMPurify from "dompurify";
 import { useShopifyProductByHandle } from "@/hooks/useShopifyProducts";
 import { useCartStore } from "@/stores/cartStore";
 import { Button } from "@/components/ui/button";
