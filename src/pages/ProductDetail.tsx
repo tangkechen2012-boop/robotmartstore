@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { CalendarClock, MessageSquare, ShoppingCart, Loader2, ChevronLeft, Minus, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { buildQuotePath, getSalesStrategy } from "@/lib/salesStrategy";
 
@@ -51,6 +51,57 @@ const ProductDetail = () => {
   const priceAmount = parseFloat(priceRaw?.amount || "0");
   const strategy = getSalesStrategy(product);
   const isDirectSale = strategy.mode === "direct-sale";
+
+  useEffect(() => {
+    const prevTitle = document.title;
+    const title = `${product.title} — RobotMart`.slice(0, 60);
+    document.title = title;
+
+    const descText = (product.description || "").replace(/\s+/g, " ").trim().slice(0, 155);
+    const descMeta = document.querySelector('meta[name="description"]');
+    const prevDesc = descMeta?.getAttribute("content");
+    if (descMeta && descText) descMeta.setAttribute("content", descText);
+
+    const canonicalHref = `https://www.robotmart.store/product/${product.handle}`;
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    const prevCanonical = canonical?.href;
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    canonical.href = canonicalHref;
+
+    const productSchema = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: product.title,
+      description: descText,
+      image: images.map((i: { node: { url: string } }) => i.node.url),
+      sku: selectedVariant?.id,
+      brand: product.vendor ? { "@type": "Brand", name: product.vendor } : undefined,
+      offers: priceAmount > 0 ? {
+        "@type": "Offer",
+        url: canonicalHref,
+        priceCurrency: priceRaw?.currencyCode || "USD",
+        price: priceAmount.toFixed(2),
+        availability: selectedVariant?.availableForSale
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+      } : undefined,
+    };
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.text = JSON.stringify(productSchema);
+    document.head.appendChild(script);
+
+    return () => {
+      document.title = prevTitle;
+      if (descMeta && prevDesc != null) descMeta.setAttribute("content", prevDesc);
+      if (canonical && prevCanonical) canonical.href = prevCanonical;
+      document.head.removeChild(script);
+    };
+  }, [product.title, product.description, product.handle, product.vendor, priceAmount, priceRaw?.currencyCode, selectedVariant?.id, selectedVariant?.availableForSale, images]);
 
   const handleAddToCart = async () => {
     if (!selectedVariant) return;
