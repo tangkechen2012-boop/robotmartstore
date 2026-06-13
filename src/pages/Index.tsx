@@ -103,7 +103,7 @@ const Index = () => {
         {/* Gradient overlay for readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-transparent z-[1]" />
         <div className="max-w-7xl mx-auto px-4 flex flex-col-reverse md:flex-row items-center gap-12 relative z-[2]">
-          <div className="flex-1 max-w-xl">
+          <div className="flex-1 max-w-xl md:ml-8 lg:ml-16">
             <h1 className="text-5xl font-extrabold leading-tight mb-6">
               Engineering-Grade Robotics Solutions
             </h1>
