@@ -89,7 +89,7 @@ export const Header = () => {
               {/* Mobile menu */}
               <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="lg:hidden rounded-xl">
+                  <Button variant="ghost" size="icon" className="md:hidden rounded-xl">
                     <Menu className="h-5 w-5" />
                   </Button>
                 </SheetTrigger>
@@ -113,7 +113,7 @@ export const Header = () => {
               </Sheet>
 
               {/* Desktop nav */}
-              <div className="hidden lg:flex items-center gap-1 flex-1">
+              <div className="hidden md:flex items-center gap-0.5 flex-1">
                 {NAV_ITEMS.map((item) =>
                 <div
                   key={item.label}
@@ -123,7 +123,7 @@ export const Header = () => {
                   
                     <Link
                     to={item.link}
-                    className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary flex items-center gap-1 transition-colors duration-250">
+                    className="px-2.5 py-2 text-sm font-medium text-foreground/80 hover:text-primary flex items-center gap-1 transition-colors duration-250">
                     
                       {item.label}
                       {item.sections && <ChevronDown className="h-3 w-3" />}
@@ -169,7 +169,7 @@ export const Header = () => {
               {/* Actions */}
               <div className="flex items-center gap-2">
                 <CartDrawer />
-                <Button className="hidden lg:inline-flex rounded-pill px-5 h-9 text-sm font-semibold" asChild>
+                <Button className="hidden md:inline-flex rounded-pill px-5 h-9 text-sm font-semibold" asChild>
                   <Link to="/request-quote">Request Quote</Link>
                 </Button>
               </div>
