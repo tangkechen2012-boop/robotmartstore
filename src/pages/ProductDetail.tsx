@@ -266,7 +266,7 @@ const ProductDetail = () => {
         <ProductSection title="Description" defaultOpen>
           <div className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed">
             {product.descriptionHtml ? (
-              <div dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} className="prose prose-sm max-w-none text-muted-foreground [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:border-muted [&_td]:px-3 [&_td]:py-2 [&_th]:border [&_th]:border-muted [&_th]:px-3 [&_th]:py-2 [&_h2]:text-foreground [&_h3]:text-foreground [&_strong]:text-foreground" />
+              <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(product.descriptionHtml, { ALLOWED_TAGS: ['h1','h2','h3','h4','h5','h6','p','br','hr','strong','b','em','i','u','s','ul','ol','li','a','img','table','thead','tbody','tr','td','th','blockquote','code','pre','span','div'], ALLOWED_ATTR: ['href','target','rel','src','alt','title','width','height','colspan','rowspan'] }) }} className="prose prose-sm max-w-none text-muted-foreground [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:border-muted [&_td]:px-3 [&_td]:py-2 [&_th]:border [&_th]:border-muted [&_th]:px-3 [&_th]:py-2 [&_h2]:text-foreground [&_h3]:text-foreground [&_strong]:text-foreground" />
             ) : (
               <p>{product.description}</p>
             )}
