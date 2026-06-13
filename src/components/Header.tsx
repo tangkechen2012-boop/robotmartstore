@@ -123,7 +123,7 @@ export const Header = () => {
                   
                     <Link
                     to={item.link}
-                    className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary flex items-center gap-1 transition-colors duration-250">
+                    className="px-2.5 py-2 text-sm font-medium text-foreground/80 hover:text-primary flex items-center gap-1 transition-colors duration-250">
                     
                       {item.label}
                       {item.sections && <ChevronDown className="h-3 w-3" />}
