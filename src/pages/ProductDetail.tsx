@@ -20,39 +20,14 @@ const ProductDetail = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
-  if (isLoading) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="animate-pulse grid md:grid-cols-2 gap-8">
-          <div className="aspect-square bg-muted rounded-md" />
-          <div className="space-y-4">
-            <div className="h-8 bg-muted rounded w-3/4" />
-            <div className="h-6 bg-muted rounded w-1/4" />
-            <div className="h-32 bg-muted rounded" />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (!product) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 py-16 text-center">
-        <h1 className="text-2xl font-bold mb-4">Product not found</h1>
-        <Button asChild><Link to="/">Back to Home</Link></Button>
-      </div>
-    );
-  }
-
-  const images = product.images?.edges || [];
-  const variants = product.variants?.edges || [];
+  const images = product?.images?.edges || [];
+  const variants = product?.variants?.edges || [];
   const selectedVariant = variants[selectedVariantIdx]?.node;
-  const priceRaw = selectedVariant?.price || product.priceRange?.minVariantPrice;
+  const priceRaw = selectedVariant?.price || product?.priceRange?.minVariantPrice;
   const priceAmount = parseFloat(priceRaw?.amount || "0");
-  const strategy = getSalesStrategy(product);
-  const isDirectSale = strategy.mode === "direct-sale";
 
   useEffect(() => {
+    if (!product) return;
     const prevTitle = document.title;
     const title = `${product.title} — RobotMart`.slice(0, 60);
     document.title = title;
@@ -72,7 +47,7 @@ const ProductDetail = () => {
     }
     canonical.href = canonicalHref;
 
-    const productSchema = {
+    const productSchema: Record<string, unknown> = {
       "@context": "https://schema.org",
       "@type": "Product",
       name: product.title,
@@ -99,9 +74,36 @@ const ProductDetail = () => {
       document.title = prevTitle;
       if (descMeta && prevDesc != null) descMeta.setAttribute("content", prevDesc);
       if (canonical && prevCanonical) canonical.href = prevCanonical;
-      document.head.removeChild(script);
+      if (script.parentNode) script.parentNode.removeChild(script);
     };
-  }, [product.title, product.description, product.handle, product.vendor, priceAmount, priceRaw?.currencyCode, selectedVariant?.id, selectedVariant?.availableForSale, images]);
+  }, [product, images, selectedVariant, priceAmount, priceRaw?.currencyCode]);
+
+  if (isLoading) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="animate-pulse grid md:grid-cols-2 gap-8">
+          <div className="aspect-square bg-muted rounded-md" />
+          <div className="space-y-4">
+            <div className="h-8 bg-muted rounded w-3/4" />
+            <div className="h-6 bg-muted rounded w-1/4" />
+            <div className="h-32 bg-muted rounded" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-16 text-center">
+        <h1 className="text-2xl font-bold mb-4">Product not found</h1>
+        <Button asChild><Link to="/">Back to Home</Link></Button>
+      </div>
+    );
+  }
+
+  const strategy = getSalesStrategy(product);
+  const isDirectSale = strategy.mode === "direct-sale";
 
   const handleAddToCart = async () => {
     if (!selectedVariant) return;
