@@ -200,43 +200,41 @@ const Index = () => {
 
       {/* ===== WHAT WE DO ===== */}
       <section className="relative py-24 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0B1020 0%, #14213D 100%)' }}>
-        {/* Subtle grid pattern */}
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-16 items-start">
-            <ScrollReveal className="lg:sticky lg:top-32">
-              <p className="font-mono text-xs tracking-[0.3em] uppercase text-accent mb-4 opacity-80">Core Capabilities</p>
-              <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold leading-[1.1] text-white mb-6">
-                What We<br />Do
-              </h2>
-              <p className="text-white/50 text-lg leading-relaxed max-w-md">
-                End-to-end robotics solutions — from product sourcing and system integration to custom engineering and AI deployment.
-              </p>
-            </ScrollReveal>
+          <ScrollReveal className="max-w-3xl mb-14">
+            <p className="font-mono text-xs tracking-[0.3em] uppercase text-accent mb-4 opacity-80">Core Capabilities</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold leading-[1.1] text-white mb-4">
+              What We Do
+            </h2>
+            <p className="text-white/50 text-base md:text-lg leading-relaxed">
+              End-to-end robotics solutions — from product sourcing and system integration to custom engineering and AI deployment.
+            </p>
+          </ScrollReveal>
 
-            <div className="relative">
-              <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-accent/60 via-accent/20 to-transparent" />
-              <div className="space-y-1">
-                {PILLARS.map(({ title, description, icon: Icon, link }, i) => (
-                  <ScrollReveal key={title}>
-                    <Link
-                      to={link}
-                      className="group relative flex items-start gap-6 pl-14 pr-6 py-7 rounded-xl transition-all duration-500 hover:bg-white/[0.04] border border-transparent hover:border-accent/20"
-                    >
-                      <div className="absolute left-[18px] top-9 w-3.5 h-3.5 rounded-full border-2 border-accent/50 bg-[#0B1020] group-hover:bg-accent group-hover:border-accent transition-all duration-300 group-hover:shadow-[0_0_12px_hsl(var(--accent)/0.6)]" />
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-3 mb-2">
-                          <Icon className="h-5 w-5 text-accent/70 group-hover:text-accent transition-colors duration-300" />
-                          <h3 className="text-xl font-bold text-white group-hover:text-accent transition-colors duration-300">{title}</h3>
-                        </div>
-                        <p className="text-white/40 group-hover:text-white/60 transition-colors duration-300 leading-relaxed">{description}</p>
-                      </div>
-                      <ArrowRight className="h-5 w-5 text-white/20 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300 mt-1 flex-shrink-0" />
-                    </Link>
-                  </ScrollReveal>
-                ))}
-              </div>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {PILLARS.map(({ title, description, icon: Icon, link }, i) => (
+              <ScrollReveal key={title}>
+                <Link
+                  to={link}
+                  className="group relative flex flex-col h-full p-7 rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:border-accent/40 hover:bg-white/[0.05] transition-all duration-300 hover:-translate-y-1"
+                >
+                  <div className="absolute top-0 left-7 right-7 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-11 h-11 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center group-hover:bg-accent/20 group-hover:border-accent/40 transition-colors duration-300">
+                      <Icon className="h-5 w-5 text-accent" />
+                    </div>
+                    <span className="font-mono text-xs text-white/30 tracking-wider">0{i + 1}</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-accent transition-colors duration-300">{title}</h3>
+                  <p className="text-white/50 text-sm leading-relaxed flex-1">{description}</p>
+                  <div className="mt-6 flex items-center gap-2 text-accent/70 group-hover:text-accent transition-colors duration-300">
+                    <span className="text-xs font-semibold tracking-wide uppercase">Learn more</span>
+                    <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform duration-300" />
+                  </div>
+                </Link>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>
@@ -244,26 +242,35 @@ const Index = () => {
       {/* ===== PRODUCT CATEGORIES ===== */}
       <section className="relative py-24 overflow-hidden" style={{ background: 'linear-gradient(180deg, #14213D 0%, #0B1020 100%)' }}>
         <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <ScrollReveal>
-            <p className="font-mono text-xs tracking-[0.3em] uppercase text-accent mb-4 opacity-80 text-center">Explore</p>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-white text-center mb-16">Product Categories</h2>
+          <ScrollReveal className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+            <div className="max-w-2xl">
+              <p className="font-mono text-xs tracking-[0.3em] uppercase text-accent mb-4 opacity-80">Explore</p>
+              <h2 className="text-4xl md:text-5xl font-extrabold text-white">Product Categories</h2>
+            </div>
+            <Button asChild variant="link" className="px-0 font-semibold text-accent hover:text-accent/80 self-start md:self-end">
+              <Link to="/products" className="flex items-center gap-1">
+                View all products <ChevronRight className="h-4 w-4" />
+              </Link>
+            </Button>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {CATEGORIES.map(({ title, description, link, image }, i) => (
-              <ScrollReveal
-                key={title}
-                className={`group relative rounded-2xl overflow-hidden cursor-pointer ${i === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}
-              >
-                <Link to={link} className="block relative" style={{ aspectRatio: i === 0 ? '16/10' : '4/3' }}>
-                  <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
-                  <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                    style={{ boxShadow: 'inset 0 0 30px 4px hsl(var(--accent) / 0.25), 0 0 20px 2px hsl(var(--accent) / 0.15)' }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-xl font-bold text-white mb-1 group-hover:text-accent transition-colors duration-300">{title}</h3>
-                    <p className="text-white/50 text-sm leading-relaxed">{description}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {CATEGORIES.map(({ title, description, link, image }) => (
+              <ScrollReveal key={title} className="group">
+                <Link
+                  to={link}
+                  className="block relative rounded-2xl overflow-hidden border border-white/[0.08] hover:border-accent/40 transition-all duration-300 hover:-translate-y-1 bg-white/[0.03]"
+                >
+                  <div className="relative overflow-hidden" style={{ aspectRatio: '4/3' }}>
+                    <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B1020] via-[#0B1020]/20 to-transparent" />
+                  </div>
+                  <div className="p-5">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-base font-bold text-white group-hover:text-accent transition-colors duration-300">{title}</h3>
+                      <ArrowRight className="h-4 w-4 text-white/30 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300" />
+                    </div>
+                    <p className="text-white/50 text-xs leading-relaxed line-clamp-2">{description}</p>
                   </div>
                 </Link>
               </ScrollReveal>
