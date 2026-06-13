@@ -89,7 +89,7 @@ export const Header = () => {
               {/* Mobile menu */}
               <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="lg:hidden rounded-xl">
+                  <Button variant="ghost" size="icon" className="md:hidden rounded-xl">
                     <Menu className="h-5 w-5" />
                   </Button>
                 </SheetTrigger>
@@ -113,7 +113,7 @@ export const Header = () => {
               </Sheet>
 
               {/* Desktop nav */}
-              <div className="hidden lg:flex items-center gap-1 flex-1">
+              <div className="hidden md:flex items-center gap-0.5 flex-1">
                 {NAV_ITEMS.map((item) =>
                 <div
                   key={item.label}
