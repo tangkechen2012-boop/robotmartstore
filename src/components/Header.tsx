@@ -169,7 +169,7 @@ export const Header = () => {
               {/* Actions */}
               <div className="flex items-center gap-2">
                 <CartDrawer />
-                <Button className="hidden lg:inline-flex rounded-pill px-5 h-9 text-sm font-semibold" asChild>
+                <Button className="hidden md:inline-flex rounded-pill px-5 h-9 text-sm font-semibold" asChild>
                   <Link to="/request-quote">Request Quote</Link>
                 </Button>
               </div>
