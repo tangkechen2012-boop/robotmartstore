@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { CalendarClock, MessageSquare, ShoppingCart, Loader2, ChevronLeft, Minus, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { buildQuotePath, getSalesStrategy } from "@/lib/salesStrategy";
 
@@ -19,6 +19,64 @@ const ProductDetail = () => {
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
+
+  const images = product?.images?.edges || [];
+  const variants = product?.variants?.edges || [];
+  const selectedVariant = variants[selectedVariantIdx]?.node;
+  const priceRaw = selectedVariant?.price || product?.priceRange?.minVariantPrice;
+  const priceAmount = parseFloat(priceRaw?.amount || "0");
+
+  useEffect(() => {
+    if (!product) return;
+    const prevTitle = document.title;
+    const title = `${product.title} — RobotMart`.slice(0, 60);
+    document.title = title;
+
+    const descText = (product.description || "").replace(/\s+/g, " ").trim().slice(0, 155);
+    const descMeta = document.querySelector('meta[name="description"]');
+    const prevDesc = descMeta?.getAttribute("content");
+    if (descMeta && descText) descMeta.setAttribute("content", descText);
+
+    const canonicalHref = `https://www.robotmart.store/product/${product.handle}`;
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    const prevCanonical = canonical?.href;
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    canonical.href = canonicalHref;
+
+    const productSchema: Record<string, unknown> = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: product.title,
+      description: descText,
+      image: images.map((i: { node: { url: string } }) => i.node.url),
+      sku: selectedVariant?.id,
+      brand: product.vendor ? { "@type": "Brand", name: product.vendor } : undefined,
+      offers: priceAmount > 0 ? {
+        "@type": "Offer",
+        url: canonicalHref,
+        priceCurrency: priceRaw?.currencyCode || "USD",
+        price: priceAmount.toFixed(2),
+        availability: selectedVariant?.availableForSale
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+      } : undefined,
+    };
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.text = JSON.stringify(productSchema);
+    document.head.appendChild(script);
+
+    return () => {
+      document.title = prevTitle;
+      if (descMeta && prevDesc != null) descMeta.setAttribute("content", prevDesc);
+      if (canonical && prevCanonical) canonical.href = prevCanonical;
+      if (script.parentNode) script.parentNode.removeChild(script);
+    };
+  }, [product, images, selectedVariant, priceAmount, priceRaw?.currencyCode]);
 
   if (isLoading) {
     return (
@@ -44,11 +102,6 @@ const ProductDetail = () => {
     );
   }
 
-  const images = product.images?.edges || [];
-  const variants = product.variants?.edges || [];
-  const selectedVariant = variants[selectedVariantIdx]?.node;
-  const priceRaw = selectedVariant?.price || product.priceRange?.minVariantPrice;
-  const priceAmount = parseFloat(priceRaw?.amount || "0");
   const strategy = getSalesStrategy(product);
   const isDirectSale = strategy.mode === "direct-sale";
 
@@ -103,6 +156,7 @@ const ProductDetail = () => {
                   key={i}
                   className={`w-16 h-16 rounded border overflow-hidden bg-slate-100 ${i === selectedImage ? 'border-primary ring-1 ring-primary' : 'border-muted'}`}
                   onClick={() => setSelectedImage(i)}
+                  aria-label={`View product image ${i + 1}`}
                 >
                   <img src={img.node.url} alt="" className="w-full h-full object-contain p-1" />
                 </button>
@@ -200,6 +254,7 @@ const ProductDetail = () => {
                   variant="ghost"
                   size="icon"
                   className="h-9 w-9 rounded-none"
+                  aria-label="Decrease quantity"
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                 >
                   <Minus className="h-4 w-4" />
@@ -209,6 +264,7 @@ const ProductDetail = () => {
                   variant="ghost"
                   size="icon"
                   className="h-9 w-9 rounded-none"
+                  aria-label="Increase quantity"
                   onClick={() => setQuantity(quantity + 1)}
                 >
                   <Plus className="h-4 w-4" />
