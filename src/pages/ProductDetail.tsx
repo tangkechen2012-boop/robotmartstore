@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { CalendarClock, MessageSquare, ShoppingCart, Loader2, ChevronLeft, Minus, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { buildQuotePath, getSalesStrategy } from "@/lib/salesStrategy";
 import { Seo } from "@/components/Seo";
@@ -30,6 +30,16 @@ const ProductDetail = () => {
   const priceAmount = parseFloat(priceRaw?.amount || "0");
 
   const productIsUsed = isUsedProduct(product?.tags);
+
+  // For used products, force-select the US Local Stock variant and hide options
+  useEffect(() => {
+    if (!productIsUsed || !variants.length) return;
+    const usIdx = variants.findIndex((v: { node: { title: string; selectedOptions: Array<{ value: string }> } }) => {
+      const hay = (v.node.title + " " + v.node.selectedOptions.map(o => o.value).join(" ")).toLowerCase();
+      return hay.includes("us local") || hay.includes("us stock") || (hay.includes("us") && hay.includes("stock"));
+    });
+    if (usIdx >= 0 && usIdx !== selectedVariantIdx) setSelectedVariantIdx(usIdx);
+  }, [productIsUsed, variants, selectedVariantIdx]);
   const relatedNewHandle = getRelatedNewHandle(product?.tags);
   const { data: usedListings = [] } = useUsedListingsForNew(
     !productIsUsed ? product?.handle : null,
@@ -216,7 +226,7 @@ const ProductDetail = () => {
                 </span>
               </div>
               <p className="text-xs text-muted-foreground mb-4">
-                Price includes tariff · Ships from US warehouse · Free shipping on orders over $500
+                Ships from US warehouse · Delivery in 5–10 business days · Free shipping on orders over $500
               </p>
             </>
           )}
@@ -230,7 +240,7 @@ const ProductDetail = () => {
           )}
 
           {/* Variant selector */}
-          {product.options && product.options.length > 0 && product.options[0].name !== "Title" && (
+          {!productIsUsed && product.options && product.options.length > 0 && product.options[0].name !== "Title" && (
             <div className="mb-6">
               {product.options.map((option: { name: string; values: string[] }) => (
                 <div key={option.name} className="mb-3">
