@@ -11,6 +11,8 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { buildQuotePath, getSalesStrategy } from "@/lib/salesStrategy";
 import { Seo } from "@/components/Seo";
+import { UsedAvailableBanner } from "@/components/UsedAvailableBanner";
+import { isUsedProduct, getRelatedNewHandle, useUsedListingsForNew } from "@/hooks/useRelatedCondition";
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
