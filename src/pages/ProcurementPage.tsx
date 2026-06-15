@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, BadgeCheck, Building2, ClipboardCheck, GraduationCap, PackageCheck, ShieldCheck, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Seo } from "@/components/Seo";
 
 const BUYERS = [
   {
@@ -71,6 +72,11 @@ const ProcurementPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="B2B Robotics Procurement — RobotMart"
+        description="Robotics procurement for schools, labs, and enterprise teams. Quote-first sourcing with supplier, freight, and warranty checks."
+        path="/procurement"
+      />
       <section className="border-b bg-secondary/30">
         <div className="max-w-7xl mx-auto px-4 py-14 lg:py-18">
           <div className="grid lg:grid-cols-[1fr_420px] gap-10 items-center">

@@ -1,6 +1,13 @@
+import { Seo } from "@/components/Seo";
+
 const PrivacyPolicyPage = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
+      <Seo
+        title="Privacy Policy — RobotMart"
+        description="How RobotMart collects, uses, and protects your personal data when you use our website and purchase robotics products."
+        path="/privacy"
+      />
       <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
 
       <div className="prose prose-sm max-w-none text-muted-foreground space-y-6">

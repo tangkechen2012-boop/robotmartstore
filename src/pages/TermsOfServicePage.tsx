@@ -1,6 +1,13 @@
+import { Seo } from "@/components/Seo";
+
 const TermsOfServicePage = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
+      <Seo
+        title="Terms of Service — RobotMart"
+        description="Conditions of use and sale governing purchases on RobotMart, including warranties, returns, and customer obligations."
+        path="/terms"
+      />
       <h1 className="text-3xl font-bold mb-2">Terms of Service</h1>
       <p className="text-sm text-muted-foreground mb-8">Last updated: February 2026</p>
 

@@ -4,10 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Truck, RotateCcw, Shield, Clock, Mail, Building2 } from "lucide-react";
+import { Seo } from "@/components/Seo";
 
 const SupportPage = () => {
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
+      <Seo
+        title="Support Center — RobotMart"
+        description="Shipping, returns, warranty, and B2B support resources for RobotMart customers. Get answers and contact our team."
+        path="/support"
+      />
       <h1 className="text-3xl font-bold mb-2">Support Center</h1>
       <p className="text-muted-foreground mb-8">Find answers, get help, and explore our policies.</p>
 
