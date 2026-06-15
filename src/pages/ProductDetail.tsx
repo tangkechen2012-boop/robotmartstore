@@ -11,6 +11,8 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { buildQuotePath, getSalesStrategy } from "@/lib/salesStrategy";
 import { Seo } from "@/components/Seo";
+import { UsedAvailableBanner } from "@/components/UsedAvailableBanner";
+import { isUsedProduct, getRelatedNewHandle, useUsedListingsForNew } from "@/hooks/useRelatedCondition";
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
@@ -26,6 +28,13 @@ const ProductDetail = () => {
   const selectedVariant = variants[selectedVariantIdx]?.node;
   const priceRaw = selectedVariant?.price || product?.priceRange?.minVariantPrice;
   const priceAmount = parseFloat(priceRaw?.amount || "0");
+
+  const productIsUsed = isUsedProduct(product?.tags);
+  const relatedNewHandle = getRelatedNewHandle(product?.tags);
+  const { data: usedListings = [] } = useUsedListingsForNew(
+    !productIsUsed ? product?.handle : null,
+    !productIsUsed && !!product?.handle,
+  );
 
   const seoTitle = product ? `${product.title} — RobotMart` : "";
   const seoDesc = product
@@ -175,6 +184,23 @@ const ProductDetail = () => {
           )}
 
           <Separator className="my-4" />
+
+          {/* Condition cross-links */}
+          {productIsUsed && (
+            <div className="mb-4 flex items-center justify-between gap-3 rounded-md border border-border bg-muted/50 px-4 py-3 text-sm">
+              <div className="flex items-center gap-2">
+                <Badge variant="secondary" className="bg-accent/15 text-accent-foreground">Used / Pre-owned</Badge>
+                <span className="text-muted-foreground">Condition graded · One-off unit</span>
+              </div>
+              {relatedNewHandle && (
+                <Link to={`/product/${relatedNewHandle}`} className="text-primary hover:underline font-medium whitespace-nowrap">
+                  View new →
+                </Link>
+              )}
+            </div>
+          )}
+          {!productIsUsed && <UsedAvailableBanner usedListings={usedListings} />}
+
 
           {/* Price */}
           {!isDirectSale ? (

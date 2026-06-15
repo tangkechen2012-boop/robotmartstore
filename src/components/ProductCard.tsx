@@ -66,6 +66,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           <span className="absolute bottom-3 left-3 bg-background/90 backdrop-blur-sm text-foreground text-[10px] font-medium px-2 py-0.5 rounded">
             {strategy.badge}
           </span>
+          {node.tags?.some(t => t.toLowerCase() === "condition_used") && (
+            <span className="absolute top-3 right-3 bg-accent text-accent-foreground text-[10px] font-semibold px-2 py-0.5 rounded-pill uppercase tracking-wide">
+              Used
+            </span>
+          )}
         </div>
         <div className="p-4">
           <h3 className="text-sm font-medium leading-tight line-clamp-2 min-h-[2.5rem]">{node.title}</h3>
