@@ -29,6 +29,13 @@ const ProductDetail = () => {
   const priceRaw = selectedVariant?.price || product?.priceRange?.minVariantPrice;
   const priceAmount = parseFloat(priceRaw?.amount || "0");
 
+  const productIsUsed = isUsedProduct(product?.tags);
+  const relatedNewHandle = getRelatedNewHandle(product?.tags);
+  const { data: usedListings = [] } = useUsedListingsForNew(
+    !productIsUsed ? product?.handle : null,
+    !productIsUsed && !!product?.handle,
+  );
+
   const seoTitle = product ? `${product.title} — RobotMart` : "";
   const seoDesc = product
     ? (product.description || "").replace(/\s+/g, " ").trim().slice(0, 155)
