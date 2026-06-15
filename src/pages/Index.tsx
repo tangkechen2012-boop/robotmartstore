@@ -241,7 +241,7 @@ const Index = () => {
                           <Icon className="h-5 w-5 text-accent/70 group-hover:text-accent transition-colors duration-300" />
                           <h3 className="text-lg font-bold text-white group-hover:text-accent transition-colors duration-300">{title}</h3>
                         </div>
-                        <p className="text-white/40 group-hover:text-white/60 transition-colors duration-300 text-sm leading-relaxed">{description}</p>
+                        <p className="text-white/75 group-hover:text-white/90 transition-colors duration-300 text-sm leading-relaxed">{description}</p>
                       </div>
                       <ArrowRight className="h-4 w-4 text-white/20 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300 mt-2 flex-shrink-0" />
                     </Link>
