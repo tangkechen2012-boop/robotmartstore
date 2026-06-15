@@ -17,7 +17,7 @@ const COLLECTION_HANDLES = [
 
 // Handles backed by a Shopify search query (tag-based) instead of a Shopify Collection
 const TAG_COLLECTION_QUERIES: Record<string, string> = {
-  "pre-owned": "tag:Pre-Owned",
+  "pre-owned": "tag:Condition_Used",
   "robot-accessories": "tag:Category_Accessories",
 };
 
