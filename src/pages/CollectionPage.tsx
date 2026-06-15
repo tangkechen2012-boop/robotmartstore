@@ -392,8 +392,18 @@ const CollectionPage = () => {
   }
 
 
+  const collectionTitle = collection?.title || guide?.title || handle.replace(/-/g, " ");
+  const collectionDesc =
+    guide?.description ||
+    collection?.description ||
+    `Browse ${collectionTitle} at RobotMart — quote-ready robotics platforms for research, education, and enterprise.`;
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
+      <Seo
+        title={`${collectionTitle} — RobotMart`}
+        description={collectionDesc}
+        path={`/products/${handle}`}
+      />
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1 text-sm text-muted-foreground mb-4">
         <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
