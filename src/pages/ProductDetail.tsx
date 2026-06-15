@@ -30,6 +30,16 @@ const ProductDetail = () => {
   const priceAmount = parseFloat(priceRaw?.amount || "0");
 
   const productIsUsed = isUsedProduct(product?.tags);
+
+  // For used products, force-select the US Local Stock variant and hide options
+  useEffect(() => {
+    if (!productIsUsed || !variants.length) return;
+    const usIdx = variants.findIndex((v: { node: { title: string; selectedOptions: Array<{ value: string }> } }) => {
+      const hay = (v.node.title + " " + v.node.selectedOptions.map(o => o.value).join(" ")).toLowerCase();
+      return hay.includes("us local") || hay.includes("us stock") || (hay.includes("us") && hay.includes("stock"));
+    });
+    if (usIdx >= 0 && usIdx !== selectedVariantIdx) setSelectedVariantIdx(usIdx);
+  }, [productIsUsed, variants, selectedVariantIdx]);
   const relatedNewHandle = getRelatedNewHandle(product?.tags);
   const { data: usedListings = [] } = useUsedListingsForNew(
     !productIsUsed ? product?.handle : null,
