@@ -49,7 +49,7 @@ const SupportPage = () => {
           <AccordionItem value="domestic">
             <AccordionTrigger>Where do you ship?</AccordionTrigger>
             <AccordionContent>
-              We ship to addresses within the United States. All prices include tariff and reflect US domestic warehouse delivery. Free standard shipping on orders over $500.
+              We ship to addresses within the United States. All prices include tariff. Free standard shipping on orders over $500.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="return-process">
