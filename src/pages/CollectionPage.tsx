@@ -1,6 +1,7 @@
 import { useShopifyCollection, useShopifyProducts } from "@/hooks/useShopifyProducts";
 import { ProductCard } from "@/components/ProductCard";
 import { useParams, Link, useSearchParams } from "react-router-dom";
+import { useState, useMemo } from "react";
 import { BadgeCheck, Bot, ChevronRight, ClipboardCheck, Code2, GraduationCap, Recycle, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -198,6 +199,33 @@ const COLLECTION_LABELS: Record<string, string> = {
   "pre-owned": "Pre-Owned Inventory",
 };
 
+const ACCESSORY_FILTER_CATEGORIES = [
+  { key: "all", label: "全部" },
+  { key: "battery", label: "电池" },
+  { key: "dexterous-hand", label: "灵巧手" },
+  { key: "foot", label: "脚" },
+  { key: "controller", label: "控制器" },
+  { key: "joint", label: "关节" },
+  { key: "other", label: "其他" },
+];
+
+function getProductAccessoryCategory(product: { node: { tags: string[]; productType: string } }): string {
+  const tags = product.node.tags;
+  const productType = product.node.productType;
+  const isBattery = tags.includes("Accessory_Battery");
+  const isHand = productType === "Dexterous Hand" || tags.includes("Dexterous Hand") || tags.includes("Robot Hands");
+  const isFoot = tags.includes("Accessory_Footwear");
+  const isController = tags.includes("Accessory_Remote");
+  const isJoint = tags.includes("Accessory_Manipulator") || tags.includes("Accessory_Gripper") || tags.includes("Accessory_Mount");
+  if (isBattery) return "battery";
+  if (isHand) return "dexterous-hand";
+  if (isFoot) return "foot";
+  if (isController) return "controller";
+  if (isJoint) return "joint";
+  return "other";
+}
+
+
 const AllProductsView = () => {
   const [searchParams] = useSearchParams();
   const q = (searchParams.get("q") || "").trim();
@@ -305,6 +333,33 @@ const CollectionPage = () => {
         : null)
     : shopifyCollection;
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [activeCategory, setActiveCategory] = useState(() => searchParams.get("category") || "all");
+
+  const filteredProducts = useMemo(() => {
+    if (handle !== "robot-accessories" || !collection?.products) {
+      return collection?.products || [];
+    }
+    return collection.products.filter((product) => {
+      const category = getProductAccessoryCategory(product);
+      if (activeCategory === "all") return true;
+      if (activeCategory === "other") return category === "other";
+      return category === activeCategory;
+    });
+  }, [collection, activeCategory, handle]);
+
+  const handleCategoryClick = (key: string) => {
+    setActiveCategory(key);
+    const next = new URLSearchParams(searchParams);
+    if (key === "all") {
+      next.delete("category");
+    } else {
+      next.set("category", key);
+    }
+    setSearchParams(next);
+  };
+
+
   // No slug → show all products
   if (!slug) {
     return <AllProductsView />;
@@ -399,6 +454,32 @@ const CollectionPage = () => {
         </section>
       )}
 
+      {/* Category filters */}
+      {handle === "robot-accessories" && collection && collection.products.length > 0 && (
+        <section className="mb-6 flex flex-wrap gap-2">
+          {ACCESSORY_FILTER_CATEGORIES.map((cat) => {
+            const isActive = activeCategory === cat.key;
+            const count =
+              cat.key === "all"
+                ? collection.products.length
+                : collection.products.filter((p) => getProductAccessoryCategory(p) === cat.key).length;
+            return (
+              <button
+                key={cat.key}
+                onClick={() => handleCategoryClick(cat.key)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors border ${
+                  isActive
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "bg-card text-foreground border-border hover:bg-secondary/50"
+                }`}
+              >
+                {cat.label} {count > 0 && `(${count})`}
+              </button>
+            );
+          })}
+        </section>
+      )}
+
       {/* Products grid */}
       {isLoading ? (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -412,11 +493,17 @@ const CollectionPage = () => {
             </div>
           ))}
         </div>
-      ) : collection && collection.products.length > 0 ? (
+      ) : collection && filteredProducts.length > 0 ? (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {collection.products.map((product) => (
+          {filteredProducts.map((product) => (
             <ProductCard key={product.node.id} product={product} />
           ))}
+        </div>
+      ) : collection && collection.products.length > 0 && filteredProducts.length === 0 ? (
+        <div className="text-center py-16 border rounded-md bg-muted/30">
+          <Bot className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+          <h3 className="font-semibold text-lg mb-2">No matching products</h3>
+          <p className="text-muted-foreground text-sm">Try selecting a different category filter.</p>
         </div>
       ) : (
         <div className="text-center py-16 border rounded-md bg-muted/30">
