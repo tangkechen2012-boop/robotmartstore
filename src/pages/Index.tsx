@@ -136,6 +136,8 @@ const Index = () => {
               alt="Humanoid Robot"
               width={1024}
               height={1024}
+              fetchPriority="high"
+              decoding="async"
               className="w-full h-full object-contain drop-shadow-2xl"
             />
           </div>
