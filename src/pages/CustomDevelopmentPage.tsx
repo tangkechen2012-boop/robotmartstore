@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Cog, Cpu, BrainCircuit, Boxes, TestTube2 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useEffect } from "react";
+import { Seo } from "@/components/Seo";
 
 const PROCESS_STEPS = [
   { icon: TestTube2, title: "Discovery & Requirements", description: "We analyze your use case, operational environment, and performance criteria to define a clear development roadmap." },
@@ -39,6 +40,11 @@ const CustomDevelopmentPage = () => {
 
   return (
     <div className="min-h-screen">
+      <Seo
+        title="Custom Robotics Development & Engineering — RobotMart"
+        description="End-to-end custom robotics engineering: mechanical design, embedded systems, AI integration, and production-ready prototyping."
+        path="/custom-development"
+      />
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary to-accent/20 text-primary-foreground py-20">
         <div className="max-w-7xl mx-auto px-4">
