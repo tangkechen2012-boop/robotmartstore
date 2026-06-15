@@ -226,7 +226,7 @@ const ProductDetail = () => {
                 </span>
               </div>
               <p className="text-xs text-muted-foreground mb-4">
-                Ships from US warehouse · Delivery in 5–10 business days · Free shipping on orders over $500
+                Delivery in 5–10 business days · Free shipping on orders over $500
               </p>
             </>
           )}

@@ -90,7 +90,7 @@ const Index = () => {
         {
           "@type": "Question",
           "name": "Where does RobotMart ship?",
-          "acceptedAnswer": { "@type": "Answer", "text": "RobotMart ships to addresses within the United States. All prices include tariff and reflect US domestic warehouse delivery. Free standard shipping on orders over $500." }
+          "acceptedAnswer": { "@type": "Answer", "text": "RobotMart ships to addresses within the United States. All prices include tariff. Free standard shipping on orders over $500." }
         }
       ]
     };
