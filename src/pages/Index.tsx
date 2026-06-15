@@ -88,8 +88,8 @@ const Index = () => {
         },
         {
           "@type": "Question",
-          "name": "Does RobotMart ship internationally?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. RobotMart ships globally from US-based warehouses with fast domestic delivery and international shipping to most countries." }
+          "name": "Where does RobotMart ship?",
+          "acceptedAnswer": { "@type": "Answer", "text": "RobotMart ships to addresses within the United States. All prices include tariff and reflect US domestic warehouse delivery. Free standard shipping on orders over $500." }
         }
       ]
     };

@@ -203,7 +203,7 @@ const ProductDetail = () => {
                 </span>
               </div>
               <p className="text-xs text-muted-foreground mb-4">
-                Price excludes Tariffs (in USA). Shipping calculated at checkout.
+                Price includes tariff · Ships from US warehouse · Free shipping on orders over $500
               </p>
             </>
           )}
