@@ -40,10 +40,10 @@ const SupportPage = () => {
               Once your order ships, you'll receive a tracking email with a link to monitor your delivery status in real-time.
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem value="international">
-            <AccordionTrigger>Do you ship internationally?</AccordionTrigger>
+          <AccordionItem value="domestic">
+            <AccordionTrigger>Where do you ship?</AccordionTrigger>
             <AccordionContent>
-              Yes! We ship to most countries. International shipping rates and delivery times vary by destination. Customs duties may apply.
+              We ship to addresses within the United States. All prices include tariff and reflect US domestic warehouse delivery. Free standard shipping on orders over $500.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="return-process">
@@ -72,10 +72,10 @@ const SupportPage = () => {
         <h2 className="text-xl font-bold mb-3">Shipping Policy</h2>
         <Card>
           <CardContent className="p-5 text-sm text-muted-foreground space-y-2">
-            <p>• <strong>Free standard shipping</strong> on orders over $500 (US domestic)</p>
-            <p>• Standard shipping: 3-7 business days</p>
+            <p>• <strong>Free standard shipping</strong> on orders over $500</p>
+            <p>• Standard shipping: 3-7 business days (US domestic)</p>
             <p>• Express shipping: 1-3 business days (additional charge)</p>
-            <p>• International shipping: 7-21 business days depending on destination</p>
+            <p>• All prices include tariff · Ships from US warehouse</p>
             <p>• All orders include tracking information</p>
             <p>• Hazardous materials (LiPo batteries) may have shipping restrictions</p>
           </CardContent>
