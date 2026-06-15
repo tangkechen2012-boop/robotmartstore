@@ -4,6 +4,7 @@ import { useParams, Link, useSearchParams } from "react-router-dom";
 import { useState, useMemo } from "react";
 import { BadgeCheck, Bot, ChevronRight, ClipboardCheck, Code2, GraduationCap, Recycle, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Seo } from "@/components/Seo";
 
 
 const COLLECTION_HANDLES = [
@@ -232,6 +233,15 @@ const AllProductsView = () => {
   const { data: products, isLoading } = useShopifyProducts(48, q || undefined);
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
+      <Seo
+        title={q ? `Search: ${q} — RobotMart` : "All Robotics Products — RobotMart"}
+        description={
+          q
+            ? `Robotics products matching "${q}" across humanoid robots, quadruped systems, and accessories at RobotMart.`
+            : "Browse humanoid robots, quadruped systems, dexterous hands, sensors, and developer hardware at RobotMart."
+        }
+        path="/products"
+      />
       <nav className="flex items-center gap-1 text-sm text-muted-foreground mb-4">
         <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
         <ChevronRight className="h-3.5 w-3.5" />
