@@ -94,9 +94,12 @@ export const Header = () => {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="w-80 overflow-y-auto rounded-r-2xl">
-                  <SheetTitle className="mb-6">
+                  <SheetTitle className="mb-4">
                     <img src={logoImg} alt="RobotMart" className="h-7 w-auto" />
                   </SheetTitle>
+                  <div className="mb-4">
+                    <SearchBar onNavigate={() => setMobileOpen(false)} />
+                  </div>
                   <nav className="space-y-1">
                     {NAV_ITEMS.map((item) =>
                     <MobileNavItem key={item.label} item={item} onClose={() => setMobileOpen(false)} />
