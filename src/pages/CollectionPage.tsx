@@ -1,6 +1,6 @@
 import { useShopifyCollection, useShopifyProducts } from "@/hooks/useShopifyProducts";
 import { ProductCard } from "@/components/ProductCard";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useSearchParams } from "react-router-dom";
 import { BadgeCheck, Bot, ChevronRight, ClipboardCheck, Code2, GraduationCap, Recycle, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -198,7 +198,9 @@ const COLLECTION_LABELS: Record<string, string> = {
 };
 
 const AllProductsView = () => {
-  const { data: products, isLoading } = useShopifyProducts(48);
+  const [searchParams] = useSearchParams();
+  const q = (searchParams.get("q") || "").trim();
+  const { data: products, isLoading } = useShopifyProducts(48, q || undefined);
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <nav className="flex items-center gap-1 text-sm text-muted-foreground mb-4">
@@ -207,12 +209,16 @@ const AllProductsView = () => {
         <span className="text-foreground font-medium">All Products</span>
       </nav>
       <section className="mb-8 rounded-lg border bg-secondary/30 p-5 md:p-7">
-        <p className="text-sm font-semibold text-primary">Robotics catalog</p>
+        <p className="text-sm font-semibold text-primary">
+          {q ? "Search results" : "Robotics catalog"}
+        </p>
         <h1 className="mt-2 text-2xl md:text-4xl font-extrabold tracking-tight">
-          All robotics products
+          {q ? `Results for "${q}"` : "All robotics products"}
         </h1>
         <p className="mt-3 text-sm md:text-base text-muted-foreground leading-relaxed max-w-3xl">
-          Browse humanoid robots, quadruped robots, robot accessories, and developer hardware. High-ticket platforms move through a quote-first review covering configuration, supplier confirmation, freight, warranty, and purchase terms.
+          {q
+            ? "Showing products that match your search across the RobotMart catalog. Refine your query or browse a category below."
+            : "Browse humanoid robots, quadruped robots, robot accessories, and developer hardware. High-ticket platforms move through a quote-first review covering configuration, supplier confirmation, freight, warranty, and purchase terms."}
         </p>
       </section>
 

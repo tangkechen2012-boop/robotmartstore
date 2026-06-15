@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import logoImg from "@/assets/logo.png";
-import { Search, Menu, ChevronDown, ChevronRight, X } from "lucide-react";
+import { Menu, ChevronDown, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { CartDrawer } from "@/components/CartDrawer";
+import { SearchBar } from "@/components/SearchBar";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 const NAV_ITEMS = [
@@ -94,9 +94,12 @@ export const Header = () => {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="w-80 overflow-y-auto rounded-r-2xl">
-                  <SheetTitle className="mb-6">
+                  <SheetTitle className="mb-4">
                     <img src={logoImg} alt="RobotMart" className="h-7 w-auto" />
                   </SheetTitle>
+                  <div className="mb-4">
+                    <SearchBar onNavigate={() => setMobileOpen(false)} />
+                  </div>
                   <nav className="space-y-1">
                     {NAV_ITEMS.map((item) =>
                     <MobileNavItem key={item.label} item={item} onClose={() => setMobileOpen(false)} />
@@ -151,12 +154,8 @@ export const Header = () => {
               </div>
 
               {/* Search */}
-              <div className="hidden 2xl:block flex-1 lg:flex-initial lg:w-56 relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Search..."
-                  className="pl-9 h-9 text-sm rounded-pill bg-secondary/60 border-0 focus-visible:ring-1" />
-                
+              <div className="hidden lg:block flex-1 lg:flex-initial lg:w-64">
+                <SearchBar />
               </div>
 
               {/* Actions */}
