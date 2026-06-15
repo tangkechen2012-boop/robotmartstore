@@ -185,6 +185,23 @@ const ProductDetail = () => {
 
           <Separator className="my-4" />
 
+          {/* Condition cross-links */}
+          {productIsUsed && (
+            <div className="mb-4 flex items-center justify-between gap-3 rounded-md border border-border bg-muted/50 px-4 py-3 text-sm">
+              <div className="flex items-center gap-2">
+                <Badge variant="secondary" className="bg-accent/15 text-accent-foreground">Used / Pre-owned</Badge>
+                <span className="text-muted-foreground">Condition graded · One-off unit</span>
+              </div>
+              {relatedNewHandle && (
+                <Link to={`/product/${relatedNewHandle}`} className="text-primary hover:underline font-medium whitespace-nowrap">
+                  View new →
+                </Link>
+              )}
+            </div>
+          )}
+          {!productIsUsed && <UsedAvailableBanner usedListings={usedListings} />}
+
+
           {/* Price */}
           {!isDirectSale ? (
             <div className="flex items-baseline gap-2 mb-4">
