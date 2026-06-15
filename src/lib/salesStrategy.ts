@@ -84,7 +84,7 @@ export function getSalesStrategy(product: ProductLike): SalesStrategy {
       secondaryCta: "Talk to a Robotics Advisor",
       noticeTitle: "Configured and quoted before purchase",
       noticeBody:
-        "This product requires supplier confirmation for cost, configuration, lead time, freight, duties, warranty, and technical support.",
+        "This product requires supplier confirmation for cost, configuration, lead time, warranty, and technical support. US domestic shipping and tariff are included in the quoted price.",
     };
   }
 
