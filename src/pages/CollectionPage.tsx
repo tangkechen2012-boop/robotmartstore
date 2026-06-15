@@ -200,13 +200,13 @@ const COLLECTION_LABELS: Record<string, string> = {
 };
 
 const ACCESSORY_FILTER_CATEGORIES = [
-  { key: "all", label: "全部" },
-  { key: "battery", label: "电池" },
-  { key: "dexterous-hand", label: "灵巧手" },
-  { key: "foot", label: "脚" },
-  { key: "controller", label: "控制器" },
-  { key: "joint", label: "关节" },
-  { key: "other", label: "其他" },
+  { key: "all", label: "All" },
+  { key: "battery", label: "Battery" },
+  { key: "dexterous-hand", label: "Dexterous Hand" },
+  { key: "foot", label: "Foot" },
+  { key: "controller", label: "Controller" },
+  { key: "joint", label: "Joint" },
+  { key: "other", label: "Other" },
 ];
 
 function getProductAccessoryCategory(product: { node: { tags: string[]; productType: string } }): string {
