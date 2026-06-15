@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import logoImg from "@/assets/logo.png";
-import { Search, Menu, ChevronDown, ChevronRight, X } from "lucide-react";
+import { Menu, ChevronDown, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { CartDrawer } from "@/components/CartDrawer";
+import { SearchBar } from "@/components/SearchBar";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 const NAV_ITEMS = [
