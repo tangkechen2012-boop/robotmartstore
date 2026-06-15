@@ -136,6 +136,8 @@ const Index = () => {
               alt="Humanoid Robot"
               width={1024}
               height={1024}
+              fetchPriority="high"
+              decoding="async"
               className="w-full h-full object-contain drop-shadow-2xl"
             />
           </div>
@@ -219,7 +221,7 @@ const Index = () => {
               <h2 className="text-4xl md:text-5xl font-extrabold leading-[1.1] text-white mb-6">
                 What We Do
               </h2>
-              <p className="text-white/50 text-base leading-relaxed max-w-md">
+              <p className="text-white/80 text-base leading-relaxed max-w-md">
                 End-to-end robotics solutions — from product sourcing and system integration to custom engineering and AI deployment.
               </p>
             </ScrollReveal>
@@ -239,7 +241,7 @@ const Index = () => {
                           <Icon className="h-5 w-5 text-accent/70 group-hover:text-accent transition-colors duration-300" />
                           <h3 className="text-lg font-bold text-white group-hover:text-accent transition-colors duration-300">{title}</h3>
                         </div>
-                        <p className="text-white/40 group-hover:text-white/60 transition-colors duration-300 text-sm leading-relaxed">{description}</p>
+                        <p className="text-white/75 group-hover:text-white/90 transition-colors duration-300 text-sm leading-relaxed">{description}</p>
                       </div>
                       <ArrowRight className="h-4 w-4 text-white/20 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300 mt-2 flex-shrink-0" />
                     </Link>
@@ -282,7 +284,7 @@ const Index = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                     <div className={`absolute bottom-0 left-0 right-0 ${isHero ? 'p-7' : 'p-5'}`}>
                       <h3 className={`${isHero ? 'text-2xl' : 'text-lg'} font-bold text-white mb-1 group-hover:text-accent transition-colors duration-300`}>{title}</h3>
-                      <p className={`text-white/60 ${isHero ? 'text-sm' : 'text-xs'} leading-relaxed line-clamp-2`}>{description}</p>
+                      <p className={`text-white/85 ${isHero ? 'text-sm' : 'text-xs'} leading-relaxed line-clamp-2`}>{description}</p>
                     </div>
                   </Link>
                 </ScrollReveal>
