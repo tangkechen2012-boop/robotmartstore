@@ -240,7 +240,7 @@ const ProductDetail = () => {
           )}
 
           {/* Variant selector */}
-          {product.options && product.options.length > 0 && product.options[0].name !== "Title" && (
+          {!productIsUsed && product.options && product.options.length > 0 && product.options[0].name !== "Title" && (
             <div className="mb-6">
               {product.options.map((option: { name: string; values: string[] }) => (
                 <div key={option.name} className="mb-3">
