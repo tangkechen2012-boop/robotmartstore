@@ -81,7 +81,7 @@ const SupportPage = () => {
             <p>• <strong>Free standard shipping</strong> on orders over $500</p>
             <p>• Standard shipping: 3-7 business days (US domestic)</p>
             <p>• Express shipping: 1-3 business days (additional charge)</p>
-            <p>• All prices include tariff · Ships from US warehouse</p>
+            <p>• All prices include tariff · Delivery via standard or express service</p>
             <p>• All orders include tracking information</p>
             <p>• Hazardous materials (LiPo batteries) may have shipping restrictions</p>
           </CardContent>
