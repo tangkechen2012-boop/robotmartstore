@@ -284,7 +284,7 @@ const Index = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                     <div className={`absolute bottom-0 left-0 right-0 ${isHero ? 'p-7' : 'p-5'}`}>
                       <h3 className={`${isHero ? 'text-2xl' : 'text-lg'} font-bold text-white mb-1 group-hover:text-accent transition-colors duration-300`}>{title}</h3>
-                      <p className={`text-white/60 ${isHero ? 'text-sm' : 'text-xs'} leading-relaxed line-clamp-2`}>{description}</p>
+                      <p className={`text-white/85 ${isHero ? 'text-sm' : 'text-xs'} leading-relaxed line-clamp-2`}>{description}</p>
                     </div>
                   </Link>
                 </ScrollReveal>
