@@ -221,7 +221,7 @@ const Index = () => {
               <h2 className="text-4xl md:text-5xl font-extrabold leading-[1.1] text-white mb-6">
                 What We Do
               </h2>
-              <p className="text-white/50 text-base leading-relaxed max-w-md">
+              <p className="text-white/80 text-base leading-relaxed max-w-md">
                 End-to-end robotics solutions — from product sourcing and system integration to custom engineering and AI deployment.
               </p>
             </ScrollReveal>
