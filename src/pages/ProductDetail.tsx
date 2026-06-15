@@ -114,6 +114,14 @@ const ProductDetail = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6">
+      <Seo
+        title={seoTitle}
+        description={seoDesc}
+        path={canonicalPath}
+        image={heroImage}
+        type="product"
+        jsonLd={productSchema}
+      />
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
         <Link to="/" className="hover:text-foreground flex items-center gap-1">
