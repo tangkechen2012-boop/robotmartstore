@@ -198,7 +198,9 @@ const COLLECTION_LABELS: Record<string, string> = {
 };
 
 const AllProductsView = () => {
-  const { data: products, isLoading } = useShopifyProducts(48);
+  const [searchParams] = useSearchParams();
+  const q = (searchParams.get("q") || "").trim();
+  const { data: products, isLoading } = useShopifyProducts(48, q || undefined);
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <nav className="flex items-center gap-1 text-sm text-muted-foreground mb-4">
