@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { HeroBackground } from "@/components/HeroBackground";
 import { FAQSection } from "@/components/FAQSection";
+import { Seo } from "@/components/Seo";
 
 const PILLARS = [
   {
@@ -102,6 +103,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen overflow-x-hidden">
+      <Seo
+        title="RobotMart — Professional Robotics Solutions"
+        description="Humanoid robots, quadruped systems, robotic arms, dexterous hands, and AI-powered automation for enterprise and research."
+        path="/"
+      />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary via-primary to-accent/30 text-primary-foreground py-24 overflow-hidden">
         <HeroBackground />
