@@ -290,11 +290,15 @@ const CollectionPage = () => {
   );
 
   const isLoading = isTagCollection ? tagLoading : collectionLoading;
+  const TAG_COLLECTION_DESCRIPTIONS: Record<string, string> = {
+    "pre-owned": "Tested pre-owned robotics inventory. Each unit is unique — quote-first procurement applies.",
+    "robot-accessories": "Dexterous hands, sensors, batteries, mounts, and developer hardware for robotics labs and integrators.",
+  };
   const collection = isTagCollection
     ? (tagProducts
         ? {
             title: COLLECTION_LABELS[handle],
-            description: "Tested pre-owned robotics inventory. Each unit is unique — quote-first procurement applies.",
+            description: TAG_COLLECTION_DESCRIPTIONS[handle] || "",
             handle,
             products: tagProducts,
           }
