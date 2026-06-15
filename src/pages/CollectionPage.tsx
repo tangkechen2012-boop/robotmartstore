@@ -16,6 +16,7 @@ const COLLECTION_HANDLES = [
 // Handles backed by a Shopify search query (tag-based) instead of a Shopify Collection
 const TAG_COLLECTION_QUERIES: Record<string, string> = {
   "pre-owned": "tag:Pre-Owned",
+  "robot-accessories": "tag:Category_Accessories",
 };
 
 const COLLECTION_GUIDES: Record<string, {
@@ -289,11 +290,15 @@ const CollectionPage = () => {
   );
 
   const isLoading = isTagCollection ? tagLoading : collectionLoading;
+  const TAG_COLLECTION_DESCRIPTIONS: Record<string, string> = {
+    "pre-owned": "Tested pre-owned robotics inventory. Each unit is unique — quote-first procurement applies.",
+    "robot-accessories": "Dexterous hands, sensors, batteries, mounts, and developer hardware for robotics labs and integrators.",
+  };
   const collection = isTagCollection
     ? (tagProducts
         ? {
             title: COLLECTION_LABELS[handle],
-            description: "Tested pre-owned robotics inventory. Each unit is unique — quote-first procurement applies.",
+            description: TAG_COLLECTION_DESCRIPTIONS[handle] || "",
             handle,
             products: tagProducts,
           }
