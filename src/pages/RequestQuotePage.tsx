@@ -4,6 +4,7 @@ import { Building2, CalendarClock, CheckCircle2, Mail, MessageSquare, ShieldChec
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Seo } from "@/components/Seo";
 
 const SUPPORT_EMAIL = "support@robotmart.store";
 
@@ -69,6 +70,11 @@ const RequestQuotePage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Request a Robotics Quote — RobotMart"
+        description="Get pricing, lead time, freight, warranty, and purchase terms for humanoid robots, quadruped systems, and robotics accessories."
+        path="/request-quote"
+      />
       <section className="border-b bg-secondary/30">
         <div className="max-w-7xl mx-auto px-4 py-12 lg:py-16">
           <div className="max-w-3xl">

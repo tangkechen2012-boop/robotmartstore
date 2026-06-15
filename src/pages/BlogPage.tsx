@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Seo } from "@/components/Seo";
 
 const BLOG_POSTS = [
   {
@@ -50,6 +51,11 @@ const BLOG_POSTS = [
 const BlogPage = () => {
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
+      <Seo
+        title="Robotics Blog & Buying Guides — RobotMart"
+        description="Tutorials, buying guides, use cases, and robotics industry news from RobotMart's engineering team."
+        path="/blog"
+      />
       <h1 className="text-3xl font-bold mb-2">Blog & Guides</h1>
       <p className="text-muted-foreground mb-8">Tutorials, buying guides, use cases, and robotics industry news.</p>
 

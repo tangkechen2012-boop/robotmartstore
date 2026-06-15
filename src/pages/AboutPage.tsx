@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Globe, Users, Award, ArrowRight } from "lucide-react";
+import { Seo } from "@/components/Seo";
 
 const AboutPage = () => {
   return (
     <div className="min-h-screen">
+      <Seo
+        title="About RobotMart — Professional Robotics Solutions"
+        description="RobotMart is a robotics solutions provider delivering humanoid, quadruped, and custom robotics platforms with engineering services worldwide."
+        path="/about"
+      />
       <section className="bg-gradient-to-br from-primary to-accent/20 text-primary-foreground py-20">
         <div className="max-w-7xl mx-auto px-4">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6">About RobotMart</h1>

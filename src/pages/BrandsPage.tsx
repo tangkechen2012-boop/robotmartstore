@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Seo } from "@/components/Seo";
 
 const BRANDS_LIST = [
   { name: "ABB", description: "Global leader in industrial robotics and automation." },
@@ -29,6 +30,11 @@ const BrandsPage = () => {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
+      <Seo
+        title="Robotics Brands — RobotMart"
+        description="Browse RobotMart's curated robotics brands including Unitree, Boston Dynamics, NVIDIA, ABB, KUKA, FANUC, and more."
+        path="/brands"
+      />
       <h1 className="text-3xl font-bold mb-2">Brands</h1>
       <p className="text-muted-foreground mb-6">Browse our curated selection of robotics brands.</p>
 

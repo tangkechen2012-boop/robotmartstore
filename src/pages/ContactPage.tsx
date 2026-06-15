@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Seo } from "@/components/Seo";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
@@ -17,6 +18,11 @@ const ContactPage = () => {
 
   return (
     <div className="min-h-screen">
+      <Seo
+        title="Contact RobotMart — Robotics Sales & Support"
+        description="Contact RobotMart for product inquiries, quotes, service consultations, and custom robotics development projects."
+        path="/contact"
+      />
       <section className="bg-gradient-to-br from-primary to-accent/20 text-primary-foreground py-20">
         <div className="max-w-7xl mx-auto px-4">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6">Contact RobotMart</h1>

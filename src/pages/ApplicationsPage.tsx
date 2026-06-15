@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { GraduationCap, Factory, BrainCircuit, Search, ArrowRight } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useEffect } from "react";
+import { Seo } from "@/components/Seo";
 
 const APPS = [
   {
@@ -53,6 +54,11 @@ const ApplicationsPage = () => {
 
   return (
     <div className="min-h-screen">
+      <Seo
+        title="Robotics Applications by Industry — RobotMart"
+        description="How organizations across education, manufacturing, AI research, and inspection deploy RobotMart's robotics solutions."
+        path="/applications"
+      />
       <section className="bg-gradient-to-br from-primary to-accent/20 text-primary-foreground py-20">
         <div className="max-w-7xl mx-auto px-4">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6">Robotics Applications by Industry</h1>

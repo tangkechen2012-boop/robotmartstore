@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Wrench, Headphones, BrainCircuit, Code2, Shield, ArrowRight, ChevronDown } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useEffect } from "react";
+import { Seo } from "@/components/Seo";
 
 const SERVICES = [
   {
@@ -59,6 +60,11 @@ const ServicesPage = () => {
 
   return (
     <div className="min-h-screen">
+      <Seo
+        title="Robotics Engineering Services & Technology — RobotMart"
+        description="System integration, AI deployment, technical support, and lifecycle maintenance for robotics platforms across industries."
+        path="/services-technology"
+      />
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary to-accent/20 text-primary-foreground py-20">
         <div className="max-w-7xl mx-auto px-4">
