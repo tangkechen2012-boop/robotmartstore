@@ -151,12 +151,8 @@ export const Header = () => {
               </div>
 
               {/* Search */}
-              <div className="hidden 2xl:block flex-1 lg:flex-initial lg:w-56 relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Search..."
-                  className="pl-9 h-9 text-sm rounded-pill bg-secondary/60 border-0 focus-visible:ring-1" />
-                
+              <div className="hidden lg:block flex-1 lg:flex-initial lg:w-64">
+                <SearchBar />
               </div>
 
               {/* Actions */}
