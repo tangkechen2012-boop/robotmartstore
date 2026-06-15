@@ -64,7 +64,7 @@ export const Footer = () => {
             <p className="text-sm opacity-70">Robotics news, product launches, and engineering insights.</p>
           </div>
           <div className="flex gap-2 w-full sm:w-auto">
-            <Input placeholder="Your email" className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/40 h-10 rounded-pill" />
+            <Input placeholder="Your email" className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/70 h-10 rounded-pill" />
             <Button className="bg-accent hover:bg-accent/90 text-accent-foreground h-10 px-6 rounded-pill font-semibold">Subscribe</Button>
           </div>
         </div>
