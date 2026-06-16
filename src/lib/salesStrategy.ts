@@ -61,6 +61,22 @@ export function getSalesStrategy(product: ProductLike): SalesStrategy {
     .toLowerCase();
 
   const isPreorder = PREORDER_KEYWORDS.some((keyword) => searchText.includes(keyword));
+  const isDirectSaleOverride =
+    searchText.includes("sales-mode:direct") ||
+    searchText.includes("sales-mode:direct-sale") ||
+    searchText.includes("direct sale");
+
+  if (isDirectSaleOverride && price > 0) {
+    return {
+      mode: "direct-sale",
+      badge: "In Stock",
+      primaryCta: "Add to Cart",
+      secondaryCta: "Request Bulk Quote",
+      noticeTitle: "Ready for direct checkout",
+      noticeBody:
+        "Buying multiple units or need a custom configuration? Request a bulk quote for volume pricing and tailored terms.",
+    };
+  }
 
   if (isPreorder && price === 0) {
     return {
