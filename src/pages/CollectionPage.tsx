@@ -2,9 +2,11 @@ import { useShopifyCollection, useShopifyProducts } from "@/hooks/useShopifyProd
 import { ProductCard } from "@/components/ProductCard";
 import { useParams, Link, useSearchParams } from "react-router-dom";
 import { useState, useMemo } from "react";
-import { BadgeCheck, Bot, ChevronRight, ClipboardCheck, Code2, GraduationCap, Recycle, Truck } from "lucide-react";
+import { BadgeCheck, Bot, ChevronRight, ClipboardCheck, Code2, GraduationCap, Recycle, SlidersHorizontal, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Seo } from "@/components/Seo";
+import { CollectionFilterSidebar, EMPTY_FILTERS, FilterState, applyFilters } from "@/components/CollectionFilterSidebar";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 
 const COLLECTION_HANDLES = [
