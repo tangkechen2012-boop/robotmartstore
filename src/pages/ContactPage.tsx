@@ -58,7 +58,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <p className="font-semibold">Email</p>
-                    <p className="text-sm text-muted-foreground">support@robotmart.store</p>
+                    <p className="text-sm text-muted-foreground">hello@robotmart.store</p>
                   </div>
                 </div>
               </div>

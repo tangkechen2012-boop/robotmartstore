@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Seo } from "@/components/Seo";
 
-const SUPPORT_EMAIL = "support@robotmart.store";
+const SUPPORT_EMAIL = "hello@robotmart.store";
 
 const BUYER_TYPES = [
   "Education / university",
