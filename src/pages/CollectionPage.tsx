@@ -347,8 +347,9 @@ const CollectionPage = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeCategory, setActiveCategory] = useState(() => searchParams.get("category") || "all");
+  const [filters, setFilters] = useState<FilterState>(EMPTY_FILTERS);
 
-  const filteredProducts = useMemo(() => {
+  const accessoryFiltered = useMemo(() => {
     if (handle !== "robot-accessories" || !collection?.products) {
       return collection?.products || [];
     }
@@ -359,6 +360,11 @@ const CollectionPage = () => {
       return category === activeCategory;
     });
   }, [collection, activeCategory, handle]);
+
+  const filteredProducts = useMemo(
+    () => applyFilters(accessoryFiltered, filters),
+    [accessoryFiltered, filters]
+  );
 
   const handleCategoryClick = (key: string) => {
     setActiveCategory(key);
