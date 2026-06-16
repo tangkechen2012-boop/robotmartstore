@@ -1,9 +1,9 @@
 import { toast } from "sonner";
 
 const SHOPIFY_API_VERSION = '2025-07';
-const SHOPIFY_STORE_PERMANENT_DOMAIN = 'hello-world-8lwxi.myshopify.com';
+const SHOPIFY_STORE_PERMANENT_DOMAIN = import.meta.env.VITE_SHOPIFY_STORE_DOMAIN || 'hello-world-8lwxi.myshopify.com';
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
-const SHOPIFY_STOREFRONT_TOKEN = 'd9baf3a3bace41452a5e8f95e63e0edd';
+const SHOPIFY_STOREFRONT_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN || 'd9baf3a3bace41452a5e8f95e63e0edd';
 
 export interface ShopifyProduct {
   node: {
@@ -50,6 +50,20 @@ export interface ShopifyProduct {
       values: string[];
     }>;
   };
+}
+
+export type ShopifyPolicyKey =
+  | "privacyPolicy"
+  | "termsOfService"
+  | "refundPolicy"
+  | "shippingPolicy";
+
+export interface ShopifyPolicy {
+  id: string;
+  title: string;
+  handle: string;
+  body: string;
+  url: string;
 }
 
 export async function storefrontApiRequest(query: string, variables: Record<string, unknown> = {}) {
@@ -237,6 +251,41 @@ export const STOREFRONT_PRODUCT_BY_HANDLE_QUERY = `
       options {
         name
         values
+      }
+    }
+  }
+`;
+
+export const STOREFRONT_POLICIES_QUERY = `
+  query GetShopPolicies {
+    shop {
+      privacyPolicy {
+        id
+        title
+        handle
+        body
+        url
+      }
+      termsOfService {
+        id
+        title
+        handle
+        body
+        url
+      }
+      refundPolicy {
+        id
+        title
+        handle
+        body
+        url
+      }
+      shippingPolicy {
+        id
+        title
+        handle
+        body
+        url
       }
     }
   }

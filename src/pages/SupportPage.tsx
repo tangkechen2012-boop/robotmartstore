@@ -49,13 +49,15 @@ const SupportPage = () => {
           <AccordionItem value="domestic">
             <AccordionTrigger>Where do you ship?</AccordionTrigger>
             <AccordionContent>
-              We ship to addresses within the United States. All prices include tariff. Free standard shipping on orders over $500.
+              We ship robotics products to the United States and selected international destinations. Shipping method,
+              duties, customs clearance, delivery timeline, and battery restrictions may vary by product and destination.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="return-process">
             <AccordionTrigger>What is your refund policy?</AccordionTrigger>
             <AccordionContent>
-              All sales are final. No returns or refunds will be accepted for non-quality issues. If you receive a product with a genuine quality defect, contact us within 30 days with documentation and we'll arrange a resolution.
+              Eligible items may be returned within 14 days after delivery. Customer return shipping applies unless the
+              return is caused by a RobotMart error or an approved defect, and a restocking fee of up to 20% may apply.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="warranty-claim">
@@ -78,10 +80,10 @@ const SupportPage = () => {
         <h2 className="text-xl font-bold mb-3">Shipping Policy</h2>
         <Card>
           <CardContent className="p-5 text-sm text-muted-foreground space-y-2">
-            <p>• <strong>Free standard shipping</strong> on orders over $500</p>
-            <p>• Standard shipping: 3-7 business days (US domestic)</p>
-            <p>• Express shipping: 1-3 business days (additional charge)</p>
-            <p>• All prices include tariff · Delivery via standard or express service</p>
+            <p>• Shipping options are shown at checkout or confirmed during quotation</p>
+            <p>• High-ticket robots may require freight, duties, customs, and supplier confirmation</p>
+            <p>• Delivery timelines depend on destination, battery configuration, inventory, and carrier availability</p>
+            <p>• Oversized robots and special-order systems may ship under custom freight terms</p>
             <p>• All orders include tracking information</p>
             <p>• Hazardous materials (LiPo batteries) may have shipping restrictions</p>
           </CardContent>
@@ -93,11 +95,11 @@ const SupportPage = () => {
         <h2 className="text-xl font-bold mb-3">Returns & Refunds</h2>
         <Card>
           <CardContent className="p-5 text-sm text-muted-foreground space-y-2">
-            <p>• <strong className="text-foreground">All sales are final</strong></p>
-            <p>• No returns or refunds will be accepted for non-quality issues</p>
-            <p>• Quality defects must be reported within 30 days of delivery with documentation</p>
-            <p>• Defective items may be repaired, replaced, or refunded at our discretion</p>
-            <p>• Please verify specifications and compatibility before ordering</p>
+            <p>• Eligible items may be returned within 14 days after delivery</p>
+            <p>• Customer provides return shipping unless we approve a RobotMart error or product defect claim</p>
+            <p>• A restocking fee of up to 20% may apply</p>
+            <p>• Custom-configured, special-order, used/pre-owned, activated, assembled, modified, or programmed products may not be returnable</p>
+            <p>• Please verify specifications, configuration, compatibility, and application requirements before ordering</p>
           </CardContent>
         </Card>
       </section>

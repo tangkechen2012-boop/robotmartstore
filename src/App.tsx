@@ -12,8 +12,9 @@ import CollectionPage from "./pages/CollectionPage";
 import SupportPage from "./pages/SupportPage";
 import BrandsPage from "./pages/BrandsPage";
 import BlogPage from "./pages/BlogPage";
-import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
-import TermsOfServicePage from "./pages/TermsOfServicePage";
+import ShopifyPolicyPage from "./pages/ShopifyPolicyPage";
+import LegalNoticePage from "./pages/LegalNoticePage";
+import ContactInformationPolicyPage from "./pages/ContactInformationPolicyPage";
 import ServicesPage from "./pages/ServicesPage";
 import CustomDevelopmentPage from "./pages/CustomDevelopmentPage";
 import AboutPage from "./pages/AboutPage";
@@ -59,8 +60,14 @@ const App = () => (
             <Route path="/support" element={<SupportPage />} />
             <Route path="/brands" element={<BrandsPage />} />
             <Route path="/blog" element={<BlogPage />} />
-            <Route path="/privacy" element={<PrivacyPolicyPage />} />
-            <Route path="/terms" element={<TermsOfServicePage />} />
+            <Route path="/privacy" element={<ShopifyPolicyPage policyKey="privacyPolicy" path="/privacy" />} />
+            <Route path="/terms" element={<ShopifyPolicyPage policyKey="termsOfService" path="/terms" />} />
+            <Route path="/policies/privacy-policy" element={<ShopifyPolicyPage policyKey="privacyPolicy" path="/policies/privacy-policy" />} />
+            <Route path="/policies/terms-of-service" element={<ShopifyPolicyPage policyKey="termsOfService" path="/policies/terms-of-service" />} />
+            <Route path="/policies/refund-policy" element={<ShopifyPolicyPage policyKey="refundPolicy" path="/policies/refund-policy" />} />
+            <Route path="/policies/shipping-policy" element={<ShopifyPolicyPage policyKey="shippingPolicy" path="/policies/shipping-policy" />} />
+            <Route path="/policies/contact-information" element={<ContactInformationPolicyPage />} />
+            <Route path="/policies/legal-notice" element={<LegalNoticePage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AppLayout>

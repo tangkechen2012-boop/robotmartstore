@@ -1,5 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import { storefrontApiRequest, STOREFRONT_PRODUCTS_QUERY, STOREFRONT_PRODUCT_BY_HANDLE_QUERY, STOREFRONT_COLLECTION_BY_HANDLE_QUERY, ShopifyProduct } from '@/lib/shopify';
+import {
+  storefrontApiRequest,
+  STOREFRONT_PRODUCTS_QUERY,
+  STOREFRONT_PRODUCT_BY_HANDLE_QUERY,
+  STOREFRONT_COLLECTION_BY_HANDLE_QUERY,
+  STOREFRONT_POLICIES_QUERY,
+  ShopifyPolicy,
+  ShopifyPolicyKey,
+  ShopifyProduct,
+} from '@/lib/shopify';
 
 export function useShopifyProducts(first = 20, searchQuery?: string) {
   return useQuery({
@@ -45,6 +54,19 @@ export function useShopifyCollection(handle: string | undefined, first = 50) {
     enabled: !!handle,
     staleTime: 30 * 1000,
     refetchInterval: 60 * 1000,
+    refetchOnWindowFocus: true,
+  });
+}
+
+export function useShopifyPolicy(policyKey: ShopifyPolicyKey) {
+  return useQuery({
+    queryKey: ['shopify-policy', policyKey],
+    queryFn: async () => {
+      const data = await storefrontApiRequest(STOREFRONT_POLICIES_QUERY);
+      return (data?.data?.shop?.[policyKey] || null) as ShopifyPolicy | null;
+    },
+    staleTime: 5 * 60 * 1000,
+    refetchInterval: 10 * 60 * 1000,
     refetchOnWindowFocus: true,
   });
 }

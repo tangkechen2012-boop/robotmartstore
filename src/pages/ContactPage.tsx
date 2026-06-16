@@ -1,3 +1,4 @@
+import { FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Seo } from "@/components/Seo";
 import { Input } from "@/components/ui/input";
@@ -15,6 +16,24 @@ const ContactPage = () => {
   const message = product
     ? `I am interested in ${product}. Please share pricing, availability, lead time, shipping options, warranty, and purchase terms.`
     : "";
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const name = [form.get("firstName"), form.get("lastName")].filter(Boolean).join(" ");
+    const lines = [
+      `Name: ${name || "Not specified"}`,
+      `Email: ${form.get("email") || "Not specified"}`,
+      `Company: ${form.get("company") || "Not specified"}`,
+      "",
+      "Message:",
+      `${form.get("message") || "Not specified"}`,
+    ];
+    const mailto = new URL("mailto:hello@robotmart.store");
+    mailto.searchParams.set("subject", String(form.get("subject") || "RobotMart inquiry"));
+    mailto.searchParams.set("body", lines.join("\n"));
+    window.location.href = mailto.toString();
+  };
 
   return (
     <div className="min-h-screen">
@@ -36,15 +55,15 @@ const ContactPage = () => {
         <div className="grid lg:grid-cols-2 gap-12">
           <div>
             <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
-            <form className="space-y-4" onSubmit={e => e.preventDefault()}>
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div className="grid grid-cols-2 gap-4">
-                <Input placeholder="First Name" className="rounded-xl h-11" />
-                <Input placeholder="Last Name" className="rounded-xl h-11" />
+                <Input name="firstName" placeholder="First Name" className="rounded-xl h-11" />
+                <Input name="lastName" placeholder="Last Name" className="rounded-xl h-11" />
               </div>
-              <Input placeholder="Email Address" type="email" className="rounded-xl h-11" />
-              <Input placeholder="Company (optional)" className="rounded-xl h-11" />
-              <Input placeholder="Subject" defaultValue={subject} className="rounded-xl h-11" />
-              <Textarea placeholder="Tell us about your project or inquiry..." defaultValue={message} className="rounded-xl min-h-[120px]" />
+              <Input name="email" placeholder="Email Address" type="email" className="rounded-xl h-11" required />
+              <Input name="company" placeholder="Company (optional)" className="rounded-xl h-11" />
+              <Input name="subject" placeholder="Subject" defaultValue={subject} className="rounded-xl h-11" />
+              <Textarea name="message" placeholder="Tell us about your project or inquiry..." defaultValue={message} className="rounded-xl min-h-[120px]" />
               <Button size="lg" className="rounded-pill px-8 font-semibold w-full sm:w-auto">Send Message</Button>
             </form>
           </div>
@@ -69,7 +88,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <p className="font-semibold">Phone</p>
-                    <p className="text-sm text-muted-foreground"><p className="text-sm text-muted-foreground">+1 (917) 293-4778</p></p>
+                    <p className="text-sm text-muted-foreground">+1 (318) 608-2420</p>
                   </div>
                 </div>
               </div>

@@ -45,10 +45,12 @@ const FOOTER_LINKS = [
   {
     title: "Legal",
     links: [
-      { label: "Privacy Policy", to: "/privacy" },
-      { label: "Terms of Service", to: "/terms" },
+      { label: "Return & Refund Policy", to: "/policies/refund-policy" },
+      { label: "Shipping Policy", to: "/policies/shipping-policy" },
+      { label: "Privacy Policy", to: "/policies/privacy-policy" },
+      { label: "Terms of Service", to: "/policies/terms-of-service" },
       { label: "Warranty Policy", to: "/support" },
-      { label: "Shipping Policy", to: "/support" },
+      { label: "Legal Notice", to: "/policies/legal-notice" },
     ],
   },
 ];
@@ -96,7 +98,7 @@ export const Footer = () => {
               <h4 className="font-bold text-sm mb-3">Contact</h4>
               <ul className="space-y-2 text-sm opacity-70">
                 <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> hello@robotmart.store</li>
-                <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> +1 (917) 293-4778</li>
+                <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> +1 (318) 608-2420</li>
                 <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> San Francisco, CA</li>
               </ul>
             </div>
