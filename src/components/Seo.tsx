@@ -1,8 +1,7 @@
 import { Helmet } from "react-helmet-async";
 
 const SITE_URL = "https://www.robotmart.store";
-const DEFAULT_OG_IMAGE =
-  "https://storage.googleapis.com/gpt-engineer-file-uploads/RDWh8Hmhb1gUYNZhNOEKZS5ccMn2/social-images/social-1772530153108-R_logo.webp";
+const DEFAULT_OG_IMAGE = `${SITE_URL}/brand/robotmart-social.png`;
 
 interface SeoProps {
   title: string;
