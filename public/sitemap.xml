@@ -121,6 +121,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.robotmart.store/product/unitree-g1-edu-standard-u1-humanoid-robot</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.robotmart.store/product/cyber-worker-h1-humanoid-robot</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -161,6 +166,31 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.robotmart.store/product/unitree-g1-edu-plus-u2-humanoid-robot</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-g1-edu-ultimate-a-u3-humanoid-robot</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-g1-edu-ultimate-b-u4-humanoid-robot</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-g1-edu-ultimate-c-u5-humanoid-robot</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-g1-edu-ultimate-d-u6-humanoid-robot</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.robotmart.store/product/unitree-g1-d-end-to-end-platform-for-humanoid-robot</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -181,7 +211,17 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.robotmart.store/product/unitree-h2-edu-humanoid-robot</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.robotmart.store/product/unitree-r1-humanoid-robot</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-r1-edu-u1-humanoid-robot</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -312,6 +352,91 @@
   </url>
   <url>
     <loc>https://www.robotmart.store/product/unitree-g1-dexterous-gripper-end-effector</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-g1-edu-standard-u1-humanoid-robot-used-grade-b</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-g1-edu-plus-u2-humanoid-robot-used-grade-b</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-r1-u1-humanoid-robot-used-grade-b</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-r1-u2-humanoid-robot-used-grade-b</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-h2-humanoid-robot-used-grade-b</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/noetix-n2-humanoid-robot-used-grade-b</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-go2-air-quadruped-robot-used-grade-b</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-go1-pro-quadruped-robot-used-grade-b</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/deep-robotics-lite3-quadruped-robot-used-grade-b</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-4d-lidar-l1-used-accessory</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-go2-charging-station-used-accessory</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/linkerbot-linker-hand-o6-dexterous-robot-hand-used</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-r1-edu-u2-humanoid-robot</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-r1-edu-professional-a-u3-humanoid-robot</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-r1-edu-professional-b-u4-humanoid-robot</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-r1-edu-professional-c-u5-humanoid-robot</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.robotmart.store/product/unitree-r1-edu-professional-d-u6-humanoid-robot</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
