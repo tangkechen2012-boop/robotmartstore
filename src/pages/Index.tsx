@@ -69,7 +69,7 @@ const Index = () => {
     title === EXCLUDED_PRODUCT || title.toLowerCase().includes("wondernex ainex");
   const { data: rawProducts, isLoading } = useShopifyProducts(10);
   const products = rawProducts?.filter(p => !isExcluded(p.node.title));
-  const { data: rawPreOwned, isLoading: preOwnedLoading } = useShopifyProducts(6, "tag:Pre-Owned");
+  const { data: rawPreOwned, isLoading: preOwnedLoading } = useShopifyProducts(8, "tag:Condition_Used");
   const preOwnedProducts = rawPreOwned?.filter(p => !isExcluded(p.node.title));
 
   useEffect(() => {
