@@ -2,9 +2,11 @@ import { useShopifyCollection, useShopifyProducts } from "@/hooks/useShopifyProd
 import { ProductCard } from "@/components/ProductCard";
 import { useParams, Link, useSearchParams } from "react-router-dom";
 import { useState, useMemo } from "react";
-import { BadgeCheck, Bot, ChevronRight, ClipboardCheck, Code2, GraduationCap, Recycle, Truck } from "lucide-react";
+import { BadgeCheck, Bot, ChevronRight, ClipboardCheck, Code2, GraduationCap, Recycle, SlidersHorizontal, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Seo } from "@/components/Seo";
+import { CollectionFilterSidebar, EMPTY_FILTERS, FilterState, applyFilters } from "@/components/CollectionFilterSidebar";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 
 const COLLECTION_HANDLES = [
@@ -345,8 +347,9 @@ const CollectionPage = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeCategory, setActiveCategory] = useState(() => searchParams.get("category") || "all");
+  const [filters, setFilters] = useState<FilterState>(EMPTY_FILTERS);
 
-  const filteredProducts = useMemo(() => {
+  const accessoryFiltered = useMemo(() => {
     if (handle !== "robot-accessories" || !collection?.products) {
       return collection?.products || [];
     }
@@ -357,6 +360,11 @@ const CollectionPage = () => {
       return category === activeCategory;
     });
   }, [collection, activeCategory, handle]);
+
+  const filteredProducts = useMemo(
+    () => applyFilters(accessoryFiltered, filters),
+    [accessoryFiltered, filters]
+  );
 
   const handleCategoryClick = (key: string) => {
     setActiveCategory(key);
@@ -500,7 +508,7 @@ const CollectionPage = () => {
         </section>
       )}
 
-      {/* Products grid */}
+      {/* Products grid + filter sidebar */}
       {isLoading ? (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {Array.from({ length: 8 }).map((_, i) => (
@@ -513,17 +521,54 @@ const CollectionPage = () => {
             </div>
           ))}
         </div>
-      ) : collection && filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {filteredProducts.map((product) => (
-            <ProductCard key={product.node.id} product={product} />
-          ))}
-        </div>
-      ) : collection && collection.products.length > 0 && filteredProducts.length === 0 ? (
-        <div className="text-center py-16 border rounded-md bg-muted/30">
-          <Bot className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-          <h3 className="font-semibold text-lg mb-2">No matching products</h3>
-          <p className="text-muted-foreground text-sm">Try selecting a different category filter.</p>
+      ) : collection && collection.products.length > 0 ? (
+        <div className="lg:grid lg:grid-cols-[260px_1fr] lg:gap-6">
+          <div className="hidden lg:block">
+            <CollectionFilterSidebar
+              products={accessoryFiltered}
+              filters={filters}
+              onChange={setFilters}
+            />
+          </div>
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <p className="text-sm text-muted-foreground">
+                Showing <span className="font-semibold text-foreground">{filteredProducts.length}</span> of {accessoryFiltered.length} products
+              </p>
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="outline" size="sm" className="lg:hidden">
+                    <SlidersHorizontal className="h-4 w-4 mr-2" /> Filters
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-[300px] sm:w-[340px] p-0 overflow-y-auto">
+                  <SheetHeader className="px-4 py-3 border-b">
+                    <SheetTitle>Filters</SheetTitle>
+                  </SheetHeader>
+                  <div className="p-3">
+                    <CollectionFilterSidebar
+                      products={accessoryFiltered}
+                      filters={filters}
+                      onChange={setFilters}
+                    />
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
+            {filteredProducts.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+                {filteredProducts.map((product) => (
+                  <ProductCard key={product.node.id} product={product} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-16 border rounded-md bg-muted/30">
+                <Bot className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                <h3 className="font-semibold text-lg mb-2">No matching products</h3>
+                <p className="text-muted-foreground text-sm">Try adjusting or clearing your filters.</p>
+              </div>
+            )}
+          </div>
         </div>
       ) : (
         <div className="text-center py-16 border rounded-md bg-muted/30">
