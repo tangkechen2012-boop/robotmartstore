@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Globe, Users, Award, ArrowRight } from "lucide-react";
+import { BadgeCheck, ClipboardCheck, MessageSquare, ArrowRight } from "lucide-react";
 import { Seo } from "@/components/Seo";
 
 const AboutPage = () => {
@@ -8,41 +8,48 @@ const AboutPage = () => {
     <div className="min-h-screen">
       <Seo
         title="About RobotMart — Professional Robotics Solutions"
-        description="RobotMart is a robotics solutions provider delivering humanoid, quadruped, and custom robotics platforms with engineering services worldwide."
+        description="RobotMart is an independent robotics sourcing, e-commerce, procurement, consulting, and application engineering platform."
         path="/about"
       />
       <section className="bg-gradient-to-br from-primary to-accent/20 text-primary-foreground py-20">
         <div className="max-w-7xl mx-auto px-4">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6">About RobotMart</h1>
           <p className="text-lg text-primary-foreground/80 max-w-2xl leading-relaxed">
-            RobotMart is a professional robotics solutions provider delivering advanced robot platforms, engineering services, and custom development to organizations worldwide.
+            RobotMart is an independent robotics sourcing, e-commerce, procurement, consulting, and application engineering platform operated by KCT Ecommerce Inc.
           </p>
         </div>
       </section>
 
       <section className="max-w-7xl mx-auto px-4 py-20">
         <div className="max-w-3xl">
-          <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
+          <h2 className="text-3xl font-bold mb-6">What RobotMart Does</h2>
           <p className="text-muted-foreground leading-relaxed mb-4">
-            We exist to accelerate the adoption of advanced robotics across education, industry, and research. By combining curated product distribution with hands-on engineering services and custom development capabilities, RobotMart serves as a single trusted partner for organizations at every stage of their robotics journey.
+            RobotMart helps education, research, and enterprise buyers source robotics hardware, compare configurations, request quotes, and review practical deployment requirements before purchase.
+          </p>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            Some products are available for direct checkout. Complex robots, used units, custom configurations, and high-value systems are reviewed through a quote-first process covering supplier availability, configuration, lead time, freight, duties, warranty assumptions, and support scope.
           </p>
           <p className="text-muted-foreground leading-relaxed">
-            Founded by robotics engineers with decades of combined experience in industrial automation, AI, and mechatronics, RobotMart bridges the gap between cutting-edge robotics technology and practical deployment. We believe that every organization — from a university research lab to a Fortune 500 manufacturer — deserves access to world-class robotics platforms and the engineering support to deploy them successfully.
+            RobotMart is not the manufacturer of the third-party brands shown on this website. Brand names, product names, images, and specifications are used to identify products for sourcing, resale, quotation, and customer information. Unless a product page states otherwise, RobotMart should not be interpreted as an official manufacturer-operated store or exclusive authorized distributor.
           </p>
         </div>
       </section>
 
       <section className="bg-primary text-primary-foreground py-14">
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
-            { value: "50+", label: "Engineers" },
-            { value: "200+", label: "Global Clients" },
-            { value: "120+", label: "Projects Delivered" },
-            { value: "12+", label: "Years Experience" },
-          ].map(stat => (
-            <div key={stat.label}>
-              <p className="text-4xl font-extrabold mb-1">{stat.value}</p>
-              <p className="text-sm opacity-70">{stat.label}</p>
+            { icon: ClipboardCheck, title: "Quote-first review", text: "Configuration, availability, freight, duties, warranty, and support are confirmed before complex robot purchases." },
+            { icon: BadgeCheck, title: "Clear purchase path", text: "Direct-sale products show checkout availability; quote-required products request confirmation before payment." },
+            { icon: MessageSquare, title: "Human support", text: "Customers can contact RobotMart by email, phone, quote form, and published policy pages before ordering." },
+          ].map(({ icon: Icon, title, text }) => (
+            <div key={title} className="flex gap-4">
+              <div className="h-10 w-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
+                <Icon className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="font-bold mb-1">{title}</p>
+                <p className="text-sm opacity-70 leading-relaxed">{text}</p>
+              </div>
             </div>
           ))}
         </div>

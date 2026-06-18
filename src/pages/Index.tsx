@@ -50,10 +50,10 @@ const CATEGORIES = [
 ];
 
 const STATS = [
-  { value: "50+", label: "Engineering Team" },
-  { value: "200+", label: "Global Clients" },
-  { value: "120+", label: "R&D Projects" },
-  { value: "12+", label: "Years Experience" },
+  { value: "Direct", label: "Checkout items" },
+  { value: "Quote", label: "Complex robot review" },
+  { value: "Used", label: "Pre-owned inventory" },
+  { value: "Custom", label: "Application support" },
 ];
 
 const TRUST_ITEMS = [
@@ -90,7 +90,7 @@ const Index = () => {
         {
           "@type": "Question",
           "name": "Where does RobotMart ship?",
-          "acceptedAnswer": { "@type": "Answer", "text": "RobotMart ships to addresses within the United States. All prices include tariff. Free standard shipping on orders over $500." }
+          "acceptedAnswer": { "@type": "Answer", "text": "RobotMart ships robotics products to the United States and selected international destinations. Shipping method, duties, customs clearance, delivery timeline, and battery restrictions may vary by product and destination." }
         }
       ]
     };
@@ -119,7 +119,7 @@ const Index = () => {
               Engineering-Grade Robotics Solutions
             </h1>
             <p className="text-lg opacity-80 mb-8">
-              Humanoid robots, industrial automation systems, and AI-powered robotics for enterprise and research.
+              Humanoid robots, quadruped systems, robot accessories, and quote-first sourcing support for education, research, and enterprise buyers.
             </p>
             <div className="flex gap-4">
               <Button asChild size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground hover:scale-105 transition-all duration-200 hover:shadow-lg hover:shadow-accent/25">
