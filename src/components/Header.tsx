@@ -17,6 +17,7 @@ const NAV_ITEMS = [
         items: [
           { label: "Humanoid Robots", link: "/products/humanoid-robots" },
           { label: "Quadruped Robots", link: "/products/quadruped-robots" },
+          { label: "Robotic Arms", link: "/products/robotic-arms" },
           { label: "Robot Accessories", link: "/products/robot-accessories" },
           { label: "Pre-Owned Inventory", link: "/products/pre-owned" },
         ],
