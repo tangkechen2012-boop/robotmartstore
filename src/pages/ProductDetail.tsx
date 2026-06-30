@@ -14,6 +14,7 @@ import { Seo } from "@/components/Seo";
 import { UsedAvailableBanner } from "@/components/UsedAvailableBanner";
 import { isUsedProduct, getRelatedNewHandle, useUsedListingsForNew } from "@/hooks/useRelatedCondition";
 import { ProductCard } from "@/components/ProductCard";
+import { shopifyImageUrl, shopifyImageSrcSet } from "@/lib/shopifyImage";
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
@@ -193,7 +194,9 @@ const ProductDetail = () => {
           <div className="w-full aspect-square bg-slate-100 rounded-md overflow-hidden">
             {images[selectedImage]?.node ? (
               <img
-                src={images[selectedImage].node.url}
+                src={shopifyImageUrl(images[selectedImage].node.url, 900)}
+                srcSet={shopifyImageSrcSet(images[selectedImage].node.url, [600, 900, 1200, 1600])}
+                sizes="(max-width: 768px) 100vw, 600px"
                 alt={images[selectedImage].node.altText || product.title}
                 className="w-full h-full object-contain p-4 md:p-6"
                 {...{ fetchpriority: "high" }}
@@ -216,7 +219,7 @@ const ProductDetail = () => {
                   onClick={() => setSelectedImage(i)}
                   aria-label={`View product image ${i + 1}`}
                 >
-                  <img src={img.node.url} alt="" className="w-full h-full object-contain p-1" loading="lazy" />
+                  <img src={shopifyImageUrl(img.node.url, 128)} alt="" width={64} height={64} className="w-full h-full object-contain p-1" loading="lazy" decoding="async" />
                 </button>
               ))}
             </div>
