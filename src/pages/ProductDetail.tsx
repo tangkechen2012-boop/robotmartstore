@@ -359,9 +359,42 @@ const ProductDetail = () => {
           </div>
         </ProductSection>
       </div>
+
+      {/* Mobile sticky CTA — only on small viewports */}
+      <div className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 px-4 py-3">
+        <div className="flex items-center gap-3 max-w-7xl mx-auto">
+          <div className="flex-1 min-w-0">
+            <div className="text-[11px] text-muted-foreground uppercase tracking-wide">
+              {isDirectSale ? "Price" : strategy.badge}
+            </div>
+            <div className="text-base font-bold text-foreground truncate">
+              {isDirectSale
+                ? `$${priceAmount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                : strategy.priceLabel}
+            </div>
+          </div>
+          {isDirectSale && (
+            <Button
+              onClick={handleAddToCart}
+              disabled={cartLoading || !selectedVariant?.availableForSale}
+              size="sm"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+            >
+              {cartLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShoppingCart className="h-4 w-4" />}
+              <span className="ml-1.5">Add</span>
+            </Button>
+          )}
+          <Button variant={isDirectSale ? "outline" : "default"} size="sm" asChild className="font-semibold">
+            <Link to={buildQuotePath(product, strategy.mode === "pre-order" ? "preorder" : "quote")}>
+              {isDirectSale ? strategy.secondaryCta : strategy.primaryCta}
+            </Link>
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };
+
 
 /* Collapsible section component matching RobotShop style */
 function ProductSection({ title, defaultOpen, children }: { title: string; defaultOpen?: boolean; children: React.ReactNode }) {
