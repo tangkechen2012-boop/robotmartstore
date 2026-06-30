@@ -206,7 +206,7 @@ const Index = () => {
             </Button>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:auto-rows-[260px]">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:auto-rows-[260px]">
             {CATEGORIES.map(({ title, description, link, image }, i) => {
               const isHero = i === 0;
               return (
