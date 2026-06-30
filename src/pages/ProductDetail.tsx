@@ -1,18 +1,19 @@
 import { useParams } from "react-router-dom";
 import DOMPurify from "dompurify";
-import { useShopifyProductByHandle } from "@/hooks/useShopifyProducts";
+import { useShopifyProductByHandle, useShopifyProducts } from "@/hooks/useShopifyProducts";
 import { useCartStore } from "@/stores/cartStore";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { CalendarClock, MessageSquare, ShoppingCart, Loader2, ChevronLeft, Minus, Plus } from "lucide-react";
+import { CalendarClock, MessageSquare, ShoppingCart, Loader2, ChevronLeft, Minus, Plus, ShieldCheck, Truck, Headphones, Wrench } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { toast } from "sonner";
 import { buildQuotePath, getSalesStrategy } from "@/lib/salesStrategy";
 import { Seo } from "@/components/Seo";
 import { UsedAvailableBanner } from "@/components/UsedAvailableBanner";
 import { isUsedProduct, getRelatedNewHandle, useUsedListingsForNew } from "@/hooks/useRelatedCondition";
+import { ProductCard } from "@/components/ProductCard";
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
