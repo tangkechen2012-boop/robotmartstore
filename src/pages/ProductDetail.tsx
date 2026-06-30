@@ -111,8 +111,10 @@ const ProductDetail = () => {
     : undefined;
 
   if (isLoading) {
+    // Reserve vertical space close to the final layout so the footer
+    // doesn't jump down when product data arrives (prevents CLS).
     return (
-      <div className="max-w-7xl mx-auto px-4 py-6">
+      <div className="max-w-7xl mx-auto px-4 py-6 min-h-[1800px]">
         <div className="animate-pulse grid md:grid-cols-2 gap-6 md:gap-8">
           <div className="aspect-square bg-muted rounded-md w-full" />
           <div className="space-y-4">
