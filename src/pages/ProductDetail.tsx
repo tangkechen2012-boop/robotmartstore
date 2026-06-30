@@ -219,7 +219,7 @@ const ProductDetail = () => {
                   onClick={() => setSelectedImage(i)}
                   aria-label={`View product image ${i + 1}`}
                 >
-                  <img src={img.node.url} alt="" className="w-full h-full object-contain p-1" loading="lazy" />
+                  <img src={shopifyImageUrl(img.node.url, 128)} alt="" width={64} height={64} className="w-full h-full object-contain p-1" loading="lazy" decoding="async" />
                 </button>
               ))}
             </div>
