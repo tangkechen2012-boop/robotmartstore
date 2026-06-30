@@ -49,7 +49,9 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         <div className="aspect-square bg-slate-100 relative overflow-hidden">
           {image ? (
             <img
-              src={image.url}
+              src={shopifyImageUrl(image.url, 400)}
+              srcSet={shopifyImageSrcSet(image.url, [300, 400, 600, 800])}
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 300px"
               alt={image.altText || node.title}
               width={400}
               height={400}
