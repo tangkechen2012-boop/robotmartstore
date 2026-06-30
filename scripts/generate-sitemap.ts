@@ -11,6 +11,7 @@ const COLLECTION_HANDLES = [
   "humanoid-robots",
   "quadruped-robots",
   "robot-accessories",
+  "robotic-arms",
   "toy-robots",
   "pre-owned",
 ];

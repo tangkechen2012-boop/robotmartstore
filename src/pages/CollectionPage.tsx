@@ -13,6 +13,7 @@ const COLLECTION_HANDLES = [
   "humanoid-robots",
   "quadruped-robots",
   "robot-accessories",
+  "robotic-arms",
   "toy-robots",
   "pre-owned",
 ];
@@ -21,6 +22,7 @@ const COLLECTION_HANDLES = [
 const TAG_COLLECTION_QUERIES: Record<string, string> = {
   "pre-owned": "tag:Condition_Used",
   "robot-accessories": "tag:Category_Accessories",
+  "robotic-arms": "tag:Category_RoboticArm OR product_type:'Robotic Arm'",
 };
 
 const COLLECTION_GUIDES: Record<string, {
@@ -192,12 +194,56 @@ const COLLECTION_GUIDES: Record<string, {
       },
     ],
   },
+  "robotic-arms": {
+    eyebrow: "Robotic arm sourcing",
+    title: "Robotic arms for research, manipulation labs, and industrial pilots",
+    description:
+      "Source collaborative robotic arms, manipulators, and end-effector platforms for university research, machine-tending pilots, packaging cells, and embodied-AI workcells. RobotMart compares payload, reach, repeatability, SDK and ROS support, controller, and freight terms before quoting so your team can choose the right manipulator with confidence.",
+    ctaLabel: "Request a robotic arm quote",
+    highlights: [
+      "Match payload, reach, and repeatability to your task before locking a quote",
+      "Confirm SDK, ROS/ROS2, MoveIt, Python/C++, and digital-twin tooling for your stack",
+      "Plan controller, mounting, safety, end-effector, and integration support up front",
+    ],
+    buyerCards: [
+      {
+        icon: GraduationCap,
+        title: "Research and teaching",
+        text: "Use cobots and manipulators for grasp learning, motion planning, imitation, and tactile or vision-guided manipulation studies.",
+      },
+      {
+        icon: Code2,
+        title: "Developer access",
+        text: "Compare ROS/ROS2 drivers, real-time control, SDK examples, simulation models, and documentation for lab or integration use.",
+      },
+      {
+        icon: BadgeCheck,
+        title: "Industrial fit",
+        text: "Validate duty cycle, IP rating, safety profile, controller, mounting, and warranty before deploying into a production cell.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How do I choose between a cobot and an industrial robotic arm?",
+        a: "Cobots prioritize safety, easy programming, and human collaboration; industrial arms prioritize payload, speed, and reach. RobotMart can compare both against your payload, reach, cycle time, and safety needs before quoting.",
+      },
+      {
+        q: "Do robotic arms support ROS, MoveIt, and Python?",
+        a: "Most platforms we source ship with ROS/ROS2 drivers, MoveIt integration, and Python/C++ SDKs. Exact support varies by vendor and edition, so we confirm SDK, examples, and documentation during quote review.",
+      },
+      {
+        q: "Can RobotMart bundle end-effectors and grippers with a robotic arm?",
+        a: "Yes. We can quote grippers, force-torque sensors, cameras, tool changers, and dexterous hands together with the arm, and confirm mechanical, electrical, and software compatibility before purchase.",
+      },
+    ],
+  },
 };
 
 const COLLECTION_LABELS: Record<string, string> = {
   "humanoid-robots": "Humanoid Robots",
   "quadruped-robots": "Quadruped Robots",
   "robot-accessories": "Robot Accessories",
+  "robotic-arms": "Robotic Arms",
   "toy-robots": "Toy Robots",
   "pre-owned": "Pre-Owned Inventory",
 };

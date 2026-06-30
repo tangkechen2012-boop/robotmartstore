@@ -40,6 +40,7 @@ const WHY_US = [
 const CATEGORIES = [
   { title: "Humanoid Robots", link: "/products/humanoid-robots", description: "Humanoid platforms for research, education, embodied AI, and advanced deployment.", image: "/images/categories/humanoid.webp" },
   { title: "Quadruped Robots", link: "/products/quadruped-robots", description: "Quadruped robot dogs and agile legged platforms for mobility and research.", image: "/images/categories/quadruped.webp" },
+  { title: "Robotic Arms", link: "/products/robotic-arms", description: "Cobots and manipulators for research, machine tending, and industrial pilots.", image: "/images/categories/accessories.webp" },
   { title: "Robot Accessories", link: "/products/robot-accessories", description: "Dexterous hands, tactile sensors, controllers, batteries, and add-ons.", image: "/images/categories/accessories.webp" },
 ];
 
@@ -205,7 +206,7 @@ const Index = () => {
             </Button>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:auto-rows-[260px]">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:auto-rows-[260px]">
             {CATEGORIES.map(({ title, description, link, image }, i) => {
               const isHero = i === 0;
               return (

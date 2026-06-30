@@ -10,6 +10,7 @@ interface SeoProps {
   image?: string;
   type?: "website" | "article" | "product";
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
 }
 
 export const Seo = ({
@@ -19,6 +20,7 @@ export const Seo = ({
   image = DEFAULT_OG_IMAGE,
   type = "website",
   jsonLd,
+  noindex = false,
 }: SeoProps) => {
   const url = `${SITE_URL}${path}`;
   const trimmedTitle = title.length > 60 ? title.slice(0, 57) + "…" : title;
@@ -31,6 +33,7 @@ export const Seo = ({
       <title>{trimmedTitle}</title>
       <meta name="description" content={trimmedDesc} />
       <link rel="canonical" href={url} />
+      {noindex && <meta name="robots" content="noindex, nofollow" />}
       <meta property="og:title" content={trimmedTitle} />
       <meta property="og:description" content={trimmedDesc} />
       <meta property="og:url" content={url} />
