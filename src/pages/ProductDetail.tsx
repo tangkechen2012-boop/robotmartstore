@@ -194,7 +194,9 @@ const ProductDetail = () => {
           <div className="w-full aspect-square bg-slate-100 rounded-md overflow-hidden">
             {images[selectedImage]?.node ? (
               <img
-                src={images[selectedImage].node.url}
+                src={shopifyImageUrl(images[selectedImage].node.url, 900)}
+                srcSet={shopifyImageSrcSet(images[selectedImage].node.url, [600, 900, 1200, 1600])}
+                sizes="(max-width: 768px) 100vw, 600px"
                 alt={images[selectedImage].node.altText || product.title}
                 className="w-full h-full object-contain p-4 md:p-6"
                 {...{ fetchpriority: "high" }}
