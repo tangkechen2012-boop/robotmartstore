@@ -62,6 +62,33 @@ const BuyingGuidesPage = () => {
             </Link>
           ))}
         </div>
+
+        {/* Shop collections shortcut */}
+        <div className="mt-14 rounded-2xl border bg-secondary/30 p-6">
+          <p className="font-semibold mb-3">Ready to shop?</p>
+          <div className="flex flex-wrap gap-2 mb-5">
+            {[
+              { label: "Humanoid Robots", href: "/products/humanoid-robots" },
+              { label: "Quadruped Robots", href: "/products/quadruped-robots" },
+              { label: "Robotic Arms", href: "/products/robotic-arms" },
+              { label: "Pre-Owned Robots", href: "/products/pre-owned" },
+              { label: "Accessories & Parts", href: "/products/robot-accessories" },
+            ].map((c) => (
+              <Link
+                key={c.href}
+                to={c.href}
+                className="inline-flex items-center px-4 py-2 rounded-full border bg-background text-sm font-medium hover:bg-secondary transition-colors"
+              >
+                {c.label} <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
+              </Link>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+            <Link to="/faq" className="text-primary hover:underline inline-flex items-center">FAQ <ArrowRight className="h-3.5 w-3.5 ml-1" /></Link>
+            <Link to="/glossary" className="text-primary hover:underline inline-flex items-center">Robotics Glossary <ArrowRight className="h-3.5 w-3.5 ml-1" /></Link>
+            <Link to="/request-quote" className="text-primary hover:underline inline-flex items-center">Request a quote <ArrowRight className="h-3.5 w-3.5 ml-1" /></Link>
+          </div>
+        </div>
       </section>
     </div>
   );
