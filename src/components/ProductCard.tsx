@@ -50,8 +50,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             <img
               src={image.url}
               alt={image.altText || node.title}
+              width={400}
+              height={400}
               className="w-full h-full object-contain p-5 group-hover:scale-103 transition-transform duration-300"
               loading="lazy"
+              decoding="async"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-muted-foreground text-sm">
