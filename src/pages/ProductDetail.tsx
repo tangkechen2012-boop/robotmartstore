@@ -1,18 +1,19 @@
 import { useParams } from "react-router-dom";
 import DOMPurify from "dompurify";
-import { useShopifyProductByHandle } from "@/hooks/useShopifyProducts";
+import { useShopifyProductByHandle, useShopifyProducts } from "@/hooks/useShopifyProducts";
 import { useCartStore } from "@/stores/cartStore";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { CalendarClock, MessageSquare, ShoppingCart, Loader2, ChevronLeft, Minus, Plus } from "lucide-react";
+import { CalendarClock, MessageSquare, ShoppingCart, Loader2, ChevronLeft, Minus, Plus, ShieldCheck, Truck, Headphones, Wrench } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { toast } from "sonner";
 import { buildQuotePath, getSalesStrategy } from "@/lib/salesStrategy";
 import { Seo } from "@/components/Seo";
 import { UsedAvailableBanner } from "@/components/UsedAvailableBanner";
 import { isUsedProduct, getRelatedNewHandle, useUsedListingsForNew } from "@/hooks/useRelatedCondition";
+import { ProductCard } from "@/components/ProductCard";
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
@@ -44,6 +45,38 @@ const ProductDetail = () => {
   const { data: usedListings = [] } = useUsedListingsForNew(
     !productIsUsed ? product?.handle : null,
     !productIsUsed && !!product?.handle,
+  );
+
+  // Build spec rows from structured tags like "Voltage_48V", "Payload_30kg", "Platform_Humanoid"
+  const SKIP_TAG_PREFIXES = ["category_", "condition_", "relatednew_", "grade_", "brand_"];
+  const specRows = useMemo(() => {
+    const tags: string[] = product?.tags || [];
+    const rows: Array<{ label: string; value: string }> = [];
+    const seen = new Set<string>();
+    for (const t of tags) {
+      const idx = t.indexOf("_");
+      if (idx <= 0) continue;
+      const prefix = t.slice(0, idx);
+      const value = t.slice(idx + 1).replace(/_/g, " ").trim();
+      if (!value) continue;
+      const lower = (prefix + "_").toLowerCase();
+      if (SKIP_TAG_PREFIXES.some(p => lower.startsWith(p))) continue;
+      const label = prefix.charAt(0).toUpperCase() + prefix.slice(1).toLowerCase();
+      const key = label + "|" + value;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      rows.push({ label, value });
+    }
+    if (product?.vendor && !rows.some(r => r.label === "Brand")) rows.unshift({ label: "Brand", value: product.vendor });
+    if (product?.productType && !rows.some(r => r.label === "Type")) rows.unshift({ label: "Type", value: product.productType });
+    return rows;
+  }, [product?.tags, product?.vendor, product?.productType]);
+
+  // Related products: same product type, exclude self
+  const { data: relatedRaw = [] } = useShopifyProducts(8, product?.productType ? `product_type:"${product.productType}"` : undefined);
+  const relatedProducts = useMemo(
+    () => relatedRaw.filter((p) => p.node.handle !== product?.handle).slice(0, 4),
+    [relatedRaw, product?.handle],
   );
 
   const seoTitle = product ? `${product.title} — RobotMart` : "";
@@ -195,10 +228,17 @@ const ProductDetail = () => {
           <h1 className="text-2xl font-bold mb-2">{product.title}</h1>
 
           {product.vendor && (
-            <Link to={`/brands#${product.vendor.toLowerCase()}`} className="text-sm text-primary hover:underline mb-4 block">
+            <Link to={`/brands#${product.vendor.toLowerCase()}`} className="text-sm text-primary hover:underline mb-3 block">
               {product.vendor}
             </Link>
           )}
+
+          {/* Quick spec strip */}
+          <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground mb-2">
+            {product.productType && <span><span className="text-foreground/70 font-medium">Type:</span> {product.productType}</span>}
+            <span><span className="text-foreground/70 font-medium">Condition:</span> {productIsUsed ? "Used / Pre-owned" : "New"}</span>
+            <span><span className="text-foreground/70 font-medium">SKU:</span> {(selectedVariant?.sku || product.handle).toString().toUpperCase()}</span>
+          </div>
 
           <Separator className="my-4" />
 
@@ -358,7 +398,111 @@ const ProductDetail = () => {
             )}
           </div>
         </ProductSection>
+
+        {/* Specifications — derived from structured tags (Key_Value or Prefix_Value) */}
+        {specRows.length > 0 && (
+          <ProductSection title="Specifications">
+            <table className="w-full text-sm">
+              <tbody>
+                {specRows.map((row) => (
+                  <tr key={row.label} className="border-b last:border-b-0">
+                    <td className="py-2 pr-4 text-muted-foreground w-1/3 font-medium">{row.label}</td>
+                    <td className="py-2 text-foreground">{row.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </ProductSection>
+        )}
+
+        {/* Shipping & Lead Time */}
+        <ProductSection title="Shipping & Lead Time">
+          <div className="grid sm:grid-cols-2 gap-4 text-sm">
+            <div className="flex gap-3">
+              <Truck className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+              <div>
+                <div className="font-medium text-foreground mb-1">Delivery</div>
+                <p className="text-muted-foreground leading-relaxed">
+                  {productIsUsed
+                    ? "Estimated delivery in 5–10 business days after order confirmation."
+                    : isDirectSale
+                    ? "In-stock units ship within 3–5 business days. Transit time varies by destination."
+                    : "Lead time confirmed at quotation. Typical production lead time is 4–8 weeks for new humanoid platforms."}
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <ShieldCheck className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+              <div>
+                <div className="font-medium text-foreground mb-1">Customs & Duties</div>
+                <p className="text-muted-foreground leading-relaxed">
+                  International shipments may incur import duties and taxes payable by the buyer. Commercial invoice and HS codes provided for clearance.
+                </p>
+              </div>
+            </div>
+          </div>
+        </ProductSection>
+
+        {/* Warranty & Returns */}
+        <ProductSection title="Warranty & Returns">
+          <div className="text-sm text-muted-foreground leading-relaxed space-y-2">
+            {productIsUsed ? (
+              <>
+                <p><span className="font-medium text-foreground">Inspection:</span> Each pre-owned unit is inspected and function-tested before listing. Cosmetic condition photos are provided in the listing gallery.</p>
+                <p><span className="font-medium text-foreground">Warranty:</span> 30-day functional warranty against DOA or undisclosed defects. Manufacturer warranty does not apply to used units.</p>
+                <p><span className="font-medium text-foreground">Returns:</span> Pre-owned items are sold as-is. Returns accepted only for defects materially different from the listing description.</p>
+              </>
+            ) : (
+              <>
+                <p><span className="font-medium text-foreground">Warranty:</span> Backed by manufacturer warranty — typically 12 months on hardware. Specific terms vary by brand and model; confirmed on the quotation.</p>
+                <p><span className="font-medium text-foreground">Returns:</span> All sales are final. Defective units handled under warranty service. Contact us within 7 days of delivery for any quality concerns.</p>
+              </>
+            )}
+          </div>
+        </ProductSection>
+
+        {/* Support */}
+        <ProductSection title="Engineering Support">
+          <div className="grid sm:grid-cols-2 gap-4 text-sm">
+            <div className="flex gap-3">
+              <Headphones className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+              <div>
+                <div className="font-medium text-foreground mb-1">Pre-Sales Consultation</div>
+                <p className="text-muted-foreground leading-relaxed">Specification review, application fit, and integration feasibility — included with every quote.</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <Wrench className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+              <div>
+                <div className="font-medium text-foreground mb-1">Deployment & Integration</div>
+                <p className="text-muted-foreground leading-relaxed">SDK onboarding, ROS / Python sample code, and optional on-site commissioning available on request.</p>
+              </div>
+            </div>
+          </div>
+          <div className="mt-4">
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/contact">Talk to an engineer</Link>
+            </Button>
+          </div>
+        </ProductSection>
       </div>
+
+      {/* Related Products */}
+      {relatedProducts.length > 0 && (
+        <section className="mt-12">
+          <div className="flex items-end justify-between mb-4">
+            <h2 className="text-xl font-bold">Related Products</h2>
+            <Link to={`/collections/${(product.productType || "all").toLowerCase().replace(/\s+/g, "-")}`} className="text-sm text-primary hover:underline">
+              View all →
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {relatedProducts.map((p) => (
+              <ProductCard key={p.node.id} product={p} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Mobile sticky CTA — only on small viewports */}
       <div className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 px-4 py-3">
