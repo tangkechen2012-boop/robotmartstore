@@ -47,6 +47,38 @@ const ProductDetail = () => {
     !productIsUsed && !!product?.handle,
   );
 
+  // Build spec rows from structured tags like "Voltage_48V", "Payload_30kg", "Platform_Humanoid"
+  const SKIP_TAG_PREFIXES = ["category_", "condition_", "relatednew_", "grade_", "brand_"];
+  const specRows = useMemo(() => {
+    const tags: string[] = product?.tags || [];
+    const rows: Array<{ label: string; value: string }> = [];
+    const seen = new Set<string>();
+    for (const t of tags) {
+      const idx = t.indexOf("_");
+      if (idx <= 0) continue;
+      const prefix = t.slice(0, idx);
+      const value = t.slice(idx + 1).replace(/_/g, " ").trim();
+      if (!value) continue;
+      const lower = (prefix + "_").toLowerCase();
+      if (SKIP_TAG_PREFIXES.some(p => lower.startsWith(p))) continue;
+      const label = prefix.charAt(0).toUpperCase() + prefix.slice(1).toLowerCase();
+      const key = label + "|" + value;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      rows.push({ label, value });
+    }
+    if (product?.vendor && !rows.some(r => r.label === "Brand")) rows.unshift({ label: "Brand", value: product.vendor });
+    if (product?.productType && !rows.some(r => r.label === "Type")) rows.unshift({ label: "Type", value: product.productType });
+    return rows;
+  }, [product?.tags, product?.vendor, product?.productType]);
+
+  // Related products: same product type, exclude self
+  const { data: relatedRaw = [] } = useShopifyProducts(8, product?.productType ? `product_type:"${product.productType}"` : undefined);
+  const relatedProducts = useMemo(
+    () => (relatedRaw as Array<{ node: { id: string; handle: string } }>).filter(p => p.node.handle !== product?.handle).slice(0, 4),
+    [relatedRaw, product?.handle],
+  );
+
   const seoTitle = product ? `${product.title} — RobotMart` : "";
   const seoDesc = product
     ? (product.description || "").replace(/\s+/g, " ").trim().slice(0, 155)
