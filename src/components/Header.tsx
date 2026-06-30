@@ -119,7 +119,7 @@ export const Header = () => {
       </div>
 
       {/* Navigation */}
-      <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${scrolled ? "py-0 bg-background border-b border-border/30 shadow-sm" : "py-0.5"}`}>
+      <header className={`sticky top-0 z-50 w-full transition-[background-color,box-shadow,border-color] duration-300 ${scrolled ? "bg-background border-b border-border/30 shadow-sm" : ""}`}>
         <div className="max-w-7xl mx-auto px-4 flex items-center gap-3">
           {/* Logo - outside nav pill, aligned with page content */}
           <Link to="/" className="flex-shrink-0 flex items-center">
@@ -131,7 +131,7 @@ export const Header = () => {
           </Link>
 
           <nav
-            className={`glass-subtle rounded-2xl px-5 flex-1 transition-all duration-300 ${scrolled ? "shadow-soft-lg" : "shadow-soft"}`}>
+            className={`glass-subtle rounded-2xl px-5 flex-1 transition-shadow duration-300 ${scrolled ? "shadow-soft-lg" : "shadow-soft"}`}>
             
             <div className="flex items-center h-16 gap-4 whitespace-nowrap">
               {/* Mobile menu */}
