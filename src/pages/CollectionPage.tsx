@@ -348,6 +348,7 @@ const CollectionPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeCategory, setActiveCategory] = useState(() => searchParams.get("category") || "all");
   const [filters, setFilters] = useState<FilterState>(EMPTY_FILTERS);
+  const [sortBy, setSortBy] = useState<string>(() => searchParams.get("sort") || "featured");
 
   const accessoryFiltered = useMemo(() => {
     if (handle !== "robot-accessories" || !collection?.products) {
@@ -366,6 +367,19 @@ const CollectionPage = () => {
     [accessoryFiltered, filters]
   );
 
+  const sortedProducts = useMemo(() => {
+    const list = [...filteredProducts];
+    const priceOf = (p: { node: { priceRange?: { minVariantPrice?: { amount?: string } } } }) =>
+      parseFloat(p.node.priceRange?.minVariantPrice?.amount || "0");
+    switch (sortBy) {
+      case "price-asc": return list.sort((a, b) => priceOf(a) - priceOf(b));
+      case "price-desc": return list.sort((a, b) => priceOf(b) - priceOf(a));
+      case "title-asc": return list.sort((a, b) => (a.node.title || "").localeCompare(b.node.title || ""));
+      case "title-desc": return list.sort((a, b) => (b.node.title || "").localeCompare(a.node.title || ""));
+      default: return list;
+    }
+  }, [filteredProducts, sortBy]);
+
   const handleCategoryClick = (key: string) => {
     setActiveCategory(key);
     const next = new URLSearchParams(searchParams);
@@ -374,6 +388,13 @@ const CollectionPage = () => {
     } else {
       next.set("category", key);
     }
+    setSearchParams(next);
+  };
+
+  const handleSortChange = (value: string) => {
+    setSortBy(value);
+    const next = new URLSearchParams(searchParams);
+    if (value === "featured") next.delete("sort"); else next.set("sort", value);
     setSearchParams(next);
   };
 
