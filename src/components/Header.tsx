@@ -131,7 +131,7 @@ export const Header = () => {
           </Link>
 
           <nav
-            className={`glass-subtle rounded-2xl px-5 flex-1 transition-all duration-300 ${scrolled ? "shadow-soft-lg" : "shadow-soft"}`}>
+            className={`glass-subtle rounded-2xl px-5 flex-1 transition-shadow duration-300 ${scrolled ? "shadow-soft-lg" : "shadow-soft"}`}>
             
             <div className="flex items-center h-16 gap-4 whitespace-nowrap">
               {/* Mobile menu */}
