@@ -75,7 +75,7 @@ const ProductDetail = () => {
   // Related products: same product type, exclude self
   const { data: relatedRaw = [] } = useShopifyProducts(8, product?.productType ? `product_type:"${product.productType}"` : undefined);
   const relatedProducts = useMemo(
-    () => (relatedRaw as Array<{ node: { id: string; handle: string } }>).filter(p => p.node.handle !== product?.handle).slice(0, 4),
+    () => relatedRaw.filter((p) => p.node.handle !== product?.handle).slice(0, 4),
     [relatedRaw, product?.handle],
   );
 
