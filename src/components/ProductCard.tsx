@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { MessageSquare, ShoppingCart, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { buildQuotePath, getSalesStrategy } from "@/lib/salesStrategy";
+import { shopifyImageUrl, shopifyImageSrcSet } from "@/lib/shopifyImage";
 
 interface ProductCardProps {
   product: ShopifyProduct;
