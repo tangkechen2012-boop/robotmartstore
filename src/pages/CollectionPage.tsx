@@ -426,13 +426,52 @@ const CollectionPage = () => {
     guide?.description ||
     collection?.description ||
     `Browse ${collectionTitle} at RobotMart — quote-ready robotics platforms for research, education, and enterprise.`;
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.robotmart.store/" },
+      { "@type": "ListItem", position: 2, name: "Products", item: "https://www.robotmart.store/products" },
+      { "@type": "ListItem", position: 3, name: collectionTitle, item: `https://www.robotmart.store/products/${handle}` },
+    ],
+  };
+  const itemListLd = collection?.products?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: collectionTitle,
+        numberOfItems: collection.products.length,
+        itemListElement: collection.products.slice(0, 20).map((p, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          url: `https://www.robotmart.store/product/${p.node.handle}`,
+          name: p.node.title,
+        })),
+      }
+    : null;
+  const faqLd = guide?.faqs?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: guide.faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      }
+    : null;
+  const jsonLd = [breadcrumbLd, itemListLd, faqLd].filter(Boolean) as Record<string, unknown>[];
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <Seo
         title={`${collectionTitle} — RobotMart`}
         description={collectionDesc}
         path={`/products/${handle}`}
+        jsonLd={jsonLd}
       />
+
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1 text-sm text-muted-foreground mb-4">
         <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
