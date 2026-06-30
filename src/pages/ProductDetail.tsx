@@ -14,6 +14,7 @@ import { Seo } from "@/components/Seo";
 import { UsedAvailableBanner } from "@/components/UsedAvailableBanner";
 import { isUsedProduct, getRelatedNewHandle, useUsedListingsForNew } from "@/hooks/useRelatedCondition";
 import { ProductCard } from "@/components/ProductCard";
+import { shopifyImageUrl, shopifyImageSrcSet } from "@/lib/shopifyImage";
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
