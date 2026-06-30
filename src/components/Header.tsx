@@ -237,7 +237,7 @@ function MobileNavItem({ item, onClose }: {item: NavItemType;onClose: () => void
     return (
       <Link
         to={item.link}
-        className="block py-2.5 px-4 rounded-xl text-sm font-medium hover:bg-secondary transition-colors"
+        className="flex items-center min-h-[44px] py-2.5 px-4 rounded-xl text-base font-medium hover:bg-secondary transition-colors"
         onClick={onClose}>
         
         {item.label}
@@ -248,22 +248,22 @@ function MobileNavItem({ item, onClose }: {item: NavItemType;onClose: () => void
   return (
     <div>
       <button
-        className="w-full flex items-center justify-between py-2.5 px-4 text-sm font-medium hover:bg-secondary rounded-xl transition-colors"
+        className="w-full flex items-center justify-between min-h-[44px] py-2.5 px-4 text-base font-medium hover:bg-secondary rounded-xl transition-colors"
         onClick={() => setOpen(!open)}>
         
         {item.label}
         {open ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
       </button>
       {open &&
-      <div className="pl-4 space-y-2 pb-2">
+      <div className="pl-4 space-y-1 pb-2">
           {item.sections.map((section) =>
         <div key={section.title}>
-              <p className="text-xs font-semibold text-primary px-4 py-1">{section.title}</p>
+              <p className="text-xs font-semibold text-primary px-4 py-1 uppercase tracking-wide">{section.title}</p>
               {section.items.map((sub) =>
           <Link
             key={sub.label}
             to={sub.link}
-            className="block text-sm text-muted-foreground hover:text-foreground px-4 py-1.5"
+            className="flex items-center min-h-[44px] text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg px-4"
             onClick={onClose}>
             
                   {sub.label}
