@@ -94,6 +94,19 @@
     @apply bg-background text-foreground antialiased;
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   }
+
+  /* Mobile overflow safety net — prevents any rogue child from causing horizontal scroll */
+  html,
+  body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  /* Images default to a sane fit so wide originals don't blow out their containers */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 @layer utilities {

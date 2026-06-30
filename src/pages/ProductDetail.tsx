@@ -78,13 +78,15 @@ const ProductDetail = () => {
 
   if (isLoading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="animate-pulse grid md:grid-cols-2 gap-8">
-          <div className="aspect-square bg-muted rounded-md" />
+      <div className="max-w-7xl mx-auto px-4 py-6">
+        <div className="animate-pulse grid md:grid-cols-2 gap-6 md:gap-8">
+          <div className="aspect-square bg-muted rounded-md w-full" />
           <div className="space-y-4">
-            <div className="h-8 bg-muted rounded w-3/4" />
-            <div className="h-6 bg-muted rounded w-1/4" />
-            <div className="h-32 bg-muted rounded" />
+            <div className="h-7 bg-muted rounded w-3/4" />
+            <div className="h-4 bg-muted rounded w-1/3" />
+            <div className="h-10 bg-muted rounded w-1/2 mt-6" />
+            <div className="h-24 bg-muted rounded" />
+            <div className="h-12 bg-muted rounded" />
           </div>
         </div>
       </div>
@@ -132,7 +134,7 @@ const ProductDetail = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6">
+    <div className="max-w-7xl mx-auto px-4 py-6 pb-28 md:pb-6">
       <Seo
         title={seoTitle}
         description={seoDesc}
@@ -142,45 +144,50 @@ const ProductDetail = () => {
         jsonLd={productSchema}
       />
       {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-        <Link to="/" className="hover:text-foreground flex items-center gap-1">
+      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6 min-w-0 overflow-hidden">
+        <Link to="/" className="hover:text-foreground flex items-center gap-1 flex-shrink-0">
           <ChevronLeft className="h-3 w-3" /> Home
         </Link>
-        <span>/</span>
-        <span className="text-foreground">{product.title}</span>
+        <span className="flex-shrink-0">/</span>
+        <span className="text-foreground truncate">{product.title}</span>
       </div>
 
       {/* Top section: Images + Purchase info */}
-      <div className="grid md:grid-cols-2 gap-8 mb-10">
-        {/* Image gallery with side thumbnails */}
-        <div className="flex gap-3">
-          {/* Thumbnails column */}
-          {images.length > 1 && (
-            <div className="flex flex-col gap-2 flex-shrink-0">
-              {images.map((img: { node: { url: string; altText: string | null } }, i: number) => (
-                <button
-                  key={i}
-                  className={`w-16 h-16 rounded border overflow-hidden bg-slate-100 ${i === selectedImage ? 'border-primary ring-1 ring-primary' : 'border-muted'}`}
-                  onClick={() => setSelectedImage(i)}
-                  aria-label={`View product image ${i + 1}`}
-                >
-                  <img src={img.node.url} alt="" className="w-full h-full object-contain p-1" />
-                </button>
-              ))}
-            </div>
-          )}
-          {/* Main image */}
-          <div className="flex-1 aspect-square bg-slate-100 rounded-md overflow-hidden">
+      <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-10 min-w-0">
+        {/* Image gallery — main image on top, thumbnail row below (works on every viewport) */}
+        <div className="flex flex-col gap-3 min-w-0">
+          {/* Main image: stable 1:1 aspect, never crops, never overflows */}
+          <div className="w-full aspect-square bg-slate-100 rounded-md overflow-hidden">
             {images[selectedImage]?.node ? (
               <img
                 src={images[selectedImage].node.url}
                 alt={images[selectedImage].node.altText || product.title}
-                className="w-full h-full object-contain p-6"
+                className="w-full h-full object-contain p-4 md:p-6"
+                fetchPriority="high"
+                decoding="async"
+                width={800}
+                height={800}
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-muted-foreground">No Image</div>
             )}
           </div>
+          {/* Thumbnail row — horizontal scroll only when needed, contained */}
+          {images.length > 1 && (
+            <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 snap-x">
+              {images.map((img: { node: { url: string; altText: string | null } }, i: number) => (
+                <button
+                  key={i}
+                  type="button"
+                  className={`flex-shrink-0 w-16 h-16 rounded border overflow-hidden bg-slate-100 snap-start ${i === selectedImage ? 'border-primary ring-1 ring-primary' : 'border-muted'}`}
+                  onClick={() => setSelectedImage(i)}
+                  aria-label={`View product image ${i + 1}`}
+                >
+                  <img src={img.node.url} alt="" className="w-full h-full object-contain p-1" loading="lazy" />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Right side: Title, price, quantity, add to cart */}
@@ -352,9 +359,42 @@ const ProductDetail = () => {
           </div>
         </ProductSection>
       </div>
+
+      {/* Mobile sticky CTA — only on small viewports */}
+      <div className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 px-4 py-3">
+        <div className="flex items-center gap-3 max-w-7xl mx-auto">
+          <div className="flex-1 min-w-0">
+            <div className="text-[11px] text-muted-foreground uppercase tracking-wide">
+              {isDirectSale ? "Price" : strategy.badge}
+            </div>
+            <div className="text-base font-bold text-foreground truncate">
+              {isDirectSale
+                ? `$${priceAmount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                : strategy.priceLabel}
+            </div>
+          </div>
+          {isDirectSale && (
+            <Button
+              onClick={handleAddToCart}
+              disabled={cartLoading || !selectedVariant?.availableForSale}
+              size="sm"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+            >
+              {cartLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShoppingCart className="h-4 w-4" />}
+              <span className="ml-1.5">Add</span>
+            </Button>
+          )}
+          <Button variant={isDirectSale ? "outline" : "default"} size="sm" asChild className="font-semibold">
+            <Link to={buildQuotePath(product, strategy.mode === "pre-order" ? "preorder" : "quote")}>
+              {isDirectSale ? strategy.secondaryCta : strategy.primaryCta}
+            </Link>
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };
+
 
 /* Collapsible section component matching RobotShop style */
 function ProductSection({ title, defaultOpen, children }: { title: string; defaultOpen?: boolean; children: React.ReactNode }) {
