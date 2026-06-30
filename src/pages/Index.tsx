@@ -138,15 +138,18 @@ const Index = () => {
             </div>
           </div>
           <div className="flex-1 relative w-full max-w-lg h-[340px] md:h-[440px] flex items-center justify-center">
-            <img
-              src="/images/hero-robot-transparent.png"
-              alt="Humanoid Robot"
-              width={1024}
-              height={1024}
-              {...{ fetchpriority: "high" }}
-              decoding="async"
-              className="w-full h-full object-contain drop-shadow-2xl"
-            />
+            <picture>
+              <source srcSet="/images/hero-robot-transparent.webp" type="image/webp" />
+              <img
+                src="/images/hero-robot-transparent.png"
+                alt="Humanoid robot — RobotMart engineering-grade robotics"
+                width={900}
+                height={900}
+                {...{ fetchpriority: "high" }}
+                decoding="async"
+                className="w-full h-full object-contain drop-shadow-2xl"
+              />
+            </picture>
           </div>
         </div>
       </section>
