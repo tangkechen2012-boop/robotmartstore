@@ -591,33 +591,49 @@ const CollectionPage = () => {
             />
           </div>
           <div>
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
               <p className="text-sm text-muted-foreground">
-                Showing <span className="font-semibold text-foreground">{filteredProducts.length}</span> of {accessoryFiltered.length} products
+                Showing <span className="font-semibold text-foreground">{sortedProducts.length}</span> of {accessoryFiltered.length} products
               </p>
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Button variant="outline" size="sm" className="lg:hidden">
-                    <SlidersHorizontal className="h-4 w-4 mr-2" /> Filters
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="left" className="w-[300px] sm:w-[340px] p-0 overflow-y-auto">
-                  <SheetHeader className="px-4 py-3 border-b">
-                    <SheetTitle>Filters</SheetTitle>
-                  </SheetHeader>
-                  <div className="p-3">
-                    <CollectionFilterSidebar
-                      products={accessoryFiltered}
-                      filters={filters}
-                      onChange={setFilters}
-                    />
-                  </div>
-                </SheetContent>
-              </Sheet>
+              <div className="flex items-center gap-2">
+                <label className="text-xs text-muted-foreground hidden sm:block" htmlFor="sort-by">Sort:</label>
+                <select
+                  id="sort-by"
+                  value={sortBy}
+                  onChange={(e) => handleSortChange(e.target.value)}
+                  className="h-9 rounded-md border border-input bg-background px-2 text-sm"
+                  aria-label="Sort products"
+                >
+                  <option value="featured">Featured</option>
+                  <option value="price-asc">Price: Low to High</option>
+                  <option value="price-desc">Price: High to Low</option>
+                  <option value="title-asc">Name: A–Z</option>
+                  <option value="title-desc">Name: Z–A</option>
+                </select>
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button variant="outline" size="sm" className="lg:hidden">
+                      <SlidersHorizontal className="h-4 w-4 mr-2" /> Filters
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side="left" className="w-[300px] sm:w-[340px] p-0 overflow-y-auto">
+                    <SheetHeader className="px-4 py-3 border-b">
+                      <SheetTitle>Filters</SheetTitle>
+                    </SheetHeader>
+                    <div className="p-3">
+                      <CollectionFilterSidebar
+                        products={accessoryFiltered}
+                        filters={filters}
+                        onChange={setFilters}
+                      />
+                    </div>
+                  </SheetContent>
+                </Sheet>
+              </div>
             </div>
-            {filteredProducts.length > 0 ? (
+            {sortedProducts.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-                {filteredProducts.map((product) => (
+                {sortedProducts.map((product) => (
                   <ProductCard key={product.node.id} product={product} />
                 ))}
               </div>
