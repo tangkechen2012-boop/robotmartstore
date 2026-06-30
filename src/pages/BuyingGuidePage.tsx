@@ -4,7 +4,16 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ArrowRight, ChevronRight, Clock } from "lucide-react";
-import { getGuide } from "@/content/buyingGuides";
+import { getGuide, BUYING_GUIDES } from "@/content/buyingGuides";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+
+const COLLECTION_LINKS = [
+  { label: "Humanoid Robots", href: "/products/humanoid-robots" },
+  { label: "Quadruped Robots", href: "/products/quadruped-robots" },
+  { label: "Robotic Arms", href: "/products/robotic-arms" },
+  { label: "Pre-Owned Robots", href: "/products/pre-owned" },
+  { label: "Accessories & Parts", href: "/products/robot-accessories" },
+];
 
 const BuyingGuidePage = () => {
   const { slug = "" } = useParams();
