@@ -163,7 +163,7 @@ const ProductDetail = () => {
                 src={images[selectedImage].node.url}
                 alt={images[selectedImage].node.altText || product.title}
                 className="w-full h-full object-contain p-4 md:p-6"
-                fetchPriority="high"
+                {...{ fetchpriority: "high" }}
                 decoding="async"
                 width={800}
                 height={800}
