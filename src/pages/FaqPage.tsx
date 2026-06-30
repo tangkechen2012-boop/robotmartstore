@@ -2,6 +2,18 @@ import { Seo } from "@/components/Seo";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight } from "lucide-react";
+import { BUYING_GUIDES } from "@/content/buyingGuides";
+
+const POPULAR_COLLECTIONS = [
+  { label: "Humanoid Robots", href: "/products/humanoid-robots" },
+  { label: "Quadruped Robots", href: "/products/quadruped-robots" },
+  { label: "Robotic Arms", href: "/products/robotic-arms" },
+  { label: "Pre-Owned Robots", href: "/products/pre-owned" },
+  { label: "Accessories & Parts", href: "/products/robot-accessories" },
+];
 
 const FAQ_GROUPS: { group: string; items: { q: string; a: string }[] }[] = [
   {
