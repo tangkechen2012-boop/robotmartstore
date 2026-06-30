@@ -196,10 +196,17 @@ const ProductDetail = () => {
           <h1 className="text-2xl font-bold mb-2">{product.title}</h1>
 
           {product.vendor && (
-            <Link to={`/brands#${product.vendor.toLowerCase()}`} className="text-sm text-primary hover:underline mb-4 block">
+            <Link to={`/brands#${product.vendor.toLowerCase()}`} className="text-sm text-primary hover:underline mb-3 block">
               {product.vendor}
             </Link>
           )}
+
+          {/* Quick spec strip */}
+          <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground mb-2">
+            {product.productType && <span><span className="text-foreground/70 font-medium">Type:</span> {product.productType}</span>}
+            <span><span className="text-foreground/70 font-medium">Condition:</span> {productIsUsed ? "Used / Pre-owned" : "New"}</span>
+            <span><span className="text-foreground/70 font-medium">SKU:</span> {(selectedVariant?.sku || product.handle).toString().toUpperCase()}</span>
+          </div>
 
           <Separator className="my-4" />
 
