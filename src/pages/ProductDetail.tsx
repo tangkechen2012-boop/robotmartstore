@@ -366,7 +366,111 @@ const ProductDetail = () => {
             )}
           </div>
         </ProductSection>
+
+        {/* Specifications — derived from structured tags (Key_Value or Prefix_Value) */}
+        {specRows.length > 0 && (
+          <ProductSection title="Specifications">
+            <table className="w-full text-sm">
+              <tbody>
+                {specRows.map((row) => (
+                  <tr key={row.label} className="border-b last:border-b-0">
+                    <td className="py-2 pr-4 text-muted-foreground w-1/3 font-medium">{row.label}</td>
+                    <td className="py-2 text-foreground">{row.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </ProductSection>
+        )}
+
+        {/* Shipping & Lead Time */}
+        <ProductSection title="Shipping & Lead Time">
+          <div className="grid sm:grid-cols-2 gap-4 text-sm">
+            <div className="flex gap-3">
+              <Truck className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+              <div>
+                <div className="font-medium text-foreground mb-1">Delivery</div>
+                <p className="text-muted-foreground leading-relaxed">
+                  {productIsUsed
+                    ? "Estimated delivery in 5–10 business days after order confirmation."
+                    : isDirectSale
+                    ? "In-stock units ship within 3–5 business days. Transit time varies by destination."
+                    : "Lead time confirmed at quotation. Typical production lead time is 4–8 weeks for new humanoid platforms."}
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <ShieldCheck className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+              <div>
+                <div className="font-medium text-foreground mb-1">Customs & Duties</div>
+                <p className="text-muted-foreground leading-relaxed">
+                  International shipments may incur import duties and taxes payable by the buyer. Commercial invoice and HS codes provided for clearance.
+                </p>
+              </div>
+            </div>
+          </div>
+        </ProductSection>
+
+        {/* Warranty & Returns */}
+        <ProductSection title="Warranty & Returns">
+          <div className="text-sm text-muted-foreground leading-relaxed space-y-2">
+            {productIsUsed ? (
+              <>
+                <p><span className="font-medium text-foreground">Inspection:</span> Each pre-owned unit is inspected and function-tested before listing. Cosmetic condition photos are provided in the listing gallery.</p>
+                <p><span className="font-medium text-foreground">Warranty:</span> 30-day functional warranty against DOA or undisclosed defects. Manufacturer warranty does not apply to used units.</p>
+                <p><span className="font-medium text-foreground">Returns:</span> Pre-owned items are sold as-is. Returns accepted only for defects materially different from the listing description.</p>
+              </>
+            ) : (
+              <>
+                <p><span className="font-medium text-foreground">Warranty:</span> Backed by manufacturer warranty — typically 12 months on hardware. Specific terms vary by brand and model; confirmed on the quotation.</p>
+                <p><span className="font-medium text-foreground">Returns:</span> All sales are final. Defective units handled under warranty service. Contact us within 7 days of delivery for any quality concerns.</p>
+              </>
+            )}
+          </div>
+        </ProductSection>
+
+        {/* Support */}
+        <ProductSection title="Engineering Support">
+          <div className="grid sm:grid-cols-2 gap-4 text-sm">
+            <div className="flex gap-3">
+              <Headphones className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+              <div>
+                <div className="font-medium text-foreground mb-1">Pre-Sales Consultation</div>
+                <p className="text-muted-foreground leading-relaxed">Specification review, application fit, and integration feasibility — included with every quote.</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <Wrench className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+              <div>
+                <div className="font-medium text-foreground mb-1">Deployment & Integration</div>
+                <p className="text-muted-foreground leading-relaxed">SDK onboarding, ROS / Python sample code, and optional on-site commissioning available on request.</p>
+              </div>
+            </div>
+          </div>
+          <div className="mt-4">
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/contact">Talk to an engineer</Link>
+            </Button>
+          </div>
+        </ProductSection>
       </div>
+
+      {/* Related Products */}
+      {relatedProducts.length > 0 && (
+        <section className="mt-12">
+          <div className="flex items-end justify-between mb-4">
+            <h2 className="text-xl font-bold">Related Products</h2>
+            <Link to={`/collections/${(product.productType || "all").toLowerCase().replace(/\s+/g, "-")}`} className="text-sm text-primary hover:underline">
+              View all →
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {relatedProducts.map((p) => (
+              <ProductCard key={p.node.id} product={p} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Mobile sticky CTA — only on small viewports */}
       <div className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 px-4 py-3">
