@@ -139,6 +139,14 @@ export const Header = () => {
                   <div className="mb-4">
                     <SearchBar onNavigate={() => setMobileOpen(false)} />
                   </div>
+                  <Button
+                    asChild
+                    className="w-full h-12 mb-4 rounded-pill font-semibold bg-accent hover:bg-accent/90 text-accent-foreground"
+                  >
+                    <Link to="/request-quote" onClick={() => setMobileOpen(false)}>
+                      Request Quote
+                    </Link>
+                  </Button>
                   <nav className="space-y-1">
                     {NAV_ITEMS.map((item) =>
                     <MobileNavItem key={item.label} item={item} onClose={() => setMobileOpen(false)} />
