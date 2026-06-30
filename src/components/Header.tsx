@@ -8,27 +8,66 @@ import { SearchBar } from "@/components/SearchBar";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 const NAV_ITEMS = [
-{
-  label: "Products",
-  link: "/products",
-  sections: [
   {
-    title: "Robots",
-    items: [
-    { label: "Humanoid Robots", link: "/products/humanoid-robots" },
-    { label: "Quadruped Robots", link: "/products/quadruped-robots" },
-    { label: "Robot Accessories", link: "/products/robot-accessories" },
-    { label: "Toy Robots", link: "/products/toy-robots" },
-    { label: "Pre-Owned Inventory", link: "/products/pre-owned" }]
+    label: "Products",
+    link: "/products",
+    sections: [
+      {
+        title: "Robots",
+        items: [
+          { label: "Humanoid Robots", link: "/products/humanoid-robots" },
+          { label: "Quadruped Robots", link: "/products/quadruped-robots" },
+          { label: "Robot Accessories", link: "/products/robot-accessories" },
+          { label: "Pre-Owned Inventory", link: "/products/pre-owned" },
+        ],
+      },
+      {
+        title: "Shop By",
+        items: [
+          { label: "All Products", link: "/products" },
+          { label: "By Brand", link: "/brands" },
+        ],
+      },
+    ],
+  },
+  { label: "Brands", link: "/brands" },
+  {
+    label: "Solutions",
+    link: "/applications",
+    sections: [
+      {
+        title: "Services",
+        items: [
+          { label: "Services & Technology", link: "/services-technology" },
+          { label: "Custom Development", link: "/custom-development" },
+          { label: "B2B Procurement", link: "/procurement" },
+        ],
+      },
+      {
+        title: "Applications",
+        items: [
+          { label: "Industry Applications", link: "/applications" },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Resources",
+    link: "/blog",
+    sections: [
+      {
+        title: "Learn",
+        items: [
+          { label: "Blog & Guides", link: "/blog" },
+          { label: "Support Center", link: "/support" },
+        ],
+      },
+    ],
+  },
+  { label: "About", link: "/about" },
+  { label: "Contact", link: "/contact" },
+];
 
-  }]
-
-},
-{ label: "Services & Technology", link: "/services-technology" },
-{ label: "Procurement", link: "/procurement" },
-{ label: "Custom Development", link: "/custom-development" },
-{ label: "Applications", link: "/applications" },
-{ label: "About", link: "/about" }];
 
 
 export const Header = () => {
