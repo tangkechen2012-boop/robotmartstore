@@ -348,6 +348,7 @@ const CollectionPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeCategory, setActiveCategory] = useState(() => searchParams.get("category") || "all");
   const [filters, setFilters] = useState<FilterState>(EMPTY_FILTERS);
+  const [sortBy, setSortBy] = useState<string>(() => searchParams.get("sort") || "featured");
 
   const accessoryFiltered = useMemo(() => {
     if (handle !== "robot-accessories" || !collection?.products) {
@@ -366,6 +367,19 @@ const CollectionPage = () => {
     [accessoryFiltered, filters]
   );
 
+  const sortedProducts = useMemo(() => {
+    const list = [...filteredProducts];
+    const priceOf = (p: { node: { priceRange?: { minVariantPrice?: { amount?: string } } } }) =>
+      parseFloat(p.node.priceRange?.minVariantPrice?.amount || "0");
+    switch (sortBy) {
+      case "price-asc": return list.sort((a, b) => priceOf(a) - priceOf(b));
+      case "price-desc": return list.sort((a, b) => priceOf(b) - priceOf(a));
+      case "title-asc": return list.sort((a, b) => (a.node.title || "").localeCompare(b.node.title || ""));
+      case "title-desc": return list.sort((a, b) => (b.node.title || "").localeCompare(a.node.title || ""));
+      default: return list;
+    }
+  }, [filteredProducts, sortBy]);
+
   const handleCategoryClick = (key: string) => {
     setActiveCategory(key);
     const next = new URLSearchParams(searchParams);
@@ -374,6 +388,13 @@ const CollectionPage = () => {
     } else {
       next.set("category", key);
     }
+    setSearchParams(next);
+  };
+
+  const handleSortChange = (value: string) => {
+    setSortBy(value);
+    const next = new URLSearchParams(searchParams);
+    if (value === "featured") next.delete("sort"); else next.set("sort", value);
     setSearchParams(next);
   };
 
@@ -405,13 +426,52 @@ const CollectionPage = () => {
     guide?.description ||
     collection?.description ||
     `Browse ${collectionTitle} at RobotMart — quote-ready robotics platforms for research, education, and enterprise.`;
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.robotmart.store/" },
+      { "@type": "ListItem", position: 2, name: "Products", item: "https://www.robotmart.store/products" },
+      { "@type": "ListItem", position: 3, name: collectionTitle, item: `https://www.robotmart.store/products/${handle}` },
+    ],
+  };
+  const itemListLd = collection?.products?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: collectionTitle,
+        numberOfItems: collection.products.length,
+        itemListElement: collection.products.slice(0, 20).map((p, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          url: `https://www.robotmart.store/product/${p.node.handle}`,
+          name: p.node.title,
+        })),
+      }
+    : null;
+  const faqLd = guide?.faqs?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: guide.faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      }
+    : null;
+  const jsonLd = [breadcrumbLd, itemListLd, faqLd].filter(Boolean) as Record<string, unknown>[];
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <Seo
         title={`${collectionTitle} — RobotMart`}
         description={collectionDesc}
         path={`/products/${handle}`}
+        jsonLd={jsonLd}
       />
+
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1 text-sm text-muted-foreground mb-4">
         <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
@@ -531,33 +591,49 @@ const CollectionPage = () => {
             />
           </div>
           <div>
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
               <p className="text-sm text-muted-foreground">
-                Showing <span className="font-semibold text-foreground">{filteredProducts.length}</span> of {accessoryFiltered.length} products
+                Showing <span className="font-semibold text-foreground">{sortedProducts.length}</span> of {accessoryFiltered.length} products
               </p>
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Button variant="outline" size="sm" className="lg:hidden">
-                    <SlidersHorizontal className="h-4 w-4 mr-2" /> Filters
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="left" className="w-[300px] sm:w-[340px] p-0 overflow-y-auto">
-                  <SheetHeader className="px-4 py-3 border-b">
-                    <SheetTitle>Filters</SheetTitle>
-                  </SheetHeader>
-                  <div className="p-3">
-                    <CollectionFilterSidebar
-                      products={accessoryFiltered}
-                      filters={filters}
-                      onChange={setFilters}
-                    />
-                  </div>
-                </SheetContent>
-              </Sheet>
+              <div className="flex items-center gap-2">
+                <label className="text-xs text-muted-foreground hidden sm:block" htmlFor="sort-by">Sort:</label>
+                <select
+                  id="sort-by"
+                  value={sortBy}
+                  onChange={(e) => handleSortChange(e.target.value)}
+                  className="h-9 rounded-md border border-input bg-background px-2 text-sm"
+                  aria-label="Sort products"
+                >
+                  <option value="featured">Featured</option>
+                  <option value="price-asc">Price: Low to High</option>
+                  <option value="price-desc">Price: High to Low</option>
+                  <option value="title-asc">Name: A–Z</option>
+                  <option value="title-desc">Name: Z–A</option>
+                </select>
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button variant="outline" size="sm" className="lg:hidden">
+                      <SlidersHorizontal className="h-4 w-4 mr-2" /> Filters
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side="left" className="w-[300px] sm:w-[340px] p-0 overflow-y-auto">
+                    <SheetHeader className="px-4 py-3 border-b">
+                      <SheetTitle>Filters</SheetTitle>
+                    </SheetHeader>
+                    <div className="p-3">
+                      <CollectionFilterSidebar
+                        products={accessoryFiltered}
+                        filters={filters}
+                        onChange={setFilters}
+                      />
+                    </div>
+                  </SheetContent>
+                </Sheet>
+              </div>
             </div>
-            {filteredProducts.length > 0 ? (
+            {sortedProducts.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-                {filteredProducts.map((product) => (
+                {sortedProducts.map((product) => (
                   <ProductCard key={product.node.id} product={product} />
                 ))}
               </div>
