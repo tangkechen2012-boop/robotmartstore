@@ -54,12 +54,20 @@ const NAV_ITEMS = [
   },
   {
     label: "Resources",
-    link: "/blog",
+    link: "/buying-guides",
     sections: [
       {
         title: "Learn",
         items: [
-          { label: "Blog & Guides", link: "/blog" },
+          { label: "Buying Guides", link: "/buying-guides" },
+          { label: "Robotics Glossary", link: "/resources/robotics-glossary" },
+          { label: "Blog", link: "/blog" },
+        ],
+      },
+      {
+        title: "Help",
+        items: [
+          { label: "FAQ", link: "/faq" },
           { label: "Support Center", link: "/support" },
         ],
       },

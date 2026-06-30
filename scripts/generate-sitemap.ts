@@ -35,6 +35,11 @@ const staticEntries: SitemapEntry[] = [
   { path: "/contact", changefreq: "monthly", priority: "0.6" },
   { path: "/request-quote", changefreq: "monthly", priority: "0.7" },
   { path: "/support", changefreq: "monthly", priority: "0.6" },
+  { path: "/buying-guides", changefreq: "monthly", priority: "0.8" },
+  { path: "/buying-guides/how-to-choose-a-humanoid-robot", changefreq: "monthly", priority: "0.7" },
+  { path: "/buying-guides/quadruped-robot-buyers-guide", changefreq: "monthly", priority: "0.7" },
+  { path: "/faq", changefreq: "monthly", priority: "0.6" },
+  { path: "/resources/robotics-glossary", changefreq: "monthly", priority: "0.5" },
   { path: "/privacy", changefreq: "yearly", priority: "0.3" },
   { path: "/terms", changefreq: "yearly", priority: "0.3" },
 ];
