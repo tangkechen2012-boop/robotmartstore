@@ -127,7 +127,7 @@ const FaqPage = () => {
           </div>
         ))}
 
-        <div className="rounded-2xl border p-6 text-center">
+        <div className="rounded-2xl border p-6 text-center mb-12">
           <p className="font-semibold mb-2">Still have questions?</p>
           <p className="text-sm text-muted-foreground mb-4">Our team typically responds within one business day.</p>
           <div className="flex justify-center gap-3">
@@ -135,6 +135,53 @@ const FaqPage = () => {
             <Button asChild><Link to="/request-quote">Request a quote</Link></Button>
           </div>
         </div>
+
+        {/* Recommended buying guides */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold mb-4">Recommended buying guides</h2>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {BUYING_GUIDES.slice(0, 4).map((g) => (
+              <Link key={g.slug} to={`/buying-guides/${g.slug}`} className="group">
+                <Card className="h-full transition-shadow hover:shadow-soft-lg">
+                  <CardHeader>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Badge variant="secondary">{g.category}</Badge>
+                      <span className="text-xs text-muted-foreground">{g.readingMinutes} min read</span>
+                    </div>
+                    <CardTitle className="text-base group-hover:text-primary transition-colors">{g.title}</CardTitle>
+                    <CardDescription className="line-clamp-2 text-sm">{g.intro}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <span className="inline-flex items-center text-sm font-semibold text-primary">
+                      Read the guide <ArrowRight className="h-4 w-4 ml-1 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* Popular collections + resources */}
+        <section className="rounded-2xl border bg-secondary/30 p-6">
+          <p className="font-semibold mb-3">Browse the catalog</p>
+          <div className="flex flex-wrap gap-2 mb-5">
+            {POPULAR_COLLECTIONS.map((c) => (
+              <Link
+                key={c.href}
+                to={c.href}
+                className="inline-flex items-center px-4 py-2 rounded-full border bg-background text-sm font-medium hover:bg-secondary transition-colors"
+              >
+                {c.label} <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
+              </Link>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+            <Link to="/buying-guides" className="text-primary hover:underline inline-flex items-center">All Buying Guides <ArrowRight className="h-3.5 w-3.5 ml-1" /></Link>
+            <Link to="/glossary" className="text-primary hover:underline inline-flex items-center">Robotics Glossary <ArrowRight className="h-3.5 w-3.5 ml-1" /></Link>
+            <Link to="/support" className="text-primary hover:underline inline-flex items-center">Support <ArrowRight className="h-3.5 w-3.5 ml-1" /></Link>
+          </div>
+        </section>
       </section>
     </div>
   );
