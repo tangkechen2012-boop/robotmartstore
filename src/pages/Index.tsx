@@ -38,10 +38,42 @@ const WHY_US = [
 ];
 
 const CATEGORIES = [
-  { title: "Humanoid Robots", link: "/products/humanoid-robots", description: "Humanoid platforms for research, education, embodied AI, and advanced deployment.", image: "/images/categories/humanoid.webp" },
-  { title: "Quadruped Robots", link: "/products/quadruped-robots", description: "Quadruped robot dogs and agile legged platforms for mobility and research.", image: "/images/categories/quadruped.webp" },
-  { title: "Robotic Arms", link: "/products/robotic-arms", description: "Cobots and manipulators for research, machine tending, and industrial pilots.", image: "/images/categories/accessories.webp" },
-  { title: "Robot Accessories", link: "/products/robot-accessories", description: "Dexterous hands, tactile sensors, controllers, batteries, and add-ons.", image: "/images/categories/accessories.webp" },
+  {
+    title: "Humanoid Robots",
+    link: "/products/humanoid-robots",
+    description: "Humanoid platforms for research, education, embodied AI, and advanced deployment.",
+    image: "/images/categories/humanoid-1280.webp",
+    srcSet: "/images/categories/humanoid-640.webp 640w, /images/categories/humanoid-1280.webp 1280w",
+    width: 1280,
+    height: 1280,
+  },
+  {
+    title: "Quadruped Robots",
+    link: "/products/quadruped-robots",
+    description: "Quadruped robot dogs and agile legged platforms for mobility and research.",
+    image: "/images/categories/quadruped-800.webp",
+    srcSet: "/images/categories/quadruped-400.webp 400w, /images/categories/quadruped-800.webp 800w",
+    width: 800,
+    height: 800,
+  },
+  {
+    title: "Robotic Arms",
+    link: "/products/robotic-arms",
+    description: "Cobots and manipulators for research, machine tending, and industrial pilots.",
+    image: "/images/categories/accessories-800.webp",
+    srcSet: "/images/categories/accessories-400.webp 400w, /images/categories/accessories-800.webp 800w",
+    width: 800,
+    height: 800,
+  },
+  {
+    title: "Robot Accessories",
+    link: "/products/robot-accessories",
+    description: "Dexterous hands, tactile sensors, controllers, batteries, and add-ons.",
+    image: "/images/categories/accessories-800.webp",
+    srcSet: "/images/categories/accessories-400.webp 400w, /images/categories/accessories-800.webp 800w",
+    width: 800,
+    height: 800,
+  },
 ];
 
 const APPLICATIONS = [
@@ -210,7 +242,7 @@ const Index = () => {
           </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:auto-rows-[260px]">
-            {CATEGORIES.map(({ title, description, link, image }, i) => {
+            {CATEGORIES.map(({ title, description, link, image, srcSet, width, height }, i) => {
               const isHero = i === 0;
               return (
                 <ScrollReveal
@@ -218,7 +250,17 @@ const Index = () => {
                   className={`group relative rounded-2xl overflow-hidden cursor-pointer ${isHero ? 'md:col-span-2 md:row-span-2' : ''}`}
                 >
                   <Link to={link} className="block relative w-full h-full">
-                    <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
+                    <img
+                      src={image}
+                      srcSet={srcSet}
+                      sizes={isHero ? "(min-width: 768px) 640px, 100vw" : "(min-width: 768px) 320px, 100vw"}
+                      width={width}
+                      height={height}
+                      alt={title}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      loading="lazy"
+                      decoding="async"
+                    />
                     <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                       style={{ boxShadow: 'inset 0 0 30px 4px hsl(var(--accent) / 0.25), 0 0 20px 2px hsl(var(--accent) / 0.15)' }}
                     />
