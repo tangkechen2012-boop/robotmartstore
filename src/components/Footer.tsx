@@ -37,10 +37,11 @@ const FOOTER_LINKS = [
     title: "Company",
     links: [
       { label: "About Us", to: "/about" },
-      { label: "Blog", to: "/blog" },
+      { label: "Buying Guides", to: "/buying-guides" },
+      { label: "Robotics Glossary", to: "/resources/robotics-glossary" },
+      { label: "FAQ", to: "/faq" },
       { label: "Contact", to: "/contact" },
       { label: "Request Quote", to: "/request-quote" },
-      { label: "Compliance", to: "/support" },
     ],
   },
   {
