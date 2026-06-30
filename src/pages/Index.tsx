@@ -242,7 +242,7 @@ const Index = () => {
           </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:auto-rows-[260px]">
-            {CATEGORIES.map(({ title, description, link, image }, i) => {
+            {CATEGORIES.map(({ title, description, link, image, srcSet, width, height }, i) => {
               const isHero = i === 0;
               return (
                 <ScrollReveal
@@ -250,7 +250,17 @@ const Index = () => {
                   className={`group relative rounded-2xl overflow-hidden cursor-pointer ${isHero ? 'md:col-span-2 md:row-span-2' : ''}`}
                 >
                   <Link to={link} className="block relative w-full h-full">
-                    <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
+                    <img
+                      src={image}
+                      srcSet={srcSet}
+                      sizes={isHero ? "(min-width: 768px) 640px, 100vw" : "(min-width: 768px) 320px, 100vw"}
+                      width={width}
+                      height={height}
+                      alt={title}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      loading="lazy"
+                      decoding="async"
+                    />
                     <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                       style={{ boxShadow: 'inset 0 0 30px 4px hsl(var(--accent) / 0.25), 0 0 20px 2px hsl(var(--accent) / 0.15)' }}
                     />
