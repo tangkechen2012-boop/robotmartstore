@@ -8,27 +8,66 @@ import { SearchBar } from "@/components/SearchBar";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 const NAV_ITEMS = [
-{
-  label: "Products",
-  link: "/products",
-  sections: [
   {
-    title: "Robots",
-    items: [
-    { label: "Humanoid Robots", link: "/products/humanoid-robots" },
-    { label: "Quadruped Robots", link: "/products/quadruped-robots" },
-    { label: "Robot Accessories", link: "/products/robot-accessories" },
-    { label: "Toy Robots", link: "/products/toy-robots" },
-    { label: "Pre-Owned Inventory", link: "/products/pre-owned" }]
+    label: "Products",
+    link: "/products",
+    sections: [
+      {
+        title: "Robots",
+        items: [
+          { label: "Humanoid Robots", link: "/products/humanoid-robots" },
+          { label: "Quadruped Robots", link: "/products/quadruped-robots" },
+          { label: "Robot Accessories", link: "/products/robot-accessories" },
+          { label: "Pre-Owned Inventory", link: "/products/pre-owned" },
+        ],
+      },
+      {
+        title: "Shop By",
+        items: [
+          { label: "All Products", link: "/products" },
+          { label: "By Brand", link: "/brands" },
+        ],
+      },
+    ],
+  },
+  { label: "Brands", link: "/brands" },
+  {
+    label: "Solutions",
+    link: "/applications",
+    sections: [
+      {
+        title: "Services",
+        items: [
+          { label: "Services & Technology", link: "/services-technology" },
+          { label: "Custom Development", link: "/custom-development" },
+          { label: "B2B Procurement", link: "/procurement" },
+        ],
+      },
+      {
+        title: "Applications",
+        items: [
+          { label: "Industry Applications", link: "/applications" },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Resources",
+    link: "/blog",
+    sections: [
+      {
+        title: "Learn",
+        items: [
+          { label: "Blog & Guides", link: "/blog" },
+          { label: "Support Center", link: "/support" },
+        ],
+      },
+    ],
+  },
+  { label: "About", link: "/about" },
+  { label: "Contact", link: "/contact" },
+];
 
-  }]
-
-},
-{ label: "Services & Technology", link: "/services-technology" },
-{ label: "Procurement", link: "/procurement" },
-{ label: "Custom Development", link: "/custom-development" },
-{ label: "Applications", link: "/applications" },
-{ label: "About", link: "/about" }];
 
 
 export const Header = () => {
@@ -100,6 +139,14 @@ export const Header = () => {
                   <div className="mb-4">
                     <SearchBar onNavigate={() => setMobileOpen(false)} />
                   </div>
+                  <Button
+                    asChild
+                    className="w-full h-12 mb-4 rounded-pill font-semibold bg-accent hover:bg-accent/90 text-accent-foreground"
+                  >
+                    <Link to="/request-quote" onClick={() => setMobileOpen(false)}>
+                      Request Quote
+                    </Link>
+                  </Button>
                   <nav className="space-y-1">
                     {NAV_ITEMS.map((item) =>
                     <MobileNavItem key={item.label} item={item} onClose={() => setMobileOpen(false)} />
@@ -160,6 +207,13 @@ export const Header = () => {
 
               {/* Actions */}
               <div className="flex items-center gap-2">
+                <Button
+                  asChild
+                  size="sm"
+                  className="hidden md:inline-flex h-11 rounded-pill px-4 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground"
+                >
+                  <Link to="/request-quote">Request Quote</Link>
+                </Button>
                 <CartDrawer />
               </div>
             </div>
@@ -183,7 +237,7 @@ function MobileNavItem({ item, onClose }: {item: NavItemType;onClose: () => void
     return (
       <Link
         to={item.link}
-        className="block py-2.5 px-4 rounded-xl text-sm font-medium hover:bg-secondary transition-colors"
+        className="flex items-center min-h-[44px] py-2.5 px-4 rounded-xl text-base font-medium hover:bg-secondary transition-colors"
         onClick={onClose}>
         
         {item.label}
@@ -194,22 +248,22 @@ function MobileNavItem({ item, onClose }: {item: NavItemType;onClose: () => void
   return (
     <div>
       <button
-        className="w-full flex items-center justify-between py-2.5 px-4 text-sm font-medium hover:bg-secondary rounded-xl transition-colors"
+        className="w-full flex items-center justify-between min-h-[44px] py-2.5 px-4 text-base font-medium hover:bg-secondary rounded-xl transition-colors"
         onClick={() => setOpen(!open)}>
         
         {item.label}
         {open ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
       </button>
       {open &&
-      <div className="pl-4 space-y-2 pb-2">
+      <div className="pl-4 space-y-1 pb-2">
           {item.sections.map((section) =>
         <div key={section.title}>
-              <p className="text-xs font-semibold text-primary px-4 py-1">{section.title}</p>
+              <p className="text-xs font-semibold text-primary px-4 py-1 uppercase tracking-wide">{section.title}</p>
               {section.items.map((sub) =>
           <Link
             key={sub.label}
             to={sub.link}
-            className="block text-sm text-muted-foreground hover:text-foreground px-4 py-1.5"
+            className="flex items-center min-h-[44px] text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg px-4"
             onClick={onClose}>
             
                   {sub.label}

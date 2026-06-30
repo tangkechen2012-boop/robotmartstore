@@ -3,10 +3,9 @@ import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
 import { useShopifyProducts } from "@/hooks/useShopifyProducts";
 import {
-  ChevronRight, Bot, Cpu, Factory, GraduationCap, Microscope,
-  BrainCircuit, ArrowRight, Wrench, Code2, Search as SearchIcon,
-  Shield, Users, Award, Globe, Truck, Headphones,
-  CheckCircle2, Recycle
+  ChevronRight, Bot, Factory, GraduationCap, Microscope,
+  BrainCircuit, ArrowRight, Wrench, Code2,
+  Shield, Headphones, Recycle, PackageCheck, BadgeCheck, Globe2,
 } from "lucide-react";
 
 import { useEffect } from "react";
@@ -15,44 +14,49 @@ import { HeroBackground } from "@/components/HeroBackground";
 import { FAQSection } from "@/components/FAQSection";
 import { Seo } from "@/components/Seo";
 
-const PILLARS = [
+const WHY_US = [
   {
-    title: "Products",
-    description: "Humanoid robots, quadruped systems, robotic arms, and precision components from the world's leading manufacturers.",
-    icon: Bot,
-    link: "/products",
+    icon: BadgeCheck,
+    title: "Authorized Sourcing",
+    description: "Direct relationships with Unitree, LinkerBot, DM-Tac and other top OEMs. Authentic units, traceable supply chain.",
   },
   {
-    title: "Services & Technology",
-    description: "System integration, technical support, AI deployment, and lifecycle maintenance for robotics platforms.",
     icon: Wrench,
-    link: "/services-technology",
+    title: "Engineering Support",
+    description: "On-staff robotics engineers help with platform selection, integration, ROS/Isaac stacks, and deployment planning.",
   },
   {
-    title: "Custom Development",
-    description: "End-to-end robotics engineering — concept to prototype — including mechanical design, embedded systems, and AI.",
-    icon: Code2,
-    link: "/custom-development",
+    icon: PackageCheck,
+    title: "Inspected Pre-Owned",
+    description: "Every used unit is function-tested and graded. Transparent condition reports — no surprises.",
   },
   {
-    title: "Applications",
-    description: "Robotics solutions for education, industrial automation, inspection, and AI research deployments.",
-    icon: BrainCircuit,
-    link: "/applications",
+    icon: Globe2,
+    title: "Global Fulfillment",
+    description: "Export-ready packaging, lithium-battery compliant freight, and customs documentation for international buyers.",
   },
 ];
 
 const CATEGORIES = [
-  { title: "Humanoid Robots", link: "/products/humanoid-robots", description: "Humanoid robot platforms for research, education, embodied AI, and advanced deployment.", image: "/images/categories/humanoid.webp" },
-  { title: "Quadruped Robots", link: "/products/quadruped-robots", description: "Quadruped robot dogs and agile legged platforms for mobility, interaction, and robotics research.", image: "/images/categories/quadruped.webp" },
-  { title: "Robot Accessories", link: "/products/robot-accessories", description: "Robot accessories and components including dexterous hands, tactile sensors, and related robotics add-ons.", image: "/images/categories/accessories.webp" },
+  { title: "Humanoid Robots", link: "/products/humanoid-robots", description: "Humanoid platforms for research, education, embodied AI, and advanced deployment.", image: "/images/categories/humanoid.webp" },
+  { title: "Quadruped Robots", link: "/products/quadruped-robots", description: "Quadruped robot dogs and agile legged platforms for mobility and research.", image: "/images/categories/quadruped.webp" },
+  { title: "Robot Accessories", link: "/products/robot-accessories", description: "Dexterous hands, tactile sensors, controllers, batteries, and add-ons.", image: "/images/categories/accessories.webp" },
 ];
 
-const STATS = [
-  { value: "Direct", label: "Checkout items" },
-  { value: "Quote", label: "Complex robot review" },
-  { value: "Used", label: "Pre-owned inventory" },
-  { value: "Custom", label: "Application support" },
+const APPLICATIONS = [
+  { icon: GraduationCap, title: "Education & Research", description: "University labs, embodied-AI curricula, manipulation benchmarks." },
+  { icon: Factory, title: "Industrial Automation", description: "Inspection, material handling, factory mobility, integration projects." },
+  { icon: Microscope, title: "AI & Robotics R&D", description: "Reinforcement learning, sim-to-real, multimodal perception platforms." },
+  { icon: BrainCircuit, title: "Custom Development", description: "OEM/ODM engineering, custom end-effectors, sensor packs, AI stacks." },
+];
+
+const BRANDS = [
+  { name: "Unitree", tag: "Humanoid · Quadruped" },
+  { name: "LinkerBot", tag: "Dexterous Hands" },
+  { name: "DM-Tac", tag: "Tactile Sensing" },
+  { name: "UBTECH", tag: "Humanoid" },
+  { name: "Fourier", tag: "Humanoid" },
+  { name: "Noetix", tag: "Humanoid" },
 ];
 
 const TRUST_ITEMS = [
@@ -104,32 +108,35 @@ const Index = () => {
     <div className="min-h-screen overflow-x-hidden">
       <Seo
         title="RobotMart — Professional Robotics Solutions"
-        description="Humanoid robots, quadruped systems, robotic arms, dexterous hands, and AI-powered automation for enterprise and research."
+        description="Humanoid robots, quadruped systems, dexterous hands, and AI-powered automation — sourced, supported, and deployed for research and enterprise."
         path="/"
       />
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary via-primary to-accent/30 text-primary-foreground py-24 overflow-hidden">
+
+      {/* ===== HERO ===== */}
+      <section className="relative bg-gradient-to-br from-primary via-primary to-accent/30 text-primary-foreground py-20 md:py-24 overflow-hidden">
         <HeroBackground />
-        {/* Gradient overlay for readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-transparent z-[1]" />
         <div className="max-w-7xl mx-auto px-4 flex flex-col-reverse md:flex-row items-center gap-12 relative z-[2]">
           <div className="flex-1 max-w-xl md:ml-8 lg:ml-16">
-            <h1 className="text-5xl font-extrabold leading-tight mb-6">
-              Engineering-Grade Robotics Solutions
-            </h1>
-            <p className="text-lg opacity-80 mb-8">
-              Humanoid robots, quadruped systems, robot accessories, and quote-first sourcing support for education, research, and enterprise buyers.
+            <p className="font-mono text-xs tracking-[0.3em] uppercase text-accent-foreground/80 mb-4">
+              Robotics Procurement · Engineering · Support
             </p>
-            <div className="flex gap-4">
-              <Button asChild size="lg" className="rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground hover:scale-105 transition-all duration-200 hover:shadow-lg hover:shadow-accent/25">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] mb-6">
+              Engineering-Grade Robots for Builders, Labs & Enterprise
+            </h1>
+            <p className="text-base md:text-lg opacity-85 mb-8 leading-relaxed">
+              Source humanoid, quadruped, and dexterous robotics from leading OEMs — with engineering review, custom integration, and quote-first support for complex purchases.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <Button asChild size="lg" className="h-12 rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground hover:scale-105 transition-all duration-200 hover:shadow-lg hover:shadow-accent/25">
                 <Link to="/products">Explore Products</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="rounded-pill px-8 font-semibold border-accent text-accent-foreground bg-transparent hover:bg-accent/10 hover:scale-105 transition-all duration-200">
-                <Link to="/contact">Talk to an Engineer</Link>
+              <Button asChild size="lg" variant="outline" className="h-12 rounded-pill px-8 font-semibold border-accent text-accent-foreground bg-transparent hover:bg-accent/10 hover:scale-105 transition-all duration-200">
+                <Link to="/request-quote">Request a Quote</Link>
               </Button>
             </div>
           </div>
-          <div className="flex-1 relative w-full max-w-lg h-[440px] flex items-center justify-center">
+          <div className="flex-1 relative w-full max-w-lg h-[340px] md:h-[440px] flex items-center justify-center">
             <img
               src="/images/hero-robot-transparent.png"
               alt="Humanoid Robot"
@@ -143,9 +150,9 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Trust Bar */}
+      {/* ===== TRUST BAR ===== */}
       <section className="border-b border-border bg-background">
-        <div className="max-w-7xl mx-auto px-4 py-5 flex flex-wrap items-center justify-center gap-8 md:gap-14">
+        <div className="max-w-7xl mx-auto px-4 py-5 flex flex-wrap items-center justify-center gap-6 md:gap-14">
           {TRUST_ITEMS.map(({ icon: Icon, label }) => (
             <div key={label} className="flex items-center gap-2 text-muted-foreground">
               <Icon className="h-4 w-4 flex-shrink-0" />
@@ -155,105 +162,36 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section className="max-w-7xl mx-auto px-4 py-20">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-extrabold">Featured Products</h2>
-          <Button asChild variant="link" className="px-0 font-semibold">
-            <Link to="/products" className="flex items-center gap-1">
-              View All <ChevronRight className="h-4 w-4" />
-            </Link>
-          </Button>
-        </div>
-        {isLoading ? (
-          <p>Loading products...</p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            {products?.map(product => (
-              <ProductCard key={product.node.id} product={product} />
-            ))}
-          </div>
-        )}
-      </section>
-
-      {/* Pre-Owned Inventory */}
-      {preOwnedProducts && preOwnedProducts.length > 0 && (
-        <section className="border-y border-border bg-secondary/30">
-          <div className="max-w-7xl mx-auto px-4 py-20">
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
-              <div className="max-w-2xl">
-                <div className="inline-flex items-center gap-2 rounded-pill bg-accent/10 text-accent px-3 py-1 mb-3">
-                  <Recycle className="h-3.5 w-3.5" />
-                  <span className="text-xs font-semibold tracking-wide uppercase">Pre-Owned Inventory</span>
-                </div>
-                <h2 className="text-3xl font-extrabold">Tested Pre-Owned Robotics</h2>
-                <p className="mt-2 text-sm md:text-base text-muted-foreground leading-relaxed">
-                  Inspected humanoid and quadruped units sourced for education, research, and pilot deployments. Each unit is unique — pricing, accessories, freight, and warranty assumptions are confirmed through a quote-first review.
-                </p>
+      {/* ===== WHY CHOOSE ROBOTMART ===== */}
+      <section className="max-w-7xl mx-auto px-4 py-20 md:py-24">
+        <ScrollReveal className="max-w-2xl mb-12">
+          <p className="font-mono text-xs tracking-[0.3em] uppercase text-accent mb-3">Why RobotMart</p>
+          <h2 className="text-3xl md:text-4xl font-extrabold leading-tight">
+            A procurement partner, not just a storefront
+          </h2>
+          <p className="mt-3 text-muted-foreground leading-relaxed">
+            We pair an engineering-grade product catalog with hands-on technical review so you ship the right platform the first time.
+          </p>
+        </ScrollReveal>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {WHY_US.map(({ icon: Icon, title, description }) => (
+            <ScrollReveal
+              key={title}
+              className="rounded-2xl border border-border bg-card p-6 hover:border-accent/40 hover:shadow-lg transition-all duration-300"
+            >
+              <div className="h-11 w-11 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-4">
+                <Icon className="h-5 w-5" />
               </div>
-              <Button asChild variant="outline" className="rounded-pill font-semibold">
-                <Link to="/products/pre-owned" className="flex items-center gap-1">
-                  View pre-owned inventory <ChevronRight className="h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
-            {preOwnedLoading ? (
-              <p>Loading pre-owned inventory...</p>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-                {preOwnedProducts.map(product => (
-                  <ProductCard key={product.node.id} product={product} />
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
-      )}
-
-      {/* ===== WHAT WE DO ===== */}
-      <section className="relative py-24 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0B1020 0%, #14213D 100%)' }}>
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-        <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-[1fr_1.4fr] gap-12 lg:gap-20 items-start">
-            <ScrollReveal className="lg:sticky lg:top-32">
-              <p className="font-mono text-xs tracking-[0.3em] uppercase text-accent mb-4 opacity-80">Core Capabilities</p>
-              <h2 className="text-4xl md:text-5xl font-extrabold leading-[1.1] text-white mb-6">
-                What We Do
-              </h2>
-              <p className="text-white/80 text-base leading-relaxed max-w-md">
-                End-to-end robotics solutions — from product sourcing and system integration to custom engineering and AI deployment.
-              </p>
+              <h3 className="font-bold text-lg mb-2">{title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
             </ScrollReveal>
-
-            <div className="relative">
-              <div className="absolute left-6 top-2 bottom-2 w-px bg-gradient-to-b from-accent/60 via-accent/20 to-transparent" />
-              <div className="space-y-2">
-                {PILLARS.map(({ title, description, icon: Icon, link }) => (
-                  <ScrollReveal key={title}>
-                    <Link
-                      to={link}
-                      className="group relative flex items-start gap-5 pl-14 pr-5 py-5 rounded-xl transition-all duration-500 hover:bg-white/[0.04] border border-transparent hover:border-accent/20"
-                    >
-                      <div className="absolute left-[18px] top-7 w-3.5 h-3.5 rounded-full border-2 border-accent/50 bg-[#0B1020] group-hover:bg-accent group-hover:border-accent transition-all duration-300 group-hover:shadow-[0_0_12px_hsl(var(--accent)/0.6)]" />
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-3 mb-1.5">
-                          <Icon className="h-5 w-5 text-accent/70 group-hover:text-accent transition-colors duration-300" />
-                          <h3 className="text-lg font-bold text-white group-hover:text-accent transition-colors duration-300">{title}</h3>
-                        </div>
-                        <p className="text-white/75 group-hover:text-white/90 transition-colors duration-300 text-sm leading-relaxed">{description}</p>
-                      </div>
-                      <ArrowRight className="h-4 w-4 text-white/20 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300 mt-2 flex-shrink-0" />
-                    </Link>
-                  </ScrollReveal>
-                ))}
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
       {/* ===== PRODUCT CATEGORIES ===== */}
-      <section className="relative py-24 overflow-hidden" style={{ background: 'linear-gradient(180deg, #14213D 0%, #0B1020 100%)' }}>
+      <section className="relative py-24 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0B1020 0%, #14213D 100%)' }}>
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <ScrollReveal className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
             <div className="max-w-2xl">
@@ -276,7 +214,7 @@ const Index = () => {
                   className={`group relative rounded-2xl overflow-hidden cursor-pointer ${isHero ? 'md:col-span-2 md:row-span-2' : ''}`}
                 >
                   <Link to={link} className="block relative w-full h-full">
-                    <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+                    <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
                     <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                       style={{ boxShadow: 'inset 0 0 30px 4px hsl(var(--accent) / 0.25), 0 0 20px 2px hsl(var(--accent) / 0.15)' }}
                     />
@@ -293,31 +231,154 @@ const Index = () => {
         </div>
       </section>
 
-
-      {/* Stats */}
-      <section className="bg-primary text-primary-foreground py-20">
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
-          {STATS.map(({ value, label }) => (
-            <ScrollReveal key={label} className="flex flex-col items-center">
-              <p className="text-4xl font-extrabold">{value}</p>
-              <p className="uppercase tracking-widest text-sm opacity-70">{label}</p>
+      {/* ===== APPLICATIONS ===== */}
+      <section className="max-w-7xl mx-auto px-4 py-20 md:py-24">
+        <ScrollReveal className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+          <div className="max-w-2xl">
+            <p className="font-mono text-xs tracking-[0.3em] uppercase text-accent mb-3">Applications</p>
+            <h2 className="text-3xl md:text-4xl font-extrabold">Where RobotMart Platforms Are Deployed</h2>
+          </div>
+          <Button asChild variant="link" className="px-0 font-semibold self-start md:self-end">
+            <Link to="/applications" className="flex items-center gap-1">
+              All applications <ChevronRight className="h-4 w-4" />
+            </Link>
+          </Button>
+        </ScrollReveal>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {APPLICATIONS.map(({ icon: Icon, title, description }) => (
+            <ScrollReveal
+              key={title}
+              className="group rounded-2xl border border-border bg-card p-6 hover:border-accent/40 hover:shadow-lg transition-all duration-300"
+            >
+              <div className="h-11 w-11 rounded-xl bg-primary/5 text-primary flex items-center justify-center mb-4 group-hover:bg-accent/10 group-hover:text-accent transition-colors">
+                <Icon className="h-5 w-5" />
+              </div>
+              <h3 className="font-bold text-base mb-2">{title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
             </ScrollReveal>
           ))}
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="bg-primary text-primary-foreground">
-        <div className="max-w-7xl mx-auto px-4 py-20 text-center">
-          <h2 className="text-3xl font-extrabold mb-6">Ready to Deploy Robotics at Scale?</h2>
-          <Button asChild size="lg" className="rounded-pill px-10 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground hover:scale-105 transition-all duration-200 hover:shadow-lg hover:shadow-accent/25">
-            <Link to="/contact">Start a Conversation</Link>
-          </Button>
+      {/* ===== FEATURED PRODUCTS ===== */}
+      <section className="border-y border-border bg-secondary/30">
+        <div className="max-w-7xl mx-auto px-4 py-20 md:py-24">
+          <div className="flex items-end justify-between mb-8">
+            <div>
+              <p className="font-mono text-xs tracking-[0.3em] uppercase text-accent mb-3">Featured</p>
+              <h2 className="text-3xl md:text-4xl font-extrabold">In Stock & Ready to Quote</h2>
+            </div>
+            <Button asChild variant="link" className="px-0 font-semibold shrink-0">
+              <Link to="/products" className="flex items-center gap-1">
+                View All <ChevronRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+          {isLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="rounded-2xl bg-muted/60 animate-pulse aspect-[3/4]" />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+              {products?.slice(0, 8).map(product => (
+                <ProductCard key={product.node.id} product={product} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* ===== PRE-OWNED ===== */}
+      {preOwnedProducts && preOwnedProducts.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 py-20 md:py-24">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 rounded-pill bg-accent/10 text-accent px-3 py-1 mb-3">
+                <Recycle className="h-3.5 w-3.5" />
+                <span className="text-xs font-semibold tracking-wide uppercase">Pre-Owned Inventory</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-extrabold">Inspected Pre-Owned Robotics</h2>
+              <p className="mt-2 text-sm md:text-base text-muted-foreground leading-relaxed">
+                Function-tested humanoid and quadruped units for education, research, and pilot deployments. Each unit is unique — pricing, accessories, freight, and warranty assumptions are confirmed through a quote-first review.
+              </p>
+            </div>
+            <Button asChild variant="outline" className="rounded-pill font-semibold">
+              <Link to="/products/pre-owned" className="flex items-center gap-1">
+                View pre-owned inventory <ChevronRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+          {preOwnedLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="rounded-2xl bg-muted/60 animate-pulse aspect-[3/4]" />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+              {preOwnedProducts.map(product => (
+                <ProductCard key={product.node.id} product={product} />
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
+      {/* ===== BRANDS ===== */}
+      <section className="bg-secondary/40 border-y border-border">
+        <div className="max-w-7xl mx-auto px-4 py-16 md:py-20">
+          <ScrollReveal className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+            <div>
+              <p className="font-mono text-xs tracking-[0.3em] uppercase text-accent mb-3">Brands We Carry</p>
+              <h2 className="text-3xl md:text-4xl font-extrabold">Trusted by leading robotics OEMs</h2>
+            </div>
+            <Button asChild variant="link" className="px-0 font-semibold self-start md:self-end">
+              <Link to="/brands" className="flex items-center gap-1">
+                See all brands <ChevronRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </ScrollReveal>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            {BRANDS.map(({ name, tag }) => (
+              <Link
+                key={name}
+                to="/brands"
+                className="group flex flex-col items-center justify-center rounded-xl border border-border bg-background px-4 py-6 hover:border-accent/40 hover:shadow-md transition-all"
+              >
+                <span className="text-base md:text-lg font-extrabold tracking-tight text-foreground group-hover:text-accent transition-colors">
+                  {name}
+                </span>
+                <span className="mt-1 text-[10px] uppercase tracking-widest text-muted-foreground text-center">
+                  {tag}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== FAQ ===== */}
       <FAQSection />
+
+      {/* ===== FINAL CTA ===== */}
+      <section className="bg-primary text-primary-foreground">
+        <div className="max-w-7xl mx-auto px-4 py-20 text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Ready to Deploy Robotics at Scale?</h2>
+          <p className="opacity-80 max-w-xl mx-auto mb-8">
+            Send your requirements — we'll respond within one business day with a tailored configuration and quote.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Button asChild size="lg" className="h-12 rounded-pill px-10 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground hover:scale-105 transition-all duration-200 hover:shadow-lg hover:shadow-accent/25">
+              <Link to="/request-quote">Request a Quote</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="h-12 rounded-pill px-10 font-semibold border-accent text-accent-foreground bg-transparent hover:bg-accent/10">
+              <Link to="/contact">Talk to an Engineer</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
