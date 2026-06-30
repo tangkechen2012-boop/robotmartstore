@@ -25,6 +25,10 @@ const ContactPage = lazy(() => import("./pages/ContactPage"));
 const ApplicationsPage = lazy(() => import("./pages/ApplicationsPage"));
 const RequestQuotePage = lazy(() => import("./pages/RequestQuotePage"));
 const ProcurementPage = lazy(() => import("./pages/ProcurementPage"));
+const BuyingGuidesPage = lazy(() => import("./pages/BuyingGuidesPage"));
+const BuyingGuidePage = lazy(() => import("./pages/BuyingGuidePage"));
+const FaqPage = lazy(() => import("./pages/FaqPage"));
+const GlossaryPage = lazy(() => import("./pages/GlossaryPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -70,6 +74,10 @@ const App = () => (
               <Route path="/support" element={<SupportPage />} />
               <Route path="/brands" element={<BrandsPage />} />
               <Route path="/blog" element={<BlogPage />} />
+              <Route path="/buying-guides" element={<BuyingGuidesPage />} />
+              <Route path="/buying-guides/:slug" element={<BuyingGuidePage />} />
+              <Route path="/faq" element={<FaqPage />} />
+              <Route path="/resources/robotics-glossary" element={<GlossaryPage />} />
               <Route path="/privacy" element={<ShopifyPolicyPage policyKey="privacyPolicy" path="/privacy" />} />
               <Route path="/terms" element={<ShopifyPolicyPage policyKey="termsOfService" path="/terms" />} />
               <Route path="/policies/privacy-policy" element={<ShopifyPolicyPage policyKey="privacyPolicy" path="/policies/privacy-policy" />} />
