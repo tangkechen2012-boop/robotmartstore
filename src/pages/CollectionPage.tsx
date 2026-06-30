@@ -13,6 +13,7 @@ const COLLECTION_HANDLES = [
   "humanoid-robots",
   "quadruped-robots",
   "robot-accessories",
+  "robotic-arms",
   "toy-robots",
   "pre-owned",
 ];
@@ -21,6 +22,7 @@ const COLLECTION_HANDLES = [
 const TAG_COLLECTION_QUERIES: Record<string, string> = {
   "pre-owned": "tag:Condition_Used",
   "robot-accessories": "tag:Category_Accessories",
+  "robotic-arms": "tag:Category_RoboticArm OR product_type:'Robotic Arm'",
 };
 
 const COLLECTION_GUIDES: Record<string, {
