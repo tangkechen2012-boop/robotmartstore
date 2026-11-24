@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -79,6 +79,7 @@ const App = () => (
               <Route path="/buying-guides" element={<BuyingGuidesPage />} />
               <Route path="/buying-guides/:slug" element={<BuyingGuidePage />} />
               <Route path="/faq" element={<FaqPage />} />
+              <Route path="/glossary" element={<Navigate to="/resources/robotics-glossary" replace />} />
               <Route path="/resources/robotics-glossary" element={<GlossaryPage />} />
               <Route path="/privacy" element={<ShopifyPolicyPage policyKey="privacyPolicy" path="/privacy" />} />
               <Route path="/terms" element={<ShopifyPolicyPage policyKey="termsOfService" path="/terms" />} />

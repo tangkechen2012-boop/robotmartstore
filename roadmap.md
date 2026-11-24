@@ -1,5 +1,11 @@
 # Roadmap
 - [x] Check site for Chinese text (none in code)
 - [x] Brief: 1B product-link fallback, 2 address, 3 brand wording, 4 purchase path/stock, 5 analytics
-- [ ] Analytics IDs (GTM / GA4 measurement ID / Meta Pixel): waiting on owner
+- [ ] Remaining tracking IDs (GTM / Meta Pixel): waiting on owner; GA4 already configured
 - [ ] Terms governing-law venue: waiting on lawyer (do not edit)
+- [x] Preview SEO: unique metadata, full titles, noindex missing pages, glossary links, collection-safe product aliases
+- [x] Preview SEO: sitemap deduplication and authentic product timestamps, llms.txt
+- [x] Preview SEO: regression checks and rollback notes; no production publication or migration
+- [ ] True HTTP 301/404: blocked by absence of a documented selective redirect/status configuration on current hosting
+- [ ] Google rendered-HTML inspection and sitemap submission: pending GSC access and separate write authorization
+- [ ] Production publication: pending separate KC approval; do not publish automatically

@@ -85,7 +85,7 @@ const BuyingGuidesPage = () => {
           </div>
           <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
             <Link to="/faq" className="text-primary hover:underline inline-flex items-center">FAQ <ArrowRight className="h-3.5 w-3.5 ml-1" /></Link>
-            <Link to="/glossary" className="text-primary hover:underline inline-flex items-center">Robotics Glossary <ArrowRight className="h-3.5 w-3.5 ml-1" /></Link>
+            <Link to="/resources/robotics-glossary" className="text-primary hover:underline inline-flex items-center">Robotics Glossary <ArrowRight className="h-3.5 w-3.5 ml-1" /></Link>
             <Link to="/request-quote" className="text-primary hover:underline inline-flex items-center">Request a quote <ArrowRight className="h-3.5 w-3.5 ml-1" /></Link>
           </div>
         </div>

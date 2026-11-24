@@ -4,6 +4,10 @@
 
 RobotMart sources industry-grade robotics platforms from leading manufacturers and provides system integration, AI deployment, OEM/ODM development, and lifecycle support. Most high-ticket items are quote-driven; smaller accessories and consumer items are available for direct purchase.
 
+RobotMart is an authorized reseller for Unitree, LinkerBot, and DM-Tac.
+
+Address: 9270 Bay Plaza Blvd Ste 604, Tampa, FL 33619, United States.
+
 ## Pages
 
 - [Home](/): Featured products, pre-owned inventory, and core capabilities overview.
@@ -11,6 +15,7 @@ RobotMart sources industry-grade robotics platforms from leading manufacturers a
 - [Humanoid Robots](/products/humanoid-robots): Humanoid platforms for research, education, and embodied AI.
 - [Quadruped Robots](/products/quadruped-robots): Legged robot dogs and agile mobile platforms.
 - [Robot Accessories](/products/robot-accessories): Dexterous hands, tactile sensors, and components.
+- [Robotic Arms](/products/robotic-arms): Manipulation platforms for research and integration.
 - [Toy Robots](/products/toy-robots): Consumer-friendly robots for home and entertainment.
 - [Pre-Owned Inventory](/products/pre-owned): Inspected pre-owned humanoid and quadruped units.
 - [Services & Technology](/services-technology): Integration, support, AI deployment, lifecycle maintenance.
@@ -23,6 +28,22 @@ RobotMart sources industry-grade robotics platforms from leading manufacturers a
 - [Contact](/contact): Get in touch with the engineering team.
 - [Request a Quote](/request-quote): Submit an RFQ for any product or custom build.
 - [Support](/support): Technical support, documentation, and after-sales service.
+
+## Featured Products
+
+- [Unitree G1 Humanoid Robot](/product/unitree-g1-humanoid-robot): Humanoid platform for robotics research and development.
+- [Unitree G1 EDU Standard U1](/product/unitree-g1-edu-standard-u1-humanoid-robot): Education and research configuration.
+- [Unitree Go2 Quadruped Robot](/product/unitree-go2-quadruped-robot-dog): Quadruped platform and configurations.
+- [LinkerBot L20 Dexterous Hand](/product/linkerbot-l20-dexterous-hand): Robotic manipulation hardware.
+- [DM-Tac W Tactile Perception Terminal](/product/dm-tac-w-multi-modal-tactile-perception-terminal): Multi-modal tactile sensing hardware.
+
+## Resources
+
+- [Buying Guides](/buying-guides): Robotics purchasing and procurement guidance.
+- [Humanoid Robot Buying Guide](/buying-guides/how-to-choose-a-humanoid-robot): Platform comparison and selection criteria.
+- [Quadruped Robot Buying Guide](/buying-guides/quadruped-robot-buyers-guide): Mobility, payload, and development considerations.
+- [FAQ](/faq): Ordering, delivery, payment, and engineering support questions.
+- [Robotics Glossary](/resources/robotics-glossary): Definitions of common robotics terms.
 
 ## Optional
 

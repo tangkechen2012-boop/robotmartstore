@@ -7,16 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Seo } from "@/components/Seo";
 import { CollectionFilterSidebar, EMPTY_FILTERS, FilterState, applyFilters } from "@/components/CollectionFilterSidebar";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { COLLECTION_HANDLES, legacyProductPath } from "@/lib/seoRoutes";
 
 
-const COLLECTION_HANDLES = [
-  "humanoid-robots",
-  "quadruped-robots",
-  "robot-accessories",
-  "robotic-arms",
-  "toy-robots",
-  "pre-owned",
-];
 
 // Handles backed by a Shopify search query (tag-based) instead of a Shopify Collection
 const TAG_COLLECTION_QUERIES: Record<string, string> = {
@@ -730,8 +723,9 @@ function ProductHandleFallback({ slug }: { slug: string }) {
     );
   }
 
-  if (product?.handle) {
-    return <Navigate to={`/product/${product.handle}${location.search}${location.hash}`} replace />;
+  const productPath = legacyProductPath(location.pathname, product?.handle);
+  if (productPath) {
+    return <Navigate to={`${productPath}${location.search}${location.hash}`} replace />;
   }
 
   return (

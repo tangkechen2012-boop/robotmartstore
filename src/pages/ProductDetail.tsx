@@ -149,6 +149,12 @@ const ProductDetail = () => {
   if (!product) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-16 text-center">
+        <Seo
+          title="Product not found — RobotMart"
+          description="This product is unavailable. Browse the RobotMart catalog for robotics platforms and accessories."
+          path={`/product/${handle || ""}`}
+          noindex
+        />
         <h1 className="text-2xl font-bold mb-4">Product not found</h1>
         <Button asChild><Link to="/">Back to Home</Link></Button>
       </div>
