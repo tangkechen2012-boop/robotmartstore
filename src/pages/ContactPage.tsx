@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
+import { COMPANY } from "@/lib/company";
+import { trackLead } from "@/lib/analytics";
 
 const ContactPage = () => {
   const [searchParams] = useSearchParams();
@@ -29,7 +31,8 @@ const ContactPage = () => {
       "Message:",
       `${form.get("message") || "Not specified"}`,
     ];
-    const mailto = new URL("mailto:hello@robotmart.store");
+    trackLead("contact");
+    const mailto = new URL(`mailto:${COMPANY.email}`);
     mailto.searchParams.set("subject", String(form.get("subject") || "RobotMart inquiry"));
     mailto.searchParams.set("body", lines.join("\n"));
     window.location.href = mailto.toString();
@@ -99,7 +102,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <p className="font-semibold">Office</p>
-                    <p className="text-sm text-muted-foreground">San Francisco, CA, United States</p>
+                    <p className="text-sm text-muted-foreground">{COMPANY.address.oneLine}</p>
                   </div>
                 </div>
               </div>

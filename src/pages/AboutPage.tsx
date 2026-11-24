@@ -79,9 +79,10 @@ const AboutPage = () => {
             confirmed before payment.
           </p>
           <p className="text-muted-foreground leading-relaxed">
-            We are not the manufacturer of the third-party brands shown on this website. Brand names and images are used
-            to identify products for sourcing and resale. Unless a product page states otherwise, RobotMart is not an
-            exclusive authorized distributor.
+            RobotMart is an authorized, non-exclusive reseller of Unitree, LinkerBot and DM-Tac. For other brands shown on
+            this website, RobotMart is an independent reseller and is not affiliated with or endorsed by the manufacturer.
+            RobotMart is not the manufacturer of any third-party brand shown here; brand names and images are used to
+            identify products.
           </p>
         </div>
         <div className="grid sm:grid-cols-2 gap-4">
@@ -154,7 +155,7 @@ const AboutPage = () => {
         <div className="glass rounded-2xl p-10 shadow-soft-lg">
           <h2 className="text-2xl font-bold mb-3">Talk to an engineer</h2>
           <p className="text-muted-foreground mb-6">
-            Tell us your platform, quantity, and country. We'll come back with a written quote within one business day.
+            Tell us your platform, quantity, and country. We'll reply by email with a written quote.
           </p>
           <div className="flex justify-center gap-3">
             <Button size="lg" variant="outline" asChild className="rounded-pill px-6">

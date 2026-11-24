@@ -9,7 +9,9 @@ import { CalendarClock, MessageSquare, ShoppingCart, Loader2, ChevronLeft, Minus
 import { Link } from "react-router-dom";
 import { useState, useEffect, useMemo } from "react";
 import { toast } from "sonner";
-import { buildQuotePath, getSalesStrategy } from "@/lib/salesStrategy";
+import { buildQuotePath, getSalesStrategy, getStockLabel } from "@/lib/salesStrategy";
+import { isAuthorizedVendor } from "@/lib/company";
+import { trackAddToCart, trackViewItem } from "@/lib/analytics";
 import { Seo } from "@/components/Seo";
 import { UsedAvailableBanner } from "@/components/UsedAvailableBanner";
 import { isUsedProduct, getRelatedNewHandle, useUsedListingsForNew } from "@/hooks/useRelatedCondition";
@@ -80,6 +82,21 @@ const ProductDetail = () => {
     [relatedRaw, product?.handle],
   );
 
+  // GA4 view_item / Meta ViewContent once per product
+  useEffect(() => {
+    if (!product || !selectedVariant) return;
+    trackViewItem({
+      item_id: selectedVariant.id,
+      item_name: product.title,
+      item_brand: product.vendor || undefined,
+      item_category: product.productType || undefined,
+      item_variant: selectedVariant.title,
+      price: parseFloat(selectedVariant.price?.amount || "0"),
+      quantity: 1,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product?.id]);
+
   const seoTitle = product ? `${product.title} — RobotMart` : "";
   const seoDesc = product
     ? (product.description || "").replace(/\s+/g, " ").trim().slice(0, 155)
@@ -140,6 +157,11 @@ const ProductDetail = () => {
 
   const strategy = getSalesStrategy(product);
   const isDirectSale = strategy.mode === "direct-sale";
+  const stockLabel = getStockLabel(product, selectedVariant?.availableForSale, selectedVariant?.quantityAvailable);
+  // Hide single-value options (e.g. "Fulfillment Option: Quote Required") — they are not a real choice.
+  const visibleOptions = (product.options || []).filter(
+    (o: { name: string; values: string[] }) => o.name !== "Title" && o.values.length > 1,
+  );
 
   const handleAddToCart = async () => {
     if (!selectedVariant) return;
@@ -165,6 +187,15 @@ const ProductDetail = () => {
       price: selectedVariant.price,
       quantity,
       selectedOptions: selectedVariant.selectedOptions || [],
+    });
+    trackAddToCart({
+      item_id: selectedVariant.id,
+      item_name: product.title,
+      item_brand: product.vendor || undefined,
+      item_category: product.productType || undefined,
+      item_variant: selectedVariant.title,
+      price: parseFloat(selectedVariant.price.amount),
+      quantity,
     });
     toast.success("Added to cart", { description: product.title, position: "top-center" });
   };
@@ -233,9 +264,14 @@ const ProductDetail = () => {
           <h1 className="text-2xl font-bold mb-2">{product.title}</h1>
 
           {product.vendor && (
-            <Link to={`/brands#${product.vendor.toLowerCase()}`} className="text-sm text-primary hover:underline mb-3 block">
-              {product.vendor}
-            </Link>
+            <div className="flex items-center gap-2 mb-3">
+              <Link to={`/brands#${product.vendor.toLowerCase()}`} className="text-sm text-primary hover:underline">
+                {product.vendor}
+              </Link>
+              {isAuthorizedVendor(product.vendor) && (
+                <Badge variant="secondary" className="bg-primary/10 text-primary text-[10px]">Authorized reseller</Badge>
+              )}
+            </div>
           )}
 
           {/* Quick spec strip */}
@@ -283,18 +319,23 @@ const ProductDetail = () => {
             </>
           )}
 
-          {!isDirectSale ? (
-            <Badge variant="secondary" className="bg-primary/10 text-primary mb-6">{strategy.badge}</Badge>
-          ) : selectedVariant?.availableForSale ? (
-            <Badge variant="secondary" className="bg-[hsl(var(--robot-green))]/10 text-[hsl(var(--robot-green))] mb-6">In Stock</Badge>
-          ) : (
-            <Badge variant="destructive" className="mb-6">Out of Stock</Badge>
-          )}
+          <div className="flex flex-wrap gap-2 mb-6">
+            {!isDirectSale && (
+              <Badge variant="secondary" className="bg-primary/10 text-primary">{strategy.badge}</Badge>
+            )}
+            {strategy.mode !== "unavailable" && (stockLabel === "Out of Stock" ? (
+              <Badge variant="destructive">Out of Stock</Badge>
+            ) : stockLabel === "In Stock" ? (
+              <Badge variant="secondary" className="bg-[hsl(var(--robot-green))]/10 text-[hsl(var(--robot-green))]">In Stock</Badge>
+            ) : (
+              <Badge variant="secondary">{stockLabel}</Badge>
+            ))}
+          </div>
 
           {/* Variant selector */}
-          {!productIsUsed && product.options && product.options.length > 0 && product.options[0].name !== "Title" && (
+          {!productIsUsed && visibleOptions.length > 0 && (
             <div className="mb-6">
-              {product.options.map((option: { name: string; values: string[] }) => (
+              {visibleOptions.map((option: { name: string; values: string[] }) => (
                 <div key={option.name} className="mb-3">
                   <label className="text-sm font-medium mb-1.5 block">{option.name}</label>
                   <div className="flex flex-wrap gap-2">

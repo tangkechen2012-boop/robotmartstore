@@ -13,27 +13,28 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 import { HeroBackground } from "@/components/HeroBackground";
 import { FAQSection } from "@/components/FAQSection";
 import { Seo } from "@/components/Seo";
+import { AUTHORIZED_BRANDS } from "@/lib/company";
 
 const WHY_US = [
   {
     icon: BadgeCheck,
     title: "Authorized Sourcing",
-    description: "Direct relationships with Unitree, LinkerBot, DM-Tac and other top OEMs. Authentic units, traceable supply chain.",
+    description: "Authorized reseller of Unitree, LinkerBot and DM-Tac. Genuine units with a traceable supply chain.",
   },
   {
     icon: Wrench,
-    title: "Engineering Support",
-    description: "On-staff robotics engineers help with platform selection, integration, ROS/Isaac stacks, and deployment planning.",
+    title: "Pre-Sale Guidance",
+    description: "Tell us your use case and we help you compare platforms, configurations and accessories before you buy.",
   },
   {
     icon: PackageCheck,
     title: "Inspected Pre-Owned",
-    description: "Every used unit is function-tested and graded. Transparent condition reports — no surprises.",
+    description: "Pre-owned units are sold with a stated condition grade. Ask us for photos and details before you buy.",
   },
   {
     icon: Globe2,
     title: "Global Fulfillment",
-    description: "Export-ready packaging, lithium-battery compliant freight, and customs documentation for international buyers.",
+    description: "We ship to the United States and selected international destinations. Freight, duties and delivery are confirmed in your quote.",
   },
 ];
 
@@ -88,7 +89,6 @@ const BRANDS = [
   { name: "LinkerBot", tag: "Dexterous Hands" },
   { name: "DM-Tac", tag: "Tactile Sensing" },
   { name: "UBTECH", tag: "Humanoid" },
-  { name: "Fourier", tag: "Humanoid" },
   { name: "Noetix", tag: "Humanoid" },
 ];
 
@@ -312,7 +312,7 @@ const Index = () => {
           <div className="flex items-end justify-between mb-8">
             <div>
               <p className="font-mono text-xs tracking-[0.3em] uppercase text-accent mb-3">Featured</p>
-              <h2 className="text-3xl md:text-4xl font-extrabold">In Stock & Ready to Quote</h2>
+              <h2 className="text-3xl md:text-4xl font-extrabold">Featured Robots</h2>
             </div>
             <Button asChild variant="link" className="px-0 font-semibold shrink-0">
               <Link to="/products" className="flex items-center gap-1">
@@ -377,8 +377,8 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 py-16 md:py-20">
           <ScrollReveal className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
             <div>
-              <p className="font-mono text-xs tracking-[0.3em] uppercase text-accent mb-3">Brands We Carry</p>
-              <h2 className="text-3xl md:text-4xl font-extrabold">Trusted by leading robotics OEMs</h2>
+              <p className="font-mono text-xs tracking-[0.3em] uppercase text-accent mb-3">Brands</p>
+              <h2 className="text-3xl md:text-4xl font-extrabold">Brands we carry</h2>
             </div>
             <Button asChild variant="link" className="px-0 font-semibold self-start md:self-end">
               <Link to="/brands" className="flex items-center gap-1">
@@ -399,6 +399,11 @@ const Index = () => {
                 <span className="mt-1 text-[10px] uppercase tracking-widest text-muted-foreground text-center">
                   {tag}
                 </span>
+                {AUTHORIZED_BRANDS.includes(name) && (
+                  <span className="mt-2 rounded-pill bg-primary/10 text-primary px-2 py-0.5 text-[10px] font-semibold">
+                    Authorized reseller
+                  </span>
+                )}
               </Link>
             ))}
           </div>
@@ -413,7 +418,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 py-20 text-center">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Ready to Deploy Robotics at Scale?</h2>
           <p className="opacity-80 max-w-xl mx-auto mb-8">
-            Send your requirements — we'll respond within one business day with a tailored configuration and quote.
+            Send your requirements — we'll reply by email with a tailored configuration and quote.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button asChild size="lg" className="h-12 rounded-pill px-10 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground hover:scale-105 transition-all duration-200 hover:shadow-lg hover:shadow-accent/25">

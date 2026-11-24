@@ -7,8 +7,8 @@ import {
 
 const FAQS = [
   {
-    q: "What types of robotics systems does Robotmart provide?",
-    a: "Robotmart offers humanoid robots, quadruped robots, industrial robotic arms, mobile robotics platforms (AMR/AGV), and AI-powered vision systems. We support both hardware sourcing and system-level integration.",
+    q: "What types of robotics systems does RobotMart provide?",
+    a: "RobotMart offers humanoid robots, quadruped robots, industrial robotic arms, mobile robotics platforms (AMR/AGV), and AI-powered vision systems. We support both hardware sourcing and system-level integration.",
   },
   {
     q: "Do you provide system integration services?",

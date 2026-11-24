@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Seo } from "@/components/Seo";
+import { trackLead } from "@/lib/analytics";
 
 const SUPPORT_EMAIL = "hello@robotmart.store";
 
@@ -62,6 +63,7 @@ const RequestQuotePage = () => {
       "Use case / requirements:",
       `${form.get("requirements") || "Not specified"}`,
     ];
+    trackLead(requestType === "bulk" || requestType === "bulk_quote" ? "bulk_quote" : "quote", { product: String(form.get("product") || product || "") });
     const mailto = new URL(`mailto:${SUPPORT_EMAIL}`);
     mailto.searchParams.set("subject", String(form.get("subject") || initialSubject));
     mailto.searchParams.set("body", lines.join("\n"));

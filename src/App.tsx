@@ -7,6 +7,7 @@ import { lazy, Suspense } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useCartSync } from "@/hooks/useCartSync";
+import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 import Index from "./pages/Index";
 
 // Code-split secondary routes so the homepage ships a smaller initial bundle.
@@ -56,6 +57,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <AnalyticsTracker />
         <AppLayout>
           <Suspense fallback={<RouteFallback />}>
             <Routes>

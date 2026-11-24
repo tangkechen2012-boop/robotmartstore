@@ -1,6 +1,6 @@
-import { useShopifyCollection, useShopifyProducts } from "@/hooks/useShopifyProducts";
+import { useShopifyCollection, useShopifyProducts, useShopifyProductByHandle } from "@/hooks/useShopifyProducts";
 import { ProductCard } from "@/components/ProductCard";
-import { useParams, Link, useSearchParams } from "react-router-dom";
+import { useParams, Link, useSearchParams, Navigate, useLocation } from "react-router-dom";
 import { useState, useMemo } from "react";
 import { BadgeCheck, Bot, ChevronRight, ClipboardCheck, Code2, GraduationCap, Recycle, SlidersHorizontal, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -452,18 +452,7 @@ const CollectionPage = () => {
 
   // Unknown slug → 404-like state
   if (!isKnownCollection) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 py-16 text-center">
-        <Bot className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-        <h1 className="text-2xl font-bold mb-2">Collection not found</h1>
-        <p className="text-muted-foreground text-sm mb-6">
-          The collection "{slug}" does not exist.
-        </p>
-        <Link to="/products" className="text-primary hover:underline text-sm">
-          ← Browse all products
-        </Link>
-      </div>
-    );
+    return <ProductHandleFallback slug={slug} />;
   }
 
 
@@ -722,3 +711,40 @@ const CollectionPage = () => {
 };
 
 export default CollectionPage;
+
+
+/**
+ * Unknown /products/<slug>: Shopify-generated links use /products/<product-handle>.
+ * If the slug is a product handle, redirect to /product/<handle> keeping the query string;
+ * otherwise show "Collection not found" (noindex).
+ */
+function ProductHandleFallback({ slug }: { slug: string }) {
+  const location = useLocation();
+  const { data: product, isLoading } = useShopifyProductByHandle(slug);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="h-8 w-8 rounded-full border-2 border-primary/30 border-t-primary animate-spin" aria-label="Loading" />
+      </div>
+    );
+  }
+
+  if (product?.handle) {
+    return <Navigate to={`/product/${product.handle}${location.search}${location.hash}`} replace />;
+  }
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-16 text-center">
+      <Seo title="Collection not found — RobotMart" description="This collection does not exist." path={`/products/${slug}`} noindex />
+      <Bot className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+      <h1 className="text-2xl font-bold mb-2">Collection not found</h1>
+      <p className="text-muted-foreground text-sm mb-6">
+        The collection "{slug}" does not exist.
+      </p>
+      <Link to="/products" className="text-primary hover:underline text-sm">
+        ← Browse all products
+      </Link>
+    </div>
+  );
+}

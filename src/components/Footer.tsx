@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { COMPANY } from "@/lib/company";
 
 const FOOTER_LINKS = [
   {
@@ -99,15 +100,15 @@ export const Footer = () => {
             <div className="flex-1">
               <h4 className="font-bold text-sm mb-3">Contact</h4>
               <ul className="space-y-2 text-sm opacity-70">
-                <li>KCT Ecommerce Inc · RobotMart</li>
-                <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> hello@robotmart.store</li>
-                <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> +1 (318) 608-2420</li>
-                <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> San Francisco, CA</li>
+                <li>{COMPANY.legalName} · {COMPANY.brand}</li>
+                <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> {COMPANY.email}</li>
+                <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> {COMPANY.phone}</li>
+                <li className="flex items-start gap-2"><MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" /> {COMPANY.address.oneLine}</li>
               </ul>
             </div>
             <div className="flex-[2]">
               <p className="text-sm opacity-60 leading-relaxed">
-                RobotMart is an independent robotics sourcing, e-commerce, procurement, consulting, and application engineering platform for education, research, and enterprise buyers. Third-party brand names and product names are used for product identification; RobotMart is not a manufacturer-operated store unless explicitly stated. Product availability, warranty, freight, duties, and purchase terms for high-ticket robotics platforms are confirmed during quotation.
+                RobotMart is an authorized, non-exclusive reseller of Unitree, LinkerBot and DM-Tac, and an independent reseller for other brands. It is a robotics sourcing, e-commerce, procurement, consulting, and application engineering platform for education, research, and enterprise buyers. Third-party brand names and product names are used for product identification; RobotMart is not a manufacturer-operated store unless explicitly stated. Product availability, warranty, freight, duties, and purchase terms for high-ticket robotics platforms are confirmed during quotation.
               </p>
             </div>
           </div>

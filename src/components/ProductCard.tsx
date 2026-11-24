@@ -4,7 +4,8 @@ import { useCartStore } from "@/stores/cartStore";
 import { Button } from "@/components/ui/button";
 import { MessageSquare, ShoppingCart, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { buildQuotePath, getSalesStrategy } from "@/lib/salesStrategy";
+import { buildQuotePath, getSalesStrategy, getStockLabel } from "@/lib/salesStrategy";
+import { trackAddToCart } from "@/lib/analytics";
 import { shopifyImageUrl, shopifyImageSrcSet } from "@/lib/shopifyImage";
 
 interface ProductCardProps {
@@ -33,6 +34,15 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       price: variant.price,
       quantity: 1,
       selectedOptions: variant.selectedOptions || [],
+    });
+    trackAddToCart({
+      item_id: variant.id,
+      item_name: node.title,
+      item_brand: node.vendor || undefined,
+      item_category: node.productType || undefined,
+      item_variant: variant.title,
+      price: parseFloat(variant.price.amount),
+      quantity: 1,
     });
     toast.success("Added to cart", { description: node.title, position: "top-center" });
   };
@@ -69,8 +79,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               {node.vendor}
             </span>
           )}
-          <span className="absolute bottom-3 left-3 bg-background/90 backdrop-blur-sm text-foreground text-[10px] font-medium px-2 py-0.5 rounded">
-            {strategy.badge}
+          <span className="absolute bottom-3 left-3 right-3 w-fit bg-background/90 backdrop-blur-sm text-foreground text-[10px] font-medium px-2 py-0.5 rounded">
+            {isDirectSale ? getStockLabel(node, variant?.availableForSale) : strategy.badge}
           </span>
           {node.tags?.some(t => t.toLowerCase() === "condition_used") && (
             <span className="absolute top-3 right-3 bg-accent text-accent-foreground text-[10px] font-semibold px-2 py-0.5 rounded-pill uppercase tracking-wide">
