@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { ArrowRight, Tag } from "lucide-react";
 import { ShopifyProduct } from "@/lib/shopify";
 
@@ -13,6 +13,7 @@ export const UsedAvailableBanner = ({ usedListings }: Props) => {
       parseFloat(a.node.priceRange.minVariantPrice.amount) -
       parseFloat(b.node.priceRange.minVariantPrice.amount),
   )[0];
+  if (!cheapest) return null;
   const price = parseFloat(cheapest.node.priceRange.minVariantPrice.amount);
   const count = usedListings.length;
 

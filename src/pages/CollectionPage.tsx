@@ -1,6 +1,6 @@
 import { useShopifyCollection, useShopifyProducts, useShopifyProductByHandle } from "@/hooks/useShopifyProducts";
 import { ProductCard } from "@/components/ProductCard";
-import { useParams, Link, useSearchParams, Navigate, useLocation } from "react-router-dom";
+import { useParams, Link, useSearchParams, Navigate, useLocation } from "@/lib/router-compat";
 import { useState, useMemo } from "react";
 import { BadgeCheck, Bot, ChevronRight, ClipboardCheck, Code2, GraduationCap, Recycle, SlidersHorizontal, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ import { COLLECTION_HANDLES, legacyProductPath } from "@/lib/seoRoutes";
 
 
 // Handles backed by a Shopify search query (tag-based) instead of a Shopify Collection
-const TAG_COLLECTION_QUERIES: Record<string, string> = {
+export const TAG_COLLECTION_QUERIES: Record<string, string> = {
   "pre-owned": "tag:Condition_Used",
   "robot-accessories": "tag:Category_Accessories",
   "robotic-arms": "tag:Category_RoboticArm OR product_type:'Robotic Arm'",

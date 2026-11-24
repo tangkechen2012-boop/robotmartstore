@@ -1,5 +1,5 @@
 import { FormEvent, useMemo } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "@/lib/router-compat";
 import { Building2, CalendarClock, CheckCircle2, Mail, MessageSquare, ShieldCheck, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

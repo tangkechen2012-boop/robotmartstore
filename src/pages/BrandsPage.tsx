@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Seo } from "@/components/Seo";
 
 const BRANDS_LIST = [
@@ -23,7 +23,7 @@ const ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const BrandsPage = () => {
   const brandsByLetter: Record<string, typeof BRANDS_LIST> = {};
   BRANDS_LIST.forEach(b => {
-    const letter = b.name[0].toUpperCase();
+    const letter = (b.name[0] ?? "").toUpperCase();
     if (!brandsByLetter[letter]) brandsByLetter[letter] = [];
     brandsByLetter[letter].push(b);
   });
@@ -59,8 +59,8 @@ const BrandsPage = () => {
           <div key={letter} id={`brand-${letter}`} className="scroll-mt-20">
             <h2 className="text-lg font-bold border-b pb-1 mb-3">{letter}</h2>
             <div className="grid sm:grid-cols-2 gap-3">
-              {brandsByLetter[letter].map(brand => (
-                <div key={brand.name} className="border rounded-md p-4 hover:shadow-sm transition-shadow">
+              {(brandsByLetter[letter] ?? []).map(brand => (
+                <div key={brand.name} className="border rounded-md p-4 hover:shadow-xs transition-shadow">
                   <h3 className="font-semibold text-sm">{brand.name}</h3>
                   <p className="text-xs text-muted-foreground mt-1">{brand.description}</p>
                 </div>

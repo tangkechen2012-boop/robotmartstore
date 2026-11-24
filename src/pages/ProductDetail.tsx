@@ -1,12 +1,12 @@
-import { useParams } from "react-router-dom";
-import DOMPurify from "dompurify";
+import { useParams } from "@/lib/router-compat";
+import { sanitizeProductHtml } from "@/lib/sanitizeHtml";
 import { useShopifyProductByHandle, useShopifyProducts } from "@/hooks/useShopifyProducts";
 import { useCartStore } from "@/stores/cartStore";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { CalendarClock, MessageSquare, ShoppingCart, Loader2, ChevronLeft, Minus, Plus, ShieldCheck, Truck, Headphones, Wrench } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { useState, useEffect, useMemo } from "react";
 import { toast } from "sonner";
 import { buildQuotePath, getSalesStrategy, getStockLabel } from "@/lib/salesStrategy";
@@ -238,7 +238,7 @@ const ProductDetail = () => {
                 sizes="(max-width: 768px) 100vw, 600px"
                 alt={images[selectedImage].node.altText || product.title}
                 className="w-full h-full object-contain p-4 md:p-6"
-                {...{ fetchpriority: "high" }}
+                fetchPriority="high"
                 decoding="async"
                 width={800}
                 height={800}
@@ -444,7 +444,7 @@ const ProductDetail = () => {
         <ProductSection title="Description" defaultOpen>
           <div className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed">
             {product.descriptionHtml ? (
-              <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(product.descriptionHtml, { ALLOWED_TAGS: ['h1','h2','h3','h4','h5','h6','p','br','hr','strong','b','em','i','u','s','ul','ol','li','a','img','table','thead','tbody','tr','td','th','blockquote','code','pre','span','div'], ALLOWED_ATTR: ['href','target','rel','src','alt','title','width','height','colspan','rowspan'] }) }} className="prose prose-sm max-w-none text-muted-foreground [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:border-muted [&_td]:px-3 [&_td]:py-2 [&_th]:border [&_th]:border-muted [&_th]:px-3 [&_th]:py-2 [&_h2]:text-foreground [&_h3]:text-foreground [&_strong]:text-foreground" />
+              <div dangerouslySetInnerHTML={{ __html: sanitizeProductHtml(product.descriptionHtml) }} className="prose prose-sm max-w-none text-muted-foreground [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:border-muted [&_td]:px-3 [&_td]:py-2 [&_th]:border [&_th]:border-muted [&_th]:px-3 [&_th]:py-2 [&_h2]:text-foreground [&_h3]:text-foreground [&_strong]:text-foreground" />
             ) : (
               <p>{product.description}</p>
             )}

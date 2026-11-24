@@ -1,4 +1,4 @@
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams, Link, Navigate } from "@/lib/router-compat";
 import { Seo } from "@/components/Seo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

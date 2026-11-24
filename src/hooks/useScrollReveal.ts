@@ -16,7 +16,7 @@ export function useScrollReveal<T extends HTMLElement = HTMLElement>(
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry?.isIntersecting) {
           hasAnimated.current = true;
           el.style.opacity = "1";
           el.style.transform = "translateY(0)";

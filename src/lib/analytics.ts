@@ -4,9 +4,9 @@
  * Set via env (VITE_GTM_ID, VITE_GA4_MEASUREMENT_ID, VITE_META_PIXEL_ID) or edit here.
  * With an empty ID, no script for that tool is loaded.
  */
-export const GTM_ID: string = import.meta.env.VITE_GTM_ID || "";
-export const GA4_MEASUREMENT_ID: string = import.meta.env.VITE_GA4_MEASUREMENT_ID || "G-BBZEQ3LZ22";
-export const META_PIXEL_ID: string = import.meta.env.VITE_META_PIXEL_ID || "";
+export const GTM_ID: string = import.meta.env["VITE_GTM_ID"] || "";
+export const GA4_MEASUREMENT_ID: string = import.meta.env["VITE_GA4_MEASUREMENT_ID"] || "G-BBZEQ3LZ22";
+export const META_PIXEL_ID: string = import.meta.env["VITE_META_PIXEL_ID"] || "";
 
 export const CROSS_DOMAINS = ["robotmart.store", "www.robotmart.store", "hello-world-8lwxi.myshopify.com", "checkout.shopify.com"];
 
@@ -114,7 +114,7 @@ function push(obj: Record<string, unknown>) {
   if (!hasAnyTracking()) return;
   const win = w();
   win.dataLayer = win.dataLayer || [];
-  if (obj.ecommerce) win.dataLayer.push({ ecommerce: null });
+  if (obj["ecommerce"]) win.dataLayer.push({ ecommerce: null });
   win.dataLayer.push(obj);
 }
 
@@ -125,9 +125,9 @@ function fbq(...args: unknown[]) {
 export type AnalyticsItem = {
   item_id: string; // Shopify variant ID
   item_name: string;
-  item_brand?: string;
-  item_category?: string;
-  item_variant?: string;
+  item_brand?: string | undefined;
+  item_category?: string | undefined;
+  item_variant?: string | undefined;
   price: number;
   quantity: number;
 };

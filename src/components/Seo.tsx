@@ -1,5 +1,7 @@
-import { Helmet } from "react-helmet-async";
-
+/*
+ * Page metadata rendered with React 19's native <title>/<meta>/<link> hoisting: tags are
+ * placed in <head> in the server-rendered HTML and replaced on client navigation.
+ */
 const SITE_URL = "https://www.robotmart.store";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/brand/robotmart-social.png`;
 
@@ -7,10 +9,10 @@ interface SeoProps {
   title: string;
   description: string;
   path: string;
-  image?: string;
-  type?: "website" | "article" | "product";
-  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
-  noindex?: boolean;
+  image?: string | undefined;
+  type?: "website" | "article" | "product" | undefined;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[] | undefined;
+  noindex?: boolean | undefined;
 }
 
 export const Seo = ({
@@ -28,7 +30,7 @@ export const Seo = ({
   const ldArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
   return (
-    <Helmet>
+    <>
       <title>{title}</title>
       <meta name="description" content={trimmedDesc} />
       {!noindex && <link rel="canonical" href={url} />}
@@ -43,10 +45,13 @@ export const Seo = ({
       <meta name="twitter:description" content={trimmedDesc} />
       <meta name="twitter:image" content={image} />
       {ldArray.map((ld, i) => (
-        <script key={i} type="application/ld+json">
-          {JSON.stringify(ld)}
-        </script>
+        <script
+          key={i}
+          type="application/ld+json"
+          // JSON.stringify output with "<" escaped so product text can't close the script tag.
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(ld).replace(/</g, "\\u003c") }}
+        />
       ))}
-    </Helmet>
+    </>
   );
 };

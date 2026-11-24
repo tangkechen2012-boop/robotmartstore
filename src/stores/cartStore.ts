@@ -142,6 +142,8 @@ export const useCartStore = create<CartStore>()(
     {
       name: 'shopify-cart',
       storage: createJSONStorage(() => localStorage),
+      // Server HTML renders an empty cart; the saved cart is restored in useCartSync after hydration.
+      skipHydration: true,
       partialize: (state) => ({ items: state.items, cartId: state.cartId, checkoutUrl: state.checkoutUrl }),
     }
   )

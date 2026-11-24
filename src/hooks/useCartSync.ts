@@ -5,7 +5,8 @@ export function useCartSync() {
   const syncCart = useCartStore(state => state.syncCart);
 
   useEffect(() => {
-    syncCart();
+    // Restore the saved cart from localStorage (skipped during server rendering), then sync with Shopify.
+    void Promise.resolve(useCartStore.persist.rehydrate()).then(() => syncCart());
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') syncCart();
     };

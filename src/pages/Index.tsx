@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
 import { useShopifyProducts } from "@/hooks/useShopifyProducts";
@@ -177,7 +177,7 @@ const Index = () => {
                 alt="Humanoid robot — RobotMart engineering-grade robotics"
                 width={900}
                 height={900}
-                {...{ fetchpriority: "high" }}
+                fetchPriority="high"
                 decoding="async"
                 className="w-full h-full object-contain drop-shadow-2xl"
               />
@@ -262,7 +262,7 @@ const Index = () => {
                       decoding="async"
                     />
                     <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                      style={{ boxShadow: 'inset 0 0 30px 4px hsl(var(--accent) / 0.25), 0 0 20px 2px hsl(var(--accent) / 0.15)' }}
+                      style={{ boxShadow: 'inset 0 0 30px 4px color-mix(in srgb, var(--accent) 25%, transparent), 0 0 20px 2px color-mix(in srgb, var(--accent) 15%, transparent)' }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                     <div className={`absolute bottom-0 left-0 right-0 ${isHero ? 'p-7' : 'p-5'}`}>

@@ -55,14 +55,18 @@ export const HeroBackground = () => {
       // Draw connections
       const maxDist = 100;
       for (let i = 0; i < particles.length; i++) {
+        const a = particles[i];
+        if (!a) continue;
         for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
+          const b = particles[j];
+          if (!b) continue;
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < maxDist) {
             ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
             ctx.strokeStyle = `rgba(255,255,255,${0.08 * (1 - dist / maxDist)})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();

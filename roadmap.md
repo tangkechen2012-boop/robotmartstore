@@ -6,6 +6,8 @@
 - [x] Preview SEO: unique metadata, full titles, noindex missing pages, glossary links, collection-safe product aliases
 - [x] Preview SEO: sitemap deduplication and authentic product timestamps, llms.txt
 - [x] Preview SEO: regression checks and rollback notes; no production publication or migration
-- [ ] True HTTP 301/404: blocked by absence of a documented selective redirect/status configuration on current hosting
+- [x] True HTTP 301/404 (preview, via TanStack Start SSR)
 - [ ] Google rendered-HTML inspection and sitemap submission: pending GSC access and separate write authorization
 - [ ] Production publication: pending separate KC approval; do not publish automatically
+- [x] Preview: TanStack Start SSR migration with completed raw HTML for all pages (SSR-PREVIEW.md)
+- [ ] Pre-existing mobile product-page horizontal overflow (~28px, also on live site): not fixed, out of migration scope

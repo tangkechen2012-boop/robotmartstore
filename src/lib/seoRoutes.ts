@@ -5,7 +5,7 @@ export const COLLECTION_HANDLES = [
 ];
 
 export function legacyProductPath(pathname: string, productHandle?: string): string | null {
-  const match = /^\/products\/([^/]+)\/?$/.exec(pathname);
-  if (!match || COLLECTION_HANDLES.includes(match[1]) || match[1] !== productHandle) return null;
+  const slug = /^\/products\/([^/]+)\/?$/.exec(pathname)?.[1];
+  if (!slug || COLLECTION_HANDLES.includes(slug) || slug !== productHandle) return null;
   return `/product/${productHandle}`;
 }

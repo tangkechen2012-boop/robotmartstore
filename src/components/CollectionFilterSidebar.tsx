@@ -141,10 +141,10 @@ export const CollectionFilterSidebar = ({ products, filters, onChange }: Sidebar
     const condCounts = countBy(conditions);
     return {
       applications: [...appCounts.entries()]
-        .map(([v, c]) => ({ value: v, label: TAG_PREFIX_LABELS.Application_(v), count: c }))
+        .map(([v, c]) => ({ value: v, label: (TAG_PREFIX_LABELS["Application_"]?.(v) ?? v), count: c }))
         .sort((a, b) => b.count - a.count),
       categories: [...catCounts.entries()]
-        .map(([v, c]) => ({ value: v, label: TAG_PREFIX_LABELS.Category_(v), count: c }))
+        .map(([v, c]) => ({ value: v, label: (TAG_PREFIX_LABELS["Category_"]?.(v) ?? v), count: c }))
         .sort((a, b) => b.count - a.count),
       brands: [...brandCounts.entries()]
         .map(([v, c]) => ({ value: v, label: v, count: c }))

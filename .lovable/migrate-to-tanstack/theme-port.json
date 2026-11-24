@@ -1,0 +1,20 @@
+{
+  "customizations": [
+    { "token": "brand color variables (:root/.dark incl. --primary Deep Blue, --accent)", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "--cta-orange / bg-cta-orange", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "--glass-bg / --glass-border", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "sidebar color variables", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "--radius 1.5rem + radius scale", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "rounded-pill", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "shadow-soft / shadow-soft-lg / shadow-card-hover", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "animate-fade-in-up", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "animate-hero-gradient", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "animate-float-orb / animate-float-orb-reverse", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "accordion keyframes", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "container (centered, 2rem, 1400px)", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "Plus Jakarta Sans / JetBrains Mono fonts", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "text-balance", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "glass / glass-subtle utilities", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "button active scale + mobile overflow base rules", "source": "src/index.css", "reappliedIn": "src/styles.css" }
+  ]
+}

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { useState, useRef, useEffect } from "react";
 import logoImg from "@/assets/logo.png";
 import { Menu, ChevronDown, ChevronRight } from "lucide-react";
@@ -83,7 +83,7 @@ export const Header = () => {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -119,7 +119,7 @@ export const Header = () => {
       </div>
 
       {/* Navigation */}
-      <header className={`sticky top-0 z-50 w-full transition-[background-color,box-shadow,border-color] duration-300 ${scrolled ? "bg-background border-b border-border/30 shadow-sm" : ""}`}>
+      <header className={`sticky top-0 z-50 w-full transition-[background-color,box-shadow,border-color] duration-300 ${scrolled ? "bg-background border-b border-border/30 shadow-xs" : ""}`}>
         <div className="max-w-7xl mx-auto px-4 flex items-center gap-3">
           {/* Logo - outside nav pill, aligned with page content */}
           <Link to="/" className="flex-shrink-0 flex items-center">

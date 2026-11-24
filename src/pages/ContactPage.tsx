@@ -4,7 +4,7 @@ import { Seo } from "@/components/Seo";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "@/lib/router-compat";
 import { COMPANY } from "@/lib/company";
 import { trackLead } from "@/lib/analytics";
 
