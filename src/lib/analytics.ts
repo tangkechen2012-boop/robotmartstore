@@ -5,7 +5,7 @@
  * With an empty ID, no script for that tool is loaded.
  */
 export const GTM_ID: string = import.meta.env.VITE_GTM_ID || "";
-export const GA4_MEASUREMENT_ID: string = import.meta.env.VITE_GA4_MEASUREMENT_ID || "";
+export const GA4_MEASUREMENT_ID: string = import.meta.env.VITE_GA4_MEASUREMENT_ID || "G-BBZEQ3LZ22";
 export const META_PIXEL_ID: string = import.meta.env.VITE_META_PIXEL_ID || "";
 
 export const CROSS_DOMAINS = ["robotmart.store", "www.robotmart.store", "hello-world-8lwxi.myshopify.com", "checkout.shopify.com"];
