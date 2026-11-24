@@ -4,8 +4,18 @@ import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2 } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
+import { getVisibleCartOptionValues } from "@/lib/cartOptions";
+import type { CartItem } from "@/lib/shopify";
 import { useEffect } from "react";
 import { trackBeginCheckout } from "@/lib/analytics";
+
+// Only option values the customer actually chose; placeholder rows such as
+// "Default Title" and single-value options are not shown.
+const CartOptionLine = ({ item }: { item: CartItem }) => {
+  const values = getVisibleCartOptionValues(item);
+  if (values.length === 0) return null;
+  return <p className="text-xs text-muted-foreground">{values.join(" · ")}</p>;
+};
 
 export const CartDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -71,7 +81,7 @@ export const CartDrawer = () => {
                       </div>
                       <div className="flex-1 min-w-0">
                         <h4 className="font-medium text-sm truncate">{item.product.node.title}</h4>
-                        <p className="text-xs text-muted-foreground">{item.selectedOptions.map(o => o.value).join(' · ')}</p>
+                        <CartOptionLine item={item} />
                         <p className="font-semibold text-sm mt-0.5">${parseFloat(item.price.amount).toFixed(2)}</p>
                       </div>
                       <div className="flex flex-col items-end gap-1.5 flex-shrink-0">

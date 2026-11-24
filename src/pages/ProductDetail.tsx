@@ -98,8 +98,11 @@ const ProductDetail = () => {
   }, [product?.id]);
 
   const seoTitle = product ? `${product.title} — RobotMart` : "";
+  // Shopify's SEO description wins when the merchant filled it in; otherwise fall back to the body copy.
+  const shopifySeoDescription = (product?.seo?.description || "").trim();
   const seoDesc = product
-    ? (product.description || "").replace(/\s+/g, " ").trim().slice(0, 155)
+    ? shopifySeoDescription ||
+      (product.description || "").replace(/\s+/g, " ").trim().slice(0, 155)
     : "";
   const canonicalPath = product ? `/product/${product.handle}` : "";
   const heroImage = images[0]?.node?.url;
@@ -107,6 +110,7 @@ const ProductDetail = () => {
     ? {
         "@context": "https://schema.org",
         "@type": "Product",
+        url: `https://www.robotmart.store/product/${product.handle}`,
         name: product.title,
         description: seoDesc,
         image: images.map((i: { node: { url: string } }) => i.node.url),

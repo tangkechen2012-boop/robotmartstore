@@ -217,6 +217,10 @@ export const STOREFRONT_PRODUCT_BY_HANDLE_QUERY = `
       productType
       vendor
       tags
+      seo {
+        title
+        description
+      }
       priceRange {
         minVariantPrice {
           amount
