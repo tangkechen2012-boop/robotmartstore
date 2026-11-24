@@ -505,13 +505,11 @@ const ProductDetail = () => {
             {productIsUsed ? (
               <>
                 <p><span className="font-medium text-foreground">Inspection:</span> Each pre-owned unit is inspected and function-tested before listing. Cosmetic condition photos are provided in the listing gallery.</p>
-                <p><span className="font-medium text-foreground">Warranty:</span> 30-day functional warranty against DOA or undisclosed defects. Manufacturer warranty does not apply to used units.</p>
                 <p><span className="font-medium text-foreground">Returns:</span> Pre-owned items are sold as-is. Returns accepted only for defects materially different from the listing description.</p>
               </>
             ) : (
               <>
-                <p><span className="font-medium text-foreground">Warranty:</span> Backed by manufacturer warranty — typically 12 months on hardware. Specific terms vary by brand and model; confirmed on the quotation.</p>
-                <p><span className="font-medium text-foreground">Returns:</span> All sales are final. Defective units handled under warranty service. Contact us within 7 days of delivery for any quality concerns.</p>
+                <p><span className="font-medium text-foreground">Returns:</span> All sales are final. Contact us within 7 days of delivery for any quality concerns.</p>
               </>
             )}
           </div>

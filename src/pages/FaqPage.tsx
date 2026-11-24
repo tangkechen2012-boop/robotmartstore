@@ -25,7 +25,7 @@ const FAQ_GROUPS: { group: string; items: { q: string; a: string }[] }[] = [
       },
       {
         q: "How fast do I get a quote?",
-        a: "Most quotes are returned within one business day. Complex configurations or special-order items may take 2–3 business days while we confirm with the supplier.",
+        a: "We review your requirements and reply by email with a written quote. Complex or special-order items may need supplier confirmation before we send the quote.",
       },
       {
         q: "Do you offer education or volume pricing?",
@@ -51,16 +51,8 @@ const FAQ_GROUPS: { group: string; items: { q: string; a: string }[] }[] = [
     ],
   },
   {
-    group: "Warranty & Support",
+    group: "Support",
     items: [
-      {
-        q: "What warranty comes with new robots?",
-        a: "New robots include the manufacturer's standard warranty (typically 12 months parts and labor). Extended service plans are available for most platforms.",
-      },
-      {
-        q: "What about used / pre-owned units?",
-        a: "Pre-owned robots are inspected and function-tested, and include a 30-day RobotMart functional warranty. Manufacturer warranty does not transfer.",
-      },
       {
         q: "Do you offer engineering support?",
         a: "Yes — we offer paid onboarding, ROS 2 integration help, and custom development. Use the Custom Development page to scope a project.",
@@ -99,7 +91,7 @@ const FaqPage = () => {
     <div className="min-h-screen">
       <Seo
         title="Frequently Asked Questions — RobotMart"
-        description="Answers to common questions about ordering robots, shipping, lead time, warranty, payment, and engineering support."
+        description="Answers to common questions about ordering robots, shipping, lead time, payment, and engineering support."
         path="/faq"
         jsonLd={jsonLd}
       />
@@ -129,7 +121,7 @@ const FaqPage = () => {
 
         <div className="rounded-2xl border p-6 text-center mb-12">
           <p className="font-semibold mb-2">Still have questions?</p>
-          <p className="text-sm text-muted-foreground mb-4">Our team typically responds within one business day.</p>
+          <p className="text-sm text-muted-foreground mb-4">If you still have questions, contact us or request a quote and we will reply by email.</p>
           <div className="flex justify-center gap-3">
             <Button asChild variant="outline"><Link to="/contact">Contact us</Link></Button>
             <Button asChild><Link to="/request-quote">Request a quote</Link></Button>

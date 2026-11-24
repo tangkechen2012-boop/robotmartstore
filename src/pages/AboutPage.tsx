@@ -21,7 +21,7 @@ const PROCESS_STEPS = [
   {
     icon: FileText,
     title: "Quote",
-    body: "We return a written quote covering unit price, freight, duties (where applicable), warranty assumptions, and lead time.",
+    body: "We return a written quote covering unit price, freight, duties (where applicable), and lead time.",
   },
   {
     icon: Truck,
@@ -75,7 +75,7 @@ const AboutPage = () => {
           </p>
           <p className="text-muted-foreground leading-relaxed mb-4">
             Some products are available for direct checkout. High-value robots, used units, and custom configurations go
-            through a quote-first review so configuration, lead time, freight, duties, warranty, and support scope are
+            through a quote-first review so configuration, lead time, freight, duties, and support scope are
             confirmed before payment.
           </p>
           <p className="text-muted-foreground leading-relaxed">
@@ -87,7 +87,7 @@ const AboutPage = () => {
         </div>
         <div className="grid sm:grid-cols-2 gap-4">
           {[
-            { icon: ClipboardCheck, title: "Quote-first review", text: "Configuration, freight, duties, and warranty are confirmed before complex purchases." },
+            { icon: ClipboardCheck, title: "Quote-first review", text: "Configuration, freight, and duties are confirmed before complex purchases." },
             { icon: BadgeCheck, title: "Clear purchase path", text: "Direct-sale items show checkout; quote items request confirmation before payment." },
             { icon: MessageSquare, title: "Human support", text: "Reach us by email, phone, and quote form. Engineers, not bots." },
             { icon: Truck, title: "Hazmat logistics", text: "UN3481 lithium battery documentation and insured freight handled in-house." },

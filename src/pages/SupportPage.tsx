@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Truck, RotateCcw, Shield, Clock, Mail, Building2 } from "lucide-react";
+import { Truck, RotateCcw, Clock, Mail, Building2 } from "lucide-react";
 import { Seo } from "@/components/Seo";
 
 const SupportPage = () => {
@@ -11,7 +11,7 @@ const SupportPage = () => {
     <div className="max-w-5xl mx-auto px-4 py-10">
       <Seo
         title="Support Center — RobotMart"
-        description="Shipping, returns, warranty, and B2B support resources for RobotMart customers. Get answers and contact our team."
+        description="Shipping, returns, and B2B support resources for RobotMart customers. Get answers and contact our team."
         path="/support"
       />
       <h1 className="text-3xl font-bold mb-2">Support Center</h1>
@@ -22,7 +22,6 @@ const SupportPage = () => {
         {[
           { icon: Truck, label: "Shipping", id: "shipping" },
           { icon: RotateCcw, label: "Returns", id: "returns" },
-          { icon: Shield, label: "Warranty", id: "warranty" },
           { icon: Building2, label: "B2B / RFQ", id: "b2b" },
         ].map(item => (
           <a key={item.id} href={`#${item.id}`}>
@@ -58,12 +57,6 @@ const SupportPage = () => {
             <AccordionContent>
               Eligible items may be returned within 14 days after delivery. Customer return shipping applies unless the
               return is caused by a RobotMart error or an approved defect, and a restocking fee of up to 20% may apply.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="warranty-claim">
-            <AccordionTrigger>How do I make a warranty claim?</AccordionTrigger>
-            <AccordionContent>
-              Contact us with your order number and description of the issue. We'll coordinate with the manufacturer to resolve it.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="bulk">
@@ -104,26 +97,13 @@ const SupportPage = () => {
         </Card>
       </section>
 
-      {/* Warranty */}
-      <section id="warranty" className="mb-10 scroll-mt-20">
-        <h2 className="text-xl font-bold mb-3">Warranty</h2>
-        <Card>
-          <CardContent className="p-5 text-sm text-muted-foreground space-y-2">
-            <p>• All products include manufacturer warranty</p>
-            <p>• Warranty periods vary by manufacturer and product category</p>
-            <p>• We facilitate warranty claims on your behalf</p>
-            <p>• Keep your order confirmation as proof of purchase</p>
-          </CardContent>
-        </Card>
-      </section>
-
       {/* B2B */}
       <section id="b2b" className="mb-10 scroll-mt-20">
         <h2 className="text-xl font-bold mb-3">B2B / Enterprise / RFQ</h2>
         <Card>
           <CardContent className="p-5">
             <p className="text-sm text-muted-foreground mb-4">
-              Need bulk pricing, custom configurations, or enterprise support? Fill out our inquiry form and our team will respond within 1 business day.
+              Need bulk pricing, custom configurations, or enterprise support? Fill out our inquiry form and our team will reply by email.
             </p>
             <form className="space-y-3" onSubmit={e => e.preventDefault()}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -156,7 +136,7 @@ const SupportPage = () => {
                 <Clock className="h-5 w-5 text-primary" />
                 <div>
                   <p className="font-medium text-sm">Business Hours</p>
-                  <p className="text-sm text-muted-foreground">Mon-Fri, 9am-6pm PST</p>
+                  <p className="text-sm text-muted-foreground">Mon-Fri, 9am-6pm ET</p>
                 </div>
               </div>
             </CardContent>
