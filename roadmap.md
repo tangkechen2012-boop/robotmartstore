@@ -11,4 +11,3 @@
 - [ ] Production publication: pending separate KC approval; do not publish automatically
 - [x] Preview: TanStack Start SSR migration with completed raw HTML for all pages (SSR-PREVIEW.md)
 - [ ] Pre-existing mobile product-page horizontal overflow (~28px, also on live site): not fixed, out of migration scope
-- [x] Used quote-only listings: no "Out of Stock" badge, quote notice without warranty, "Inspection & Returns" section title
