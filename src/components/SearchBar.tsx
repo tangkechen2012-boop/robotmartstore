@@ -126,7 +126,7 @@ export const SearchBar = ({ className = "", onNavigate }: SearchBarProps) => {
                           <p className="text-xs text-muted-foreground">
                             {priceNum > 0
                               ? `$${priceNum.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-                              : "Request Quote"}
+                              : "Currently unavailable"}
                           </p>
                         </div>
                       </button>

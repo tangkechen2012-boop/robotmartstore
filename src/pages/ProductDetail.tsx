@@ -5,11 +5,11 @@ import { useCartStore } from "@/stores/cartStore";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { CalendarClock, MessageSquare, ShoppingCart, Loader2, ChevronLeft, Minus, Plus, ShieldCheck, Truck, Headphones, Wrench } from "lucide-react";
+import { MessageSquare, ShoppingCart, Loader2, ChevronLeft, Minus, Plus, ShieldCheck, Truck, Headphones, Wrench } from "lucide-react";
 import { Link } from "@/lib/router-compat";
 import { useState, useEffect, useMemo } from "react";
 import { toast } from "sonner";
-import { buildQuotePath, getSalesStrategy, getStockLabel } from "@/lib/salesStrategy";
+import { getSalesStrategy, getStockLabel } from "@/lib/salesStrategy";
 import { isAuthorizedVendor } from "@/lib/company";
 import { trackAddToCart, trackViewItem } from "@/lib/analytics";
 import { Seo } from "@/components/Seo";
@@ -165,7 +165,7 @@ const ProductDetail = () => {
     );
   }
 
-  const strategy = getSalesStrategy(product);
+  const strategy = getSalesStrategy({ ...product, priceRange: { minVariantPrice: priceRaw } });
   const isDirectSale = strategy.mode === "direct-sale";
   const stockLabel = getStockLabel(product, selectedVariant?.availableForSale, selectedVariant?.quantityAvailable);
   // Hide single-value options (e.g. "Fulfillment Option: Quote Required") — they are not a real choice.
@@ -414,7 +414,7 @@ const ProductDetail = () => {
             )}
           </div>
 
-          {/* Add to cart + Request a Quote */}
+          {/* Purchase or contact */}
           <div className="flex gap-3">
             {isDirectSale && (
               <Button
@@ -427,17 +427,17 @@ const ProductDetail = () => {
                 Add to Cart
               </Button>
             )}
-            <Button
-              variant={isDirectSale ? "outline" : "default"}
+            {!isDirectSale && <Button
+              variant="default"
               size="lg"
               className="flex-1 font-semibold"
               asChild
             >
-              <Link to={buildQuotePath(product, strategy.mode === "pre-order" ? "preorder" : "quote")}>
-                {strategy.mode === "pre-order" ? <CalendarClock className="h-4 w-4 mr-2" /> : <MessageSquare className="h-4 w-4 mr-2" />}
-                {isDirectSale ? strategy.secondaryCta : strategy.primaryCta}
+              <Link to="/contact">
+                <MessageSquare className="h-4 w-4 mr-2" />
+                {strategy.primaryCta}
               </Link>
-            </Button>
+            </Button>}
           </div>
         </div>
       </div>
@@ -522,7 +522,7 @@ const ProductDetail = () => {
               <Headphones className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
               <div>
                 <div className="font-medium text-foreground mb-1">Pre-Sales Consultation</div>
-                <p className="text-muted-foreground leading-relaxed">Specification review, application fit, and integration feasibility — included with every quote.</p>
+                <p className="text-muted-foreground leading-relaxed">Specification review, application fit, and integration feasibility — available on request.</p>
               </div>
             </div>
             <div className="flex gap-3">
@@ -579,14 +579,14 @@ const ProductDetail = () => {
               className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
             >
               {cartLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShoppingCart className="h-4 w-4" />}
-              <span className="ml-1.5">Add</span>
+              <span className="ml-1.5">Add to Cart</span>
             </Button>
           )}
-          <Button variant={isDirectSale ? "outline" : "default"} size="sm" asChild className="font-semibold">
-            <Link to={buildQuotePath(product, strategy.mode === "pre-order" ? "preorder" : "quote")}>
-              {isDirectSale ? strategy.secondaryCta : strategy.primaryCta}
+          {!isDirectSale && <Button variant="default" size="sm" asChild className="font-semibold">
+            <Link to="/contact">
+              {strategy.primaryCta}
             </Link>
-          </Button>
+          </Button>}
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ type ProductLike = {
   };
 };
 
-export type SalesMode = "direct-sale" | "quote-only" | "pre-order" | "unavailable";
+export type SalesMode = "direct-sale" | "pre-order" | "unavailable";
 
 export type SalesStrategy = {
   mode: SalesMode;
@@ -26,10 +26,6 @@ export type SalesStrategy = {
 };
 
 export const MADE_TO_ORDER_LABEL = "Made to order: lead time confirmed before shipment";
-export const QUOTE_ONLY_USED_STOCK_LABEL = "Quoted before purchase";
-
-const QUOTE_ONLY_TAGS = ["sales-mode:quote-only", "quote-required"];
-const USED_TAGS = ["Condition_Used", "condition:used", "Used"];
 
 export function getProductPrice(product: ProductLike): number {
   return Number.parseFloat(product.priceRange?.minVariantPrice?.amount || "0") || 0;
@@ -40,41 +36,23 @@ function hasTag(product: ProductLike, ...names: string[]): boolean {
   return names.some((n) => tags.includes(n.toLowerCase()));
 }
 
-function isQuoteRequired(product: ProductLike): boolean {
-  return hasTag(product, ...QUOTE_ONLY_TAGS);
-}
-
-/** Pre-owned listings: condition is confirmed by quote, never by a warranty promise. */
-function isUsedListing(product: ProductLike): boolean {
-  return hasTag(product, ...USED_TAGS);
-}
-
-function formatUsd(n: number) {
-  return n.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-}
-
 const DIRECT: Omit<SalesStrategy, "badge"> = {
   mode: "direct-sale",
   primaryCta: "Add to Cart",
-  secondaryCta: "Request Bulk Quote",
   noticeTitle: "Ready for direct checkout",
   noticeBody:
-    "Buying multiple units or need a custom configuration? Request a bulk quote for volume pricing and tailored terms.",
+    "Buying multiple units or need a custom configuration? Contact us to discuss volume purchases and configuration requirements.",
 };
 
 /**
  * Stock label. "In Stock" only when the product is tagged as US local stock
  * or the variant reports a positive quantity; otherwise made-to-order.
- * Quote-required listings are not sold from stock, so they never report "Out of Stock".
  */
 export function getStockLabel(
   product: ProductLike,
   availableForSale: boolean | undefined,
   quantityAvailable?: number | null,
 ): string {
-  if (isQuoteRequired(product)) {
-    return isUsedListing(product) ? QUOTE_ONLY_USED_STOCK_LABEL : MADE_TO_ORDER_LABEL;
-  }
   if (availableForSale === false) return "Out of Stock";
   if (hasTag(product, "Fulfillment_US_Local_Stock") || (quantityAvailable ?? 0) > 0) return "In Stock";
   return MADE_TO_ORDER_LABEL;
@@ -88,49 +66,24 @@ export function getSalesStrategy(product: ProductLike): SalesStrategy {
       mode: "unavailable",
       badge: "Currently unavailable",
       priceLabel: "Currently unavailable",
-      primaryCta: "Ask about availability",
+      primaryCta: "Contact us",
       noticeTitle: "Currently unavailable",
       noticeBody: "This product is not available for purchase right now. Contact us to ask about availability.",
     };
   }
 
-  if (isQuoteRequired(product)) {
-    return quoteOnly(price, isUsedListing(product));
-  }
-
-  if (hasTag(product, "sales-mode:pre-order", "sales-mode:preorder")) {
-    return {
-      mode: "pre-order",
-      badge: "Pre-order",
-      priceLabel: price > 0 ? `Starting at $${formatUsd(price)}` : "Pre-order terms available",
-      primaryCta: "Request Pre-order Terms",
-      secondaryCta: "Talk to a Robotics Advisor",
-      noticeTitle: "Pre-order item",
-      noticeBody:
-        "Availability, deposit terms, delivery window, and refund rules must be confirmed before purchase.",
-    };
-  }
-
-  if (hasTag(product, "sales-mode:direct", "sales-mode:direct-sale") && price > 0) {
+  // A listed price enables checkout regardless of legacy quote or pre-order tags.
+  if (price > 0) {
     return { ...DIRECT, badge: getStockLabel(product, true) };
   }
 
-  if (price === 0) return quoteOnly(0, isUsedListing(product));
-
-  return { ...DIRECT, badge: getStockLabel(product, true) };
-}
-
-function quoteOnly(price: number, used = false): SalesStrategy {
   return {
-    mode: "quote-only",
-    badge: "Quote required",
-    priceLabel: price > 0 ? `Starting at $${formatUsd(price)}` : "Price on request",
-    primaryCta: "Request a Quote",
-    secondaryCta: "Talk to a Robotics Advisor",
-    noticeTitle: "Configured and quoted before purchase",
-    noticeBody: used
-      ? "We confirm condition, configuration, freight, duties, and delivery timing before payment."
-      : "We confirm configuration, lead time, freight, duties and warranty with you before payment.",
+    mode: "unavailable",
+    badge: "Currently unavailable",
+    priceLabel: "Currently unavailable",
+    primaryCta: "Contact us",
+    noticeTitle: "Currently unavailable",
+    noticeBody: "This product is not available for purchase right now. Contact us to ask about availability.",
   };
 }
 

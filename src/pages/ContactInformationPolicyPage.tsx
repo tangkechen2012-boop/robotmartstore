@@ -1,3 +1,4 @@
+import { Link } from "@/lib/router-compat";
 import { Seo } from "@/components/Seo";
 
 const ContactInformationPolicyPage = () => (
@@ -17,8 +18,8 @@ const ContactInformationPolicyPage = () => (
         Website: <a href="https://www.robotmart.store">https://www.robotmart.store</a>
       </p>
       <p>
-        For product quotes, education procurement, enterprise purchasing, application engineering, and custom robotics
-        development, please use the request quote form or email us with your product model, delivery country, use case,
+        For product inquiries, education procurement, enterprise purchasing, application engineering, and custom robotics
+        development, please use the <Link to="/contact">Contact page</Link> or email us with your product model, delivery country, use case,
         quantity, budget range, and required timeline.
       </p>
     </div>

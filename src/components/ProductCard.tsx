@@ -4,7 +4,7 @@ import { useCartStore } from "@/stores/cartStore";
 import { Button } from "@/components/ui/button";
 import { MessageSquare, ShoppingCart, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { buildQuotePath, getSalesStrategy, getStockLabel } from "@/lib/salesStrategy";
+import { getSalesStrategy, getStockLabel } from "@/lib/salesStrategy";
 import { trackAddToCart } from "@/lib/analytics";
 import { shopifyImageUrl, shopifyImageSrcSet } from "@/lib/shopifyImage";
 
@@ -20,7 +20,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const image = node.images.edges[0]?.node;
   const price = node.priceRange.minVariantPrice;
   const variant = node.variants.edges[0]?.node;
-  const strategy = getSalesStrategy(node);
+  const strategy = getSalesStrategy({ ...node, priceRange: { minVariantPrice: variant?.price || price } });
   const isDirectSale = strategy.mode === "direct-sale";
 
   const handleAddToCart = async (e: React.MouseEvent) => {
@@ -47,10 +47,10 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     toast.success("Added to cart", { description: node.title, position: "top-center" });
   };
 
-  const handleQuoteClick = (e: React.MouseEvent) => {
+  const handleProductClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    navigate(buildQuotePath(node, strategy.mode === "pre-order" ? "preorder" : "quote"));
+    navigate(`/product/${node.handle}`);
   };
 
   return (
@@ -110,8 +110,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                 size="icon"
                 variant="outline"
                 className="h-9 w-9 rounded-xl"
-                onClick={handleQuoteClick}
-                aria-label={`Request quote for ${node.title}`}
+                onClick={handleProductClick}
+                aria-label={`View ${node.title}`}
               >
                 <MessageSquare className="h-4 w-4" />
               </Button>

@@ -123,7 +123,7 @@ const BuyingGuidePage = () => {
               </Button>
             )}
             <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link to="/request-quote">Request a quote <ArrowRight className="h-4 w-4 ml-1" /></Link>
+              <Link to="/contact">Contact us <ArrowRight className="h-4 w-4 ml-1" /></Link>
             </Button>
           </div>
         </div>

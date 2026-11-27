@@ -17,19 +17,19 @@ const POPULAR_COLLECTIONS = [
 
 const FAQ_GROUPS: { group: string; items: { q: string; a: string }[] }[] = [
   {
-    group: "Ordering & Quotes",
+    group: "Ordering & Purchases",
     items: [
       {
         q: "Can I buy directly from the website?",
-        a: "Yes — accessories and most in-stock items are available for direct checkout. High-value robots and custom configurations go through a quote-first review so we can confirm stock, configuration, freight, and lead time before payment.",
+        a: "Yes — products with a listed price are available through Add to Cart and direct checkout, including high-value robots and pre-owned units. Contact us for custom configurations or products that are currently unavailable.",
       },
       {
-        q: "How fast do I get a quote?",
-        a: "We review your requirements and reply by email with a written quote. Complex or special-order items may need supplier confirmation before we send the quote.",
+        q: "How can I discuss a custom configuration?",
+        a: "Contact us with your product model and application requirements. We review your inquiry and reply by email.",
       },
       {
         q: "Do you offer education or volume pricing?",
-        a: "Yes. Universities, research institutions, and qualifying volume orders receive tiered pricing. Mention your institution and quantity in the quote form.",
+        a: "Yes. Universities, research institutions, and qualifying volume orders receive tiered pricing. Contact us with your institution and quantity.",
       },
     ],
   },
@@ -121,10 +121,9 @@ const FaqPage = () => {
 
         <div className="rounded-2xl border p-6 text-center mb-12">
           <p className="font-semibold mb-2">Still have questions?</p>
-          <p className="text-sm text-muted-foreground mb-4">If you still have questions, contact us or request a quote and we will reply by email.</p>
+          <p className="text-sm text-muted-foreground mb-4">If you still have questions, contact us and we will reply by email.</p>
           <div className="flex justify-center gap-3">
             <Button asChild variant="outline"><Link to="/contact">Contact us</Link></Button>
-            <Button asChild><Link to="/request-quote">Request a quote</Link></Button>
           </div>
         </div>
 

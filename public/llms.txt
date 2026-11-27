@@ -2,7 +2,7 @@
 
 > Professional B2B robotics solutions provider — humanoid robots, quadruped systems, robotic arms, accessories, and custom engineering services for enterprise, research, and education.
 
-RobotMart sources industry-grade robotics platforms from leading manufacturers and provides system integration, AI deployment, OEM/ODM development, and lifecycle support. Most high-ticket items are quote-driven; smaller accessories and consumer items are available for direct purchase.
+RobotMart sources industry-grade robotics platforms from leading manufacturers and provides system integration, AI deployment, OEM/ODM development, and lifecycle support. Products with a listed price are available through Add to Cart and direct checkout. Contact the team for custom configurations or unavailable products.
 
 RobotMart is an authorized reseller for Unitree, LinkerBot, and DM-Tac.
 
@@ -26,7 +26,6 @@ Address: 9270 Bay Plaza Blvd Ste 604, Tampa, FL 33619, United States.
 - [Blog](/blog): Robotics insights, guides, and industry news.
 - [About](/about): Company background, team, and capabilities.
 - [Contact](/contact): Get in touch with the engineering team.
-- [Request a Quote](/request-quote): Submit an RFQ for any product or custom build.
 - [Support](/support): Technical support, documentation, and after-sales service.
 
 ## Featured Products

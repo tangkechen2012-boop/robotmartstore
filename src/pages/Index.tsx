@@ -158,14 +158,14 @@ const Index = () => {
               Engineering-Grade Robots for Builders, Labs & Enterprise
             </h1>
             <p className="text-base md:text-lg opacity-85 mb-8 leading-relaxed">
-              Source humanoid, quadruped, and dexterous robotics from leading OEMs — with engineering review, custom integration, and quote-first support for complex purchases.
+              Source humanoid, quadruped, and dexterous robotics from leading OEMs — with engineering review, custom integration, and support for complex purchases.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Button asChild size="lg" className="h-12 rounded-pill px-8 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground hover:scale-105 transition-all duration-200 hover:shadow-lg hover:shadow-accent/25">
                 <Link to="/products">Explore Products</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-12 rounded-pill px-8 font-semibold border-accent text-accent-foreground bg-transparent hover:bg-accent/10 hover:scale-105 transition-all duration-200">
-                <Link to="/request-quote">Request a Quote</Link>
+                <Link to="/contact">Contact</Link>
               </Button>
             </div>
           </div>
@@ -347,7 +347,7 @@ const Index = () => {
               </div>
               <h2 className="text-3xl md:text-4xl font-extrabold">Inspected Pre-Owned Robotics</h2>
               <p className="mt-2 text-sm md:text-base text-muted-foreground leading-relaxed">
-                Function-tested humanoid and quadruped units for education, research, and pilot deployments. Each unit is unique — pricing, accessories, freight, and warranty assumptions are confirmed through a quote-first review.
+                Function-tested humanoid and quadruped units for education, research, and pilot deployments. Each unit is unique — view its listed price, condition, and accessories on the product page and purchase directly.
               </p>
             </div>
             <Button asChild variant="outline" className="rounded-pill font-semibold">
@@ -418,11 +418,11 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 py-20 text-center">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Ready to Deploy Robotics at Scale?</h2>
           <p className="opacity-80 max-w-xl mx-auto mb-8">
-            Send your requirements — we'll reply by email with a tailored configuration and quote.
+            Browse listed products for direct checkout, or contact us to discuss custom configurations.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button asChild size="lg" className="h-12 rounded-pill px-10 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground hover:scale-105 transition-all duration-200 hover:shadow-lg hover:shadow-accent/25">
-              <Link to="/request-quote">Request a Quote</Link>
+              <Link to="/products">Explore Products</Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="h-12 rounded-pill px-10 font-semibold border-accent text-accent-foreground bg-transparent hover:bg-accent/10">
               <Link to="/contact">Talk to an Engineer</Link>

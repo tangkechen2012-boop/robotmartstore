@@ -18,7 +18,7 @@ const BUYERS = [
   {
     icon: ClipboardCheck,
     title: "Procurement and purchasing departments",
-    text: "Quote-ready product details, lead time, freight notes, warranty terms, payment terms, and supplier confirmation for internal approval.",
+    text: "Listed product prices, configuration details, freight notes, and payment information for internal approval.",
   },
 ];
 
@@ -26,21 +26,21 @@ const PROCESS = [
   {
     icon: PackageCheck,
     title: "Model and configuration review",
-    text: "We confirm the robot model, accessories, software, SDK, training needs, and intended application before quoting.",
+    text: "We confirm the robot model, accessories, software, SDK, training needs, and intended application before purchase.",
   },
   {
     icon: BadgeCheck,
     title: "Supplier availability check",
-    text: "We verify current availability, lead time, North America delivery options, warranty responsibility, and approved product materials.",
+    text: "We verify current availability, lead time, North America delivery options and approved product materials.",
   },
   {
     icon: Truck,
     title: "Freight and delivery planning",
-    text: "For high-ticket or oversized robots, freight, duties, packaging, battery restrictions, and delivery terms are handled during quotation.",
+    text: "For high-ticket or oversized robots, freight, duties, packaging, battery restrictions, and delivery terms can be discussed with our team.",
   },
   {
     icon: ShieldCheck,
-    title: "Formal quote package",
+    title: "Procurement documentation",
     text: "We prepare purchase-ready details for PO or wire transfer workflows, including validity window and support assumptions.",
   },
 ];
@@ -57,7 +57,7 @@ const ProcurementPage = () => {
         url: "https://www.robotmart.store",
       },
       areaServed: ["United States", "Canada"],
-      serviceType: "Robotics procurement and quote coordination",
+      serviceType: "Robotics procurement support",
       description:
         "B2B procurement support for humanoid robots, quadruped robots, dexterous hands, robotics accessories, and research platforms.",
     };
@@ -74,7 +74,7 @@ const ProcurementPage = () => {
     <div className="min-h-screen bg-background">
       <Seo
         title="B2B Robotics Procurement — RobotMart"
-        description="Robotics procurement for schools, labs, and enterprise teams. Quote-first sourcing with supplier, freight, and warranty checks."
+        description="Robotics procurement for schools, labs, and enterprise teams. Listed product prices, direct checkout, and configuration support."
         path="/procurement"
       />
       <section className="border-b bg-secondary/30">
@@ -86,13 +86,13 @@ const ProcurementPage = () => {
                 Robotics procurement for schools, labs, and enterprise teams
               </h1>
               <p className="mt-5 text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
-                RobotMart helps North American buyers source advanced robotics platforms through a quote-first process
-                that checks configuration, supplier availability, freight, warranty, and purchase terms before payment.
+                RobotMart helps North American buyers source advanced robotics platforms with listed prices and direct checkout.
+                Contact us for configuration guidance and procurement support.
               </p>
               <div className="mt-7 flex flex-col sm:flex-row gap-3">
                 <Button size="lg" className="font-semibold" asChild>
-                  <Link to="/request-quote">
-                    Request a procurement quote <ArrowRight className="h-4 w-4 ml-2" />
+                  <Link to="/contact">
+                    Contact procurement support <ArrowRight className="h-4 w-4 ml-2" />
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" className="font-semibold" asChild>
@@ -106,8 +106,8 @@ const ProcurementPage = () => {
                 <li className="flex gap-2"><BadgeCheck className="h-4 w-4 text-primary mt-0.5" /> Product model and configuration summary</li>
                 <li className="flex gap-2"><BadgeCheck className="h-4 w-4 text-primary mt-0.5" /> Supplier availability and lead time check</li>
                 <li className="flex gap-2"><BadgeCheck className="h-4 w-4 text-primary mt-0.5" /> Freight, duties, and delivery notes</li>
-                <li className="flex gap-2"><BadgeCheck className="h-4 w-4 text-primary mt-0.5" /> Warranty and support assumptions</li>
-                <li className="flex gap-2"><BadgeCheck className="h-4 w-4 text-primary mt-0.5" /> Quote details for PO or wire transfer approval</li>
+                <li className="flex gap-2"><BadgeCheck className="h-4 w-4 text-primary mt-0.5" /> Application support requirements</li>
+                <li className="flex gap-2"><BadgeCheck className="h-4 w-4 text-primary mt-0.5" /> Product details for PO or wire transfer approval</li>
               </ul>
             </div>
           </div>
@@ -131,10 +131,10 @@ const ProcurementPage = () => {
       <section className="bg-secondary/40 py-14">
         <div className="max-w-7xl mx-auto px-4">
           <div className="max-w-3xl">
-            <h2 className="text-2xl md:text-3xl font-bold">Quote-first process for complex robotics purchases</h2>
+            <h2 className="text-2xl md:text-3xl font-bold">Procurement support for complex robotics purchases</h2>
             <p className="mt-3 text-muted-foreground leading-relaxed">
-              High-ticket robots are not ordinary checkout products. We separate simple direct-sale items from complex
-              procurement requests so buyers get realistic terms before committing budget.
+              Products with a listed price are available for direct checkout, including high-ticket robots.
+              Contact us for help comparing configurations or preparing internal procurement documentation.
             </p>
           </div>
           <div className="mt-8 grid md:grid-cols-4 gap-5">
@@ -172,13 +172,13 @@ const ProcurementPage = () => {
             </div>
           </div>
           <aside className="rounded-lg border bg-card p-6">
-            <h2 className="text-lg font-bold">Ready to request pricing?</h2>
+            <h2 className="text-lg font-bold">Need procurement support?</h2>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              Share the model, quantity, target delivery country, use case, budget range, and timeline. Complex quotes
-              may require supplier confirmation before final pricing.
+              View listed prices and purchase on the product page. For procurement support, share the model,
+              quantity, target delivery country, use case, budget range, and timeline via Contact.
             </p>
             <Button className="mt-5 w-full font-semibold" asChild>
-              <Link to="/request-quote">Start quote request</Link>
+              <Link to="/contact">Contact us</Link>
             </Button>
           </aside>
         </div>

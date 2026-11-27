@@ -31,11 +31,11 @@ const COLLECTION_GUIDES: Record<string, {
     eyebrow: "Humanoid robot sourcing",
     title: "Humanoid robots for education, research, and enterprise pilots",
     description:
-      "Compare quote-ready humanoid platforms for embodied AI, manipulation, locomotion, HRI, and robotics lab programs. For high-ticket robots, RobotMart confirms configuration, supplier availability, freight, warranty, and purchase terms before payment.",
-    ctaLabel: "Request a humanoid robot quote",
+      "Compare humanoid platforms for embodied AI, manipulation, locomotion, HRI, and robotics lab programs. Priced products list their price and can be purchased on the product page. Contact us for configuration guidance.",
+    ctaLabel: "Contact us about humanoid robots",
     highlights: [
       "G1, EDU, fixed-base, and enterprise configurations require different procurement checks",
-      "PO, wire transfer, deposit, freight, and warranty terms can be reviewed before purchase",
+      "PO, wire transfer, deposit, and freight terms can be reviewed before purchase",
       "Supplier confirmation is required before fixed delivery dates or support terms are promised",
     ],
     buyerCards: [
@@ -52,17 +52,17 @@ const COLLECTION_GUIDES: Record<string, {
       {
         icon: Truck,
         title: "Procurement reality",
-        text: "Freight, duties, batteries, lead time, warranty, and after-sales responsibility are confirmed during quote review.",
+        text: "Review freight, duties, batteries, and application support requirements before purchase.",
       },
     ],
     faqs: [
       {
-        q: "Why are many humanoid robots quote-only?",
-        a: "Humanoid robots often require supplier confirmation for configuration, lead time, freight, warranty, and purchase terms. Quote-first prevents unrealistic checkout promises.",
+        q: "Can I buy humanoid robots directly?",
+        a: "Priced humanoid robots show their listed price and Add to Cart on the product page. Contact us for custom configurations or products that are currently unavailable.",
       },
       {
         q: "Can schools or labs use purchase orders?",
-        a: "RobotMart can prepare quote details for internal procurement review, including model, configuration, delivery notes, warranty assumptions, and payment terms.",
+        a: "RobotMart can prepare product details for internal procurement review, including model, configuration, delivery notes, and payment terms. Contact us with your requirements.",
       },
       {
         q: "What should buyers compare before choosing a humanoid robot?",
@@ -75,9 +75,9 @@ const COLLECTION_GUIDES: Record<string, {
     title: "Quadruped robots for research, inspection, and field development",
     description:
       "Source quadruped platforms for education, mobility research, inspection pilots, sensor integration, and autonomous navigation projects.",
-    ctaLabel: "Request a quadruped robot quote",
+    ctaLabel: "Contact us about quadruped robots",
     highlights: [
-      "Confirm payload, sensors, battery, controller, and SDK needs before quoting",
+      "Confirm payload, sensors, battery, controller, and SDK needs before purchase",
       "Inspection and field deployments may require accessories, training, and spare parts",
       "Shipping terms depend on battery configuration, package size, and destination",
     ],
@@ -95,7 +95,7 @@ const COLLECTION_GUIDES: Record<string, {
       {
         icon: Truck,
         title: "Delivery planning",
-        text: "Confirm battery shipping, lead time, spare parts, and warranty terms before payment.",
+        text: "Review battery shipping, spare parts, and configuration requirements before purchase.",
       },
     ],
     faqs: [
@@ -105,7 +105,7 @@ const COLLECTION_GUIDES: Record<string, {
       },
       {
         q: "Do all quadruped robots support development?",
-        a: "No. Development access varies by model and edition, so SDK, ROS, API, and compute options should be checked during quote review.",
+        a: "No. Development access varies by model and edition, so SDK, ROS, API, and compute options should be checked before purchase.",
       },
     ],
   },
@@ -114,11 +114,11 @@ const COLLECTION_GUIDES: Record<string, {
     title: "Robot accessories, dexterous hands, sensors, and development hardware",
     description:
       "Find manipulation hardware, sensors, end effectors, batteries, chargers, and development accessories for robotics labs and integration teams.",
-    ctaLabel: "Request accessory sourcing",
+    ctaLabel: "Contact us about accessories",
     highlights: [
       "Dexterous hands should be compared by DOF, drive type, interface, SDK, and robot compatibility",
       "Sensors and end effectors may require integration support and documentation review",
-      "Standard accessories can move to direct sale after stock, UPC/GTIN, warranty, and fulfillment are confirmed",
+      "Priced accessories are available through Add to Cart and direct checkout",
     ],
     buyerCards: [
       {
@@ -134,36 +134,36 @@ const COLLECTION_GUIDES: Record<string, {
       {
         icon: BadgeCheck,
         title: "Fulfillment readiness",
-        text: "Move accessories to direct checkout only after supplier stock and warranty are confirmed.",
+        text: "View listed prices and availability on each accessory product page.",
       },
     ],
     faqs: [
       {
         q: "Can RobotMart source dexterous robot hands?",
-        a: "Yes. We request supplier confirmation for pricing, interfaces, SDK, documentation, compatibility, and lead time before quoting.",
+        a: "Yes. We request supplier confirmation for pricing, interfaces, SDK, documentation, compatibility, and lead time before purchase.",
       },
       {
         q: "Which accessories can be direct-sale?",
-        a: "Standard items with confirmed stock, shipping, warranty, and return terms can become direct-sale products.",
+        a: "Accessories with a listed price can be purchased on the product page using Add to Cart and direct checkout.",
       },
     ],
   },
   "pre-owned": {
     eyebrow: "Pre-Owned robotics inventory",
-    title: "Pre-Owned & tested robots — inspected, quote-first procurement",
+    title: "Pre-Owned & tested robots — inspected inventory",
     description:
-      "Source tested pre-owned humanoid and quadruped robots for education, research, and pilot deployments. Each used unit is unique, so pricing and terms are confirmed through RobotMart's quote-first process after we verify configuration, battery and joint health, accessories, freight method, duties, and supported warranty assumptions.",
-    ctaLabel: "Request a pre-owned unit quote",
+      "Source tested pre-owned humanoid and quadruped robots for education, research, and pilot deployments. Each used unit is unique. View its listed price, condition, configuration, and accessories on the product page and purchase directly.",
+    ctaLabel: "Contact us about pre-owned units",
     highlights: [
       "Each used unit is sold based on actual condition, configuration, and supplier availability",
-      "Quote covers exact model edition, accessories, battery and joint status, photos, and test video",
+      "Review exact model edition, accessories, battery and joint status, photos, and test video in the listing",
       "China-direct, DDP US delivery, and US-local stock options are evaluated per request",
     ],
     buyerCards: [
       {
         icon: ClipboardCheck,
         title: "Condition verification",
-        text: "Battery health, joint condition, sensor status, controller, charger, and original accessories are confirmed before quoting.",
+        text: "Battery health, joint condition, sensor status, controller, charger, and original accessories are confirmed before purchase.",
       },
       {
         icon: Truck,
@@ -173,13 +173,13 @@ const COLLECTION_GUIDES: Record<string, {
       {
         icon: BadgeCheck,
         title: "Support boundaries",
-        text: "DOA inspection window, used-unit support limits, and warranty assumptions are documented in writing before payment.",
+        text: "Review the listing condition and the Inspection & Returns section on the product page.",
       },
     ],
     faqs: [
       {
-        q: "Why is pre-owned inventory quote-only?",
-        a: "Used robotics units differ in condition, accessories, and supplier location. Final pricing and terms are only confirmed after inspection, freight quoting, and warranty review.",
+        q: "Can I buy pre-owned inventory directly?",
+        a: "Yes. Priced pre-owned listings show the listed price and Add to Cart on the product page. Review the condition, accessories, and Inspection & Returns information before purchasing.",
       },
       {
         q: "Can pre-owned units ship DDP to the United States?",
@@ -191,10 +191,10 @@ const COLLECTION_GUIDES: Record<string, {
     eyebrow: "Robotic arm sourcing",
     title: "Robotic arms for research, manipulation labs, and industrial pilots",
     description:
-      "Source collaborative robotic arms, manipulators, and end-effector platforms for university research, machine-tending pilots, packaging cells, and embodied-AI workcells. RobotMart compares payload, reach, repeatability, SDK and ROS support, controller, and freight terms before quoting so your team can choose the right manipulator with confidence.",
-    ctaLabel: "Request a robotic arm quote",
+      "Source collaborative robotic arms, manipulators, and end-effector platforms for university research, machine-tending pilots, packaging cells, and embodied-AI workcells. RobotMart compares payload, reach, repeatability, SDK and ROS support, controller, and freight terms before purchase so your team can choose the right manipulator with confidence.",
+    ctaLabel: "Contact us about robotic arms",
     highlights: [
-      "Match payload, reach, and repeatability to your task before locking a quote",
+      "Match payload, reach, and repeatability to your task before purchase",
       "Confirm SDK, ROS/ROS2, MoveIt, Python/C++, and digital-twin tooling for your stack",
       "Plan controller, mounting, safety, end-effector, and integration support up front",
     ],
@@ -212,21 +212,21 @@ const COLLECTION_GUIDES: Record<string, {
       {
         icon: BadgeCheck,
         title: "Industrial fit",
-        text: "Validate duty cycle, IP rating, safety profile, controller, mounting, and warranty before deploying into a production cell.",
+        text: "Validate duty cycle, IP rating, safety profile, controller, mounting, and integration requirements before deploying into a production cell.",
       },
     ],
     faqs: [
       {
         q: "How do I choose between a cobot and an industrial robotic arm?",
-        a: "Cobots prioritize safety, easy programming, and human collaboration; industrial arms prioritize payload, speed, and reach. RobotMart can compare both against your payload, reach, cycle time, and safety needs before quoting.",
+        a: "Cobots prioritize safety, easy programming, and human collaboration; industrial arms prioritize payload, speed, and reach. RobotMart can compare both against your payload, reach, cycle time, and safety needs before purchase.",
       },
       {
         q: "Do robotic arms support ROS, MoveIt, and Python?",
-        a: "Most platforms we source ship with ROS/ROS2 drivers, MoveIt integration, and Python/C++ SDKs. Exact support varies by vendor and edition, so we confirm SDK, examples, and documentation during quote review.",
+        a: "Most platforms we source ship with ROS/ROS2 drivers, MoveIt integration, and Python/C++ SDKs. Exact support varies by vendor and edition, so we confirm SDK, examples, and documentation before purchase.",
       },
       {
         q: "Can RobotMart bundle end-effectors and grippers with a robotic arm?",
-        a: "Yes. We can quote grippers, force-torque sensors, cameras, tool changers, and dexterous hands together with the arm, and confirm mechanical, electrical, and software compatibility before purchase.",
+        a: "Yes. We can discuss grippers, force-torque sensors, cameras, tool changers, and dexterous hands together with the arm, and confirm mechanical, electrical, and software compatibility before purchase.",
       },
     ],
   },
@@ -298,7 +298,7 @@ const AllProductsView = () => {
         <p className="mt-3 text-sm md:text-base text-muted-foreground leading-relaxed max-w-3xl">
           {q
             ? "Showing products that match your search across the RobotMart catalog. Refine your query or browse a category below."
-            : "Browse humanoid robots, quadruped robots, robot accessories, and developer hardware. High-ticket platforms move through a quote-first review covering configuration, supplier confirmation, freight, warranty, and purchase terms."}
+            : "Browse humanoid robots, quadruped robots, robot accessories, and developer hardware. Products with a listed price are available through Add to Cart and direct checkout on the product page."}
         </p>
       </section>
 
@@ -370,7 +370,7 @@ const CollectionPage = () => {
 
   const isLoading = isTagCollection ? tagLoading : collectionLoading;
   const TAG_COLLECTION_DESCRIPTIONS: Record<string, string> = {
-    "pre-owned": "Tested pre-owned robotics inventory. Each unit is unique — quote-first procurement applies.",
+    "pre-owned": "Tested pre-owned robotics inventory. Each unit is unique — view listed prices and purchase on the product page.",
     "robot-accessories": "Dexterous hands, sensors, batteries, mounts, and developer hardware for robotics labs and integrators.",
   };
   const collection = isTagCollection
@@ -453,7 +453,7 @@ const CollectionPage = () => {
   const collectionDesc =
     guide?.description ||
     collection?.description ||
-    `Browse ${collectionTitle} at RobotMart — quote-ready robotics platforms for research, education, and enterprise.`;
+    `Browse ${collectionTitle} at RobotMart — robotics platforms for research, education, and enterprise.`;
 
   const breadcrumbLd = {
     "@context": "https://schema.org",
@@ -523,7 +523,7 @@ const CollectionPage = () => {
               </p>
               <div className="mt-5 flex flex-col sm:flex-row gap-3">
                 <Button asChild>
-                  <Link to={`/request-quote?product=${encodeURIComponent(collection?.title || guide.title)}`}>
+                  <Link to="/contact">
                     {guide.ctaLabel}
                   </Link>
                 </Button>

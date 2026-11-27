@@ -148,14 +148,6 @@ export const Header = () => {
                   <div className="mb-4">
                     <SearchBar onNavigate={() => setMobileOpen(false)} />
                   </div>
-                  <Button
-                    asChild
-                    className="w-full h-12 mb-4 rounded-pill font-semibold bg-accent hover:bg-accent/90 text-accent-foreground"
-                  >
-                    <Link to="/request-quote" onClick={() => setMobileOpen(false)}>
-                      Request Quote
-                    </Link>
-                  </Button>
                   <nav className="space-y-1">
                     {NAV_ITEMS.map((item) =>
                     <MobileNavItem key={item.label} item={item} onClose={() => setMobileOpen(false)} />
@@ -216,13 +208,6 @@ export const Header = () => {
 
               {/* Actions */}
               <div className="flex items-center gap-2">
-                <Button
-                  asChild
-                  size="sm"
-                  className="hidden md:inline-flex h-11 rounded-pill px-4 font-semibold bg-accent hover:bg-accent/90 text-accent-foreground"
-                >
-                  <Link to="/request-quote">Request Quote</Link>
-                </Button>
                 <CartDrawer />
               </div>
             </div>

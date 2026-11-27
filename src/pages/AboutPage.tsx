@@ -16,12 +16,12 @@ const PROCESS_STEPS = [
   {
     icon: Search,
     title: "Scope",
-    body: "Tell us the platform, configuration, quantity, country, and timeline. We confirm what's possible before quoting.",
+    body: "Compare the platform, configuration, and quantity for your application. Contact us if you need help choosing.",
   },
   {
     icon: FileText,
-    title: "Quote",
-    body: "We return a written quote covering unit price, freight, duties (where applicable), and lead time.",
+    title: "Purchase",
+    body: "Priced products list their price on the product page and are available through Add to Cart and checkout.",
   },
   {
     icon: Truck,
@@ -74,9 +74,9 @@ const AboutPage = () => {
             post-sale escalation that buyers shouldn't have to figure out alone.
           </p>
           <p className="text-muted-foreground leading-relaxed mb-4">
-            Some products are available for direct checkout. High-value robots, used units, and custom configurations go
-            through a quote-first review so configuration, lead time, freight, duties, and support scope are
-            confirmed before payment.
+            Priced products, including high-value robots and used units, are available for direct checkout.
+            Browse the product page for the listed price and configuration. Contact us for custom configurations
+            and application support.
           </p>
           <p className="text-muted-foreground leading-relaxed">
             RobotMart is an authorized, non-exclusive reseller of Unitree, LinkerBot and DM-Tac. For other brands shown on
@@ -87,9 +87,9 @@ const AboutPage = () => {
         </div>
         <div className="grid sm:grid-cols-2 gap-4">
           {[
-            { icon: ClipboardCheck, title: "Quote-first review", text: "Configuration, freight, and duties are confirmed before complex purchases." },
-            { icon: BadgeCheck, title: "Clear purchase path", text: "Direct-sale items show checkout; quote items request confirmation before payment." },
-            { icon: MessageSquare, title: "Human support", text: "Reach us by email, phone, and quote form. Engineers, not bots." },
+            { icon: ClipboardCheck, title: "Configuration review", text: "Configuration, freight, and duties are confirmed before complex purchases." },
+            { icon: BadgeCheck, title: "Clear purchase path", text: "Priced products show Add to Cart and direct checkout." },
+            { icon: MessageSquare, title: "Human support", text: "Reach us by email, phone, and the Contact page. Engineers, not bots." },
             { icon: Truck, title: "Hazmat logistics", text: "UN3481 lithium battery documentation and insured freight handled in-house." },
           ].map(({ icon: Icon, title, text }) => (
             <div key={title} className="rounded-2xl border bg-card p-5">
@@ -155,14 +155,14 @@ const AboutPage = () => {
         <div className="glass rounded-2xl p-10 shadow-soft-lg">
           <h2 className="text-2xl font-bold mb-3">Talk to an engineer</h2>
           <p className="text-muted-foreground mb-6">
-            Tell us your platform, quantity, and country. We'll reply by email with a written quote.
+            Tell us your platform, quantity, and country. We'll reply by email.
           </p>
           <div className="flex justify-center gap-3">
             <Button size="lg" variant="outline" asChild className="rounded-pill px-6">
               <Link to="/contact">Contact us</Link>
             </Button>
             <Button size="lg" asChild className="rounded-pill px-6 bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link to="/request-quote">Request a quote <ArrowRight className="h-4 w-4 ml-1" /></Link>
+              <Link to="/products">Explore Products <ArrowRight className="h-4 w-4 ml-1" /></Link>
             </Button>
           </div>
         </div>
