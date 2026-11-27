@@ -499,8 +499,8 @@ const ProductDetail = () => {
           </div>
         </ProductSection>
 
-        {/* Warranty & Returns */}
-        <ProductSection title="Warranty & Returns">
+        {/* Used listings show inspection + as-is returns; no warranty wording. */}
+        <ProductSection title={productIsUsed ? "Inspection & Returns" : "Warranty & Returns"}>
           <div className="text-sm text-muted-foreground leading-relaxed space-y-2">
             {productIsUsed ? (
               <>
